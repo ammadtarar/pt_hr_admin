@@ -2,6 +2,8 @@ const express = require('express');
 const path = require('path');
 const cluster = require('cluster');
 const numCPUs = require('os').cpus().length;
+const firebase = require('./firebase/firebase')
+const dotenv = require('dotenv').config()
 
 const isDev = process.env.NODE_ENV !== 'production';
 const PORT = process.env.PORT || 5000;
@@ -23,7 +25,7 @@ if (!isDev && cluster.isMaster) {
   const app = express();
 
   // Priority serve any static files.
-  app.use(express.static(path.resolve(__dirname, '../react-ui/build')));
+  app.use(express.static(path.resolve(__dirname, '../client/build')));
 
   // Answer API requests.
   app.get('/api', function (req, res) {
@@ -31,9 +33,20 @@ if (!isDev && cluster.isMaster) {
     res.send('{"message":"Hello from the custom server!"}');
   });
 
+  app.use(require('./routes/devis'))
+  app.use(require('./routes/factures'))
+  app.use(require('./routes/configuration'))
+  app.use(require('./routes/factures'))
+  app.use(require('./routes/impayees'))
+  app.use(require('./routes/livre-recettes'))
+  app.use(require('./routes/tresorerie'))
+  app.use(require('./routes/comptes'))
+  app.use(require('./routes/compte-infos'))
+  app.use(require('./routes/carte-bancaire'))
+
   // All remaining requests return the React app, so it can handle routing.
   app.get('*', function(request, response) {
-    response.sendFile(path.resolve(__dirname, '../react-ui/build', 'index.html'));
+    response.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
   });
 
   app.listen(PORT, function () {
