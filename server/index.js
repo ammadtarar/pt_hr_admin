@@ -12,7 +12,6 @@ const app = express()
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 const socketSyncBanque = require('./socket-sync-banque')(io)
-const dotenv = require('dotenv').config()
 const cluster = require('cluster');
 const numCPUs = require('os').cpus().length;
 const isDev = process.env.NODE_ENV !== 'production';
