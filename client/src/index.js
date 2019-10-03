@@ -5,8 +5,7 @@ import AppRouter, { history } from './routers/AppRouter';
 import configureStore from './store/configureStore';
 import { login, logout } from './actions/auth';
 import './firebase/firebase';
-import 'normalize.css/normalize.css';
-import style from 'foundation-sites/dist/css/foundation-float.min.css';
+import 'foundation-sites/dist/css/foundation-float.min.css';
 import './styles/styles.scss';
 import * as serviceWorker from './serviceWorker';
 

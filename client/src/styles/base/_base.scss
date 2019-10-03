@@ -1,30 +1,30 @@
-html {font-size: 62.5%; scroll-behavior: smooth;}
-* {box-sizing: border-box;}
-::selection {background: $medium-purple; color: $revolver;}
-
-.row, .row-fluid {
-  position: relative;
-  margin: 0 auto;
-  padding: 0;
-  width: 100%;
-  .columns:first-child {padding-left: 0;}
-  .columns:last-child {padding-right: 0}
-}
-.columns {position: relative; z-index: 1;}
-
-body {
-  padding: 0;
-  margin: 0;
-  overflow-x: hidden;
-  &.overlay::before {
-    position: absolute;
-    width: 100vw; height: 100%;
-    background: $revolver;
-    opacity: .16;
-    content: '';
-    z-index: 9;
-  }
-}
+// html {font-size: 62.5%; scroll-behavior: smooth}
+// * {box-sizing: border-box}
+// ::selection {background: $medium-purple; color: $revolver;}
+//
+// .row, .row-fluid {
+//   position: relative;
+//   margin: 0 auto;
+//   padding: 0;
+//   width: 100%;
+//   .columns:first-child {padding-left: 0}
+//   .columns:last-child {padding-right: 0}
+// }
+// .columns {position: relative; z-index: 1}
+//
+// body {
+//   padding: 0;
+//   margin: 0;
+//   overflow-x: hidden;
+//   &.overlay::before {
+//     position: absolute;
+//     width: 100vw; height: 100%;
+//     background: $revolver;
+//     opacity: .16;
+//     content: '';
+//     z-index: 9;
+//   }
+// }
 
 hr {max-width:100%; margin: 1rem 0; border-top: .1rem solid $porcelain; border-bottom: 0;}
 
@@ -860,7 +860,6 @@ main.client-vue {
   }
 }
 
-
 //Trésorerie
 main.banque-synchronisation {
   .section-2 {
@@ -1222,7 +1221,7 @@ main.profile {
     &:nth-child(1) {width: 2rem}
     &:nth-child(2) {width: 15rem; padding-left: 1rem; color: $lynch}
     &:nth-child(3) {width: calc(23rem);}
-    &:nth-child(4) {width: calc(auto)}
+    &:nth-child(4) {width: auto}
     &:nth-child(5) {width: 17.5rem; text-align: right; font-size: 1.4rem}
     &:nth-child(6) {width: 7rem; text-align: right;}
   }
@@ -1260,7 +1259,7 @@ main.profile {
     &:nth-child(1) {width: 2rem}
     &:nth-child(2) {width: 15rem; padding-left: 1rem;}
     &:nth-child(3) {width: calc(23rem);}
-    &:nth-child(4) {width: calc(auto)}
+    &:nth-child(4) {width: auto}
     &:nth-child(5) {width: 17.5rem; text-align: right; font-size: 1.4rem}
     &:nth-child(6) {width: 7rem; text-align: right;}
   }
