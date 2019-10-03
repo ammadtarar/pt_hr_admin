@@ -1,12 +1,21 @@
-const express = require('express');
-const path = require('path');
+const createError = require('http-errors')
+const path = require('path')
+const express = require('express')
+const publicPath = path.join(__dirname, '..', 'public')
+const PORT = process.env.PORT || 8081
+const cookieParser = require('cookie-parser')
+const logger = require('morgan')
+const cors = require('cors')
+const firebase = require('./firebase/firebase')
+const CircularJSON = require('circular-json')
+const app = express()
+const server = require('http').createServer(app);
+const io = require('socket.io')(server);
+const socketSyncBanque = require('./socket-sync-banque')(io)
+const dotenv = require('dotenv').config()
 const cluster = require('cluster');
 const numCPUs = require('os').cpus().length;
-const firebase = require('./firebase/firebase')
-const dotenv = require('dotenv').config()
-
 const isDev = process.env.NODE_ENV !== 'production';
-const PORT = process.env.PORT || 5000;
 
 // Multi-process to utilize all CPU cores.
 if (!isDev && cluster.isMaster) {
@@ -22,15 +31,15 @@ if (!isDev && cluster.isMaster) {
   });
 
 } else {
-  const app = express();
+  app.use(cors());
+  app.use(logger("dev"));
+  app.use(express.json());
+  app.use(express.urlencoded({ extended: false }));
+  app.use(cookieParser());
+  app.use(express.static(publicPath));
 
-  // Priority serve any static files.
-  app.use(express.static(path.resolve(__dirname, '../client/build')));
-
-  // Answer API requests.
-  app.get('/api', function (req, res) {
-    res.set('Content-Type', 'application/json');
-    res.send('{"message":"Hello from the custom server!"}');
+  server.listen(PORT, () => {
+    console.error(`Node ${isDev ? 'dev server' : 'cluster worker '+process.pid}: listening on port ${PORT}`);
   });
 
   app.use(require('./routes/devis'))
@@ -44,12 +53,21 @@ if (!isDev && cluster.isMaster) {
   app.use(require('./routes/compte-infos'))
   app.use(require('./routes/carte-bancaire'))
 
-  // All remaining requests return the React app, so it can handle routing.
-  app.get('*', function(request, response) {
-    response.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
+  // catch 404 and forward to error handler
+  app.use(function(req, res, next) {
+    next(createError(404));
   });
 
-  app.listen(PORT, function () {
-    console.error(`Node ${isDev ? 'dev server' : 'cluster worker '+process.pid}: listening on port ${PORT}`);
+  // error handler
+  app.use(function(err, req, res, next) {
+    // set locals, only providing error in development
+    res.locals.message = err.message;
+    res.locals.error = req.app.get('env') === 'development' ? err : {};
+
+    // render the error page
+    res.status(err.status || 500);
+    res.render('error');
   });
 }
+
+module.exports = app;
