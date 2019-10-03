@@ -35,7 +35,7 @@ if (!isDev && cluster.isMaster) {
   app.use(express.json());
   app.use(express.urlencoded({ extended: false }));
   app.use(cookieParser());
-  app.use(express.static(publicPath));
+  app.use(express.static(path.resolve(__dirname, '../client/build')));
 
   server.listen(PORT, () => {
     console.error(`Node ${isDev ? 'dev server' : 'cluster worker '+process.pid}: listening on port ${PORT}`);
@@ -51,6 +51,12 @@ if (!isDev && cluster.isMaster) {
   app.use(require('./routes/comptes'))
   app.use(require('./routes/compte-infos'))
   app.use(require('./routes/carte-bancaire'))
+
+  // All remaining requests return the React app, so it can handle routing.
+  app.get('*', function(request, response) {
+    response.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
+  });
+
 
   // catch 404 and forward to error handler
   app.use(function(req, res, next) {
