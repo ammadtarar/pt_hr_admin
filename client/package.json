@@ -41,5 +41,5 @@
     "not ie <= 11",
     "not op_mini all"
   ],
-  "proxy": "https://young-earth-99620.herokuapp.com:8081"
+  "proxy": "http://localhost:8081"
 }
