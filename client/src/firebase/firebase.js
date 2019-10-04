@@ -1,4 +1,4 @@
-import * as firebase from 'firebase';
+import * as firebase from 'firebase'
 
 const config = {
   apiKey: "AIzaSyDkhcVuusnJSvmAUVvbidhax0j4pZpFloU",
@@ -7,9 +7,9 @@ const config = {
   projectId: "freelanceapp-8fab2",
   storageBucket: "freelanceapp-8fab2.appspot.com",
   messagingSenderId: "658642519222"
-};
+}
 
-firebase.initializeApp(config);
+firebase.initializeApp(config)
 const database = firebase.database();
 
 // database.ref().set({
