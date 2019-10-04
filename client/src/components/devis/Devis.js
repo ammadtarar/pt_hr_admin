@@ -12,7 +12,7 @@ export class DevisPropositions extends React.Component {
   }
 
   componentDidMount() {
-    fetch('http://localhost:8081/devis')
+    fetch('https://young-earth-99620.herokuapp.com:8081/devis')
       .then(res => res.json())
       .then(res => this.callDevis(res))
   }
