@@ -9,12 +9,13 @@ const cors = require('cors')
 const firebase = require('./firebase/firebase')
 const CircularJSON = require('circular-json')
 const app = express()
-const server = require('http').createServer(app);
-const io = require('socket.io')(server);
+const server = require('http').createServer(app)
+const io = require('socket.io')(server)
 const socketSyncBanque = require('./socket-sync-banque')(io)
-const cluster = require('cluster');
-const numCPUs = require('os').cpus().length;
-const isDev = process.env.NODE_ENV !== 'production';
+const cluster = require('cluster')
+const dotenv = require('dotenv').config()
+const numCPUs = require('os').cpus().length
+const isDev = process.env.NODE_ENV !== 'production'
 
 // Multi-process to utilize all CPU cores.
 if (!isDev && cluster.isMaster) {
