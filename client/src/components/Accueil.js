@@ -4,7 +4,7 @@ import database from '../firebase/firebase';
 import BarMontantEncaissement from './modules/BarMontantEncaissement';
 import ProgressBarPaiement from './modules/ProgressBarPaiement';
 import Aside from './Aside';
-import 'react-chartjs-2';
+import { Chart } from 'react-chartjs-2';
 import 'chartjs-plugin-annotation';
 
 export class Accueil extends React.Component {
@@ -332,7 +332,7 @@ export class Accueil extends React.Component {
     object.data.datasets['2'].borderColor = gradientFillColorC;
     object.data.datasets['3'].backgroundColor = gradientStrokeD;
     object.data.datasets['3'].borderColor = gradientFillColorD;
-    // new Chart(ctx, this.state);
+    new Chart(ctx, this.state);
   }
 
   componentDidMount() {
