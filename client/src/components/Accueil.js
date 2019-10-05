@@ -332,6 +332,7 @@ export class Accueil extends React.Component {
     object.data.datasets['2'].borderColor = gradientFillColorC;
     object.data.datasets['3'].backgroundColor = gradientStrokeD;
     object.data.datasets['3'].borderColor = gradientFillColorD;
+    // new Chart(ctx, this.state);
   }
 
   componentDidMount() {
