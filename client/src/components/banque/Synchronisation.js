@@ -14,7 +14,7 @@ export class SyncBanque extends React.Component {
   }
 
   callComptes(res) {
-    fetch('/comptes')
+    fetch('http://localhost:8081/comptes')
       .then(res => res.json())
       .then(res => {
         const comptes = [];
@@ -47,7 +47,7 @@ export class SyncBanque extends React.Component {
   }
 
   confirmation(e) {
-    const socket = socketIOClient('/')
+    const socket = socketIOClient('localhost:8081/')
     socket.emit('choix comptes', {compteID: this.state.selectedCompteID, compteCBID: this.state.selectedCompteCBID})
     this.props.history.push({
       pathname: '/banque'
@@ -55,7 +55,7 @@ export class SyncBanque extends React.Component {
   }
 
   componentWillMount() {
-    fetch('/comptes')
+    fetch('http://localhost:8081/comptes')
       .then(res => res.json())
       .then(res => this.callComptes(res))
   }

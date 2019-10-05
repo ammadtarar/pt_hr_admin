@@ -21,14 +21,14 @@ export class Banque extends React.Component {
       banque: e.target.value
     })
 
-    const socket = socketIOClient('/')
+    const socket = socketIOClient('localhost:8081/')
     // var top = window.screen.height - 680;
     //     top = top > 0 ? top/2 : 0;
     //
     // var left = window.screen.width - 400;
     //     left = left > 0 ? left/2 : 0;
 
-    fetch('/configuration')
+    fetch('http://localhost:8081/configuration')
       .then(res => res.json())
       .then(res => socket.emit('synchronisation bankin', {email: res.email, password: res.password}))
       .then(res =>  {
@@ -44,7 +44,7 @@ export class Banque extends React.Component {
   }
 
   deSynchBankin = (data) => {
-    const socket = socketIOClient('/')
+    const socket = socketIOClient('localhost:8081/')
     socket.emit('desynchronisation bankin', {compteBankinID: ''})
     this.setState({
       compteBankinID: '',

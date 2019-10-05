@@ -14,10 +14,10 @@ export class Factures extends React.Component {
   }
 
   componentDidMount() {
-    fetch('http://localhost:8081/factures')
+    fetch('/factures')
       .then(res => res.json())
       .then(res => this.callFactures(res))
-    fetch('http://localhost:8081/impayees')
+    fetch('/impayees')
       .then(res => res.json())
       .then(res => this.callImpayees(res))
   }
