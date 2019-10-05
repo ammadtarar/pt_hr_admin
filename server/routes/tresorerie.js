@@ -15,7 +15,7 @@ app.get("/tresorerie", (req, res) => {
   // Get client access token
   axios({
     method: 'POST',
-    url: `https://sync.bankin.com/v2/authenticate?email=jules84v%40hotmail.fr&password=Goulious213084v&client_id=${clientID}&client_secret=${clientSecret}`,
+    url: `https://sync.bankin.com/v2/authenticate?email=jules84v%40hotmail.fr&password=Goulious213084v&client_id=ea27278766444988bcd266290f84d82b&client_secret=cVGSn6su9w8lJI30t4LhOycYZ7uLHoFINkLM2aHA4x1yVv8Ra8pLvYWNiNsc6e6c`,
     headers: {'Bankin-Version': '2018-06-15'},
     responseType: 'json'
   })
