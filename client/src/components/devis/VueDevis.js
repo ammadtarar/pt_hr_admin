@@ -56,7 +56,7 @@ export class VueDevis extends React.Component {
   }
 
   componentDidMount() {
-    fetch('http://localhost:8081/configuration')
+    fetch('/configuration')
       .then(res => res.json())
       .then(res => this.callConfiguration(res))
     this.callDevis()

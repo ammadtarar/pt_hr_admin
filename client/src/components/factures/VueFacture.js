@@ -48,11 +48,11 @@ export class VueFacture extends React.Component {
   }
 
   componentDidMount() {
-    fetch('http://localhost:8081/configuration')
+    fetch('/configuration')
       .then(res => res.json())
       .then(res => this.callConfiguration(res))
     // this.callFacture()
-    fetch('http://localhost:8081/factures')
+    fetch('/factures')
       .then(res => res.json())
       .then(res => this.callFacture(res))
   }
