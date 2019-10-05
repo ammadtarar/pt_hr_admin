@@ -11,7 +11,7 @@ export class Tresorerie extends React.Component {
   }
 
   callTransactions() {
-    fetch('http://localhost:8081/tresorerie')
+    fetch('/tresorerie')
       .then(res => res.json())
       .then(res => {
         const historique = [];
@@ -46,7 +46,7 @@ export class Tresorerie extends React.Component {
   }
 
   callCompteCB() {
-    fetch('http://localhost:8081/carte-bancaire')
+    fetch('/carte-bancaire')
       .then(res => res.json())
       .then(res => {
         this.setState({
@@ -57,7 +57,7 @@ export class Tresorerie extends React.Component {
   }
 
   callCompteInfos() {
-    fetch('http://localhost:8081/compte-infos')
+    fetch('/compte-infos')
       .then(res => res.json())
       .then(res => {
         this.setState({
