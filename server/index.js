@@ -42,9 +42,9 @@ if (!isDev && cluster.isMaster) {
     console.error(`Node ${isDev ? 'dev server' : 'cluster worker '+process.pid}: listening on port ${PORT}`);
   });
 
+  app.use(require('./routes/configuration'))
   app.use(require('./routes/devis'))
   app.use(require('./routes/factures'))
-  app.use(require('./routes/configuration'))
   app.use(require('./routes/factures'))
   app.use(require('./routes/impayees'))
   app.use(require('./routes/livre-recettes'))
