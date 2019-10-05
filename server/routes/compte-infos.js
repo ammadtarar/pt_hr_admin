@@ -7,8 +7,10 @@ const database = firebase.database()
 const dotenv = require('dotenv').config()
 
 app.get("/compte-infos", (req, res) => {
-  const clientID = process.env.BANKIN_CLIENT_ID
-  const clientSecret = process.env.BANKIN_CLIENT_SECRET
+  // const clientID = process.env.BANKIN_CLIENT_ID
+  // const clientSecret = process.env.BANKIN_CLIENT_SECRET
+  const clientID = 'ea27278766444988bcd266290f84d82b'
+  const clientSecret = 'cVGSn6su9w8lJI30t4LhOycYZ7uLHoFINkLM2aHA4x1yVv8Ra8pLvYWNiNsc6e6c'
 
   // Get client access token
   axios({
