@@ -12,10 +12,10 @@ export class Aside extends React.Component {
   };
 
   componentDidMount() {
-    fetch('http://localhost:8081/impayees')
+    fetch('/impayees')
       .then(res => res.json())
       .then(res => this.callTotalImpayes(res))
-    fetch('http://localhost:8081/livre-recettes')
+    fetch('/livre-recettes')
       .then(res => res.json())
       .then(res => this.callCA(res))
   }
