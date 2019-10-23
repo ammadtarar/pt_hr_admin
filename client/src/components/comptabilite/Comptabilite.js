@@ -317,6 +317,71 @@ export class Comptabilite extends React.Component {
     doc.save('livre-recettes-2019.pdf')
   }
 
+  downloadRegistreAchats() {
+    const doc = new jsPDF({
+      orientation: 'landscape'
+    });
+    const totalPagesExp = "{total_pages_count_string}";
+
+    function headRows() {
+      return [{paye_le: 'Payé le', numero: 'Numéro de facture', client: 'Client', nature: 'Nature', montant: 'Montant', mode_encaissement: "Mode d'encaissement"}];
+    }
+    function bodyRows(rowCount) {
+      rowCount = rowCount || 10;
+      let body = [];
+      for (var j = 1; j <= rowCount; j++) {
+        body.push({
+          paye_le: '06/02/2019',
+          numero: '20190129-81',
+          client: 'Eleius',
+          nature: 'Intégration site Dolead',
+          montant: '420' + '€',
+          mode_encaisement: 'Virement bancaire'
+        });
+      }
+      return body;
+    }
+
+    doc.autoTable({
+      headStyles: {
+        fillColor: [99, 62, 197],
+        textColor: [255, 255, 255]
+      },
+      head: headRows(),
+      body: bodyRows(40),
+      didDrawPage: function (data) {
+        doc.setFontSize(20);
+        doc.setTextColor(40);
+        doc.setFontStyle('normal');
+        var base64Img = 'data:image/png;base64,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'
+        if (base64Img) {
+          doc.addImage(base64Img, 'JPEG', data.settings.margin.left, 15, 10, 10);
+        }
+        doc.text("Livre des recettes 2019", data.settings.margin.left + 15, 22);
+
+        // Footer
+        var str = "Page " + doc.internal.getNumberOfPages()
+        // Total page number plugin only available in jspdf v1.0+
+        if (typeof doc.putTotalPages === 'function') {
+          str = str + " of " + totalPagesExp;
+        }
+        doc.setFontSize(10);
+
+        // jsPDF 1.4+ uses getWidth, <1.4 uses .width
+        var pageSize = doc.internal.pageSize;
+        var pageHeight = pageSize.height ? pageSize.height : pageSize.getHeight();
+        doc.text(str, data.settings.margin.left, pageHeight - 10);
+      },
+      margin: {top: 30}
+    });
+
+     // Total page number plugin only available in jspdf v1.0+
+    if (typeof doc.putTotalPages === 'function') {
+      doc.putTotalPages(totalPagesExp);
+    }
+    doc.save('livre-recettes-2019.pdf')
+  }
+
   componentDidMount() {
     this.callTrimestres()
     fetch('/factures')
