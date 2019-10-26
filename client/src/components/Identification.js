@@ -55,7 +55,6 @@ export class Identification extends React.Component {
             }
           });
         }
-
       } else {
         self.setState({
           formErrors: {

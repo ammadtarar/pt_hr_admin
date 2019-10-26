@@ -39,17 +39,17 @@ button, .btn, input[type="submit"] {
       background: url('/icons/credit-card.svg');
       background-size: 2rem;
       width: 2rem; height: 2rem;
-      content: '';
       filter: brightness(1000%);
+      content: '';
     }
     &:hover, &:focus, &:active {background: $lilac-bush; border-color: $lilac-bush;}
   }
   &.btn-third {
-    background-color: white;
-    color: $tarawera;
-    border: .1rem solid $iron;
+    background-color: transparent;
+    color: $cornflower-blue;
+    border: .1rem solid $cornflower-blue;
     box-shadow: none;
-    &:hover, &:focus, &:active {border-color: $athens-gray; background: $athens-gray;}
+    &:hover, &:focus, &:active {border-color: $athens-gray; background-color: $athens-gray; color: $tarawera;}
   }
   &.btn-fourth {
     padding-right: 4rem;

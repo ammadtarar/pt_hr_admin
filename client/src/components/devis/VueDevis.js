@@ -67,13 +67,14 @@ export class VueDevis extends React.Component {
       prestataire: {
         prenom: res.prenom,
         nom: res.nom,
-        adresse: res.adresse,
-        cp: res.cp,
-        ville: res.ville,
-        pays: res.pays,
+        adresse: res.entreprise.rue,
+        cp: res.entreprise.cp,
+        ville: res.entreprise.ville,
+        pays: res.entreprise.pays,
         telephone: res.entreprise.telephone,
         email: res.entreprise.email,
-        siteweb: res.entreprise.siteweb
+        siteweb: res.entreprise.siteweb,
+        logo: res.entreprise.logo
       }
     });
   }
@@ -105,7 +106,7 @@ export class VueDevis extends React.Component {
       this.setState({
         numero: numero,
         titre: devis.titre,
-        date: devis.date,
+        date: devis.date.substring(0, devis.date.indexOf('T')),
         dateStatus: dateDernierStatus,
         backgroundStatus: 'container-status-devis ' + devis.status,
         status: devis.status,
@@ -126,19 +127,6 @@ export class VueDevis extends React.Component {
   }
 
   render() {
-
-    let logo;
-    database.ref(`abonnement/configuration/entreprise/logo/upload/dataURL`).on('value', (snapshot) => {
-      const val = snapshot.val();
-      sessionStorage.setItem('logo', JSON.stringify(val));
-      const dataURL = JSON.parse(sessionStorage.getItem('logo'));
-      if (snapshot.exists()) {
-        logo = <img type="image/svg+xml" className="logo-devis" src={dataURL} alt=""/>
-      } else {
-        logo = <img type="image/svg+xml" className="logo-devis" src="/images/drag-drop.png" alt=""/>
-      }
-    });
-
     return (
       <div>
         <Aside/>
@@ -164,15 +152,15 @@ export class VueDevis extends React.Component {
             </section>
 
             <section className="container transparent">
-              <h3 className="prevision-taxes">Taxes qu'il faudra prévoir : 960€ (24.4%)</h3>
+              <h3 className="prevision-taxes">Taxes à prévoir : 960€ (24.4%)</h3>
             </section>
 
             <section className="container container-devis shadows">
               <div className="row-fluid row-1">
-                <div className="large-6 columns">
-                  {logo}
+                <div className="large-4 columns">
+                  {this.state.prestataire.logo !== '' ? <div className="box-logo-devis"><img type="image/svg+xml" className="logo-devis" src={this.state.prestataire.logo} alt=""/></div> : <img type="image/svg+xml" className="logo-devis-empty" src="/images/drag-drop.png" alt=""/>}
                 </div>
-                <div className="large-3 columns">
+                <div className="large-4 columns">
                   <p>{this.state.prestataire.prenom} {this.state.prestataire.nom}</p>
                   <p>{this.state.prestataire.adresse}</p>
                   <p>{this.state.prestataire.cp}, {this.state.prestataire.ville}</p>
@@ -180,7 +168,7 @@ export class VueDevis extends React.Component {
                   <p>{this.state.prestataire.telephone}</p>
                   <p>{this.state.prestataire.siteweb}</p>
                 </div>
-                <div className="large-3 columns">
+                <div className="large-4 columns">
                   <p className="cornflower-blue">Numéro de devis</p>
                   <p>{this.state.numero}</p>
                   <p className="cornflower-blue">Date d'émission</p>
@@ -212,19 +200,15 @@ export class VueDevis extends React.Component {
                 </div>
                 <div className="small-3 large-2 columns">
                   <p className="cornflower-blue">Tarif horaire</p>
-                  <p>
-                    50€/heure
-                  </p>
+                  <p>50€/heure</p>
                 </div>
                 <div className="small-3 large-1 columns">
                   <p className="cornflower-blue">Quantité</p>
-                    <p>
-                      4
-                    </p>
+                  <p>4</p>
                 </div>
                 <div className="small-3 large-1 columns">
                   <p className="cornflower-blue">Total</p>
-                    <p>{this.state.montantht}€</p>
+                  <p>{this.state.montantht}€</p>
                 </div>
               </div>
 

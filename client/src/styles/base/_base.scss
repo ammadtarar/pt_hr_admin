@@ -295,9 +295,9 @@ main {
   }
   p {left: -2rem; font-family: $regular}
   span {
-    padding-right: 0.3rem;
+    padding-right: 1rem;
     font-size: 2rem;
-    font-family: $regular;
+    font-family: $medium;
     text-transform: uppercase
   }
   &.Envoyée span, &.Brouillon span {color: $lynch}
@@ -314,20 +314,16 @@ main {
   ul li {font-size: 1.6rem}
   .row-1 {
     height: 21rem;
-    .large-3 {
-      padding-left: 0;
-      padding-right: 2rem;
-    }
-    #large-3-2 {padding-left: 1rem; padding-right: 0;}
   }
   .row-2 {
     height: 23rem;
-    .large-6 {border-top: 1px solid $porcelain; padding: 2rem 0 2.5rem 0;}
+    h2 {font-family: $bold; font-size: $h1-size}
+    .large-6 {border-top: .1rem solid $porcelain; padding: 2rem 0 2.5rem 0;}
     .row {
       .large-6 {border: 0; padding: 0;}
     }
   }
-  .row-3 {height: 12rem; padding-top: 1.5rem; border-top: .3rem solid $cornflower-blue;}
+  .row-3 {height: auto; min-height: 16rem; padding-top: 1.5rem; border-top: .3rem solid $cornflower-blue;}
   .row-4, .row-5, .row-6, .row-7 {padding: 2rem 0 2.5rem 0;}
   .row-4 {margin-top: 1.5rem; height: 8.5rem; border-top: 1px solid $porcelain;}
   .row-5 {
@@ -338,12 +334,6 @@ main {
     height: 12rem; border-top: 1px solid $porcelain;
   }
   .row-7 {padding: 7rem 0 6rem 0;}
-}
-
-//Ombres
-.shadows {
-  // border: .1rem solid $porcelain;
-  // box-shadow: 0px 0px 12px -2px rgba(50,27,70,0.1);
 }
 
 //Icones et images
@@ -379,7 +369,14 @@ main {
   transition: all .15s cubic-bezier(0.045, 0.715, 0.250, 1.000);
   &:hover {background-color: #111;}
 }
-.logo-devis {min-width: 25rem;}
+.box-logo-devis {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%; height: 100%;
+  img {max-width: 17rem; width: auto}
+}
+.logo-devis-empty {min-width: 25rem;}
 
 //couleurs
 .tarawera {color: $tarawera;}
@@ -435,6 +432,7 @@ p {
     font-size: 2.4rem;
     font-family: $halohandletter;
     z-index: 3;
+    &.signature-validated {margin-top: 2.7rem}
     &::before {
       position: absolute;
       padding: .2rem;
@@ -469,8 +467,7 @@ p {
     z-index: 4;
   }
   &.enveloppe-id {
-    position: absolute;
-    top: -4rem;
+    top: -1rem;
     font-size: 1rem;
   }
   &.prix {
@@ -571,6 +568,7 @@ textarea, input {
   resize: none;
   box-shadow: none;
   appearance: none;
+  &.medium {font-family: $medium}
   &::placeholder { color: $tarawera !important;}
   &:hover {border: 0;}
   &:focus, &:hover, &:active {
@@ -1500,7 +1498,7 @@ main.creation-contrat {
   }
   textarea, input {
     position: relative;
-    top: 0; left: 0rem;
+    top: 0; left: 0;
     margin-top: 1rem;
     background: $porcelain;
     border-radius: 0.4rem;
@@ -1682,26 +1680,31 @@ main.devis-edit, main.facture-edit, main.proposition-edit {
 
 //Devis
 main.devis {
-  .section-1 {margin-bottom: 4rem;}
+  .section-1 {margin-bottom: 4rem}
 }
 
-//Devis vue
-main.lien-devis-vue {
+//Signature devis
+main.signature-devis {
   .section-1 {
     position: fixed;
     margin-top: -8rem;
     padding-top: 3rem;
     background-color: $polar;
     min-width: 100vw;
-    z-index: 2;
+    z-index: 3;
     .row-fluid {
       position: relative;
-      margin: 0 auto 2.5rem auto;
+      margin: 0 auto 1.7rem auto;
       display: table;
       max-width: 100rem;
     }
   }
-  .section-2 {position: fixed; margin-top: 7.5rem; z-index: 2}
+  .section-2 {
+    position: fixed;
+    margin-top: 7.5rem;
+    z-index: 2;
+    box-shadow: 0px 0px 15px -4px rgba(50,27,70,0.1);
+  }
   .section-3 {margin-top: 14.5rem}
   .section-3, .section-4 {position: relative; z-index: 1}
   .section-5 {
@@ -1830,7 +1833,7 @@ main.proposition-edit, main.proposition-vue {
 .overlay-modal {
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(238,235,250,.7);
+  background: rgba(99,62,197,.7);
 }
 .modal {
   position: relative;
@@ -1859,7 +1862,7 @@ main.proposition-edit, main.proposition-vue {
 //forms
 form {
   margin: 1rem 0;
-  label {position: relative; margin-bottom: .6rem; font-family: $medium;}
+  label {position: relative; margin-bottom: 1.5rem; font-family: $medium;}
   h2 {margin-bottom: 0; padding-bottom: 0;}
   .box-signature {
     position: relative;
@@ -1868,7 +1871,7 @@ form {
     padding: 2.9rem 2rem 2rem 2rem;
     width: 100%; height: 8.5rem;
     border-radius: .4rem;
-    border: .2rem solid $porcelain;
+    border: .1rem solid $porcelain;
     cursor: default;
     &::before, &::after {display: none;}
   }

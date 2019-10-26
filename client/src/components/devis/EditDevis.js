@@ -7,7 +7,6 @@ import database from '../../firebase/firebase';
 import Aside from '../Aside';
 
 export class EditDevis extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -43,25 +42,27 @@ export class EditDevis extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  componentDidMount() {
-    database.ref('abonnement').on('value', (snapshot) => {
-      const val = snapshot.val();
-
-      this.setState({
-        prestataire: {
-          prenom: val.configuration.prenom,
-          nom: val.configuration.nom,
-          adresse: val.configuration.adresse,
-          cp: val.configuration.cp,
-          ville: val.configuration.ville,
-          pays: val.configuration.pays,
-          telephone: val.configuration.entreprise.telephone,
-          email: val.configuration.entreprise.email,
-          siteweb: val.configuration.entreprise.siteweb,
-          tauxhoraire: val.configuration.tauxHoraire
-        }
-      });
+  callConfiguration(res) {
+    this.setState({
+      prestataire: {
+        prenom: res.prenom,
+        nom: res.nom,
+        adresse: res.entreprise.rue,
+        cp: res.entreprise.cp,
+        ville: res.entreprise.ville,
+        pays: res.entreprise.pays,
+        telephone: res.entreprise.telephone,
+        email: res.entreprise.email,
+        siteweb: res.entreprise.siteweb,
+        logo: res.entreprise.logo
+      }
     });
+  }
+
+  componentDidMount() {
+    fetch('/configuration')
+      .then(res => res.json())
+      .then(res => this.callConfiguration(res))
 
     const numero = this.props.location.numero;
     if (typeof numero !== 'undefined') {
@@ -78,7 +79,7 @@ export class EditDevis extends React.Component {
       this.setState({
         numero: numero,
         titre: devis.titre,
-        date: devis.date,
+        date: devis.date.substring(0, devis.date.indexOf('T')),
         dateSignature: devis.dateSignature,
         description: devis.description,
         montantht: devis.montant,
@@ -155,40 +156,40 @@ export class EditDevis extends React.Component {
         <div className="wrapper">
           <main className="devis-edit">
 
-            <section className="container transparent">
-              <div className="row-fluid">
-                <div className="large-9 columns">
+            <div className="row-fluid">
+              <div className="large-10 columns">
+
+                <section className="container transparent">
                   <div className="row-fluid">
-                    <div className="large-6 columns">
-                      <h1>{this.state.titre}</h1>
-                      <p className="numero-facture">{this.state.numero}</p>
-                    </div>
-                    <div className="large-6 columns">
-                      <Link to="/"><button className="align-right">Envoyer</button></Link>
-                      <button onClick={this.handleSubmit} className="align-right">Sauvegarder</button>
-                      <button className="btn-fifth align-right">Annuler</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </section>
-
-            <div className="container transparent">
-              <h3 className="prevision-taxes">Taxes qu'il faudra prévoir : 960€</h3>
-            </div>
-
-            <div className="container transparent">
-              <div className="row-fluid">
-                <div className="large-9 columns">
-
-                  <section className="container container-devis shadows">
-                    <div className="row-fluid row-1">
-                      <div className="large-6 columns">
-                        <div className="example">
-                          <DragDropLogo />
+                    <div className="large-12 columns">
+                      <div className="row-fluid">
+                        <div className="large-6 columns">
+                          <h1>{this.state.titre}</h1>
+                          <p className="numero-facture">{this.state.numero}</p>
+                        </div>
+                        <div className="large-6 columns">
+                          <Link to="/"><button className="align-right">Envoyer</button></Link>
+                          <button onClick={this.handleSubmit} className="align-right">Sauvegarder</button>
+                          <button className="btn-fifth align-right">Annuler</button>
                         </div>
                       </div>
-                      <div className="large-3 columns" id="large-3-1">
+                    </div>
+                  </div>
+                </section>
+
+                <div className="container transparent">
+                  <h3 className="prevision-taxes">Taxes à prévoir : 960€</h3>
+                </div>
+
+                <div className="container transparent">
+                  <section className="container container-devis shadows">
+                    <div className="row-fluid row-1">
+                      <div className="large-4 columns">
+                        <div className="example">
+                          {this.state.prestataire.logo !== '' ? <div className="box-logo-devis"><img type="image/svg+xml" className="logo-devis" src={this.state.prestataire.logo} alt=""/></div> : <img type="image/svg+xml" className="logo-devis-empty" src="/images/drag-drop.png" alt=""/>}
+                        </div>
+                      </div>
+                      <div className="large-4 columns">
                         <div className="row">
                           <AutosizeInput
                             name="prenom"
@@ -244,7 +245,7 @@ export class EditDevis extends React.Component {
                             />
                         </div>
                       </div>
-                      <div className="large-3 columns" id="large-3-2">
+                      <div className="large-4 columns" id="large-3-2">
                         <p className="cornflower-blue">Numéro de devis</p>
                         <input value={this.state.numero} />
                         <p className="cornflower-blue">Date d'émission</p>
@@ -340,6 +341,7 @@ export class EditDevis extends React.Component {
                         <p className="cornflower-blue">Description</p>
                         <AutosizeInput
                           name="titre"
+                          className="medium"
                           value={this.state.titre}
                           onChange={this.handleChange}
                         />
@@ -368,8 +370,6 @@ export class EditDevis extends React.Component {
                         <p>{this.state.montantht}€</p>
                       </div>
                     </div>
-
-                    <button className="btn-fourth align-center">Ajouter une ligne</button>
 
                     <div className="row-fluid row-4">
                       <div className="large-11 columns">
@@ -440,22 +440,31 @@ export class EditDevis extends React.Component {
                       <li>Tout règlement effectué après expiration de ce délai donnera lieu, à titre de pénalité de retard, à l’application d’un intérêt égal à celui appliqué par la Banque Centrale Européenne à son opération de refinancement la plus récente, majoré de 10 points de pourcentage, ainsi qu'à une indemnité forfaitaire pour frais de recouvrement d'un montant de 40 Euros.</li>
                       <li>Les pénalités de retard sont exigibles sans qu’un rappel soit nécessaire.</li>
                     </ul>
-                    <br/>
-                    <button className="btn-fourth align-center">Le client ne paiera pas l'acompte par CB : ajouter le RIB</button>
+                    <p className="text-right iron"><strong>2-2</strong></p>
                   </section>
                 </div>
-                <div className="large-3 columns">
-                  <h3>Paramètres</h3>
-                  <p className="lynch m-size">Pour ce devis</p>
-                  <ul className="menu-edit">
-                    <li><p>Accepter les cartes de crédits<br/> <span>Permettez aux clients de vous payer en ligne</span></p></li>
-                    <li><p>Personnalisé le style<br/> <span>Changez le template, les couleurs, les typographies</span></p></li>
-                    <li><p>Envoyer un rappel<br/> <span>À intervales réguliers</span></p></li>
-                  </ul>
-                </div>
               </div>
-            </div>
 
+              <div className="large-2 columns">
+                <h3>Paramètres</h3>
+                <p className="lynch s-size">Pour cette facture</p>
+                <ul className="menu-edit">
+                  <li>
+                    <p><strong>Accepter les cartes de crédits</strong><br/>
+                    <span>Permettez aux clients de vous payer en ligne</span></p>
+                  </li>
+                  <li>
+                    <p><strong>Personnalisé le style</strong><br/>
+                    <span>Changez le template, les couleurs, les typographies</span></p>
+                  </li>
+                  <li>
+                    <p><strong>Envoyer un rappel</strong><br/>
+                    <span>À intervales réguliers</span></p>
+                  </li>
+                </ul>
+              </div>
+
+            </div>
           </main>
         </div>
       </div>

@@ -4,11 +4,18 @@ import TextareaAutosize from 'react-textarea-autosize';
 import AutosizeInput from 'react-input-autosize';
 import database from '../../firebase/firebase';
 import Aside from '../Aside';
+import RIB from './modules/Rib';
+import Cheque from './modules/Cheque';
 
 export class EditFacture extends React.Component {
   constructor() {
     super();
     this.state = {
+      paiements: {
+        modePaiement: [],
+        rib: [],
+        cheque: []
+      },
       prestataire: {
         prenom: '',
         nom: '',
@@ -39,25 +46,52 @@ export class EditFacture extends React.Component {
     }
   }
 
-  componentDidMount() {
-    database.ref('abonnement').on('value', (snapshot) => {
-      const val = snapshot.val();
-
-      this.setState({
-        prestataire: {
-          prenom: val.configuration.prenom,
-          nom: val.configuration.nom,
-          rue: val.configuration.rue,
-          cp: val.configuration.cp,
-          ville: val.configuration.ville,
-          pays: val.configuration.pays,
-          telephone: val.configuration.entreprise.telephone,
-          email: val.configuration.entreprise.email,
-          siteweb: val.configuration.entreprise.siteweb,
-          tauxhoraire: val.configuration.tauxHoraire
+  callConfiguration(res) {
+    const signatureIDPresta = 'CF8418EB4342315A75AF4A5A5'.substring(0,15) + '...';
+    this.setState({
+      prestataire: {
+        signatureID: signatureIDPresta,
+        prenom: res.prenom,
+        nom: res.nom,
+        adresse: res.entreprise.rue,
+        cp: res.entreprise.cp,
+        ville: res.entreprise.ville,
+        pays: res.entreprise.pays,
+        telephone: res.entreprise.telephone,
+        email: res.entreprise.email,
+        siteweb: res.entreprise.siteweb,
+        logo: res.entreprise.logo
+      },
+      paiements: {
+        modePaiement: {
+          stripe: res.paiements.modePaiement.stripe,
+          paypal: res.paiements.modePaiement.paypal,
+          rib: res.paiements.modePaiement.rib,
+          cheque: res.paiements.modePaiement.cheque
+        },
+        rib: {
+          ready: res.paiements.rib.ready,
+          nomBanque: res.paiements.rib.nomBanque,
+          domiciliation: res.paiements.rib.domiciliation,
+          bic: res.paiements.rib.bic,
+          iban: res.paiements.rib.iban,
+          codeBanque: res.paiements.rib.rib.codeBanque,
+          codeGuichet: res.paiements.rib.rib.codeGuichet,
+          numeroCompte: res.paiements.rib.rib.numeroCompte,
+          cleRIB: res.paiements.rib.rib.cleRIB
+        },
+        cheque: {
+          ready: res.paiements.cheque.ready,
+          domiciliation: res.paiements.cheque.domiciliation
         }
-      });
+      }
     });
+  }
+
+  componentDidMount() {
+    fetch('/configuration')
+      .then(res => res.json())
+      .then(res => this.callConfiguration(res))
 
     const numero = this.props.location.numero;
     if (typeof numero !== 'undefined') {
@@ -133,16 +167,16 @@ export class EditFacture extends React.Component {
                 </section>
 
                 <div className="container transparent">
-                  <h3 className="prevision-taxes">Taxes qu'il faudra prévoir : 960€</h3>
+                  <h3 className="prevision-taxes">Taxes à prévoir : 960€</h3>
                 </div>
 
                 <div className="container transparent">
                   <section className="container container-facture shadows">
                     <div className="row-fluid row-1">
-                      <div className="large-6 columns">
-                        <img type="image/svg+xml" src="/images/drag-drop.png" alt=""/>
+                      <div className="large-4 columns">
+                        {this.state.prestataire.logo !== '' ? <div className="box-logo-devis"><img type="image/svg+xml" className="logo-devis" src={this.state.prestataire.logo} alt=""/></div> : <img type="image/svg+xml" className="logo-devis-empty" src="/images/drag-drop.png" alt=""/>}
                       </div>
-                      <div className="large-3 columns" id="large-3-1">
+                      <div className="large-4 columns" id="large-3-1">
                         <div className="row">
                           <div className="large-6 columns">
                             <AutosizeInput
@@ -153,7 +187,7 @@ export class EditFacture extends React.Component {
                               }}
                               />
                           </div>
-                          <div className="large-6 columns">
+                          <div className="large-4 columns">
                             <AutosizeInput
                               name="prestataire-nom"
                               value={this.state.prestataire.nom}
@@ -417,7 +451,12 @@ export class EditFacture extends React.Component {
                       <li>Les pénalités de retard sont exigibles sans qu’un rappel soit nécessaire.</li>
                     </ul>
                     <br/>
-                    <button className="btn-fourth align-center">Le client ne paiera pas l'acompte par CB : ajouter le RIB</button>
+
+                    <div className="box-mode-paiements">
+                      <RIB data={this.state.paiements.rib}/>
+                      <Cheque data={this.state.paiements.cheque}/>
+                    </div>
+                    <p className="text-right iron"><strong>2-2</strong></p>
                   </section>
                 </div>
               </div>

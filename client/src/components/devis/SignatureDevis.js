@@ -1,8 +1,11 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import Modal from 'react-modal';
 import database from '../../firebase/firebase';
 import Aside from '../Aside';
+import socketIOClient from 'socket.io-client'
+import jsPDF from 'jspdf'
+import 'jspdf-autotable';
+import AnchorLink from 'react-anchor-link-smooth-scroll'
 
 export class SignatureDevis extends React.Component {
   constructor() {
@@ -29,7 +32,7 @@ export class SignatureDevis extends React.Component {
         ville: '',
         pays: ''
       },
-      numero: '',
+      numero: '20180915-80',
       date: '',
       status: '',
       dateStatus: '',
@@ -39,10 +42,10 @@ export class SignatureDevis extends React.Component {
       montant: '',
       acompte: ''
     }
-
     this.openModal = this.openModal.bind(this);
     this.afterOpenModal = this.afterOpenModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
+    this.submitSignature = this.submitSignature.bind(this);
   }
 
   handleUserInput (e) {
@@ -61,28 +64,44 @@ export class SignatureDevis extends React.Component {
     this.setState({modalIsOpen: false});
   }
 
-  componentDidMount() {
-    database.ref('abonnement').on('value', (snapshot) => {
-      const val = snapshot.val();
-      const signatureIDPresta = 'CF8418EB4342315A75AF4A5A5'.substring(0,15) + '...';
+  downloadPDF() {
+  }
 
-      this.setState({
-        prestataire: {
-          signatureID: signatureIDPresta,
-          prenom: val.configuration.prenom,
-          nom: val.configuration.nom,
-          adresse: val.configuration.adresse,
-          cp: val.configuration.cp,
-          ville: val.configuration.ville,
-          pays: val.configuration.pays,
-          telephone: val.configuration.entreprise.telephone,
-          email: val.configuration.entreprise.email,
-          siteweb: val.configuration.entreprise.siteweb
-        }
-      });
+  submitSignature(e) {
+    e.preventDefault();
+    if (this.nomValue.value === (this.state.client.prenom + ' ' + this.state.client.nom)) {
+      this.setState({status: 'Signé'});
+      const socket = socketIOClient('/')
+      socket.emit('signature', {numeroDevis: this.state.numero})
+      this.closeModal()
+    }
+  }
+
+  callConfiguration(res) {
+    const signatureIDPresta = 'CF8418EB4342315A75AF4A5A5'.substring(0,15) + '...';
+    this.setState({
+      prestataire: {
+        signatureID: signatureIDPresta,
+        prenom: res.prenom,
+        nom: res.nom,
+        adresse: res.entreprise.rue,
+        cp: res.entreprise.cp,
+        ville: res.entreprise.ville,
+        pays: res.entreprise.pays,
+        telephone: res.entreprise.telephone,
+        email: res.entreprise.email,
+        siteweb: res.entreprise.siteweb,
+        logo: res.entreprise.logo
+      }
     });
+  }
 
-    const numero = '20180915-80';
+  componentDidMount() {
+    fetch('/configuration')
+      .then(res => res.json())
+      .then(res => this.callConfiguration(res))
+
+    const numero = this.state.numero;
     database.ref(`abonnement/devis/${numero}`).on('value', (snapshot) => {
       const val = snapshot.val();
       sessionStorage.setItem('devis', JSON.stringify(val));
@@ -108,7 +127,7 @@ export class SignatureDevis extends React.Component {
       this.setState({
         numero: numero,
         titre: devis.titre,
-        date: devis.date,
+        date: devis.date.substring(0, devis.date.indexOf('T')),
         dateStatus: dateDernierStatus,
         backgroundStatus: 'container-status-devis ' + devis.status,
         status: devis.status,
@@ -132,19 +151,6 @@ export class SignatureDevis extends React.Component {
   }
 
   render() {
-    const defaultMessage = 'Je suis excité de travailler avec vous et suis dans l attente de votre réponse. S il vous plâit, contactez-moi à contact/julienlucas.com pour toutes questions. Bien à vous, Julien';
-    let logo;
-    database.ref(`abonnement/configuration/entreprise/logo/upload/dataURL`).on('value', (snapshot) => {
-      const val = snapshot.val();
-      sessionStorage.setItem('logo', JSON.stringify(val));
-      const dataURL = JSON.parse(sessionStorage.getItem('logo'));
-      if (snapshot.exists()) {
-        logo = <img type="image/svg+xml" className="logo-devis" src={dataURL} alt=""/>
-      } else {
-        logo = <img type="image/svg+xml" className="logo-devis" src="/images/drag-drop.png" alt=""/>
-      }
-    });
-
     const wrapperStyle = {
       position: 'absolute',
       width: '100%',
@@ -155,16 +161,16 @@ export class SignatureDevis extends React.Component {
       <div>
         <Aside/>
         <div className="wrapper" style={wrapperStyle}>
-          <main className="lien-devis-vue">
+          <main className="signature-devis">
             <section className="section-1 container transparent">
               <div className="row-fluid">
                 <div className="large-5 columns">
                   <h1>{this.state.titre}</h1>
-                  <p className="numero-facture">DEVIS N°{this.state.numero}</p>
+                  <p className="numero-facture">{this.state.numero}</p>
                 </div>
                 <div className="large-7 columns">
-                  <button className="align-right">Signer le devis</button>
-                  <Link to="/devis"><button className="btn-fourth align-right">Télécharger le devis</button></Link>
+                  {this.state.status === 'Signé' ? '' : <AnchorLink offset="100" href="#e-sign"><button className="align-right">Signer le devis</button></AnchorLink>}
+                  {this.state.status === 'Signé' ? <button className="btn btn-third align-right" onClick={() => this.downloadPDF()}>Télécharger le devis</button> : ''}
                 </div>
               </div>
             </section>
@@ -174,12 +180,12 @@ export class SignatureDevis extends React.Component {
             </section>
 
             <section className="section-3 container container-devis shadows">
+              <p className="enveloppe-id">Montana - Enveloppe ID 766D3A6F-DD38-418E-B999-15A75AF4A5A5</p>
               <div className="row-fluid row-1">
-                <div className="large-6 columns">
-                  <p className="enveloppe-id">Freelance App - Enveloppe ID 766D3A6F-DD38-418E-B999-15A75AF4A5A5</p>
-                  {logo}
+                <div className="large-4 columns">
+                  {this.state.prestataire.logo !== '' ? <div className="box-logo-devis"><img type="image/svg+xml" className="logo-devis" src={this.state.prestataire.logo} alt=""/></div> : <img type="image/svg+xml" className="logo-devis-empty" src="/images/drag-drop.png" alt=""/>}
                 </div>
-                <div className="large-3 columns">
+                <div className="large-4 columns">
                   <p>{this.state.prestataire.prenom} {this.state.prestataire.nom}</p>
                   <p>{this.state.prestataire.adresse}</p>
                   <p>{this.state.prestataire.cp}, {this.state.prestataire.ville}</p>
@@ -187,7 +193,7 @@ export class SignatureDevis extends React.Component {
                   <p>{this.state.prestataire.telephone}</p>
                   <p>{this.state.prestataire.siteweb}</p>
                 </div>
-                <div className="large-3 columns">
+                <div className="large-4 columns">
                   <p className="cornflower-blue">Numéro de devis</p>
                   <p>{this.state.numero}</p>
                   <p className="cornflower-blue">Date d'émission</p>
@@ -219,19 +225,15 @@ export class SignatureDevis extends React.Component {
                 </div>
                 <div className="small-3 large-2 columns">
                   <p className="cornflower-blue">Tarif horaire</p>
-                  <p>
-                    50€/heure
-                  </p>
+                  <p>50€/heure</p>
                 </div>
                 <div className="small-3 large-1 columns">
                   <p className="cornflower-blue">Quantité</p>
-                    <p>
-                      4
-                    </p>
+                  <p>4</p>
                 </div>
                 <div className="small-3 large-1 columns">
                   <p className="cornflower-blue">Total</p>
-                    <p>{this.state.montantht}€</p>
+                  <p>{this.state.montantht}€</p>
                 </div>
               </div>
 
@@ -277,10 +279,14 @@ export class SignatureDevis extends React.Component {
                 </div>
                 <div className="large-6 columns">
                   <p><strong>Signature du client</strong></p>
-                  <div className="box-signature" onClick={this.openModal}>Signer</div>
+                  {this.state.status !== 'Signé' ? <div className="box-signature" onClick={this.openModal}>Signer</div> :
+                  <div>
+                    <p className="signature signature-validated">{this.state.client.prenom + ' ' + this.state.client.nom}</p>
+                    <p className="signature-id">{this.state.client.signatureID}</p>
+                  </div>}
                 </div>
               </div>
-              <div className="row-fluid row-6">
+              <div className="row-fluid row-6" id="e-sign">
                 <div className="large-6 columns">
                   <p><strong>Nom complet du prestataire</strong></p>
                   <p>{this.state.prestataire.prenom + ' ' + this.state.prestataire.nom}</p>
@@ -314,8 +320,8 @@ export class SignatureDevis extends React.Component {
 
             <section className="section-5 container transparent">
               <div className="">
-                <img type="image/svg+xml" className="logo" src="/images/logo.png" alt=""/>
-                <p className="s-size lynch text-center">L'application pour automatiser la gestion de votre entreprise freelance.</p>
+                <img type="image/svg+xml" className="logo" src="/images/logo-montana.png" alt=""/>
+                <p className="s-size lynch text-center">Automatisez la gestion de votre entreprise freelance</p>
               </div>
             </section>
           </main>
@@ -325,23 +331,24 @@ export class SignatureDevis extends React.Component {
             onAfterOpen={this.afterOpenModal}
             onRequestClose={this.closeModal}
             contentLabel="Modal Devis"
-            overlayClassName="Overlay"
             class="modal"
-            style={{content: {top: '50%',transform: 'translateY(-50%)',borderRadius: '.6rem',padding: '2rem 0 0 0',border: '0px solid #e6eaec'}}}>
+            style={{content: {top: '50%',transform: 'translateY(-50%)',borderRadius: '.6rem',padding: '2rem',border: '1px solid #e6eaec'}}}>
 
             <h2 className="text-center cornflower-blue">Signature du devis</h2>
             <hr/>
             <div className="box-popup-content">
               <p className="description text-center">Confirmez votre nom complet, votre paraphe, et cliquer sur signer.</p>
-              <form id="send-contrat-form">
+              <form className="popup-signature-devis">
                 <div className="row-fluid">
                   <div className="large-6 columns">
                     <label>Nom complet<sup>*</sup></label>
                     <input
                       type="text"
                       name="nom"
+                      className="full-width"
                       onChange={(event) => this.handleUserInput(event)}
                       placeholder={this.state.client.prenom + ' ' + this.state.client.nom}
+                      ref={el => this.nomValue=el}
                     />
                   </div>
                   <div className="large-6 columns">
@@ -349,6 +356,7 @@ export class SignatureDevis extends React.Component {
                     <input
                       type="text"
                       name="paraphe"
+                      className="full-width"
                       onChange={(event) => this.handleUserInput(event)}
                       placeholder={this.state.client.paraphe}
                     />
@@ -367,8 +375,8 @@ export class SignatureDevis extends React.Component {
                     </div>
                   </div>
                 </div>
-                <input type="submit" className="btn align-right" value="Signer"/>
-                <button className="btn-fifth align-right" onClick={this.closeModal}>Annuler</button>
+                <button className="btn align-right" onClick={this.submitSignature}>Signer</button>
+                <button className="btn btn-fifth align-right" onClick={this.closeModal}>Annuler</button>
               </form>
             </div>
           </Modal>

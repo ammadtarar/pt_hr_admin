@@ -114,7 +114,7 @@ export class Factures extends React.Component {
                   <h3 className="text-right">47 jours</h3>
                   <p className="text-right lynch">Temps moyen pour être payé</p>
                 </div>
-                <p className="rafraichir">Dernière mise à jour il y a un moment. <a><strong>Rafraichir</strong></a></p>
+                <p className="rafraichir">Dernière mise à jour il y a un moment. <strong>Rafraichir</strong></p>
               </div>
               <div className="row-fluid">
                 <div className="large-3 text-right columns">

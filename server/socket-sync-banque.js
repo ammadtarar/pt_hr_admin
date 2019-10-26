@@ -6,6 +6,21 @@ const database = firebase.database()
 // Socket IO real-time
 exports = module.exports = function(io){
   io.on('connection', (client) => {
+    client.on('signature', (data) => {
+      const dateobj = new Date();
+      const date = dateobj.toISOString();
+      database.ref(`abonnement/devis/${data.numeroDevis}`)
+        .update({
+          status: 'Signé',
+          dateStatus: date
+        })
+        .then(snapshot => {
+        })
+        .catch(err=>{
+          console.log()
+        })
+    })
+
     client.on('choix comptes', (data) => {
       database.ref('abonnement/configuration')
         .update({

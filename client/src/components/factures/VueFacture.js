@@ -51,7 +51,6 @@ export class VueFacture extends React.Component {
     fetch('/configuration')
       .then(res => res.json())
       .then(res => this.callConfiguration(res))
-    // this.callFacture()
     fetch('/factures')
       .then(res => res.json())
       .then(res => this.callFacture(res))
@@ -70,7 +69,8 @@ export class VueFacture extends React.Component {
         telephone: res.entreprise.telephone,
         email: res.entreprise.email,
         siteweb: res.entreprise.siteweb,
-        tauxhoraire: res.tauxHoraire
+        tauxhoraire: res.tauxHoraire,
+        logo: res.entreprise.logo
       },
       paiements: {
         modePaiement: {
@@ -218,40 +218,18 @@ export class VueFacture extends React.Component {
 
             <section className="container container-facture shadows">
               <div className="row-fluid row-1">
-                <div className="large-6 columns">
-                  <img type="image/svg+xml" src="/images/drag-drop.png" alt=""/>
+                <div className="large-4 columns">
+                  {this.state.prestataire.logo !== '' ? <div className="box-logo-devis"><img type="image/svg+xml" className="logo-devis" src={this.state.prestataire.logo} alt=""/></div> : <img type="image/svg+xml" className="logo-devis-empty" src="/images/drag-drop.png" alt=""/>}
                 </div>
-                <div className="large-3 columns" id="large-3-1">
-                  <div className="row">
-                    <div className="large-6 columns">
-                      <p>{this.state.prestataire.prenom}</p>
-                    </div>
-                    <div className="large-6 columns">
-                      <p>{this.state.prestataire.nom}</p>
-                    </div>
-                  </div>
-                  <div>
-                    <p>{this.state.prestataire.adresse}</p>
-                  </div>
-                  <div className="row">
-                    <div className="large-6 columns">
-                      <p>{this.state.prestataire.cp}</p>
-                    </div>
-                    <div className="large-6 columns">
-                      <p>{this.state.prestataire.ville}</p>
-                    </div>
-                  </div>
-                  <div>
-                    <p>{this.state.prestataire.email}</p>
-                  </div>
-                  <div>
-                    <p>{this.state.prestataire.telephone}</p>
-                  </div>
-                  <div>
-                    <p>{this.state.prestataire.siteweb}</p>
-                  </div>
+                <div className="large-4 columns">
+                  <p>{this.state.prestataire.prenom} {this.state.prestataire.nom}</p>
+                  <p>{this.state.prestataire.adresse}</p>
+                  <p>{this.state.prestataire.cp}, {this.state.prestataire.ville}</p>
+                  <p>{this.state.prestataire.email}</p>
+                  <p>{this.state.prestataire.telephone}</p>
+                  <p>{this.state.prestataire.siteweb}</p>
                 </div>
-                <div className="large-3 columns" id="large-3-2">
+                <div className="large-4 columns">
                   <p className="cornflower-blue">Numéro de facture</p>
                   <input value={this.state.numero} />
                   <p className="cornflower-blue">Date d'émission</p>

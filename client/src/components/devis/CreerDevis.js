@@ -7,7 +7,6 @@ import database from '../../firebase/firebase';
 import Aside from '../Aside';
 
 export class CreerDevis extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -40,7 +39,7 @@ export class CreerDevis extends React.Component {
       montant: '',
       acompte: ''
     }
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleSave = this.handleSave.bind(this);
   }
 
   componentDidMount() {
@@ -63,10 +62,10 @@ export class CreerDevis extends React.Component {
         prestataire: {
           prenom: val.configuration.prenom,
           nom: val.configuration.nom,
-          adresse: val.configuration.adresse,
-          cp: val.configuration.cp,
-          ville: val.configuration.ville,
-          pays: val.configuration.pays,
+          adresse: val.configuration.entreprise.rue,
+          cp: val.configuration.entreprise.cp,
+          ville: val.configuration.entreprise.ville,
+          pays: val.configuration.entreprise.pays,
           telephone: val.configuration.entreprise.telephone,
           email: val.configuration.entreprise.email,
           siteweb: val.configuration.entreprise.siteweb,
@@ -104,8 +103,18 @@ export class CreerDevis extends React.Component {
     });
   }
 
-  handleSubmit(e) {
+  handleSave(e) {
     e.preventDefault();
+
+
+    // let possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    // const validChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    // let array = new Uint8Array(128);
+    // window.crypto.getRandomValues(array);
+    // array = array.map(x => validChars.charCodeAt(x % validChars.length));
+    // const randomState = String.fromCharCode.apply(null, array);
+
+
     const dataDevis = {}
     const {
       titre = this.state.titre,
@@ -145,7 +154,7 @@ export class CreerDevis extends React.Component {
                     </div>
                     <div className="large-6 columns">
                       <Link to="/"><button className="align-right">Envoyer</button></Link>
-                      <button onClick={this.handleSubmit} className="align-right">Sauvegarder</button>
+                      <button onClick={this.handleSave} className="align-right">Sauvegarder</button>
                       <Link to="/devis"><button className="btn-fifth align-right">Annuler</button></Link>
                     </div>
                   </div>

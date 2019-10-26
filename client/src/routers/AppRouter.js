@@ -103,7 +103,7 @@ const userRoutes = [
     component: VueProposition
   },
   {
-    path: '/lien-devis',
+    path: '/lien',
     component: SignatureDevis
   },
   {
