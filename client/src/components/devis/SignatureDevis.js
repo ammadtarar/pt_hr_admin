@@ -5,7 +5,6 @@ import Aside from '../Aside';
 import socketIOClient from 'socket.io-client'
 import jsPDF from 'jspdf'
 import 'jspdf-autotable';
-import AnchorLink from 'react-anchor-link-smooth-scroll'
 
 export class SignatureDevis extends React.Component {
   constructor() {
