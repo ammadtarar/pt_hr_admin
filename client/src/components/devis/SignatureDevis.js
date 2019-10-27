@@ -168,7 +168,7 @@ export class SignatureDevis extends React.Component {
                   <p className="numero-facture">{this.state.numero}</p>
                 </div>
                 <div className="large-7 columns">
-                  {this.state.status === 'Signé' ? '' : <AnchorLink offset="100" href="#e-sign"><button className="align-right">Signer le devis</button></AnchorLink>}
+                  {this.state.status === 'Signé' ? '' : <button className="align-right">Signer le devis</button>}
                   {this.state.status === 'Signé' ? <button className="btn btn-third align-right" onClick={() => this.downloadPDF()}>Télécharger le devis</button> : ''}
                 </div>
               </div>
