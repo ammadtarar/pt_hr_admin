@@ -4,6 +4,7 @@ import database from '../../firebase/firebase';
 import Aside from '../Aside';
 import socketIOClient from 'socket.io-client'
 import jsPDF from 'jspdf'
+import html2canvas from 'html2canvas';
 import 'jspdf-autotable';
 
 export class SignatureDevis extends React.Component {
@@ -64,6 +65,13 @@ export class SignatureDevis extends React.Component {
   }
 
   downloadPDF() {
+    const printArea = document.querySelector('.box-signature-client');
+    html2canvas(printArea).then(canvas => {
+      const dataURL = canvas.toDataURL('image/png');
+      const pdf = new jsPDF();
+      pdf.addImage(dataURL, 'JPEG', 10, 140, 95, 10);
+      pdf.save('saved.pdf')
+    })
   }
 
   submitSignature(e) {
@@ -279,7 +287,7 @@ export class SignatureDevis extends React.Component {
                 <div className="large-6 columns">
                   <p><strong>Signature du client</strong></p>
                   {this.state.status !== 'Signé' ? <div className="box-signature" onClick={this.openModal}>Signer</div> :
-                  <div>
+                  <div className="box-signature-client">
                     <p className="signature signature-validated">{this.state.client.prenom + ' ' + this.state.client.nom}</p>
                     <p className="signature-id">{this.state.client.signatureID}</p>
                   </div>}

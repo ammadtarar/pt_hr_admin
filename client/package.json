@@ -8,6 +8,7 @@
     "create-react-class": "^15.6.3",
     "firebase": "^7.0.0",
     "foundation-sites": "^6.5.3",
+    "html2canvas": "^1.0.0-rc.5",
     "jspdf": "^1.5.3",
     "jspdf-autotable": "^3.2.4",
     "node-sass": "^4.12.0",
