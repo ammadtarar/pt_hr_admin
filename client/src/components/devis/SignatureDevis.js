@@ -3,9 +3,9 @@ import Modal from 'react-modal';
 import database from '../../firebase/firebase';
 import Aside from '../Aside';
 import socketIOClient from 'socket.io-client'
-import jsPDF from 'jspdf'
 import html2canvas from 'html2canvas';
 import 'jspdf-autotable';
+import jsPDF from 'jspdf-yworks';
 
 export class SignatureDevis extends React.Component {
   constructor() {

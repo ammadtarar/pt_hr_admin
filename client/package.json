@@ -11,6 +11,8 @@
     "html2canvas": "^1.0.0-rc.5",
     "jspdf": "^1.5.3",
     "jspdf-autotable": "^3.2.4",
+    "jspdf-customfonts": "0.0.4-rc.4",
+    "jspdf-yworks": "^2.1.1",
     "node-sass": "^4.12.0",
     "normalize.css": "^8.0.1",
     "react": "^16.8.6",
@@ -27,6 +29,7 @@
     "redux": "^4.0.4",
     "redux-thunk": "^2.3.0",
     "socket.io": "^2.3.0",
+    "svg2pdf.js": "^1.5.0",
     "webpack-dev-server": "^3.2.1"
   },
   "scripts": {
