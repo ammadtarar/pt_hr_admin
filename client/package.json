@@ -9,7 +9,6 @@
     "firebase": "^7.0.0",
     "foundation-sites": "^6.5.3",
     "html2canvas": "^1.0.0-rc.5",
-    "jspdf": "^1.4.1",
     "jspdf-autotable": "^3.2.4",
     "jspdf-customfonts": "0.0.4-rc.4",
     "jspdf-yworks": "^2.1.1",
