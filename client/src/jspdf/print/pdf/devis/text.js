@@ -1,0 +1,55 @@
+import newPage from "../../newPage";
+
+export default (doc, text, startY, fontSize, lineSpacing) => {
+
+    let startX = 57;
+    doc.setFontSize(fontSize);
+
+    startY += lineSpacing * 4;
+
+    doc.setFontType('normal');
+    let splitText = doc.splitTextToSize(
+        text,
+        485
+    );
+
+    // <><>><><>><>><><><><><>>><><<><><><><>
+    // new page check before text output
+    const pageHeight = doc.internal.pageSize.height;
+    const endY = pageHeight - 120; // minus footerHeight
+    const neededSpacing = lineSpacing * 4;
+    let neededHeight = splitText.length * doc.internal.getLineHeight();
+    let spaceForLines = Math.floor((endY - startY) / doc.internal.getLineHeight());
+
+    // check if new page is needed right at beginning
+    startY = newPage(doc, startY, neededSpacing);
+
+    // <><>><><>><>><><><><><>>><><<><><><><>
+    // power algorithm to split long text on multiple pages
+    let textStart;
+
+    while (endY - startY - neededHeight < 0 && splitText.length > spaceForLines) {
+
+        spaceForLines = Math.floor((endY - startY) / doc.internal.getLineHeight());
+        neededHeight = splitText.length * doc.internal.getLineHeight();
+
+        textStart = splitText.slice(0,spaceForLines);
+        doc.text(textStart, startX, startY);
+
+        splitText = splitText.slice(spaceForLines);
+
+        startY = newPage(doc, startY, neededHeight);
+    }
+
+    // need to set font here again, else weirdo things are printed out
+    doc.setFont('Inter-UI');
+    doc.setTextColor(98, 62, 197);
+    doc.text('À propos de ce devis', startX, startY);
+    startY += lineSpacing * 1.5;
+    doc.setTextColor(25, 25, 25);
+    doc.text(splitText, startX, startY);
+    neededHeight = splitText.length * doc.internal.getLineHeight();
+    startY += neededHeight + lineSpacing;
+
+    return startY;
+}

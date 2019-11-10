@@ -5,6 +5,7 @@ import AutosizeInput from 'react-input-autosize';
 import DragDropLogo from '../modules/DragDropLogo';
 import database from '../../firebase/firebase';
 import Aside from '../Aside';
+import printPDF from '../../jspdf/print/jspdf-devis';
 
 export class EditDevis extends React.Component {
   constructor(props) {
@@ -37,7 +38,146 @@ export class EditDevis extends React.Component {
       description: '',
       montantht: '',
       montant: '',
-      acompte: ''
+      acompte: '',
+      printDevis: {
+          'addressSender': {
+              'person':'Julien Lucas',
+              'street':'10 Impase Pierre Piquet',
+              'city':'84140 MONTFAVET',
+              'email':'contact@julienlucas.com',
+              'phone':'06 76 75 07 19'
+          },
+          'address': {
+              'company':'Quanta',
+              'person':'Roberto Santaolala',
+              'street':'123 rue pignon sur rue',
+              'city':'75000 PARIS',
+          },
+          'personalInfo': {
+              'compagny':'Julien Lucas',
+              'siret':'79439712500012',
+              'website': 'https://julienlucas.com',
+              'tva': 'FR 14 538386699',
+              'statut': 'AE',
+              'bank': {
+                  'person':'Julien Lucas',
+                  'name':'Boursorama',
+                  'IBAN':'DE12 3456 7890 1234 5678 90'
+              }
+          },
+          'infosInvoice': {
+            'invoicenumber':'Numéro de devis',
+            'number':'20181104-93',
+            'dateLabel':'Date d émission',
+            'date':'28-06-2019',
+            'empty':''
+          },
+          'label': {
+              'invoice':'Devis',
+              'tableItems':'Description',
+              'tableTarif':'Tarif',
+              'tableQty':'Quantité',
+              'tableSingleTotal':'Total',
+              'totalht':'Total HT',
+              'remise':'Remise commerciale',
+              'tva':'TVA',
+              'totalGrand':'Total',
+              'statutAE': 'Statut auto entrepreneur, TVA non applicable, article 293B du Code Général des Impôts',
+              'contact':'Contactdetails:',
+              'bank':'Bankaccount:',
+              'taxinfo':'Taxnumber:',
+          },
+          'invoice': {
+              'acomptePourcent':'30%',
+              'acompte':'2.017,12 €',
+              'total':'6.724,00 €',
+              'totalht':'4.700,00 €',
+              'remise':'',
+              'tva':'20%',
+              'text':'• La présente facture prévoit l’intégralité des prestations que le prestataire s’engage à réaliser pour le Client.\n' +
+              '• Toute prestation supplémentaire demandée par le Client donnera lieu à l émission d’un nouveau devis ou avenant.\n' +
+              '\n' +
+              'En conformité de l’article L 441-6 du Code de commerce :\n' +
+              '• La facture émise sera payable sous 45 jours.\n' +
+              '• Tout règlement effectué après expiration de ce délai donnera lieu, à titre de pénalité de retard, à l’application d’un intérêt égal à celui appliqué par la Banque Centrale Européenne à son opération de refinancement la plus récente, majoré de 10 points de pourcentage, ainsi qu à une indemnité forfaitaire pour frais de recouvrement d un montant de 40 Euros.\n' +
+              '• Les pénalités de retard sont exigibles sans qu’un rappel soit nécessaire.'
+          },
+          'signatures': {
+              'nomClientLabel':'Nom du client',
+              'nomSenderLabel':'Nom du prestataire',
+              'nomClient':'Roberto Santaolala',
+              'nomSender':'Julien Lucas',
+              'signatureClientLabel':'Signature du client',
+              'signatureSenderLabel':'Signature du prestataire',
+              'signatureClient':'',
+              'SignatureSender':''
+          },
+          'items': {
+              [0]: {
+                  'title':'Templating',
+                  'description':'predefined custom specialities for vague usage in a framework. Sense a light case weight value for exisiting solution services. Provide a case for universal properties.',
+                  'tarif':'500€/jour',
+                  'qty':'5.5',
+                  'total':'2.400,00 €'
+              },
+              [1]: {
+                  'title':'Design',
+                  'description':'outwork digital screen UX in different cases for utilities',
+                  'tarif':'',
+                  'qty':'0.5',
+                  'total':'438,00 €'
+              },
+              [2]: {
+                  'title':'Security',
+                  'description':'develop a 100% secure workflow mechanism by shutting down your PC',
+                  'tarif':'',
+                  'qty':'1',
+                  'total':'12,00 €'
+              },
+              [3]: {
+                  'title':'Capability Training Closure Business Rules Appliance Regulatory',
+                  'description':'setup your skill mentoring for future reference & allow $ signs to getUsed `because` this should get covered too. Let me just explain not why ß.',
+                  'tarif':'',
+                  'qty':'2',
+                  'total':'512,00 €'
+              },
+              [4]: {
+                  'title':'Templating',
+                  'description':'predefined custom specialities for vague usage in a framework. Sense a light case weight value for exisiting solution services. Provide a case for universal properties.',
+                  'tarif':'',
+                  'qty':'2',
+                  'total':'2.400,00 €'
+              },
+              [5]: {
+                  'title':'Design',
+                  'description':'outwork digital screen UX in different cases for utilities',
+                  'tarif':'',
+                  'qty':'0.5',
+                  'total':'438,00 €'
+              },
+              [6]: {
+                  'title':'Security',
+                  'description':'develop a 100% secure workflow mechanism by shutting down your PC',
+                  'tarif':'',
+                  'qty':'1',
+                  'total':'12,00 €'
+              },
+              [7]: {
+                  'title':'Capability Training Closure Business Rules Appliance Regulatory',
+                  'description':'setup your skill mentoring for future reference & allow $ signs to getUsed `because` this should get covered too. Let me just explain not why ß.',
+                  'tarif':'',
+                  'qty':'2',
+                  'total':'512,00 €'
+              },
+              [8]: {
+                  'title':'Capability Training Closure Business Rules Appliance Regulatory',
+                  'description':'setup your skill mentoring for future reference & allow $ signs to getUsed `because` this should get covered too. Let me just explain not why ß.',
+                  'tarif':'',
+                  'qty':'2',
+                  'total':'512,00 €'
+              }
+          }
+      }
     }
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -149,6 +289,10 @@ export class EditDevis extends React.Component {
     });
   }
 
+  downloadDevis() {
+    printPDF(this.state.printDevis);
+  }
+
   render() {
     return (
       <div>
@@ -168,6 +312,7 @@ export class EditDevis extends React.Component {
                           <p className="numero-facture">{this.state.numero}</p>
                         </div>
                         <div className="large-6 columns">
+                          <button className="btn-fourth align-right" onClick={() => this.downloadDevis()}>Télécharger le devis</button>
                           <Link to="/"><button className="align-right">Envoyer</button></Link>
                           <button onClick={this.handleSubmit} className="align-right">Sauvegarder</button>
                           <button className="btn-fifth align-right">Annuler</button>
