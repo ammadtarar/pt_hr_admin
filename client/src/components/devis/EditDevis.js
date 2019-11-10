@@ -5,7 +5,7 @@ import AutosizeInput from 'react-input-autosize';
 import DragDropLogo from '../modules/DragDropLogo';
 import database from '../../firebase/firebase';
 import Aside from '../Aside';
-import printPDF from '../../jspdf/print/jspdf-devis';
+// import printPDF from '../../jspdf/print/jspdf-devis';
 
 export class EditDevis extends React.Component {
   constructor(props) {
@@ -290,7 +290,7 @@ export class EditDevis extends React.Component {
   }
 
   downloadDevis() {
-    printPDF(this.state.printDevis);
+    // printPDF(this.state.printDevis);
   }
 
   render() {

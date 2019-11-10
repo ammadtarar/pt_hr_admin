@@ -4,7 +4,7 @@ import database from '../../firebase/firebase';
 import ModalEnvoie from './ModalEnvoieDevis';
 import Modal from 'react-modal';
 import Aside from '../Aside';
-import printPDF from '../../jspdf/print/jspdf-devis';
+// import printPDF from '../../jspdf/print/jspdf-devis';
 
 export class VueDevis extends React.Component {
   constructor() {
@@ -267,7 +267,7 @@ export class VueDevis extends React.Component {
   }
 
   downloadDevis() {
-    printPDF(this.state.printDevis);
+    // printPDF(this.state.printDevis);
   }
 
   render() {
