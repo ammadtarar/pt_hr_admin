@@ -260,7 +260,7 @@ export class Comptabilite extends React.Component {
     const totalPagesExp = '{total_pages_count_string}';
 
     function headRows() {
-      return [{paye_le: 'Payé le', numero: 'Numéro de facture', client: 'Client', nature: 'Nature', montant: 'Montant', mode_encaissement: "Mode d'encaissement"}];
+      return [{paye_le: 'Payé le', numero: 'Numéro de facture', client: 'Client', nature: 'Nature', montant: 'Montant', mode_encaissement: 'Mode d encaissement'}];
     }
 
     function bodyRows(rowCount) {
@@ -288,8 +288,8 @@ export class Comptabilite extends React.Component {
           numero: '20190129-81',
           client: 'Eleius',
           nature: 'Intégration site Dolead',
-          montant: '420€',
-          mode_encaisement: 'Virement bancaire'
+          montant: '420',
+          mode_encaissement: 'Virement bancaire'
         });
       }
       return body;
