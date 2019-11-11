@@ -338,6 +338,87 @@ export class Comptabilite extends React.Component {
   }
 
   downloadRegistreAchats() {
+    const doc = new jsPDF({
+      orientation: 'landscape'
+    });
+    const totalPagesExp = '{total_pages_count_string}';
+
+    function headRows() {
+      return [{paye_le: 'Payé le', numero: 'Numéro de facture', client: 'Client', nature: 'Nature', montant: 'Montant', mode_encaissement: 'Mode d encaissement'}];
+    }
+
+    function bodyRows(rowCount) {
+      rowCount = rowCount || 10;
+      let body = [];
+
+      // fetch('/factures')
+      //   .then(res => res.json())
+      //   .then(res => {
+      //     for (var i = 1; i <= res.length; i++) {
+      //       body.push({
+      //         paye_le: res[i].date,
+      //         numero: res[i],
+      //         client: res[i].entreprise,
+      //         nature: res[i].titre,
+      //         montant: res[i].montant,
+      //         mode_encaisement: 'Virement bancaire'
+      //       });
+      //     }
+      //   })
+
+      for (var j = 1; j <= rowCount; j++) {
+        body.push({
+          paye_le: '06/02/2019',
+          numero: '20190129-81',
+          client: 'Eleius',
+          nature: 'Intégration site Dolead',
+          montant: '420',
+          mode_encaissement: 'Virement bancaire'
+        });
+      }
+      return body;
+    }
+
+    doc.autoTable({
+      headStyles: {
+        fillColor: [99, 62, 197],
+        textColor: [255, 255, 255]
+      },
+      head: headRows(),
+      body: bodyRows(40),
+      didDrawPage: function (data) {
+        var pageWidth = doc.internal.pageSize.width;
+        var pageCenterX = pageWidth / 2;
+
+        var str = doc.internal.getNumberOfPages()
+        // Total page number plugin only available in jspdf v1.0+
+        if (typeof doc.putTotalPages === 'function') {
+          str = str + " / " + totalPagesExp;
+        }
+        let pageInfo = doc.internal.getCurrentPageInfo();
+        if (pageInfo.pageNumber <= 1) {
+          doc.setFontSize(20);
+          doc.setTextColor(40);
+          doc.setFontStyle('normal');
+          // doc.text("Chronologie des recettes 2019", pageCenterX, 18, 'center');
+        }
+
+        // jsPDF 1.4+ uses getWidth, <1.4 uses .width
+        var pageSize = doc.internal.pageSize;
+        var pageHeight = pageSize.height ? pageSize.height : pageSize.getHeight();
+        doc.setFontSize(12);
+        doc.setTextColor(168, 168, 168);
+        // doc.text(str, pageCenterX, pageHeight - 10);
+      },
+      margin: {top: 22}
+    });
+
+     // Total page number plugin only available in jspdf v1.0+
+    if (typeof doc.putTotalPages === 'function') {
+      doc.putTotalPages(totalPagesExp);
+    }
+    // doc.save('livre-recettes-2019.pdf')
+    window.open(doc.output('bloburl'))
   }
 
   componentDidMount() {
