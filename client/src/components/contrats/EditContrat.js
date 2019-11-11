@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Modal from 'react-modal';
 import Aside from '../Aside';
-// import printPDF from '../../jspdf/print/jspdf-contrats';
+import printPDF from '../../jspdf/print/jspdf-contrats';
 
 class EditContrat extends React.Component {
   constructor() {
@@ -142,7 +142,7 @@ class EditContrat extends React.Component {
   }
 
   downloadContrat() {
-    // printPDF(this.state.printContrat);
+    printPDF(this.state.printContrat);
   }
 
   render() {
