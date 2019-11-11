@@ -12,7 +12,7 @@ export class DevisPropositions extends React.Component {
   }
 
   componentDidMount() {
-    fetch('/devis')
+    fetch('/devis-infos')
       .then(res => res.json())
       .then(res => this.callDevis(res))
   }

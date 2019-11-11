@@ -14,7 +14,7 @@ export class Factures extends React.Component {
   }
 
   componentDidMount() {
-    fetch('/factures')
+    fetch('/factures-infos')
       .then(res => res.json())
       .then(res => this.callFactures(res))
     fetch('/impayees')
