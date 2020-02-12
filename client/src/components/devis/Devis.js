@@ -104,7 +104,7 @@ export class DevisPropositions extends React.Component {
 
                 if (Object.keys(devis[key].proposition).length > 0) {
                   return (
-                    <Link to={{pathname: "/devis/vue-proposition", numero: devis[key].numero}} key={devis[key].numero}>
+                    <Link to={{pathname: "/devis/vue-proposition", numero: key}} key={key}>
                       <div className="row_table shadows">
                         <div className="cell"><CheckBox /></div>
                         <div className="cell">{dateReformat}</div>
@@ -117,7 +117,7 @@ export class DevisPropositions extends React.Component {
                   )
                 } else {
                   return (
-                    <Link to={{pathname: "/devis/vue", numero: devis[key].numero}} key={devis[key].numero}>
+                    <Link to={{pathname: "/devis/vue", numero: key}} key={key}>
                       <div className="row_table shadows">
                         <div className="cell"><CheckBox /></div>
                         <div className="cell">{dateReformat}</div>
