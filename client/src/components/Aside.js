@@ -26,6 +26,10 @@ export class Aside extends React.Component {
     }
   }
 
+  preventDragHandler = (e) => {
+    e.preventDefault();
+  }
+
   //Total impayés
   callTotalImpayes(res) {
     const newState = [];
@@ -70,7 +74,7 @@ export class Aside extends React.Component {
 
   render() {
     return (
-      <aside>
+      <aside onDragStart={this.preventDragHandler}>
         <Link to="/"><img type="image/svg+xml" className="logo" src="/images/logo-montana.png" alt=""/></Link>
         <div className="open-sub-menu">
           <div className="row">
@@ -100,8 +104,8 @@ export class Aside extends React.Component {
         <nav role="navigation">
           <ul className="menu">
             <li><NavLink to="/" activeClassName="is-active" exact={true}>Dashboard</NavLink></li>
-            <li><NavLink to="/devis" activeClassName="is-active">Devis <span>/</span> Propositions commerciales</NavLink></li>
-            <li><NavLink to="/factures" activeClassName="is-active">Factures</NavLink></li>
+            <li><NavLink to="/devis" activeClassName="is-active">Devis / Propositions commerciales</NavLink></li>
+            <li><NavLink to="/factures" activeClassName="is-active">Factures <span>2</span></NavLink></li>
             <li><NavLink to="/contrats" activeClassName="is-active">Contrats</NavLink></li>
             <li><NavLink to="/clients" activeClassName="is-active">Clients</NavLink></li>
             <li><NavLink to="/comptabilite" activeClassName="is-active">Comptabilité</NavLink></li>

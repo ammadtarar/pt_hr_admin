@@ -2,9 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import database from '../../firebase/firebase';
 import Aside from '../Aside';
+import printPDF from '../../jspdf/print/jspdf-proposition';
 
 export class VueProposition extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -132,6 +132,10 @@ export class VueProposition extends React.Component {
     });
   }
 
+  downloadProposition() {
+    printPDF(this.state.printProposition);
+  }
+
   render() {
     let logo;
     database.ref(`abonnement/configuration/entreprise/logo/upload/dataURL`).on('value', (snapshot) => {
@@ -164,7 +168,7 @@ export class VueProposition extends React.Component {
                   <h1>{this.state.titre}</h1>
                 </div>
                 <div className="large-6 columns">
-                  <Link to="/devis"><button className="align-right">Envoyer</button></Link>
+                  <Link to="/devis"><button className="align-right" onClick={() => this.downloadProposition()}>Télécharger PDF</button></Link>
                   <Link to={{pathname: "/devis/edit-proposition", numero: this.state.numero}}><button className="align-right">Éditer</button></Link>
                   <Link to="/devis"><button className="btn-fourth align-right">Plus d'options</button></Link>
                 </div>

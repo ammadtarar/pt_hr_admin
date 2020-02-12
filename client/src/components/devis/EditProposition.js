@@ -4,9 +4,9 @@ import TextareaAutosize from 'react-textarea-autosize';
 import AutosizeInput from 'react-input-autosize';
 import database from '../../firebase/firebase';
 import Aside from '../Aside';
+import printPDF from '../../jspdf/print/jspdf-proposition';
 
 export class EditProposition extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -153,6 +153,10 @@ export class EditProposition extends React.Component {
     e.preventDefault();
   }
 
+  downloadProposition() {
+    printPDF(this.state.printProposition);
+  }
+
   render() {
     return (
       <div>
@@ -168,7 +172,7 @@ export class EditProposition extends React.Component {
                       <h1>{this.state.titre}</h1>
                     </div>
                     <div className="large-6 columns">
-                      <Link to="/"><button className="align-right">Envoyer</button></Link>
+                      <Link to="/"><button className="align-right" onClick={() => this.downloadProposition()}>Télécharger PDF</button></Link>
                       <button onClick={this.handleSubmit} className="align-right">Sauvegarder</button>
                       <Link to="/devis"><button className="btn-fifth align-right">Retour</button></Link>
                     </div>

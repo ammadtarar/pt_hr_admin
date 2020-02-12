@@ -5,9 +5,9 @@ import Aside from '../Aside';
 import printPDF from '../../jspdf/print/jspdf-contrats';
 
 class EditContrat extends React.Component {
-  constructor() {
-    super();
-
+  constructor(props) {
+    super(props);
+    const titre = this.props.titre
     const leClient = 'Agence Alpha Z+'
     const lePresta = 'TIP'
     const statutPresta = 'Alaska limited liability'
@@ -20,6 +20,7 @@ class EditContrat extends React.Component {
     const lieuTribunal = 'the state of Alaska'
     this.state = {
       modalIsOpen: false,
+      titre: this.props.titre,
       printContrat: {
         'contrat': {
           'date':'25/09/2018',
@@ -29,7 +30,7 @@ class EditContrat extends React.Component {
           'prestaNom':'Julien LUCAS',
           'prestaNomLabel':'Nom du prestataire',
           'signaturePrestaLabel':'Signature du prestataire',
-          'titre':'Contrat cadre mission développement web',
+          'titre':'Contrat' + titre,
           'text':'This Contract is between ' + leClient + ' (the "Client") and ' + lePresta + ', an ' + statutPresta + ' company (the "Developer"). The Contract is dated [the date both parties sign].\n' +
           '\n' +
           '1. Work and Payment.\n' +
@@ -162,10 +163,10 @@ class EditContrat extends React.Component {
               </ul>
 
               <div className="row-fluid">
-                <div className="large-6 columns">
+                <div className="large-5 columns">
                   <p className="m-size">Passez en revue le contrat. Vous ne pourrez plus l’éditer une fois qu’il sera signé. Cliquez sur le texte en sur-brillance pour l’éditer, ou regardez la liste de tout ce que vous pouvez éditer.</p>
                 </div>
-                <div className="large-6 columns">
+                <div className="large-7 columns">
                   <button className="align-right" onClick={this.openModal}>Signer le contrat</button>
                   <button className="btn-fourth align-right" onClick={() => this.downloadContrat()}>Télécharger le contrat</button>
                 </div>
@@ -174,7 +175,7 @@ class EditContrat extends React.Component {
 
             <section className="container shadows">
               <div className="container-contrat">
-                <h2 className="headline cornflower-blue text-center">Contrat cadre<br/> mission développement web</h2>
+                <h1 className="headline cornflower-blue text-center">Contrat {this.state.titre}</h1>
                 <p>This Contract is between <span className="editable">Sample Client</span> (the "Client") and <span className="editable">TIP</span>, an <span className="editable">Alaska limited liability</span> company (the "Developer").
                 The Contract is dated [the date both parties sign].</p>
 
@@ -268,8 +269,8 @@ class EditContrat extends React.Component {
                 </p>
               </div>
             </section>
-
           </main>
+
           <Modal
             isOpen={this.state.modalIsOpen}
             onAfterOpen={this.afterOpenModal}
@@ -277,7 +278,6 @@ class EditContrat extends React.Component {
             contentLabel="Example Modal"
             class="modal"
           >
-
             <h2 className="text-center">Envoyer le contrat pour signature</h2>
             <hr/>
             <form id="send-contrat-form">

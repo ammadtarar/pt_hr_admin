@@ -106,17 +106,21 @@ export default class MultiStep extends React.Component {
         {this.props.steps[this.state.compState].component}
         <div style={this.props.showNavigation ? {} : { display: 'none' }}>
           <button
-            className="align-right"
+            className={`align-right ${this.props.steps[this.state.compState].name === 'StepFour' ? 'lien' : ''}`}
             onClick={this.next}
           >
-            {NextBtn}
+          {this.props.steps[this.state.compState].name === 'StepFour' ?
+            <a href="/contrats/edit" title="" rel="noopener noreferrer">{NextBtn}</a> : NextBtn
+          }
           </button>
           <button
-            className="btn-fifth align-right"
-            style={this.state.showPreviousBtn ? {} : { display: 'none' }}
+            className={`btn-fourth align-right ${this.props.steps[this.state.compState].name === 'StepOne' ? 'lien' : ''}`}
             onClick={this.previous}
           >
-            Retour
+          {console.log(this.props.steps[this.state.compState].name)}
+          {this.props.steps[this.state.compState].name === 'StepOne' ?
+            <a href="/contrats/" title="" rel="noopener noreferrer">Retour</a> : 'Retour'
+          }
           </button>
         </div>
       </div>

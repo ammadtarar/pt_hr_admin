@@ -8,71 +8,43 @@ export class Factures extends React.Component {
   constructor() {
     super();
     this.state = {
+      order: '',
+      currentPage: 1,
+      todosPerPage: 9,
       factures: [],
       impayés: []
     }
   }
 
   componentDidMount() {
-    fetch('/factures-infos')
+    fetch('/data')
       .then(res => res.json())
-      .then(res => this.callFactures(res))
+      .then(res => {var factures = res.factures; this.callFactures(factures)})
     fetch('/impayees')
       .then(res => res.json())
       .then(res => this.callImpayees(res))
   }
 
+  preventDragHandler = (e) => {
+    e.preventDefault();
+  }
+
   //Toutes les factures
-  callFactures(res) {
-    const newState = [];
-    for (let item in res) {
-      //Formatage date d'émission
-      const dateEmission = new Date(res[item].date);
-      var mm = dateEmission.getMonth() + 1;
-      // var dateEmissionFormat = dateEmission.getDate() + '-' + mm;
-
-      //Formatage data
-      const date = new Date(res[item].date);
-      date.setDate(date.getDate());
-      const mois = [
-        "jan", "fév", "mars",
-        "avr", "mai", "juin", "juil",
-        "août", "sept", "oct",
-        "nov", "déc"
-      ];
-      const dateReformat = date.getDate() + ' ' + mois[date.getMonth()] + ' ' + date.getFullYear();
-
-      //Calcul nombre de jours avant date paiement dù
-      var date1 = new Date(res[item].date);
-      var date2 = new Date();
-      var tempsDiff = Math.abs(date2.getTime() - date1.getTime());
-      var diffJours = Math.ceil(tempsDiff / (1000 * 3600 * 24));
-
-      newState.push({
-        numero: item,
-        date: dateReformat,
-        entreprise: res[item].entreprise,
-        delaiPaiement: res[item].delaiPaiement,
-        JoursRestantsPaiement: diffJours,
-        status: res[item].status,
-        titre: res[item].titre,
-        montant: res[item].montant
-      });
-    }
+  callFactures(factures) {
     this.setState({
-      factures: newState
+      'factures': factures
     });
   }
 
   //Impayés
-  callImpayees(res) {
+  callImpayees(factures) {
     const newState = [];
     var data = [];
     var total = 0;
 
-    for (let item in res) {
+    for (let item in factures) {
       newState.push({
-        montant: res[item].montant
+        montant: factures[item].montant
       });
     }
     for (var i = 0; i < newState.length; i++) {
@@ -83,11 +55,41 @@ export class Factures extends React.Component {
     });
   }
 
+  onSortChange(e) {
+    e.persist()
+    const factures = this.state.factures;
+    if (factures) {
+      const order = this.state.order
+      const sorted = Object.values(factures).sort(function(a, b) {
+          return a[order] > b[order] ? 1 : (a[order] < b[order] ? -1 : 0)
+      })
+      const sortedDate = Object.values(factures).sort(function(a, b) {
+          return new Date(a.date) > new Date(b.date) ? 1 : (new Date(a.date) < new Date(b.date) ? -1 : 0)
+      })
+      if(order === 'date') {
+        this.setState({
+          'factures': this.state.previousOrder === order ? Object.values(factures).sort(function(a, b) {
+              return new Date(a.date) < new Date(b.date) ? 1 : (new Date(a.date) > new Date(b.date) ? -1 : 0)
+          }) : sortedDate
+        });
+      } else {
+        this.setState({
+          'factures': this.state.previousOrder === order ? Object.values(factures).sort(function(a, b) {
+              return a[order] < b[order] ? 1 : (a[order] > b[order] ? -1 : 0)
+          }) : sorted
+        });
+      }
+      this.state.previousOrder === order ? this.setState({previousOrder: ''}) : this.setState({previousOrder: order})
+    }
+  }
+
   render() {
+    const factures = this.state.factures
+
     return (
       <div>
         <Aside/>
-        <div className="wrapper">
+        <div className="wrapper" onDragStart={this.preventDragHandler}>
           <main className="factures">
             <section className="section-1 container transparent">
               <div className="row-fluid">
@@ -138,32 +140,53 @@ export class Factures extends React.Component {
               </ul>
               <div className="row_table header">
                 <div className="cell"><CheckBox /></div>
-                <div className="cell">Émis le</div>
-                <div className="cell">Client</div>
-                <div className="cell">Description</div>
-                <div className="cell">Réglement</div>
-                <div className="cell">Montant</div>
+                <div className="cell order"><span onClick={(e) => this.setState({order: 'date'}, () => {this.onSortChange(e)})} className={this.state.order === 'date' ? 'checked' : ''}>Émis le</span></div>
+                <div className="cell order"><span onClick={(e) => this.setState({order: 'entreprise'}, () => {this.onSortChange(e)})} className={this.state.order === 'entreprise' ? 'checked' : ''}>Client</span></div>
+                <div className="cell order"><span onClick={(e) => this.setState({order: 'titre'}, () => {this.onSortChange(e)})} className={this.state.order === 'titre' ? 'checked' : ''}>Description</span></div>
+                <div className="cell order"><span onClick={(e) => this.setState({order: 'reglement'}, () => {this.onSortChange(e)})} className={this.state.order === 'reglement' ? 'checked' : ''}>Réglement</span></div>
+                <div className="cell order"><span onClick={(e) => this.setState({order: 'montant'}, () => {this.onSortChange(e)})} className={this.state.order === 'montant' ? 'checked' : ''}>Montant</span></div>
               </div>
 
-              {this.state.factures.reverse().map((item) => {
+              {Object.keys(factures).map((key, item, i) => {
                 let statusBar;
 
-                if ((item.status === 'Impayée') || (item.status === 'Envoyée')) {
-                  statusBar = <ProgressBarPaiement status={item.status} joursRestantsPaiement={item.JoursRestantsPaiement} delaiPaiement={item.delaiPaiement}/>
-                } else if (item.status === 'Brouillon') {
-                  statusBar = <h5 className={item.status}>{item.status}</h5>
-                } else if (item.status === 'Payée') {
-                  statusBar = <h5 className={item.status}>Virement bancaire</h5>
+                //Formatage date d'émission
+                const dateEmission = new Date(factures[key].date);
+                var mm = dateEmission.getMonth() + 1;
+
+                //Formatage data
+                const date = new Date(factures[key].date);
+                date.setDate(date.getDate());
+                const mois = [
+                  "jan", "fév", "mars",
+                  "avr", "mai", "juin", "juil",
+                  "août", "sept", "oct",
+                  "nov", "déc"
+                ];
+                const dateReformat = date.getDate() + ' ' + mois[date.getMonth()] + ' ' + date.getFullYear();
+
+                //Calcul nombre de jours avant date paiement dù
+                var date1 = new Date(factures[key].date);
+                var date2 = new Date();
+                var tempsDiff = Math.abs(date2.getTime() - date1.getTime());
+                var diffJours = Math.ceil(tempsDiff / (1000 * 3600 * 24));
+
+                if ((factures[key].status === 'Impayée') || (factures[key].status === 'Envoyée')) {
+                  statusBar = <ProgressBarPaiement status={factures[key].status} joursRestantsPaiement={factures[key].JoursRestantsPaiement} delaiPaiement={factures[key].delaiPaiement}/>
+                } else if (factures[key].status === 'Brouillon') {
+                  statusBar = <h5 className={factures[key].status}>{factures[key].status}</h5>
+                } else if (factures[key].status === 'Payée') {
+                  statusBar = <h5 className={factures[key].status}>{factures[key].reglement}</h5>
                 }
                 return (
-                  <Link to={{pathname: "/factures/vue", numero: item.numero}} key={item.numero}>
+                  <Link to={{pathname: "/factures/vue", numero: factures[key].numero}} key={factures[key].numero}>
                     <div className="row_table shadows">
                       <div className="cell"><CheckBox /></div>
-                      <div className="cell">{item.date}</div>
-                      <div className="cell">{item.entreprise}<br/><span>{item.numero}</span></div>
-                      <div className="cell">{item.titre}</div>
+                      <div className="cell">{dateReformat}</div>
+                      <div className="cell">{factures[key].entreprise}<br/><span>{factures[key].numero}</span></div>
+                      <div className="cell">{factures[key].titre}</div>
                       <div className="cell">{statusBar}</div>
-                      <div className="cell">{item.montant}€</div>
+                      <div className="cell">{factures[key].montant}€</div>
                     </div>
                   </Link>
                 )

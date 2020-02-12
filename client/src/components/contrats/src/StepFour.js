@@ -3,14 +3,6 @@ import React from 'react';
 export class StepFour extends React.Component {
   constructor () {
     super()
-    this.state = {
-      checked: ''
-    }
-    this.handleCheckedChanged = this.handleCheckedChanged.bind(this);
-  }
-
-  handleCheckedChanged (event) {
-    this.setState({checked: event.target.checked})
   }
 
   render () {
@@ -25,22 +17,25 @@ export class StepFour extends React.Component {
             <p className="align-right l-size">4 / 4</p>
           </div>
         </div>
-        <div className="container medium-purple">
-          <p>
-            <span className="cornflower-blue">Les Contrats et Paiements sont intégrés pour simplifier votre travail indépendant.</span><br/>
-            Envoyer des factures via Bonsai. Soyez payé par carte de crédit.<br/>
-            Les paiements automatisés vous permettent de gagner du temps et d'éviter les retards de paiement.
-          </p>
+        <hr/>
+        <div className="row-fluid">
+          <div className="large-12 columns">
+            <p>
+              <span className="cornflower-blue">Les Contrats et Paiements sont intégrés pour simplifier votre travail indépendant.</span><br/>
+              Envoyer des factures via Bonsai. Soyez payé par carte de crédit.<br/>
+              Les paiements automatisés vous permettent de gagner du temps et d'éviter les retards de paiement.
+            </p>
+            <p>Nous créeons 2 factures pour ce projet :</p>
+            <ol>
+              <li>Facture: Accompte <span className="cornflower-blue">de 960€</span> sera émise le 25 Septembre 2018</li>
+              <li>Facture: Solde tout compte <span className="cornflower-blue">de 2240€</span> sera émise le 25 octobre 2018</li>
+            </ol>
+            <p>
+              <span className="cornflower-blue">Ne pas créer</span> ces factures automatiquement et <span className="cornflower-blue">ne pas les envoyer</span> automatiquement en mon nom
+              <em>(Vous pouvez toujours les consulter et les modifier avant de les envoyer).</em>
+            </p>
+          </div>
         </div>
-        <p>Nous créeons 2 factures pour ce projet :</p>
-        <ol>
-          <li>Facture: Accompte <span className="cornflower-blue">de 960€</span> sera émise le 25 Septembre 2018</li>
-          <li>Facture: Solde tout compte <span className="cornflower-blue">de 2240€</span> sera émise le 25 octobre 2018</li>
-        </ol>
-        <p>
-          <span className="cornflower-blue">Ne pas créer</span> ces factures automatiquement et <span className="cornflower-blue">ne pas les envoyer</span> automatiquement en mon nom.
-          <em>(Vous pouvez toujours les consulter et les modifier avant de les envoyer.)</em>
-        </p>
         <hr/>
       </section>
     );

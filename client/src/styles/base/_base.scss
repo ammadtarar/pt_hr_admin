@@ -1,6 +1,6 @@
 html {font-size: 62.5%; scroll-behavior: smooth}
 * {box-sizing: border-box}
-::selection {background: $medium-purple; color: $revolver;}
+::selection {background: #8464d9; color: white;}
 
 .row, .row-fluid {
   position: relative;
@@ -16,6 +16,8 @@ body {
   padding: 0;
   margin: 0;
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   &.overlay::before {
     position: absolute;
     width: 100vw; height: 100%;
@@ -115,22 +117,40 @@ hr {max-width:100%; margin: 1rem 0; border-top: .1rem solid $porcelain; border-b
 }
 
 //Ul + ol
-ul.year {
-  position: absolute;
-  margin-top: 6.5rem;
-  right: 0;
-  li {
-    display: inline-block;
-    list-style: none;
-    font-family: $medium;
-    font-size: 1.4rem;
-    line-height: 1;
-    padding: 0 .4rem;
-    color: $lynch;
-    border-right: .1rem solid $lynch;
-    cursor: pointer;
-    &.current {color: $cornflower-blue;}
-    &:last-child {border-right: none; padding-right: 0;}
+ul {
+  &.year {
+    position: relative;
+    margin: 3rem 0 -3rem -.5rem;
+    li {
+      display: inline-block;
+      list-style: none;
+      font-family: $regular;
+      font-size: 1.4rem;
+      line-height: 1;
+      padding: 0 .7rem;
+      color: $lynch;
+      border-right: .1rem solid $porcelain;
+      cursor: pointer;
+      &:hover, &:focus, &.current {color: $cornflower-blue; font-family: $medium;}
+      &:last-child {border-right: none; padding-right: 0;}
+    }
+  }
+  &.pagination {
+    position: relative;
+    margin: 2rem auto 0 auto;
+    display: table;
+    li {
+      margin: 0 .4rem;
+      width: 2rem; height: 2rem; line-height: 2rem;
+      border-radius: .3rem;
+      font-size: 1.6rem;
+      color: $lynch;
+      // background-color: $solitude;
+      text-decoration: none;
+      text-align: center;
+      cursor: pointer;
+      &:hover {color: $cornflower-blue;}
+    }
   }
 }
 
@@ -156,8 +176,7 @@ aside {
   padding-top: 8rem;
   width: 26rem; height: 100vh;
   float: left;
-  background: $cornflower-blue;
-  // box-shadow: 10px 10px 8px -12px rgba(50,27,70,.1);
+  background: white;
   content: '';
   z-index: 3;
   &.inscription {
@@ -188,9 +207,9 @@ aside {
     font-size: 1.4rem;
     font-family: $medium;
     left: 2rem;
-    color: white;
+    color: $cornflower-blue;
     &:nth-child(3) {font-size: 1.4rem; color: $lynch}
-    &.chiffre-affaire {margin: -1rem 0 .2rem 0; font-size: 3rem; font-family: $bold; color: white}
+    &.chiffre-affaire {margin: -1rem 0 .2rem 0; font-size: 3rem; font-family: $bold; color: $cornflower-blue;}
   }
   .open-sub-menu {
     position: relative;
@@ -204,8 +223,7 @@ aside {
     margin: 0 auto 3rem auto;
     display: table;
     width: 19rem;
-    // filter: brightness(700%) contrast(53%) sepia(1) saturate(3.5) hue-rotate(223deg);
-    filter: brightness(700%);
+    filter: brightness(30%) contrast(120%) sepia(1) saturate(6) hue-rotate(210deg);
   }
   .image-profile {
     border-radius: 50%;
@@ -400,8 +418,6 @@ p, ul li, ol li, label, input, textarea, button, h1, h2, h3, h4, h5, h6 {
   font-size: 1.6rem;
   line-height: 1.33;
   color: $tarawera;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 h1, h2, h3, h4, h5, h6 {
   line-height: 1.1;
@@ -916,9 +932,7 @@ main.banque, main.banque-synchronisation {
 main.comptabilite {
   .section-1, .section-3, .section-4 {
     ul.year {
-      position: absolute;
-      right: 0;
-      margin-top: 1.5rem;
+      margin-bottom: 1.5rem;
     }
     .row-fuild {max-width: 100%;}
   }
@@ -1022,12 +1036,12 @@ main.profile {
     border-radius: .6rem;
     z-index: 3;
     &:hover {background: $medium-purple; cursor: pointer;}
-    span {font-family: $regular; color: $lynch; font-size: 1.4rem; letter-spacing: .02em;}
+    span {font-family: $regular; color: $lynch; font-size: 1.4rem;}
     h5 {
       float: left;
       text-align: center;
       border-radius: .3rem;
-      padding: .25rem .4rem;
+      padding: .4rem .6rem;
       width: auto;
       font-family: $medium;
       font-size: 1.1rem;
@@ -1051,11 +1065,13 @@ main.profile {
         background: $derby;
       }
       &.proposition {
-        float: none;
-        margin-top: .2rem;
-        width: 14.4rem;
+        position: relative;
+        float: left;
+        margin: -1rem 0;
+        width: auto;
         color: $radical-red;
-        background: $mandys-pink;
+        padding: .4rem 0;
+        // background: $mandys-pink;
       }
     }
     .cell {
@@ -1080,20 +1096,28 @@ main.profile {
     margin-bottom: .5rem;
     &:hover {background: none;}
     .cell {
+      position: relative;
       margin-bottom: -1rem;
       padding: 0 2rem;
       min-height: auto;
-      font-size: 1.4rem;
-      &::after {
-        position: absolute;
-        margin: 0.5rem 0 0 0.2rem;
-        background: url('/icons/arrow.svg');
-        background-size: 1.2rem;
-        width: 1.2rem; height: 0.8rem;
-        content: '';
-        display: none;
+      font-size: 1.2rem;
+      cursor: auto;
+      span {
+        cursor: pointer;
+        &::after {
+          position: absolute;
+          margin-top: .35rem;
+          background-image: url('/icons/arrow.svg');
+          background-repeat: no-repeat;
+          background-size: 1.5rem;
+          width: 1.5rem; height: 1.5rem;
+          content: '';
+          filter: invert(100%) grayscale(100%) brightness(140%);
+        }
       }
-      &:first-child::after {display: none;}
+      span:hover, span:focus, span.checked {font-family: $medium; color: $cornflower-blue;}
+      span:hover::after, span:focus::after, span.checked::after {filter: invert(100%) brightness(50%) sepia(1) hue-rotate(210deg) saturate(4)}
+      &:first-child span::after {display: none;}
     }
     .checkbox {
       .checkmark {
@@ -1152,15 +1176,23 @@ main.profile {
   }
 }
 #tableau-clients {
+  .row_table.header {
+    .cell {
+      &:nth-child(1) {left: 0}
+      &:nth-child(2) {width: 8rem}
+    }
+  }
   .cell {
     &:nth-child(1) {left: -2rem; width: 1rem;}
     &:nth-child(2) {
-      float: left;
-      width: 24rem;
-      p {position: relative; left: 1.5rem; margin-top: .8rem; font-size: 1.6rem;}
-      div {height: 4rem; width: 4rem; border-radius: 50%; background: $lilac-bush; float: left;}
+      width: 6rem;
+      div {height: 4rem; width: 4rem; border-radius: 50%; background: $lilac-bush}
     }
-    &:nth-child(3) {padding-top: 2rem; width: calc(100% - 25rem); float: right; text-align: right;}
+    &:nth-child(3) {
+      width: 60%;
+      p {padding-top: .9rem}
+    }
+    &:nth-child(4) {padding-top: 2rem; float: right; text-align: right;}
   }
 }
 #tableau-tresorerie-recettes, #tableau-tresorerie-depenses {
@@ -1194,19 +1226,19 @@ main.profile {
 #tableau-contrats {
   .row_table.header {
     .cell {
-      &:nth-child(1) {width: 2rem;}
-      &:nth-child(2) {width: 14rem;}
-      &:nth-child(3) {width: calc(100% - 21rem);}
-      &:nth-child(4) {width: 20rem; text-align: right;}
-      &:nth-child(5) {padding-right: 3.5rem; width: 9rem; text-align: right; float: right;}
+      &:first-child {width: 2rem;}
+      &:nth-child(2) {width: 40%;}
+      &:nth-child(3) {width: 25%;}
+      &:nth-child(4) {width: 15%; text-align: right;}
+      &:nth-child(5) {width: 9rem; text-align: right; float: right;}
     }
   }
   .cell {
-    &:nth-child(1) {width: 2rem;}
-    &:nth-child(2) {width: 14rem;}
-    &:nth-child(3) {width: calc(100% - 21rem); font-family: $regular;}
-    &:nth-child(4) {width: 20rem; text-align: right;}
-    &:nth-child(5) {padding-right: 3.5rem; width: 9rem; text-align: right; float: right;}
+    &:first-child {width: 2rem;}
+    &:nth-child(2) {width: 40%; color: $tarawera}
+    &:nth-child(3) {width: 25%; font-family: $regular;}
+    &:nth-child(4) {width: 15%; text-align: right;}
+    &:nth-child(5) {width: 9rem; text-align: right; float: right;}
   }
 }
 #tableau-devis {
@@ -1432,38 +1464,23 @@ main.contrats {
 
 //Création de contrat
 main.creation-contrat {
+  button {margin-bottom: -1rem}
   .large-10 {
     h1 {position: relative; margin-bottom: 1rem;}
   }
   ol {
-    li {padding: 0.5rem 0 0.5rem 0; background: $porcelain;}
-    li:first-child {
-      border-bottom: 1px solid $iron;
+    li {
+      padding: 0.5rem 0 0.5rem 1rem;
+      background: $porcelain;
+      &:first-child {border-bottom: 1px solid $iron}
     }
   }
-  .step2 {
-    h3 {margin-bottom: 0;}
-  }
-  .close {
-    position: absolute;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    top: -2.5rem; right: -2.5rem;
-    height: 3.5rem; width: 3.5rem;
-    border-radius: 50%;
-    background: $athens-gray;
-    color: white;
-    font-size: 2rem;
-  }
   .info {
-    position: relative;
-    margin-top: 20%;
     padding: 2rem;
     font-size: 1.6rem;
     background: $blue-whale;
     color: white;
-    border-radius: 0.4rem;
+    border-radius: .4rem;
     &::before {
       position: absolute;
       margin: 0 0 0 -3.5rem;
@@ -1479,21 +1496,21 @@ main.creation-contrat {
     line-height: 1.2;
     span {
       padding: 0 2rem 0.5rem 0;
-      border-bottom: 1px dashed $lynch;
+      border-bottom: .1rem dashed $lynch;
       &::after {
         position: absolute;
         margin: 1.1rem 0 0 0.5rem;
         background: url('/images/drop-down-arrow.svg');
         background-size: 1rem;
         width: 1rem; height: 0.7rem;
-        content: '';
+        content: ''
       }
     }
     br {
       content: '';
       line-height: 0;
       display: block;
-      margin: 0.5rem 0;
+      margin: .5rem 0
     }
   }
   textarea, input {
@@ -1501,21 +1518,22 @@ main.creation-contrat {
     top: 0; left: 0;
     margin-top: 1rem;
     background: $porcelain;
-    border-radius: 0.4rem;
+    border-radius: 0.4rem
   }
-  textarea {margin-bottom: 2rem;}
+  textarea {margin-bottom: 2rem}
 }
 
 //Contrats
 main.contrat-edit {
   padding-top: 2rem;
-  .shadows {
-    box-shadow: 0px 0px 15px -4px rgba(50,27,70,0.1);
-  }
+  max-width: 82.5rem;
   p {font-size: 1.6rem;}
-  h2 {
-    margin: 2.5rem 0 0 0;
+  h1 {
     &.headline {padding: 0; margin: 6rem 0 6rem 0;}
+  }
+  h2 {
+    font-family: $medium;
+    margin: 2.5rem 0 0 0;
   }
   ul.status-contrat {
     position: relative;
@@ -1555,7 +1573,7 @@ main.contrat-edit {
       &:nth-child(4)::before {display: none;}
     }
   }
-  .container {padding: 2rem;}
+  .container {padding: 2rem 0;}
   .container-contrat {padding: 0rem 5rem 12rem 5rem;}
   .fait-le {position: relative; margin: 3rem 0 6rem 0;}
   .editable {background: $lemon-chiffon; color: $tarawera;}
@@ -1847,7 +1865,7 @@ main.proposition-edit, main.proposition-vue {
   display: flex;
   justify-content: center;
   transition: opacity .2s cubic-bezier(0.045, 0.715, 0.250, 1.000);
-  &>div {opacity: 0; z-index: 900;}
+  & > div {opacity: 0; z-index: 900;}
   .ReactModal__Overlay--after-open {opacity: 1;}
   .ReactModal__Overlay--before-close {opacity: 0;}
 }

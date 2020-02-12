@@ -14,6 +14,7 @@ export class Comptabilite extends React.Component {
     const yyyy = new Date().getFullYear();
     super(props);
     this.state = {
+      year: new Date().getFullYear(),
       factures: [],
       facturesCompta: [],
       annees: [yyyy, yyyy-1, yyyy-2, yyyy-3, yyyy-4],
@@ -428,6 +429,16 @@ export class Comptabilite extends React.Component {
       .then(res => this.callLivreRecettes(res))
   }
 
+  years() {
+    let years = [];
+    const date = new Date();
+    for (var i = 0; i < 5; i++) {
+      const year = date.getFullYear()-i;
+      years.push(<li onClick={(e) => this.setState({'year': year}, () => {this.onSortYear(e)})} className={this.state.year === year ? 'current' : ''}>{year}</li>);
+    }
+    return <ul className="year">{years}</ul>
+  }
+
   render() {
     return (
       <div>
@@ -438,27 +449,18 @@ export class Comptabilite extends React.Component {
               <div className="row-fluid">
                 <div className="large-6 columns">
                   <h1>Comptabilité</h1>
-                </div>
-                <div className="large-6 columns">
-                  <ul className="year">
-                      {this.state.annees.map((item) => {
-                        return (
-                          <li className="current" onClick={this.handleAnnee.bind(this, item)} key={item}>{item}</li>
-                        )
-                      })}
-                  </ul>
+                  {this.years()}
                 </div>
               </div>
             </section>
 
             <section className="section-2 container transparent">
               <div className="container shadows" id="tableau-comptabilite">
-                <h2 className="cornflower-blue">Année 2019</h2>
                 <table>
                   <td>
                     <h2>Trimestre 1, janvier - mars</h2>
                     <tr>
-                      <td><h4>Chiffre d'affaire</h4></td>
+                      <td><h5>Chiffre d'affaire</h5></td>
                       <td></td>
                       <td><p>{this.state.premierTrim.total}€</p></td>
                     </tr>
@@ -492,7 +494,7 @@ export class Comptabilite extends React.Component {
                   <td>
                     <h2>Trimestre 2, avril - juin</h2>
                     <tr>
-                      <td><h4>Chiffre d'affaire</h4></td>
+                      <td><h5>Chiffre d'affaire</h5></td>
                       <td></td>
                       <td><p>{this.state.deuxiemeTrim.total}€</p></td>
                     </tr>
@@ -526,7 +528,7 @@ export class Comptabilite extends React.Component {
                   <td>
                     <h2>Trimestre 3, juillet - septembre</h2>
                     <tr>
-                      <td><h4>Chiffre d'affaire</h4></td>
+                      <td><h5>Chiffre d'affaire</h5></td>
                       <td></td>
                       <td><p>{this.state.troisiemeTrim.total}€</p></td>
                     </tr>
@@ -560,7 +562,7 @@ export class Comptabilite extends React.Component {
                   <td>
                     <h2>Trimestre 4, octobre - décembre</h2>
                     <tr>
-                      <td><h4>Chiffre d'affaire</h4></td>
+                      <td><h5>Chiffre d'affaire</h5></td>
                       <td></td>
                       <td><p>{this.state.quatriemeTrim.total}€</p></td>
                     </tr>
@@ -589,77 +591,11 @@ export class Comptabilite extends React.Component {
                     />
                   </td>
                 </table>
-              </div>
-            </section>
-
-            <section className="section-3 container transparent table" id="tableau-recette-registre">
-              <div className="row-fluid">
-                <div className="large-6 columns">
-                  <h2>Livre des recettes</h2>
-                </div>
-                <div className="large-6 columns">
+                <div className="" style={{position: 'relative', margin: '0 auto', display: 'table'}}>
                   <button onClick={() => this.downloadLivreRecettes()} className="align-right">Télécharger le livre des recettes</button>
-                </div>
-              </div>
-              <div className="row_table header">
-                <div className="cell"><CheckBox /></div>
-                <div className="cell">Date</div>
-                <div className="cell">Client</div>
-                <div className="cell">Description</div>
-                <div className="cell">Réglement</div>
-                <div className="cell">Montant</div>
-              </div>
-
-              {this.state.factures.reverse().map((item) => {
-                return (
-                  <Link to={{pathname: "/factures/vue", numero: item.numero}} key={item.numero}>
-                    <div className="row_table shadows">
-                      <div className="cell"><CheckBox /></div>
-                      <div className="cell">{item.date}</div>
-                      <div className="cell">{item.entreprise}<br/><span>{item.numero}</span></div>
-                      <div className="cell">{item.titre}</div>
-                      <div className="cell">Virement bancaire</div>
-                      <div className="cell">{item.montant}€</div>
-                    </div>
-                  </Link>
-                )
-              })}
-
-            </section>
-
-            <section className="section-4 container transparent table" id="tableau-recette-registre">
-              <div className="row-fluid">
-                <div className="large-6 columns">
-                  <h2>Registre des achats</h2>
-                </div>
-                <div className="large-6 columns">
                   <button onClick={() => this.downloadRegistreAchats()} className="align-right">Télécharger le registre des achats</button>
                 </div>
               </div>
-              <div className="row_table header">
-                <div className="cell"><CheckBox /></div>
-                <div className="cell">Date</div>
-                <div className="cell">Client</div>
-                <div className="cell">Description</div>
-                <div className="cell">Réglement</div>
-                <div className="cell">Montant</div>
-              </div>
-
-              {this.state.factures.reverse().map((item) => {
-                return (
-                  <Link to={{pathname: "/factures/vue", numero: item.numero}} key={item.numero}>
-                    <div className="row_table shadows">
-                      <div className="cell"><CheckBox /></div>
-                      <div className="cell">{item.date}</div>
-                      <div className="cell">{item.entreprise}</div>
-                      <div className="cell">{item.titre}</div>
-                      <div className="cell">Virement bancaire</div>
-                      <div className="cell">{item.montant}€</div>
-                    </div>
-                  </Link>
-                )
-              })}
-
             </section>
           </main>
         </div>

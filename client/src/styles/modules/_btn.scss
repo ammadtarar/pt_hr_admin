@@ -20,8 +20,14 @@ button, .btn, input[type="submit"] {
   border: .1rem solid $cornflower-blue;
   box-shadow: none;
   color: white;
-  // box-shadow: 0px 2px 8px -3px rgba(50,27,70,0.45);
-  &:hover, &:focus, &:active {background:$lilac-bush; border-color: $lilac-bush; color: white;}
+  &.lien {padding: 0}
+  a {
+    display: block;
+    color: white;
+    padding: 0 1.5rem;
+  }
+  &:hover, &:focus, &:active {border-color: $iron; background: $iron; color: $tarawera}
+  &:hover a, &:focus a, &:active a {color: $tarawera}
   &.btn-secondary {
     position: absolute;
     left: 1rem; bottom: 10rem;
@@ -42,7 +48,7 @@ button, .btn, input[type="submit"] {
       filter: brightness(1000%);
       content: '';
     }
-    &:hover, &:focus, &:active {background: $lilac-bush; border-color: $lilac-bush;}
+    &:hover, &:focus, &:active {background: $victoria; border-color: $victoria;}
   }
   &.btn-third {
     background-color: transparent;
@@ -52,21 +58,22 @@ button, .btn, input[type="submit"] {
     &:hover, &:focus, &:active {border-color: $athens-gray; background-color: $athens-gray; color: $tarawera;}
   }
   &.btn-fourth {
-    padding-right: 4rem;
-    background-color: transparent;
-    color: $cornflower-blue;
-    border: .1rem solid $lilac-bush;
+    // padding-right: 4rem;
+    background-color: $athens-gray;
+    color: $tarawera;
+    border: .1rem solid $athens-gray;
     box-shadow: none;
-    &:hover, &:focus, &:active {border-color: $athens-gray; background: $athens-gray; color: $tarawera;}
-    &::after {
-      position: absolute;
-      margin: 1.6rem 0 0 1rem;
-      background: url('/icons/arrow.svg');
-      background-size: 1.6rem;
-      width: 1.6rem; height: 0.8rem;
-      content: '';
-      filter: brightness(10%);
-    }
+    &.lien {padding: 0}
+    a, &:hover a, &:focus a, &:active a {color: $tarawera}
+    // &::after {
+    //   position: absolute;
+    //   margin: 1.6rem 0 0 1rem;
+    //   background: url('/icons/arrow.svg');
+    //   background-size: 1.6rem;
+    //   width: 1.6rem; height: 0.8rem;
+    //   content: '';
+    //   filter: brightness(10%);
+    // }
   }
   &.btn-fifth {
     padding: 0 1.5rem;

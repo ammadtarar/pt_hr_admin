@@ -12,46 +12,56 @@ export class DevisPropositions extends React.Component {
   }
 
   componentDidMount() {
-    fetch('/devis-infos')
+    fetch('/data')
       .then(res => res.json())
-      .then(res => this.callDevis(res))
+      .then(res => {var devis = res.devis; this.callDevis(devis)})
   }
 
-  callDevis(res) {
-    const newState = [];
-    for (let item in res) {
-      //Formatage data
-      const date = new Date(res[item].date);
-      date.setDate(date.getDate());
-      const mois = [
-        "jan", "fév", "mars",
-        "avr", "mai", "juin", "juil",
-        "août", "sept", "oct",
-        "nov", "déc"
-      ];
-      const dateReformat = date.getDate() + ' ' + mois[date.getMonth()] + ' ' + date.getFullYear();
-
-      newState.push({
-        numero: item,
-        entreprise: res[item].entreprise,
-        date: dateReformat,
-        status: res[item].status,
-        dateStatus: res[item].dateStatus,
-        titre: res[item].titre,
-        montant: res[item].montant,
-        proposition: res[item].proposition
-      });
-    }
+  callDevis(devis) {
     this.setState({
-      devis: newState
-    });
+      'devis': devis
+    })
+  }
+
+  preventDragHandler = (e) => {
+    e.preventDefault();
+  }
+
+  onSortChange(e) {
+    e.persist()
+    const devis = this.state.devis;
+    if (devis) {
+      const order = this.state.order
+      const sorted = Object.values(devis).sort(function(a, b) {
+          return a[order] > b[order] ? 1 : (a[order] < b[order] ? -1 : 0)
+      })
+      const sortedDate = Object.values(devis).sort(function(a, b) {
+          return new Date(a.date) > new Date(b.date) ? 1 : (new Date(a.date) < new Date(b.date) ? -1 : 0)
+      })
+      if(order === 'date') {
+        this.setState({
+          'devis': this.state.previousOrder === order ? Object.values(devis).sort(function(a, b) {
+              return new Date(a.date) < new Date(b.date) ? 1 : (new Date(a.date) > new Date(b.date) ? -1 : 0)
+          }) : sortedDate
+        });
+      } else {
+        this.setState({
+          'devis': this.state.previousOrder === order ? Object.values(devis).sort(function(a, b) {
+              return a[order] < b[order] ? 1 : (a[order] > b[order] ? -1 : 0)
+          }) : sorted
+        });
+      }
+      this.state.previousOrder === order ? this.setState({previousOrder: ''}) : this.setState({previousOrder: order})
+    }
   }
 
   render() {
+    const devis = this.state.devis;
+
     return (
       <div>
         <Aside/>
-        <div className="wrapper">
+        <div className="wrapper" onDragStart={this.preventDragHandler}>
           <main className="devis">
             <section className="section-1 container transparent">
               <div className="row-fluid">
@@ -74,37 +84,47 @@ export class DevisPropositions extends React.Component {
             <section className="container transparent table" id="tableau-devis">
               <div className="row_table header">
                 <div className="cell"><CheckBox /></div>
-                <div className="cell">Émis le</div>
-                <div className="cell">Client</div>
-                <div className="cell">Description</div>
-                <div className="cell">Status</div>
-                <div className="cell">Montant</div>
+                <div className="cell"><span onClick={(e) => this.setState({order: 'date'}, () => {this.onSortChange(e)})} className={this.state.order === 'date' ? 'checked' : ''}>Date</span></div>
+                <div className="cell"><span onClick={(e) => this.setState({order: 'entreprise'}, () => {this.onSortChange(e)})} className={this.state.order === 'entreprise' ? 'checked' : ''}>Client</span></div>
+                <div className="cell"><span onClick={(e) => this.setState({order: 'titre'}, () => {this.onSortChange(e)})} className={this.state.order === 'titre' ? 'checked' : ''}>Description</span></div>
+                <div className="cell"><span onClick={(e) => this.setState({order: 'status'}, () => {this.onSortChange(e)})} className={this.state.order === 'status' ? 'checked' : ''}>Status</span></div>
+                <div className="cell"><span onClick={(e) => this.setState({order: 'montant'}, () => {this.onSortChange(e)})} className={this.state.order === 'montant' ? 'checked' : ''}>Montant</span></div>
               </div>
 
-              {this.state.devis.map((item) => {
-                if (Object.keys(item.proposition).length > 0) {
+              {Object.keys(devis).map((key, item, i) => {
+                const date = new Date(devis[key].date);
+                date.setDate(date.getDate());
+                const mois = [
+                  "jan", "fév", "mars",
+                  "avr", "mai", "juin", "juil",
+                  "août", "sept", "oct",
+                  "nov", "déc"
+                ];
+                const dateReformat = date.getDate() + ' ' + mois[date.getMonth()] + ' ' + date.getFullYear();
+
+                if (Object.keys(devis[key].proposition).length > 0) {
                   return (
-                    <Link to={{pathname: "/devis/vue-proposition", numero: item.numero}} key={item.numero}>
+                    <Link to={{pathname: "/devis/vue-proposition", numero: devis[key].numero}} key={devis[key].numero}>
                       <div className="row_table shadows">
                         <div className="cell"><CheckBox /></div>
-                        <div className="cell">{item.date}</div>
-                        <div className="cell">{item.entreprise}<br/><h5 className="proposition">Proposition commerciale</h5></div>
-                        <div className="cell">{item.titre}</div>
-                        <div className="cell"><h5 className={item.status}>{item.status}</h5></div>
-                        <div className="cell">{item.montant}€</div>
+                        <div className="cell">{dateReformat}</div>
+                        <div className="cell">{devis[key].entreprise}<br/><h5 className="proposition">Proposition commerciale</h5></div>
+                        <div className="cell">{devis[key].titre}</div>
+                        <div className="cell"><h5 className={devis[key].status}>{devis[key].status}</h5></div>
+                        <div className="cell">{devis[key].montant}€</div>
                       </div>
                     </Link>
                   )
                 } else {
                   return (
-                    <Link to={{pathname: "/devis/vue", numero: item.numero}} key={item.numero}>
+                    <Link to={{pathname: "/devis/vue", numero: devis[key].numero}} key={devis[key].numero}>
                       <div className="row_table shadows">
                         <div className="cell"><CheckBox /></div>
-                        <div className="cell">{item.date}</div>
-                        <div className="cell">{item.entreprise}<br/><span>{item.numero}</span></div>
-                        <div className="cell">{item.titre}</div>
-                        <div className="cell"><h5 className={item.status}>{item.status}</h5></div>
-                        <div className="cell">{item.montant}€</div>
+                        <div className="cell">{dateReformat}</div>
+                        <div className="cell">{devis[key].entreprise}<br/><span>{devis[key].numero}</span></div>
+                        <div className="cell">{devis[key].titre}</div>
+                        <div className="cell"><h5 className={devis[key].status}>{devis[key].status}</h5></div>
+                        <div className="cell">{devis[key].montant}€</div>
                       </div>
                     </Link>
                   )

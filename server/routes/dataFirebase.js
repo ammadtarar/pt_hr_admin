@@ -3,8 +3,8 @@ const app = express()
 const firebase = require("firebase")
 const database = firebase.database()
 
-app.get('/devis-infos', function(req, res, next) {
-  database.ref('abonnement/devis/').once('value', (snapshot) => {
+app.get('/data', function(req, res, next) {
+  database.ref('abonnement/').once('value', (snapshot) => {
     const val = snapshot.val()
     res.send(val);
   });

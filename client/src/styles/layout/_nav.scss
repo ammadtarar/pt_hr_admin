@@ -23,7 +23,7 @@ ul.menu {
      top: 1.1rem; left: 1.8rem;
      font-family: 'Font-icons' !important;
      speak: none;
-     color: white;
+     color: $cornflower-blue;
      font-weight: 600;
      text-transform: none;
      font-size: 2.9rem;
@@ -36,20 +36,28 @@ ul.menu {
    a {
      display: block;
      padding: 1.2rem 0 1.2rem 5.8rem;
-     color: white;
-     font-family: $regular;
+     color: $cornflower-blue;
+     font-family: $medium;
      font-size: 1.6rem;
      line-height: 1.2;
      text-decoration: none;
      z-index: 4;
-     span {color: $iron;}
+     span {
+       padding: .2rem .8rem;
+       font-size: 1.3rem;
+       border-radius: 2rem;
+       background-color: $polar;
+       color: $cornflower-blue;
+     }
    }
    &:hover, .is-active {
-      color: white;
-      a {color: white;}
-      &::after {color: white;}
+     background-color: $medium-purple;
+   }
+   &:hover, .is-active {
+      color: $cornflower-blue;
+      a {color: $cornflower-blue}
+      &::after {color: $cornflower-blue;}
     }
-    .is-active {font-family: $bold;}
   }
 }
 
@@ -119,7 +127,7 @@ ul.menu-options {
   padding: 2rem;
   width: auto; height: auto;
   border-radius: .6rem;
-  background: white;
+  background: $cornflower-blue;
   font-family: $medium;
   text-align: left;
   z-index: 10;
