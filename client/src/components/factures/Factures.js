@@ -179,7 +179,7 @@ export class Factures extends React.Component {
                   statusBar = <h5 className={factures[key].status}>{factures[key].reglement}</h5>
                 }
                 return (
-                  <Link to={{pathname: "/factures/vue", numero: factures[key].numero}} key={factures[key].numero}>
+                  <Link to={{pathname: "/factures/vue", numero: key}} key={key}>
                     <div className="row_table shadows">
                       <div className="cell"><CheckBox /></div>
                       <div className="cell">{dateReformat}</div>
