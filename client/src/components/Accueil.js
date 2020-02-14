@@ -1,11 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import database from '../firebase/firebase';
-import BarMontantEncaissement from './modules/BarMontantEncaissement';
-import ProgressBarPaiement from './modules/ProgressBarPaiement';
 import Aside from './Aside';
-import { Chart } from 'react-chartjs-2';
-import 'chartjs-plugin-annotation';
 
 export class Accueil extends React.Component {
   constructor() {
@@ -147,192 +142,19 @@ export class Accueil extends React.Component {
 
   //Ecnaissements
   callEncaissements() {
-    var today = new Date();
-    // var dd = today.getDate();
-    var mm = today.getMonth()+1;
-    var yyyy = today.getFullYear();
-    if(mm < 10) {
-      mm='0'+mm;
-    }
-    const month = yyyy + '-' + mm;
-    database.ref('abonnement/factures').orderByChild('dateStatus').startAt(month).on('value', (snapshot) => {
-      const factures = snapshot.val();
-      const newState = [];
-      var data = [];
-      var total = 0;
-
-      if (snapshot.exists()){
-        for (let item in factures) {
-          if(factures[item].status === 'payée') {
-            newState.push({
-              numero: item,
-              entreprise: factures[item].entreprise,
-              status: factures[item].status,
-              titre: factures[item].titre,
-              montant: factures[item].montant
-            });
-          }
-        }
-        //Total du ca trimestriel
-        snapshot.forEach(ss => {
-          if(ss.child('status').val() === 'payée') {
-            data.push(ss.child('montant').val());
-          }
-        });
-        for (var i = 0; i < data.length; i++) {
-          total += data[i]
-        }
-        this.setState({
-          encaissements: newState,
-          facturesMontantMax: Math.max(...data),
-          facturesTotal: total
-        });
-        if (mm >= 1 && mm <= 3) {
-          this.setState({
-            trimestre: '1 janvier au 31 mars ' + yyyy,
-            prochaineDeclaration: 'Prochaine déclaration du 1 au 31 avril'
-          });
-        } else if (mm >= 4 && mm <= 6) {
-          this.setState({
-            trimestre: '1 avril au 31 juin ' + yyyy,
-            prochaineDeclaration: 'Prochaine déclaration du 1 au 31 juillet'
-          });
-        } else if (mm >= 7 && mm <= 9) {
-          this.setState({
-            trimestre: '1 juillet au 31 septembre ' + yyyy,
-            prochaineDeclaration: 'Prochaine déclaration du 1 au 31 octobre'
-          });
-        } else if (mm >= 10 && mm <= 12) {
-          this.setState({
-            trimestre: '1 octobre au 31 décembre ' + yyyy,
-            prochaineDeclaration: 'Prochaine déclaration du 1 au 31 janvier'
-          });
-        }
-      } else {
-        this.setState({
-          facturesTotal: 0
-        });
-      }
-    });
   }
 
   //Impayés
   callImpayes() {
-    database.ref('abonnement/factures').orderByChild('status').equalTo('Impayée').on('value', (snapshot) => {
-      const impayés = snapshot.val();
-      const newState = [];
-      var data = [];
-      var total = 0;
 
-      if (snapshot.exists()){
-        for (let item in impayés) {
-          //Formatage date d'émission
-          const dateEmission = new Date(impayés[item].date);
-          var mm = dateEmission.getMonth() + 1;
-          var dateEmissionFormat = dateEmission.getDate() + '-' + mm + '-';
-
-          const datePaiementDu = new Date(impayés[item].date);
-          datePaiementDu.setDate(datePaiementDu.getDate() + impayés[item].delaiPaiement);
-
-          //Calcul nombre de jours restants ou retard du paiement
-          var date1 = new Date(impayés[item].date);
-          var date2 = new Date();
-          var tempsDiff = Math.abs(date2.getTime() - date1.getTime());
-          var diffJours = Math.ceil(tempsDiff / (1000 * 3600 * 24));
-
-          newState.push({
-            numero: item,
-            entreprise: impayés[item].entreprise,
-            status: impayés[item].status,
-            titre: impayés[item].titre,
-            date: impayés[item].dateEmissionFormat,
-            dateDue: impayés[item].dateDue,
-            delaiPaiement: impayés[item].delaiPaiement,
-            JoursRestantsPaiement: diffJours,
-            montant: impayés[item].montant
-          });
-        }
-        snapshot.forEach(ss => {
-           data.push(ss.child('montant').val());
-        });
-        for (var i = 0; i < data.length; i++) {
-          total += data[i]
-        }
-        this.setState({
-          impayés: newState,
-          impayésTotal: total
-        });
-      } else {
-        this.setState({
-          impayésTotal: 0
-        });
-      }
-    });
   }
 
   //Chiffre d'affaire par année
   callCA() {
-    var today = new Date();
-    var yyyy = today.getFullYear();
-    database.ref('abonnement/factures').orderByChild('dateStatus').startAt(yyyy).on('value', (snapshot) => {
-      const factures = snapshot.val();
-      const newState = [];
-      var data = [];
-
-      if (snapshot.exists()){
-        for (let item in factures) {
-          newState.push({
-            status: factures[item].status,
-            montant: factures[item].montant
-          });
-        }
-        snapshot.forEach(ss => {
-           data.push(ss.child('montant').val());
-        });
-      }
-    });
   }
 
   //Diagramme chiffre d'affaire
   callDiagramme() {
-    let object = this.state;
-    let canvas = document.querySelector('canvas');
-    let ctx = canvas.getContext('2d');
-    let width = window.innerWidth;
-    let gradientStrokeA = ctx.createLinearGradient(0, 400, 0, 100);
-    let gradientFillColorA = ctx.createLinearGradient(0, 0, width, 0);
-    let gradientStrokeB = ctx.createLinearGradient(0, 400, 0, 100);
-    let gradientFillColorB = ctx.createLinearGradient(0, 0, width, 0);
-    let gradientStrokeC = ctx.createLinearGradient(0, 400, 0, 100);
-    let gradientFillColorC = ctx.createLinearGradient(0, 0, width, 0);
-    let gradientStrokeD = ctx.createLinearGradient(0, 400, 0, 100);
-    let gradientFillColorD = ctx.createLinearGradient(0, 0, width, 0);
-
-    gradientStrokeA.addColorStop(0, '#ffffff');
-    gradientStrokeA.addColorStop(1, 'rgba(229, 225, 249, 0.7)');
-    gradientFillColorA.addColorStop(1, 'rgba(122, 109, 227, 1)');
-
-    gradientStrokeB.addColorStop(0, '#ffffff');
-    gradientStrokeB.addColorStop(1, 'rgba(113, 230, 217, 0.7)');
-    gradientFillColorB.addColorStop(1, 'rgba(0, 154, 138, 1)');
-
-    gradientStrokeC.addColorStop(0, '#ffffff');
-    gradientStrokeC.addColorStop(1, 'rgba(28, 67, 103, 0.7)');
-    gradientFillColorC.addColorStop(1, 'rgba(28, 67, 103, 1)');
-
-    gradientStrokeD.addColorStop(0, '#ffffff');
-    gradientStrokeD.addColorStop(1, 'rgba(244, 92, 92, 0.7)');
-    gradientFillColorD.addColorStop(1, 'rgba(244, 92, 92, 1)');
-
-    object.data.datasets['0'].backgroundColor = gradientStrokeA;
-    object.data.datasets['0'].borderColor = gradientFillColorA;
-    object.data.datasets['1'].backgroundColor = gradientStrokeB;
-    object.data.datasets['1'].borderColor = gradientFillColorB;
-    object.data.datasets['2'].backgroundColor = gradientStrokeC;
-    object.data.datasets['2'].borderColor = gradientFillColorC;
-    object.data.datasets['3'].backgroundColor = gradientStrokeD;
-    object.data.datasets['3'].borderColor = gradientFillColorD;
-    new Chart(ctx, this.state);
   }
 
   componentDidMount() {
@@ -386,22 +208,6 @@ export class Accueil extends React.Component {
                   <h4 className="tarawera">{(this.state.facturesTotal - (this.state.facturesTotal / 100) * 24.2).toFixed(2)}€</h4>
                   <p className="lynch">Bénéfice</p>
                 </div>
-
-                {this.state.encaissements.map((item) => {
-                  return (
-                    <div className="row" key={item.numero}>
-                      <Link to={{pathname: "/factures/vue", numero: item.numero}}>
-                      <div className="large-7 columns">
-                        <p><strong>{item.entreprise}</strong><br/> {item.titre}</p>
-                      </div>
-                      <div className="large-5 columns">
-                        <BarMontantEncaissement montant={item.montant} width={ item.montant / (this.state.facturesMontantMax / 100)}/>
-                      </div>
-                      </Link>
-                    </div>
-                  )
-                })}
-
               </div>
             </section>
 
@@ -414,21 +220,6 @@ export class Accueil extends React.Component {
                   <h3 className="radical-red">2030€</h3>
                   <p className="lynch">En retard</p>
                 </div>
-                {this.state.impayés.map((item) => {
-                  return (
-                    <div className="row" key={item.numero}>
-                      <Link to={{pathname: "/factures/vue", numero: item.numero}}>
-                      <div className="large-7 columns">
-                        <p><strong>{item.entreprise}</strong><br/> {item.titre}</p>
-                      </div>
-                      <div className="large-5 columns">
-                        <ProgressBarPaiement status={item.status} joursRestantsPaiement={item.JoursRestantsPaiement} delaiPaiement={item.delaiPaiement}/>
-                      </div>
-                      </Link>
-                    </div>
-                  )
-                })}
-
               </div>
             </section>
 
