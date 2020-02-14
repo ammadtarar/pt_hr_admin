@@ -27,6 +27,16 @@ export class DevisPropositions extends React.Component {
     e.preventDefault();
   }
 
+  years() {
+    let years = [];
+    const date = new Date();
+    for (var i = 0; i < 5; i++) {
+      const year = date.getFullYear()-i;
+      years.push(<li onClick={(e) => this.setState({'year': year}, () => {this.onSortYear(e)})} className={this.state.year === year ? 'current' : ''}>{year}</li>);
+    }
+    return <ul className="year">{years}</ul>
+  }
+
   onSortChange(e) {
     e.persist()
     const devis = this.state.devis;
@@ -67,16 +77,11 @@ export class DevisPropositions extends React.Component {
               <div className="row-fluid">
                 <div className="large-5 columns">
                   <h1>Devis et propositions commerciales</h1>
+                  {this.years()}
                 </div>
                 <div className="large-7 columns">
                   <Link to="/devis/creer"><button className="align-right">Créer un devis</button></Link>
                   <Link to="/devis/edit-proposition"><button className="align-right">Créer une proposition commerciale</button></Link>
-                  <ul className="year">
-                    <li className="current">2019</li>
-                    <li>2018</li>
-                    <li>2017</li>
-                    <li>2016</li>
-                  </ul>
                 </div>
               </div>
             </section>

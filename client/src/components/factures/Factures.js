@@ -8,6 +8,7 @@ export class Factures extends React.Component {
   constructor() {
     super();
     this.state = {
+      year: new Date().getFullYear(),
       order: '',
       currentPage: 1,
       todosPerPage: 9,
@@ -83,6 +84,16 @@ export class Factures extends React.Component {
     }
   }
 
+  years() {
+    let years = [];
+    const date = new Date();
+    for (var i = 0; i < 5; i++) {
+      const year = date.getFullYear()-i;
+      years.push(<li onClick={(e) => this.setState({'year': year}, () => {this.onSortYear(e)})} className={this.state.year === year ? 'current' : ''}>{year}</li>);
+    }
+    return <ul className="year">{years}</ul>
+  }
+
   render() {
     const factures = this.state.factures
 
@@ -131,13 +142,7 @@ export class Factures extends React.Component {
             </section>
 
             <section className="section-3 container transparent table" id="tableau-factures">
-              <h2>Toutes les factures</h2>
-              <ul className="year">
-                <li className="current">2019</li>
-                <li>2018</li>
-                <li>2017</li>
-                <li>2016</li>
-              </ul>
+              {this.years()}
               <div className="row_table header">
                 <div className="cell"><CheckBox /></div>
                 <div className="cell order"><span onClick={(e) => this.setState({order: 'date'}, () => {this.onSortChange(e)})} className={this.state.order === 'date' ? 'checked' : ''}>Émis le</span></div>

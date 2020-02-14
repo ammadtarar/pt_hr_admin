@@ -6,14 +6,9 @@ const PORT = process.env.PORT || 8081
 const cookieParser = require('cookie-parser')
 const logger = require('morgan')
 const cors = require('cors')
-const firebase = require('./firebase/firebase')
-const CircularJSON = require('circular-json')
 const app = express()
 const server = require('http').createServer(app)
-const io = require('socket.io')(server)
-const socketSyncBanque = require('./socket-sync-banque')(io)
 const cluster = require('cluster')
-const dotenv = require('dotenv').config()
 const numCPUs = require('os').cpus().length
 const isDev = process.env.NODE_ENV !== 'production'
 
@@ -31,45 +26,9 @@ if (!isDev && cluster.isMaster) {
   });
 
 } else {
-  app.use(cors());
-  app.use(logger("dev"));
-  app.use(express.json());
-  app.use(express.urlencoded({ extended: false }));
-  app.use(cookieParser());
-  app.use(express.static(path.resolve(__dirname, '../client/build')));
-
   server.listen(PORT, () => {
     console.error(`Node ${isDev ? 'dev server' : 'cluster worker '+process.pid}: listening on port ${PORT}`);
-  });
-
-  app.use(require('./routes/dataFirebase'))
-  app.use(require('./routes/clients'))
-  app.use(require('./routes/impayees'))
-  app.use(require('./routes/tresorerie'))
-  app.use(require('./routes/comptes'))
-  app.use(require('./routes/compte-infos'))
-  app.use(require('./routes/carte-bancaire'))
-
-  // All remaining requests return the React app, so it can handle routing.
-  app.get('*', function(request, response) {
-    response.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
-  });
-
-  // catch 404 and forward to error handler
-  app.use(function(req, res, next) {
-    next(createError(404));
-  });
-
-  // error handler
-  app.use(function(err, req, res, next) {
-    // set locals, only providing error in development
-    res.locals.message = err.message;
-    res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-    // render the error page
-    res.status(err.status || 500);
-    res.render('error');
-  });
+  })
 }
 
 module.exports = app;
