@@ -14,9 +14,14 @@
     "client/node_modules"
   ],
   "dependencies": {
+    "cluster": "^0.7.7",
     "cookie-parser": "^1.4.4",
     "cors": "^2.8.5",
-    "morgan": "^1.9.1"
+    "express": "^4.17.1",
+    "http": "0.0.0",
+    "morgan": "^1.9.1",
+    "os": "^0.1.1",
+    "path": "^0.12.7"
   },
   "repository": {
     "type": "git",
