@@ -1,17 +1,12 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 import Header from '../components/Header';
 
 export class Dashboard extends React.Component {
-  constructor () {
-    super()
-  }
-
   componentDidMount() {
   }
 
   preventDragHandler = (e) => {
-    e.preventDefault();
+    e.preventDefault()
   }
 
   render() {

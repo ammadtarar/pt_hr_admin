@@ -1,39 +1,11 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
-// import {Power2, TimelineMax} from "gsap/TweenMax";
 
 export class Login extends React.Component {
-  constructor () {
-    super()
-  }
-
   componentDidMount() {
-    // const head = document.querySelector('head')
-    // const script = document.createElement('script')
-    // script.setAttribute('src', 'https://cdn.jsdelivr.net/npm/gsap@3.0.1/dist/gsap.min.js')
-    // head.appendChild(script)
-    //
-    // const head2 = document.querySelector('head')
-    // const script2 = document.createElement('script')
-    // script2.setAttribute('src', 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/16327/MorphSVGPlugin3.min.js')
-    // head2.appendChild(script2)
-    //
-    // var tl = new TimelineMax({repeat:-1, yoyo: true})
-    //
-    // var s1 = document.getElementById("shape1")
-    // var s2 = document.getElementById("shape2")
-    // var s3 = document.getElementById("shape3")
-    //
-    // tl.set(s1, {css: {fill: "#FFF"}})
-    // .set(s3, {css: {fill: "none"}})
-    // .set(s2, {css: {fill: "none"}})
-    // .to(s1, 9, {morphSVG: s2})
-    // .to(s1, 9, {morphSVG: s3})
-    // .to(s1, 9, {morphSVG: s1})
   }
 
   preventDragHandler = (e) => {
-    e.preventDefault();
+    e.preventDefault()
   }
 
   onSubmit = (e) => {

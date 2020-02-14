@@ -1,17 +1,13 @@
 import React from 'react'
-import { NavLink, Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import Header from '../components/Header';
 
 export class Cooptation extends React.Component {
-  constructor () {
-    super()
-  }
-
   componentDidMount() {
   }
 
   preventDragHandler = (e) => {
-    e.preventDefault();
+    e.preventDefault()
   }
 
   render() {

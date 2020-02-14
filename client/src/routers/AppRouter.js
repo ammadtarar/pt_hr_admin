@@ -1,15 +1,10 @@
 import React from 'react'
-import { connect } from 'react-redux'
-import { Redirect, BrowserRouter, Route, Switch } from 'react-router-dom'
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import Login from '../pages/Login'
 import Dashboard from '../pages/Dashboard'
 import Cooptation from '../pages/Cooptation'
 
 export class AppRouter extends React.Component {
-  constructor () {
-    super()
-  }
-
   render() {
     const userRoutes = [
       {
