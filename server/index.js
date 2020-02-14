@@ -37,42 +37,6 @@ if (!isDev && cluster.isMaster) {
     console.error(`Node ${isDev ? 'dev server' : 'cluster worker '+process.pid}: listening on port ${PORT}`);
   });
 
-  // Socket IO real-time
-  io.on('connection', (client) => {
-    client.on('send email', (data) => {
-
-      let transport = nodemailer.createTransport({
-        host: 'ssl0.ovh.net',
-        port: 587,
-        secure: false,
-        auth: {
-          user: 'donotreply@luxus-private.com',
-          pass: '173pTdRBMWc'
-        },
-        tls:{
-          ciphers:'SSLv3'
-        }
-      });
-
-      const message = {
-        from: data.email,
-        to: data.mainContactEmail ? data.mainContactEmail : 'pierre.barbe@luxus-private.com, stan.roquette@luxus-private.com',
-        cc: data.mainContactEmail ? 'pierre.barbe@luxus-private.com, stan.roquette@luxus-private.com' : '',
-        subject: `Luxus dashboard - ${data.subject}`,
-        text: data.message
-      };
-
-      transport.sendMail(message, function(err, info) {
-        if (err) {
-          console.log(err)
-        } else {
-          console.log(info);
-        }
-      })
-
-    })
-  });
-
   // All remaining requests return the React app, so it can handle routing.
   app.get('*', function(request, response) {
     response.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
