@@ -2,6 +2,7 @@
   "name": "Pushtalents",
   "version": "1.0.0",
   "private": true,
+  "author": "Julien Lucas - www.julienlucas.com",
   "dependencies": {
     "foundation-sites": "^6.5.3",
     "node-sass": "^4.12.0",
