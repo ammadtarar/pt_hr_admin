@@ -1,4 +1,4 @@
-export const signup = ({ clientKey } = {}) => ({
+export const signup = ({ user } = {}) => ({
   type: 'SIGNUP',
-  clientKey
+  user
 });

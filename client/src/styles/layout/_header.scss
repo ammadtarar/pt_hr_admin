@@ -2,4 +2,58 @@
    Layout/Header
    ======================= */
 header {
+  position: fixed;
+  top: 0;
+  background: white;
+  height: 7rem; width: 100vw;
+  box-shadow: 0 .2rem 1.6rem rgba(33, 57, 80, 0.1);
+  z-index: 2;
+  .logo {
+    position: relative;
+    top: 1.5rem;
+    div {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 4rem; height: 4rem;
+      background-color: $denim;
+      border-radius: 50%;
+    }
+  }
+  nav {
+    position: absolute;
+    top: 0; left: 8rem;
+    ul {
+      display: inline-block;
+      li {
+        margin: 0 4.5rem 0 0;
+        display: inline-block;
+        font-family: $regular-heebo;
+        font-size: $font-size-base;
+        line-height: 7rem;
+        border-bottom: .3rem solid transparent;
+        a {color: $raven; display: block; padding-left: 3.3rem;}
+        &:hover {
+          line-height: calc(7rem - .3rem);
+          border-color: $casablanca;
+          a {color: $cloud-burst}
+        }
+        &::after {
+          position: absolute;
+          top: 50%;
+          transform: translateY(calc(-50% - .7rem));
+          background-image: url('/icons/dashboard.svg');
+          background-repeat: no-repeat;
+          background-position: center center;
+          background-size: 1.8rem;
+          width: 1.8rem; height: 1.8rem;
+          content: '';
+        }
+        &.dashboard::after {background-image: url('/icons/dashboard.svg')}
+        &.recompenses::after {background-image: url('/icons/recompenses-b.svg')}
+        &.cooptation::after {background-image: url('/icons/cooptation.svg')}
+        &.communication::after {background-image: url('/icons/communication.svg')}
+      }
+    }
+  }
 }

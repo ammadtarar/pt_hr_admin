@@ -1,1839 +1,182 @@
 html {font-size: 62.5%; scroll-behavior: smooth}
 * {box-sizing: border-box}
-::selection {background: #8464d9; color: white;}
-
-.row, .row-fluid {
-  position: relative;
-  margin: 0 auto;
-  padding: 0;
-  width: 100%;
-  .columns:first-child {padding-left: 0}
-  .columns:last-child {padding-right: 0}
-}
-.columns {position: relative; z-index: 1}
+::selection {background: $cloud-burst; color: white;}
 
 body {
   padding: 0;
   margin: 0;
   overflow-x: hidden;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  &.overlay::before {
-    position: absolute;
-    width: 100vw; height: 100%;
-    background: $revolver;
-    opacity: .16;
-    content: '';
-    z-index: 9;
-  }
 }
-
-hr {max-width:100%; margin: 1rem 0; border-top: .1rem solid $porcelain; border-bottom: 0;}
 
 //Alignements
-.align-right {float: right; margin: 0 0 2rem 2rem;}
-.align-left {float: left; margin: 0 2rem 2rem 0;}
+.align-right {float: right}
+.align-left {float: left}
 .align-center {position: relative; margin: 0 auto; display: table;}
 
-//Box's
-.box-logo {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 5rem; width: 5rem;
-  background: $cornflower-blue;
-  border-radius: 50%;
-  img {width: 80%;}
+//liens
+a {
+  transition: all .03s cubic-bezier(0.045, 0.715, 0.250, 1.000);
 }
-.box-synthese {
-  position: relative;
-  float: left;
-  p {
-    margin-top: 0rem;
-    font-size: 1.4rem;
-    font-family: $medium;
-  }
-  h3 {font-size: 3rem;}
-  h2, h3 {
-    margin-top: 0;
-    padding: 0;
-    margin-bottom: 0;
-    padding-bottom: 0;
-  }
-}
-.box-ca-total {
-  position: relative;
-  float: right;
-  text-align: right;
-  p {
-    margin-top: 0rem;
-    font-size: 1.4rem;
-    font-family: $medium;
-    text-align: right;
-    &:nth-of-type(2) {margin-bottom: -.5rem;}
-  }
-  h3 {
-    font-size: 3rem;
-    margin-bottom: 0;
-    padding-bottom: 0;
-  }
-  h4 {margin-bottom: -.1rem;}
-}
-.box-signature-prestataire {padding-top: 3rem;}
-.box-signature {
-  padding-top: .4rem;
-  font-size: 1rem;
-  font-family: $medium;
-  text-align: center;
-  color: #9d2624;
-  width: 12rem; height: 5rem;
-  border-radius: .6rem;
-  background: $koromiko url('/icons/sign-icon.svg') center 70%;
-  background-repeat: no-repeat;
-  background-size: 2.5rem;
-  cursor: pointer;
-  &:hover::before {
-    position: absolute;
-    left: 13.5rem; right: 0;
-    margin: -1.5rem auto 0 auto;
-    padding: 0 .7rem;
-    background: $blue-whale;
-    border-radius: .6rem;
-    font-size: 1.4rem;
-    width: 17rem;
-    color: white;
-    content:'Obligatoire — signer ici';
-  }
-}
-.box-popup {
-  margin-bottom: 1rem;
-  padding: 4rem 5rem 0 5rem;
-  border-bottom: .1rem solid $porcelain;
-}
-.box-popup-buttons {
-  width: 100%;
-  padding: .5rem 5rem 0rem 5rem;
-  .btn {top: 0;}
-}
-
-//Ul + ol
-ul {
-  &.year {
-    position: relative;
-    margin: 3rem 0 -3rem -.5rem;
-    li {
-      display: inline-block;
-      list-style: none;
-      font-family: $regular;
-      font-size: 1.4rem;
-      line-height: 1;
-      padding: 0 .7rem;
-      color: $lynch;
-      border-right: .1rem solid $porcelain;
-      cursor: pointer;
-      &:hover, &:focus, &.current {color: $cornflower-blue; font-family: $medium;}
-      &:last-child {border-right: none; padding-right: 0;}
-    }
-  }
-  &.pagination {
-    position: relative;
-    margin: 2rem auto 0 auto;
-    display: table;
-    li {
-      margin: 0 .4rem;
-      width: 2rem; height: 2rem; line-height: 2rem;
-      border-radius: .3rem;
-      font-size: 1.6rem;
-      color: $lynch;
-      // background-color: $solitude;
-      text-decoration: none;
-      text-align: center;
-      cursor: pointer;
-      &:hover {color: $cornflower-blue;}
-    }
-  }
-}
-
-// Containers
-.wrapper {
-  width: calc(100% - 26rem); height: 100vh;
-  float: right;
-  background-color: $polar;
-  overflow-y: scroll;
-  &.initialisation {
-    width: calc(100% - 50rem);
-  }
-}
-section {
-  position: relative;
-  background: $polar;
-  padding: 6rem;
-  margin-bottom: 4rem;
-  z-index: 2;
-}
-aside {
-  position: relative;
-  padding-top: 8rem;
-  width: 26rem; height: 100vh;
-  float: left;
-  background: white;
-  content: '';
-  z-index: 3;
-  &.inscription {
-    background: $cornflower-blue;
-    width: 50rem;
-    padding: 0 7rem;
-    .box-item {
-      position: relative;
-      margin: 0 auto;
-      display: table;
-      top: 50%;
-      transform: translateY(-50%);
-    }
-    .deja-compte {
-      position: absolute;
-      left: 0; right: 0;
-      margin: 0 auto;
-      bottom: 4rem;
-      text-align: center;
-      font-family: $regular;
-      a {
-        color: $revolver;
-        &:hover {filter: brightness(122%)}
-      }
-    }
-  }
-  p {
-    font-size: 1.4rem;
-    font-family: $medium;
-    left: 2rem;
-    color: $cornflower-blue;
-    &:nth-child(3) {font-size: 1.4rem; color: $lynch}
-    &.chiffre-affaire {margin: -1rem 0 .2rem 0; font-size: 3rem; font-family: $bold; color: $cornflower-blue;}
-  }
-  .open-sub-menu {
-    position: relative;
-    left: 2rem;
-    cursor: pointer;
-    &:hover + ul.sub-menu {display: block; opacity: 1; visibility: visible;}
-  }
-  h3 {color: $victoria;}
-  .logo {
-    position: relative;
-    margin: 0 auto 3rem auto;
-    display: table;
-    width: 19rem;
-    filter: brightness(30%) contrast(120%) sepia(1) saturate(6) hue-rotate(210deg);
-  }
-  .image-profile {
-    border-radius: 50%;
-    width: 4rem; height: 4rem;
-    border: .2rem solid white;
-  }
-  .row {
-    [class*='lg-']:last-child {padding-left: 0;}
-    p {
-      left: 0rem;
-      display: flex;
-      align-items: center;
-      height: 4rem;
-      &::after {
-        position: absolute;
-        right: 7rem; margin-top: .5rem;
-        background: url('/icons/arrow.svg');
-        background-repeat: no-repeat;
-        background-size: 1.5rem;
-        width: 1.5rem; height: 1rem;
-        content: '';
-        filter: brightness(15%) contrast(53%) sepia(1) saturate(3) hue-rotate(220deg);
-      }
-    }
-  }
-}
-main {
-  position: relative;
-  margin: 0 auto;
-  padding-top: 8rem;
-  padding-bottom: 16rem;
-  display: table;
-  width: 100%;
-  &.proposition-edit, &.devis-edit, &.facture-edit {
-    .container {max-width: 110rem;}
-  }
-  .container {padding: 4rem;}
-  .section-2 {
-    position: relative;
-    margin-top: 1.5rem;
-  }
-}
-.container {
-  position: relative;
-  margin: 0 auto 5rem auto;
-  display: table;
-  max-width: 100rem; width: 100%;
-  border-radius: .6rem;
-  background: white;
-  &.transparent {
-    background: transparent;
-    padding: 0;
-    margin-bottom: 0;
-    box-shadow: none;
-  }
-}
-.container-recents-factures {display: none;}
-.container-paper {
-  position: relative;
-  max-width: 825px;
-  textarea:focus, input:focus {background: none;}
-}
-.container-editable {
-  &:hover input, &:active input, &:focus input, &:hover textarea, &:focus textarea, &:active textarea {
-    border-radius: 0.4rem;
-    background: $medium-purple;
-    border-color: $blue-tomance;
-    box-shadow: none;
-  }
-  &:hover .garbage {display: block;}
-}
-.container-status-facture, .container-status-devis {
-  position: relative;
-  margin: 1rem 0 2rem 0;
-  padding: 0.8rem 0;
-  width: 100%;
-  z-index: 2;
-  &.Envoyée, &.Brouillon {background: $porcelain}
-  &.Visionnée, &.Visionné, &.Envoyé {background: $derby}
-  &.Payée, &.Signé {background: $frost}
-  &.Impayée {background: $carousel-pink}
-  p, h3 {
-    position: relative;
-    margin: 0 auto;
-    display: table;
-    max-width: 96rem; width: 100%
-  }
-  p {left: -2rem; font-family: $regular}
-  span {
-    padding-right: 1rem;
-    font-size: 2rem;
-    font-family: $medium;
-    text-transform: uppercase
-  }
-  &.Envoyée span, &.Brouillon span {color: $lynch}
-  &.Visionnée span, &.Visionné span, &.Envoyé span {color: $koromiko}
-  &.Payée span, &.Signé span {color: $lima}
-  &.Impayée span {color: $rose-bud}
-}
-.container-facture, .container-devis {
-  position: relative;
-  max-width: 825px;
-  box-shadow: 0px 0px 15px -4px rgba(50,27,70,0.1);
-  border-radius: 5px;
-  p {position: relative; margin-top: -1rem; font-size: 1.6rem}
-  ul li {font-size: 1.6rem}
-  .row-1 {
-    height: 21rem;
-  }
-  .row-2 {
-    height: 23rem;
-    h2 {font-family: $bold; font-size: $h1-size}
-    .large-6 {border-top: .1rem solid $porcelain; padding: 2rem 0 2.5rem 0;}
-    .row {
-      .large-6 {border: 0; padding: 0;}
-    }
-  }
-  .row-3 {height: auto; min-height: 16rem; padding-top: 1.5rem; border-top: .3rem solid $cornflower-blue;}
-  .row-4, .row-5, .row-6, .row-7 {padding: 2rem 0 2.5rem 0;}
-  .row-4 {margin-top: 1.5rem; height: 8.5rem; border-top: 1px solid $porcelain;}
-  .row-5 {
-    height: 6.5rem; border-top: 1px solid $porcelain;
-    .large-6 {padding-top: 0.5rem;}
-  }
-  .row-6 {
-    height: 12rem; border-top: 1px solid $porcelain;
-  }
-  .row-7 {padding: 7rem 0 6rem 0;}
-}
-
-//Icones et images
-.icon-stripe {
-  position: relative;
-  margin-top: -2.3rem;
-  width: 7rem;
-}
-.icon-paypal {
-  position: relative;
-  margin: -2.3rem 0 2rem 0;
-  width: 9rem;
-}
-.icon-credit-card {
-  margin: -.2rem 0.1rem 0 0.1rem;
-  width: 4rem;
-  border: 1px solid transparent;
-  border-radius: 3px;
-}
-.icon-email {
-  width: 3rem; height: 1.5rem;
-  filter: contrast(30%) brightness(200%);
-}
-.garbage {
-  position: absolute;
-  display: none;
-  right: 2rem; top: calc(50% - 1.5rem);
-  mask-image: url('/icons/garbage.svg');
-  background-color: #808080;
-  background-size: 1.5rem;
-  width: 1.5rem; height: 1.5rem;
-  content: '';
-  transition: all .15s cubic-bezier(0.045, 0.715, 0.250, 1.000);
-  &:hover {background-color: #111;}
-}
-.box-logo-devis {
-  position: relative;
-  display: flex;
-  align-items: center;
-  width: 100%; height: 100%;
-  img {max-width: 17rem; width: auto}
-}
-.logo-devis-empty {min-width: 25rem;}
-
-//couleurs
-.tarawera {color: $tarawera;}
-.blanc {color: white;}
-.iron {color: $iron;}
-.lynch {color: $lynch;}
-.cornflower-blue {color: $cornflower-blue;}
-.rose-bud {color: $rose-bud;}
-.radical-red {color: $radical-red;}
-.carousel-pink {color: $carousel-pink;}
-.editable {color: $cornflower-blue;}
 
 //Typographies
-a, a:hover {color: $cornflower-blue; transition: all .15s cubic-bezier(0.045, 0.715, 0.250, 1.000);}
-strong {font-family: $medium; font-weight: 400;}
-.medium {font-family: $medium}
-.bold {font-family: $bold}
-p, ul li, ol li, label, input, textarea, button, h1, h2, h3, h4, h5, h6 {
+hr {
   position: relative;
-  font-family: $regular;
-  font-size: 1.6rem;
-  line-height: 1.33;
-  color: $tarawera;
+  border-top: .1rem solid $mischka;
+  margin: 2rem 0;
 }
-h1, h2, h3, h4, h5, h6 {
-  line-height: 1.1;
-  color: $tarawera;
-}
-ol {
-  position: relative;
-  padding-left: 2rem;
+p, ul li, ol li, label, input, button, h1, h2, h3, h4, h5, h6 {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 150%;
 }
 p {
-  &.s-size {font-size: $s-size;}
-  &.m-size {font-size: $m-size;}
-  &.l-size {font-size: $l-size;}
-  &.xl-size {font-size: $xl-size;}
-  &.sub-text {position: relative; margin-top: -1.3rem;}
-  &.obligatoire {position: absolute; font-size: 1.4rem; margin-top: 7rem;}
-  &.description {position: relative; margin: 0 auto 1.5rem auto; display: table; max-width: 42rem;}
-  &.version {
-    position: absolute;
-    left: 0; right: 0;
-    margin: 0 auto;
-    bottom: 2.5rem;
-    font-size: 1.4rem;
-  }
-  &.signature {
-    padding-left: 1.6rem;
-    text-align: left;
-    font-size: 2.4rem;
-    font-family: $halohandletter;
-    z-index: 3;
-    &.signature-validated {margin-top: 2.7rem}
-    &::before {
-      position: absolute;
-      padding: .2rem;
-      margin: -2.4rem 0 0 .8rem;
-      font-family: $bold;
-      font-size: 1.2rem;
-      background: white;
-      content: 'Signé par:';
-      z-index: 3;
-    }
-    &::after {
-      position: absolute;
-      margin-top: -1.4rem;
-      left: 0;
-      height: 5.5rem; width: 5rem;
-      border: .2rem solid $cornflower-blue;
-      border-right: 0;
-      border-radius: 1.2rem;
-      content: '';
-      z-index: 1;
-    }
-    &.signature-paraphe {
-      &::before {content: 'FA';}
-    }
-  }
-  &.signature-id {
-    position: absolute;
-    margin: -1.2rem 0 0 3.5rem;
-    padding: .2rem;
-    font-size: 1rem;
-    background: white;
-    z-index: 4;
-  }
-  &.enveloppe-id {
-    top: -1rem;
-    font-size: 1rem;
-  }
-  &.prix {
-    margin: 0 auto;
-    top: -2rem;
-    letter-spacing: -0.02em;
-    display: table;
-    font-size: 8.5rem;
-    font-family: $bold;
-    color: $cornflower-blue;
-    sup {
-      top: -4rem;
-      font-size: 2.5rem;
-      font-family: $regular;
-    }
-    span {
-      position: relative;
-      padding-bottom: 2.5rem;
-      letter-spacing: 0;
-      font-size: 1.6rem;
-      font-family: $medium;
-      color: $cornflower-blue;
-    }
-  }
-  &.nom-formule {
-    position: relative;
-    margin: 0 auto;
-    display: table;
-    font-size: 3rem;
-    font-family: $medium;
-    color: $cornflower-blue;
-  }
-  &.anti-spam {
-    position: relative;
-    top: -2.5rem;
-    margin: 0 auto;
-    display: table;
-    font-size: 1.3rem;
-  }
-  &.pagination {
-    position: relative;
-    padding: 1.5rem 3rem 0 3rem;
-    color: $lynch;
-    font-size: 1.6rem;
-    span {font-weight: 400;}
-  }
-  &.retour {
-    position: relative;
-    left: 2rem;
-    font-family: $medium;
-    font-size: 1.6rem;
-    color: $tarawera;
-    &::before {
-      position: absolute;
-      margin-left: -2.2rem; margin-top: .4rem;
-      background: url('/icons/arrow-right.svg');
-      background-size: 1.5rem;
-      width: 1.5rem; height: 1.5rem;
-      content: '';
-    }
-    &:hover {
-      color: $cornflower-blue;
-      &::before {filter: brightness(35%) sepia(1) saturate(3) hue-rotate(194deg);}
-    }
-  }
-  &.numero-facture {margin-top: .5rem; font-size: 1.6rem; letter-spacing: 0.02em; text-align: left; color: $lynch;}
+  color: $cloud-burst;
+  font-family: $regular-heebo;
+  font-size: $font-size-base;
 }
 h1 {
-  margin: 0;
+  font-family: $bold-poppins;
   font-size: $h1-size;
-  font-family: $bold;
+  letter-spacing: -0.01em;
+  line-height: 140%;
+  &.headline {
+    color: white;
+  }
 }
 h2 {
-  padding-bottom: 1rem;
   font-size: $h2-size;
-  font-family: $regular;
-  &.headline {font-size: $h1-size; font-family: $medium;}
+  font-family: $regular-light;
 }
 h3 {
   font-size: $h3-size;
-  &.headline {font-size: $h2-size; font-family: $bold;}
-  &.prevision-taxes {font-family: $medium; padding: .5rem 0 2rem 0;}
-  &.sub-headline {margin: -.5rem 0 1.5rem 0; font-size: 1.6rem; font-family: $medium;}
+  font-family: $regular-poppins;
 }
-h4 {font-size: $h4-size; font-family: $medium;}
-h5 {
-  font-size: $h5-size;
-  font-family: $medium;
+h4 {
+  font-size: $h4-size;
+  font-family: $bold-poppins;
+  &.regular {font-family: $regular-heebo; color: $cloud-burst; font-size: 1.5rem}
 }
+h5 {font-size: $h5-size;}
 
-// Forms
-textarea, input {
+//Forms
+label {
+  color: $cloud-burst;
+  font-family: $bold-heebo;
+  font-size: $font-size-base;
+}
+input[type="text"], input[type="email"], input[type="password"] {
   position: relative;
-  top: -1rem; left: -0.4rem;
-  width: 100%; height: auto;
-  font-size: 1.6rem;
+  margin: .5rem 0 0 0;
+  height: 4rem; min-width: 45rem;
+  line-height: 4rem;
+  font-size: $font-size-base;
+  color: $raven;
   border: 0;
-  resize: none;
+  border-bottom: .1rem solid $raven;
   box-shadow: none;
-  appearance: none;
-  &.medium {font-family: $medium}
-  &::placeholder { color: $tarawera !important;}
-  &:hover {border: 0;}
-  &:focus, &:hover, &:active {
-    border-radius: 0.4rem;
-    background: $medium-purple;
-    border-color: white;
-    box-shadow: none;
-  }
-}
-input {
-  padding-left: 0.3rem;
-  padding-right: 0.3rem;
-  margin-bottom: 0.4rem;
-  &[name='telephone']::before {
-    position: absolute;
-    width: 5rem; height: 4rem;
-    background: red;
-    border-right: .1rem solid $porcelain;
-    content: '';
-  }
+  &::placeholder {color: $raven !important;}
+  &:hover, &:focus, &:active {border: 0; border-bottom: .1rem solid $raven; box-shadow: none;}
 }
 
-//Reactivation
-main.reactivation {
-  position: absolute;
-  top: 0; left: 0;
-  width: 100vw;
-  background: $polar;
-  z-index: 4;
-}
-
-//Login screen
-main.login {
-  position: absolute;
-  top: 0; left: 0;
-  display: flex;
-  align-items: center;
-  height: 100vh; width: 100vw;
-  background: $cornflower-blue;
-  // background-image: linear-gradient(to right bottom, #624799, #6f54a6, #7d61b3, #8a6ec0, #987ccd);
-  z-index: 4;
-  .box-item {
-    position: relative;
-    margin: 0 auto;
-    display: table;
-    width: 100%;
-    form {
-      position: relative;
-      margin: 4rem auto 2rem auto;
-      display: table;
-      width: 100%; max-width: 40rem;
-      input[type="text"], input[type="email"], input[type="password"] {
-        padding-left: 2rem;
-        height: 5.5rem;
-        line-height: 5.5rem;
-        border-radius: .4rem;
-        border: 0;
-        box-shadow: none;
-        font-size: $h4-size;
-        color: $revolver;
-        &.has-error {
-          background: $big-pink;
-          border: 1px solid $radical-red;
-          border-bottom-width: 2px;
-          color: $radical-red;
-          &::placeholder {color: $radical-red !important; opacity: 1 !important;}
-        }
-        &::placeholder {color: $revolver !important; opacity: 1 !important;}
-      }
-      button, input[type="submit"] {
-        position: relative;
-        left: -.4rem; top: -1rem;
-        height: 5.5rem; width: 100%;
-        line-height: 5.5rem;
-        border-radius: .4rem;
-        border: none;
-        font-size: $h4-size;
-        font-family: $regular;
-        background: $revolver;
-        color: white;
-        cursor: pointer;
-        transition: all .15s cubic-bezier(0.045, 0.715, 0.250, 1.000);
-        &:hover {filter: brightness(122%)}
-      }
-    }
-  }
-  p {position: relative; margin: 0 auto; display: table; font-size: 1.6rem; max-width: 40rem;}
-  h2, h5 {
-    position: relative;
-    margin: -2rem auto 0 auto;
-    display: table;
-  }
-  h1 {font-family: $bold; color: white; margin-top: 5rem; margin-bottom: 2.5rem;}
-  h5 {font-size: 1.4rem;}
-  .link {
-    color: $revolver;
-    &:hover {filter: brightness(122%);}
-  }
-  .logo {
-    position: relative;
-    margin: 0 auto 3rem auto;
-    display: flex;
-    justify-content: center;
-    width: 16rem
-  }
-}
-
-//Initialisation
-main.initialisation {
-  .section-1 {
-    position: relative;
-    margin-top: -11.5rem;
-    left: -6rem;
-    ul.avancement {
-      position: fixed;
-      margin-top: -2rem;
-      left: 50rem;
-      width: 100%;
-      border-bottom: .1rem solid $porcelain;
-      z-index: 2;
-      li {
-        margin: 0 2rem;
-        padding: 1.5rem 0;
-        display: inline-block;
-        font-size: 1.4rem;
-        &:first-child {margin-left: 4rem;}
-        &.checked {border-bottom: .3rem solid $cornflower-blue; color: $cornflower-blue;}
-      }
-    }
-  }
-  .section-2 {
-    position: fixed;
-    top: 9rem;
-    width: calc(100% - 50rem);
-    z-index: 1;
-    .container {padding: 0; max-width: 72rem;}
-    input, select#custom-select {left: 0rem;}
-    button {margin-top: 2.3rem;}
-  }
-  &.entreprise {
-    label:first-child {margin-bottom: 1.5rem}
-    input {margin-bottom: .3rem}
-  }
-  &.coordonnees {
-    label {margin-bottom: 2rem}
-  }
-  &.termine {
-    p {padding-bottom: 3rem}
-  }
-}
-
-//Dashbord
-main.dashboard, main.inscription-config {
-  position: relative;
-  padding-left: 5rem; padding-right: 5rem;
-  div.container {padding: 4rem 4rem 3.5rem 4rem;}
-  .section-1 {margin-bottom: 4rem;}
-  .section-2, .section-3 {
-    .row {
-      float: left;
-      margin-bottom: 1.5rem;
-      max-width: 60rem; width: 100%;
-      &:last-child {margin-bottom: 0;}
-      h2 {font-family: $regular;}
-      strong {color: $tarawera;}
-    }
-    .row p {font-size: 1.6rem; color: $lynch;}
-  }
-  .section-3 {
-    .box-ca-total {
-      h2 {color: $radical-red;}
-    }
-  }
-  .section-4 {
-    ul.year {
-      position: absolute;
-      left: 18rem;
-      margin-top: 0.7rem;
-    }
-    .row-fuild {max-width: 60rem;}
-    .container {
-      h2 {font-size: 3.2rem; margin-bottom: 0; padding-bottom: 0;}
-      p {margin-top: -.3rem; font-size: 1.4rem; font-family: $medium;}
-    }
-  }
-}
-
-//Recommandations
-main.recommandations {
-  .section-2 {
-    h2 {position: relative; margin: 0 auto; display: table; max-width: 56rem;}
-    p {
-      margin-top: 1rem;
-    }
-    form {
-      position: relative;
-      margin: 3.5rem auto 0 auto;
-      display: table;
-      max-width: 52rem; width: 100%;
-      input {
-        position: relative;
-        margin-bottom: 1.5rem;
-        width: 100%; height: 4rem;
-        color: $tarawera;
-        background: white;
-        padding: 0 0 0 1.5rem;
-        border: .1rem solid $porcelain;
-        border-radius: .3rem;
-        box-shadow: none;
-        font-size: 1.6rem;
-        font-family: $regular;
-        line-height: 4rem;
-        &.lien-recommandation {
-          position: relative;
-          margin: 0 auto;
-          max-width: 52rem;
-          padding: 1rem;
-          display: table;
-        }
-        &[type="submit"] {
-          top: -1rem;
-          background: $cornflower-blue;
-          color: white;
-          border: 0;
-          font-family: $medium;
-          cursor: pointer;
-          &:hover {filter: brightness(120%);}
-        }
-      }
-      button {
-        &.btn-copy {
-          margin: -4.8rem 0 0 0;
-          padding: 0 1rem;
-          float: right;
-          min-height: 4rem; height: 4rem;
-          line-height: 3.8rem;
-          border-top-left-radius: 0;
-          border-bottom-left-radius: 0;
-          &:hover {
-            background: $cornflower-blue;
-            border: .1rem solid $cornflower-blue;
-            filter: brightness(120%)
-          }
-        }
-      }
-    }
-  }
-}
-
-//Vue client
-main.client-vue {
-  div.container {padding: 4rem 4rem 1.5rem 4rem;}
-  h1 {margin-top: 3rem; left: -5.2rem;}
-  .section-2 {
-    .container {padding: 4rem;}
-    .large-2 {max-width: 12rem;}
-    .large-4 p {position: relative; margin-top: -1rem;}
-    img {
-      height: 9rem; width: 9rem;
-      padding: 1rem;
-      border-radius: .7rem;
-      box-shadow: 0px 0px 12px -2px rgba(50,27,70,0.1);
-    }
-  }
-  .section-3 {
-    button {
-      max-width: 16rem; width: 100%;
-      box-shadow: none;
-    }
-    .row-fluid {
-      padding: 0; margin: 0;
-      .large-2 {
-        position: relative;
-        padding: 0;
-        margin: 0 -.5rem 0 0;
-        &:nth-child(2) button {border-bottom-right-radius: 0; border-top-right-radius: 0;}
-        &:nth-child(3) button, &:nth-child(4) button, &:nth-child(5) button {border-radius: 0;}
-        &:last-child button {border-bottom-left-radius: 0; border-top-left-radius: 0;}
-        &:last-child {
-          left: -3rem;
-        }
-      }
-      &:last-child {
-        &:last-child button {border-bottom-right-radius: .4rem; border-top-right-radius: .4rem;}
-      }
-    }
-  }
-}
-
-//Trésorerie
-main.banque-synchronisation {
-  .section-2 {
-    p {margin-top: 5rem}
-  }
-  .section-3 {
-    padding: 2rem 0 0 0;
-    button.btn-fifth {
-      position: relative;
-      margin-right: 2rem;
-    }
-  }
-}
-main.banque, main.banque-synchronisation {
-  .section-2 {
-    &.container {padding-bottom: 2rem;}
-    button {margin-top: 1rem;}
-    p {
-      span {color: $cornflower-blue}
-    }
-    #custom-select {
-      margin-bottom: 4rem;
-    }
-    .logos-clients {
-      position: relative;
-      margin: 0 auto;
-      padding: 1.5rem 0;
-      width: 100%;
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(19rem, 1fr));
-      grid-gap: 2rem;
-      justify-content: center;
-      .box-logo-banque {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex: 1 0 15rem;
-        padding: 0 2rem;
-        height: 7rem;
-        border-radius: .6rem;
-        border: .1rem solid $porcelain;
-        cursor: pointer;
-        transition: all .2s cubic-bezier(0.045, 0.715, 0.250, 1.000);
-        img {max-height:4.5rem; height: 100%;}
-        &:hover {box-shadow: 0px 0px 15px -4px rgba(50,27,70,0.15)}
-      }
-    }
-  }
-  .section-3 {
-    margin-bottom: 5rem;
-  }
-  button {margin-top: -.5rem;}
-}
-
-//Comptabilité
-main.comptabilite {
-  .section-1, .section-3, .section-4 {
-    ul.year {
-      margin-bottom: 1.5rem;
-    }
-    .row-fuild {max-width: 100%;}
-  }
-  .section-2 {
-    .container {padding: 3rem 4rem;}
-    table {
-      position: relative;
-      margin-bottom: 4rem;
-      &:last-child {margin-bottom: 0;}
-      td:last-child {
-        width: 15rem;
-        .charts-compta {
-          position: absolute;
-          right: -2.5rem; bottom: 3rem;
-        }
-      }
-      tr {
-        position: relative;
-        border-bottom: .1rem solid $porcelain;
-        padding: 1rem 0 0.9rem 0;
-        display: flex;
-        align-items: center;
-        p, h2 {margin-bottom: 0; padding-bottom: 0;}
-        h4 {font-family: $regular;}
-        p {text-transform: uppercase; font-size: 1.2rem; font-family: $medium; color: $lynch;}
-        &:first-child, &:last-child {border-bottom: 0;}
-        &:first-child {
-          margin-bottom: 1.5rem;
-          border-bottom: .3rem solid $cornflower-blue;
-
-          // h2 {font-size: 1.4rem; text-transform: uppercase;}
-        }
-        &:nth-child(2) {padding-bottom: 0;}
-        &:nth-child(2) td:last-child p {color: $tarawera;}
-        &:nth-child(4) {border-bottom: .3rem solid $porcelain;}
-        &:last-child {
-          td {
-            &:first-child p {text-transform: none; font-family: $bold; font-size: 1.4rem; color: $tarawera;}
-            &:nth-child(2) p {font-family: $bold; color: $tarawera;}
-            &:last-child p {font-family: $bold; color: $cornflower-blue;}
-          }
-        }
-        td {
-          width: calc(100% - 12rem);
-          &:nth-child(2) {
-            width: 6rem; text-align: right;
-            // p {color: $tarawera;}
-          }
-          &:last-child {width: 7.5rem; text-align: right;}
-        }
-      }
-    }
-  }
-  .section-3 {margin-bottom: 5rem;}
-  .section-3, .section-4 {
-    button {margin-top: -.7rem;}
-  }
-}
-
-//Profile entreprise & utilisateur
-main.profile-entreprise, main.integration-apps, main.profile, main.client-vue {
-  section {padding-bottom: 2rem}
-  .row-fluid {min-height: 5.5rem}
-  label {
-    position: relative;
-    display: flex;
-    align-items: center;
-    float: left;
-    width: 100%; height: 4rem;
-    margin-top: -1.3rem;
-    &.adresse {position: absolute; top: 0; left: 0;}
-  }
-  select#custom-select {top: -1rem; left: -.4rem;}
-  [class*='large-'] {
-    p {float: left;}
-  }
-}
-
-//Profile
-main.profile {
-  .image-profile-big {
-    position: relative;
-    margin-bottom: 3rem;
-    border-radius: 50%;
-    width: 11rem; height: 11rem;
-  }
-  .section-2 {
-    p {margin-top: -2rem; margin-bottom: 2.3rem; color: $cornflower-blue;}
-  }
-}
-
-//Tableau
-#tableau-devis, #tableau-factures, #tableau-contrats, #tableau-clients, #tableau-recette-registre, #tableau-tresorerie-recettes, #tableau-tresorerie-depenses, #tableau-comptes {
-  .row_table {
-    position: relative;
-    padding: 0;
-    width: 100%;
-    display: table;
-    background: white;
-    margin-top: .7rem;
-    border-radius: .6rem;
-    z-index: 3;
-    &:hover {background: $medium-purple; cursor: pointer;}
-    span {font-family: $regular; color: $lynch; font-size: 1.4rem;}
-    h5 {
-      float: left;
-      text-align: center;
-      border-radius: .3rem;
-      padding: .4rem .6rem;
-      width: auto;
-      font-family: $medium;
-      font-size: 1.1rem;
-      color: white;
-      &.Signé, &.Payée {
-        position: absolute;
-        top: calc(50% - .8rem);
-        color: $eastern-blue;
-        background: $monte-carlo;
-      }
-      &.Brouillon {
-        position: absolute;
-        top: calc(50% - .8rem);
-        color: $lynch;
-        background: $porcelain;
-      }
-      &.Visionné, &.Envoyé {
-        position: absolute;
-        top: calc(50% - .8rem);
-        color: $gold-tips;
-        background: $derby;
-      }
-      &.proposition {
-        position: relative;
-        float: left;
-        margin: -1rem 0;
-        width: auto;
-        color: $radical-red;
-        padding: .4rem 0;
-        // background: $mandys-pink;
-      }
-    }
-    .cell {
-      display: table-cell;
-      vertical-align: middle;
-      padding: 1rem 2rem;
-      min-height: 5rem;
-      color: $lynch;
-      font-size: 1.6rem;
-      line-height: 1.2;
-      br {
-        content: '';
-        line-height: 0;
-        display: block;
-        margin: 0.2rem 0;
-      }
-    }
-  }
-  .row_table.header {
-    background: transparent;
-    border: none;
-    margin-bottom: .5rem;
-    &:hover {background: none;}
-    .cell {
-      position: relative;
-      margin-bottom: -1rem;
-      padding: 0 2rem;
-      min-height: auto;
-      font-size: 1.2rem;
-      cursor: auto;
-      span {
-        cursor: pointer;
-        &::after {
-          position: absolute;
-          margin-top: .35rem;
-          background-image: url('/icons/arrow.svg');
-          background-repeat: no-repeat;
-          background-size: 1.5rem;
-          width: 1.5rem; height: 1.5rem;
-          content: '';
-          filter: invert(100%) grayscale(100%) brightness(140%);
-        }
-      }
-      span:hover, span:focus, span.checked {font-family: $medium; color: $cornflower-blue;}
-      span:hover::after, span:focus::after, span.checked::after {filter: invert(100%) brightness(50%) sepia(1) hue-rotate(210deg) saturate(4)}
-      &:first-child span::after {display: none;}
-    }
-    .checkbox {
-      .checkmark {
-        background: white;
-      }
-    }
-  }
-  .checkbox {
-    position: absolute;
-    top: calc(50% - .6rem);
-    cursor: pointer;
-    font-size: 1.6rem;
-    user-select: none;
-    z-index: 4;
-    input {
-      position: absolute;
-      opacity: 0;
-      cursor: pointer;
-      height: 0; width: 0;
-      &:checked ~ .checkmark {
-        background-color: $cornflower-blue;
-        &:after {display: block;}
-      }
-    }
-    &:hover input ~ .checkmark {background-color: $cornflower-blue;}
-    .checkmark {
-      position: absolute;
-      top: 0; left: 0;
-      height: 1.2rem; width: 1.2rem;
-      border-radius: .2rem;
-      background: $polar;
-      &:after {
-        left: 9px; top: 5px;
-        width: 5px; height: 10px;
-        border-width: 0 3px 3px 0;
-        transform: rotate(45deg);
-      }
-    }
-  }
-}
-#tableau-comptes {
-  .row_table {
-    border: .1rem solid $porcelain;
-    &.checked {
-      background: $cornflower-blue;
-      .cell, .cell:nth-child(2).credit, .cell:nth-child(2).debit {color: white}
-    }
-    .cell {
-      &:nth-child(1) {}
-      &:nth-child(2) {
-        text-align: right;
-        &.credit {color: $shamrock}
-        &.debit {color: $radical-red}
-      }
-    }
-  }
-}
-#tableau-clients {
-  .row_table.header {
-    .cell {
-      &:nth-child(1) {left: 0}
-      &:nth-child(2) {width: 8rem}
-    }
-  }
-  .cell {
-    &:nth-child(1) {left: -2rem; width: 1rem;}
-    &:nth-child(2) {
-      width: 6rem;
-      div {height: 4rem; width: 4rem; border-radius: 50%; background: $lilac-bush}
-    }
-    &:nth-child(3) {
-      width: 60%;
-      p {padding-top: .9rem}
-    }
-    &:nth-child(4) {padding-top: 2rem; float: right; text-align: right;}
-  }
-}
-#tableau-tresorerie-recettes, #tableau-tresorerie-depenses {
-  .row_table.header {
-    .cell {
-      &:nth-child(1) {width: 15rem;}
-      &:nth-child(2) {width: 13rem;}
-      &:nth-child(3) {width: calc(100% - 70rem);}
-      &:nth-child(4) {width: 26rem;}
-    }
-  }
-  .cell {
-    cursor: default;
-    &:nth-child(1) {width: 15rem;}
-    &:nth-child(2) {width: 13rem;}
-    &:nth-child(3) {width: calc(100% - 70rem);}
-    &:nth-child(4) {width: 26rem;}
-  }
-}
-#tableau-tresorerie-recettes {
-  .row_table:not(.header) {
-    .cell:nth-child(2) {color: $shamrock}
-    .cell:nth-child(2).depense {color: $tarawera}
-  }
-}
-#tableau-tresorerie-depenses {
-  .row_table:not(.header) {
-    .cell:nth-child(2) {color: $tarawera}
-  }
-}
-#tableau-contrats {
-  .row_table.header {
-    .cell {
-      &:first-child {width: 2rem;}
-      &:nth-child(2) {width: 40%;}
-      &:nth-child(3) {width: 25%;}
-      &:nth-child(4) {width: 15%; text-align: right;}
-      &:nth-child(5) {width: 9rem; text-align: right; float: right;}
-    }
-  }
-  .cell {
-    &:first-child {width: 2rem;}
-    &:nth-child(2) {width: 40%; color: $tarawera}
-    &:nth-child(3) {width: 25%; font-family: $regular;}
-    &:nth-child(4) {width: 15%; text-align: right;}
-    &:nth-child(5) {width: 9rem; text-align: right; float: right;}
-  }
-}
-#tableau-devis {
-  .row_table:not(.header){
-    .cell {
-      &:nth-child(3), &:nth-child(6) {color: $tarawera;}
-    }
-  }
-  .cell {
-    &:nth-child(1) {width: 2rem}
-    &:nth-child(2) {width: 15rem; padding-left: 1rem; color: $lynch}
-    &:nth-child(3) {width: calc(23rem);}
-    &:nth-child(4) {width: auto}
-    &:nth-child(5) {width: 17.5rem; text-align: right; font-size: 1.4rem}
-    &:nth-child(6) {width: 7rem; text-align: right;}
-  }
-}
-#tableau-recette-registre {
-  .row_table.header {
-    .cell:nth-child(3) {color: $lynch;}
-  }
-  .cell {
-    &:nth-child(1) {width: 2rem;}
-    &:nth-child(2) {width: 15rem;}
-    &:nth-child(3) {width: 17rem;}
-    &:nth-child(4) {width: calc(100% - 61rem);}
-    &:nth-child(5) {width: 20rem;}
-    &:nth-child(6) {width: 8rem; text-align: right;}
-  }
-}
-.section-3#tableau-recette-registre {
-  .row_table:not(.header) {
-    .cell:nth-child(6) {color: $shamrock}
-  }
-}
-.section-4#tableau-recette-registre {
-  .row_table:not(.header) {
-    .cell:nth-child(6) {color: $tarawera}
-  }
-}
-#tableau-factures {
-  .row_table:not(.header){
-    .cell {
-      &:nth-child(3), &:nth-child(6) {color: $tarawera;}
-    }
-  }
-  .cell {
-    &:nth-child(1) {width: 2rem}
-    &:nth-child(2) {width: 15rem; padding-left: 1rem;}
-    &:nth-child(3) {width: calc(23rem);}
-    &:nth-child(4) {width: auto}
-    &:nth-child(5) {width: 17.5rem; text-align: right; font-size: 1.4rem}
-    &:nth-child(6) {width: 7rem; text-align: right;}
-  }
-}
-
-//Abonnement
-main.abonnement {
-  p, h2 {position: relative; margin: 0 auto; display: table;}
-  p {margin-top: 1rem; max-width: 80rem;}
-  .section-2 {
-    margin-bottom: 0;
-    ul.formule-specs {
-      position: relative;
-      left: 3rem;
-      padding: 1rem 0 1rem 0;
-      li {
-        list-style: none;
-        padding-bottom: 1rem;
-        &::before {
-          position: absolute;
-          margin-left: -3rem; margin-top: .3rem;
-          background: url('/icons/valide.svg');
-          background-size: 2rem;
-          width: 2rem; height: 2rem;
-          content: '';
-        }
-      }
-    }
-    [class*='lg-']:first-child {
-      padding: 3rem; margin: 5rem 0 0 0;
-      ul.formule-specs li::before {filter: brightness(0%);}
-    }
-    [class*='lg-']:last-child {
-      padding: 3rem; margin: 0;
-      ul.formule-specs li::before {filter: brightness(1000%);}
-      ul.formule-specs li {color: white;}
-    }
-  }
-  .section-3 {
-    .container {border-top: none;}
-    h3 {margin-top: 5rem; font-size: $h2-size; font-family: $medium;}
-  }
-}
-
-//Tabulations
-ul.tab-factures {
-  position: relative;
-  margin: 2rem auto -0rem auto;
-  z-index: 3;
-  li {
-    padding: .4rem 1.2rem 0.2rem 1.2rem;
-    list-style: none;
-    display: inline-block;
-    font-size: 1.6rem;
-    background: #eff0f1;
-    border-top-left-radius: .6rem;
-    border-top-right-radius: .6rem;
-    box-shadow: 0px 0px 11px -8px rgba(50,27,70,.7);
-    cursor: pointer;
-    &:first-child {margin-left: 0;}
-    &.active {background: white;}
-  }
-}
-ul.tab-abonnement, ul.switcher {
-  position: relative;
-  margin: 2rem auto;
-  display: table;
-  li {
-    padding: 0.23rem 2rem 0 2rem;
-    list-style: none;
-    height: 3rem;
-    border: .1rem solid $porcelain;
-    display: inline-block;
-    color: $lynch;
-    font-size: 1.6rem;
-    font-family: $medium;
-    cursor: pointer;
-    &.selected {background: $porcelain; color: $tarawera;}
-    &.selected:hover {background: $porcelain; color: $tarawera;}
-    &:hover {background: $iron; color: $tarawera;}
-    &:first-child {border-top-left-radius: 2.5rem; border-bottom-left-radius: 2.5rem; border-right: none;}
-    &:last-child {border-top-right-radius: 2.5rem; border-bottom-right-radius: 2.5rem; border-left: none;}
-  }
-}
-ul.switcher {
-  li {
-    &.selected {background: $cornflower-blue; color: white; border: .1rem solid $cornflower-blue;}
-  }
-}
-.tab-content {
+//Container
+.container {
   position: relative;
   margin: 0 auto;
-  margin-top: 7rem;
   display: table;
-  [class*='lg-'] {
-    padding: 3rem;
-    box-shadow: 0px 0px 12px -2px rgba(50,27,70,0.2);
-  }
-  [class*='lg-']:first-child {
-    position: relative;
-    margin-top: 8%;
-    border-top-left-radius: .4rem;
-    border-bottom-left-radius: .4rem;
-    height: auto;
-  }
-  [class*='lg-']:last-child {
-    position: relative;
-    background: #ac92de;
-    border-radius: .4rem;
-    left: -1px;
-    height: auto;
-    overflow: hidden;
-    &::before {
-      position: absolute;
-      left: -85%; top: -25rem;
-      background: white;
-      width: 270%; height: 45rem;
-      border-radius: 60%;
-      border: .1rem solid $porcelain;
-      content: '';
-    }
+  max-width: 160rem; width: 100%;
+}
+.columns {float: none; display: inline-block; vertical-align: top}
+.row-fluid {
+  h3 {margin-bottom: 1.5rem;}
+  [class*='large-4'] {
+    &:nth-of-type(1) {padding: 0 1.5rem 0 0}
+    &:nth-of-type(2) {padding: 0 1.5rem}
+    &:nth-of-type(3) {padding: 0 0 0 1.5rem}
   }
 }
 
-//Factures
-main.factures {
-  .container-synthese {
-    padding: 0;
-    .row-fluid {
-      padding: 4rem 4rem 2rem 4rem;
-      p {font-size: 1.4rem; font-family: $medium;}
-      .rafraichir {font-family: $regular;}
-      h3 {position: relative; margin-top: -1rem;}
-    }
-    .row-fluid:nth-child(2) {
-      min-height: 4rem;
-      padding: 1rem 4rem;
-      background: $medium-purple;
-      border-bottom-left-radius: .6rem;
-      border-bottom-right-radius: .6rem;
-      p {
-        position: relative;
+//Images & icones
+img {
+  &.rejeter {cursor: pointer}
+}
+
+//Common main
+main:not(.login) {
+  position: relative;
+  margin-top: 7rem;
+  background-color: white;
+  height: 100%; min-height: calc(100vh - 7rem); width: 100%;
+  padding: 5rem;
+  z-index: 1;
+}
+
+//Login
+main.login {
+  [class*='large'] {
+    height: 100vh;
+    &:first-child {
+      padding: 6rem;
+      width: 68.6rem;
+      .logo {position: absolute}
+      .box-item {
         display: flex;
         align-items: center;
-        height: 100%;
-        font-size: 1.4rem;
-        font-family: $regular;
+        height: calc(100vh - 12.5rem); width: 100%;
+        label {margin-top: 4rem}
+        .note {margin: 2rem 0 6rem 0; font-size: 1.3rem}
       }
     }
-  }
-  ul.year {
-    margin-bottom: 3rem;
-  }
-}
-
-//Vue facture
-main.facture-vue {
-  padding-top: 6rem;
-  input {margin-top: .7rem}
-  textarea {margin-top: 1.4rem}
-}
-
-//Contrats
-main.contrats {
-  .section-1 {margin-bottom: 4rem;}
-}
-
-//Création de contrat
-main.creation-contrat {
-  button {margin-bottom: -1rem}
-  .large-10 {
-    h1 {position: relative; margin-bottom: 1rem;}
-  }
-  ol {
-    li {
-      padding: 0.5rem 0 0.5rem 1rem;
-      background: $porcelain;
-      &:first-child {border-bottom: 1px solid $iron}
-    }
-  }
-  .info {
-    padding: 2rem;
-    font-size: 1.6rem;
-    background: $blue-whale;
-    color: white;
-    border-radius: .4rem;
-    &::before {
-      position: absolute;
-      margin: 0 0 0 -3.5rem;
-      width: 0; height: 0;
-      border-style: solid;
-      border-width: 1.5rem 1.5rem 1.5rem 0;
-      border-color: transparent $blue-whale transparent;
-      content: '';
-    }
-  }
-  h3 {
-    margin-bottom: 3.5rem;
-    line-height: 1.2;
-    span {
-      padding: 0 2rem 0.5rem 0;
-      border-bottom: .1rem dashed $lynch;
-      &::after {
+    &:last-child {
+      width: calc(100% - 68.6rem);
+      background-color: $cloud-burst;
+      img {
         position: absolute;
-        margin: 1.1rem 0 0 0.5rem;
-        background: url('/images/drop-down-arrow.svg');
-        background-size: 1rem;
-        width: 1rem; height: 0.7rem;
-        content: ''
-      }
-    }
-    br {
-      content: '';
-      line-height: 0;
-      display: block;
-      margin: .5rem 0
-    }
-  }
-  textarea, input {
-    position: relative;
-    top: 0; left: 0;
-    margin-top: 1rem;
-    background: $porcelain;
-    border-radius: 0.4rem
-  }
-  textarea {margin-bottom: 2rem}
-}
-
-//Contrats
-main.contrat-edit {
-  padding-top: 2rem;
-  max-width: 82.5rem;
-  p {font-size: 1.6rem;}
-  h1 {
-    &.headline {padding: 0; margin: 6rem 0 6rem 0;}
-  }
-  h2 {
-    font-family: $medium;
-    margin: 2.5rem 0 0 0;
-  }
-  ul.status-contrat {
-    position: relative;
-    margin: 0 auto;
-    margin-bottom: 4rem;
-    display: table;
-    li {
-      display: inline-block;
-      padding: 0 2rem;
-      text-transform: uppercase;
-      font-size: 1.2rem;
-      font-family: $medium;
-      color: $iron;
-      &:nth-child(1), &:nth-child(2) {color: $cornflower-blue;}
-      &::after {
-        position: absolute;
-        margin: .5rem 0 0 -3rem;
-        font-size: 3rem;
-        font-weight: 900;
-        color: $iron;
-        content: '•';
-      }
-      &:nth-child(1)::after {color: $cornflower-blue;}
-      &:nth-child(2)::after {margin-left: -2.7rem; color: $cornflower-blue;}
-      &:nth-child(3)::after {margin-left: -3.3rem;}
-      &:nth-child(4)::after {margin-left: -3.6rem;}
-      &::before {
-        position: absolute;
-        margin: 2.7rem 0 0 2rem;
-        width: 7.6rem; height: 1px;
-        background: $iron;
-        content: '';
-      }
-      &:nth-child(1)::before {background: $lilac-bush;}
-      &:nth-child(2)::before {margin-left: 2.2rem;}
-      &:nth-child(3)::before {width: 8.3rem; margin-left: 3rem;}
-      &:nth-child(4)::before {display: none;}
-    }
-  }
-  .container {padding: 2rem 0;}
-  .container-contrat {padding: 0rem 5rem 12rem 5rem;}
-  .fait-le {position: relative; margin: 3rem 0 6rem 0;}
-  .editable {background: $lemon-chiffon; color: $tarawera;}
-}
-
-//Intégration apps
-main.integration-apps {
-  section {
-    margin-bottom: 2rem;
-    ul.mode-paiement {
-      position: relative;
-      left: -1rem;
-      li {
-        display: inline-block;
-        list-style: none;
-        margin-right: .5rem;
-        &.checked .box-logo {filter: brightness(100%)}
-        &:not(.checked) .box-logo {filter: grayscale(0%) constrast(100%) brightness(0%)}
-        p {
-          position: relative;
-          padding: 0;
-          margin: -.2rem 0 0 0;
-          font-size: 1.4rem;
-          display: inline-block;
-          width: 12.2rem;
-          color: $regent-gray
+        z-index: 1;
+        &.vector-1 {
+          top: 0;
         }
-        .box-logo {
-          position: relative;
-          display: table-cell;
-          line-height: 3rem;
-          padding: 0 .7rem;
-          height: 3rem;
-          border: .1rem solid $porcelain;
-          border-radius: .3rem;
-          background-image: linear-gradient(to bottom, #ffffff, #fafafa, #f5f5f5, #f0f0f0, #ebebeb);
-          cursor: pointer;
-          img {
-            position: relative;
-            margin: 0 auto;
-            display: table;
-            top: 50%;
-            transform: translateY(-50%);
-            max-height: 2.5rem; max-width: 4.5rem;
-            height: auto; width: auto;
-          }
+        &.vector-2 {
+          top: 3rem;
+          right: 0;
+        }
+        &.vector-3 {
+          bottom: 0;
+          margin-left: 7rem;
+        }
+        &.vector-4 {
+          bottom: 0; right: 0;
         }
       }
-    }
-    &[class*='border-left-'] {
-      &::before {
-        position: absolute;
-        top: 0; left: 0;
-        height: 100%; width: 6px;
-        content: '';
-      }
-    }
-    &.border-left-cornflower-blue::before {background: $cornflower-blue;}
-    &.border-left-vermillion::before {background: $vermillion;}
-    &.border-left-matterhorn::before {background: $matterhorn;}
-    &.border-left-medium-purple::before {background: $medium-purple;}
-    &.border-left-eastern-blue::before {background: $eastern-blue;}
-    &.border-left-curious-blue::before {background: $curious-blue}
-  }
-}
-
-//Devis edit
-main.devis-edit, main.facture-edit, main.proposition-edit {
-  .large-10 {
-    .container:nth-of-type(1) {max-width: 100rem}
-    .container:not(:nth-of-type(1)) {max-width: 82.5rem}
-  }
-  .large-2 {
-    position: fixed;
-    padding: 7.6rem 2.5rem 2.5rem 1rem;
-    top: 0; bottom: 0; right: 0;
-    height: 100vh; width: 36rem;
-    background: white;
-    border-left: .1rem solid $polar;
-    h3 {font-family: $medium}
-    h3, .s-size {padding: 0 0 0 1.5rem; margin: 0;}
-    .s-size {text-transform: uppercase;}
-    ul.menu-edit {
-      position: relative;
-      left: -1rem;
-      li {
-        padding: 1.5rem;
-        list-style: none;
-        border-bottom: .1rem solid $porcelain;
-        border-radius: .4rem;
-        &:last-child {border: 0}
-        &::after {
-          position: absolute;
-          top: 2.3rem; right: 1rem;
-          width: 2rem; height: 2rem;
-          background: url('/icons/arrow.svg') no-repeat;
-          background-position: right center;
-          background-size: 2rem;
-          content: '';
-          transform: rotate(-90deg);
-        }
-        &:hover {
-          background: $medium-purple;
-          cursor: pointer;
-        }
-        p {
-          max-width: 26rem;
-          font-family: $medium;
-          &:first-child {
-            padding-top: .8rem;
-          }
-          strong {font-size: 1.7rem}
-          span {
-            font-family: $regular;
-            color: $lynch;
-          }
-        }
-      }
-    }
-  }
-}
-
-//Devis
-main.devis {
-  .section-1 {margin-bottom: 4rem}
-}
-
-//Signature devis
-main.signature-devis {
-  .section-1 {
-    position: fixed;
-    margin-top: -8rem;
-    padding-top: 3rem;
-    background-color: $polar;
-    min-width: 100vw;
-    z-index: 3;
-    .row-fluid {
-      position: relative;
-      margin: 0 auto 1.7rem auto;
-      display: table;
-      max-width: 100rem;
-    }
-  }
-  .section-2 {
-    position: fixed;
-    margin-top: 7.5rem;
-    z-index: 2;
-    box-shadow: 0px 0px 15px -4px rgba(50,27,70,0.1);
-  }
-  .section-3 {margin-top: 14.5rem}
-  .section-3, .section-4 {position: relative; z-index: 1}
-  .section-5 {
-    .logo {
-      position: relative;
-      margin: 0 auto .5rem auto;
-      display: table;
-      width: 12rem;
-      opacity: .5;
-      filter: brightness(15%) contrast(53%) sepia(1) saturate(.7) hue-rotate(220deg);
-    }
-  }
-}
-
-//Edit propositions commerciales
-main.proposition-edit, main.proposition-vue {
-  h2 {color: $cornflower-blue;}
-  .container-proposition {
-    border-bottom: 1px solid $porcelain;
-    background: white;
-    margin-bottom: 0;
-    padding: 4rem 6rem 12rem 6rem;
-    box-shadow: 0px 0px 15px -4px rgba(50,27,70,0.1);
-    cursor: pointer;
-  }
-  .container-cover {
-    position: relative;
-    padding: 0;
-    &:hover::after {display: none;}
-  }
-  .cover-proposition {
-    display: table-cell;
-    vertical-align: middle;
-    width: 100%; height: 110rem;
-    background: url('/images/further-bg2.jpg');
-    border-top-left-radius: .4rem;
-    border-top-right-radius: .4rem;
-    background-size: cover;
-    text-align: center;
-    &::before {
-      position: absolute;
-      top: 0; left: 0;
-      background: $tarawera;
-      height: 100%; width: 100%;
-      opacity: .3;
-      content: '';
-    }
-    .logo {
-      position: relative;
-      margin: 0 auto;
-      display: table;
-      max-width: 18rem;
-      filter: brightness(700%);
-    }
-    input {background: transparent; color: white;}
-    h2, p {color: white; margin: 0; padding: 0; text-align: center;}
-  }
-  .container-offres {
-    padding-bottom: 6rem;
-    p, ul li, ol li {font-size: 1.6rem;}
-    ul li, ol li {
-      padding-bottom: 1.5rem;
-      &:last-child {padding-bottom: 0;}
-    }
-    .package-item {
-      margin-top: 0.5rem;
-      padding-top: 1rem;
-      border-top: 1px solid $porcelain;
-      input {
-        width: 100%; font-size: 1.6rem;
-      }
-    }
-    .box-offre {
-      min-height: 26rem;
-      border: 1px solid $porcelain;
-      border-radius: .4rem;
-      box-shadow: 0px 0px 12px -2px rgba(50,27,70,0.1);
-      h4 {
-        margin-top: 2rem;
-        font-family: $medium;
-        font-weight: 400;
-      }
-    }
-  }
-  table {
-    border: .1rem solid $porcelain;
-    p {font-size: 1.6rem; padding: 0; margin-bottom: 0; font-weight: 400;}
-    thead {
-      td {padding-left: 1rem;}
-      tr {
-        border-bottom: .1rem solid $porcelain;
-        &:first-child, &:nth-of-type(2) {background: $medium-purple;}
-      }
-    }
-    tbody {
-      tr, td {background: white;}
-      td {border-left: .1rem solid $porcelain;}
-      tr {border-top: .1rem solid $porcelain;}
-    }
-    &.service-single-option {
-      td:first-child {width: auto;}
-      td:nth-child(2) {width: 11.3rem;}
-      td:nth-child(3) {width: 9rem;}
-      td:last-child {width: 10rem;}
-    }
-    &.service-single-option {
-      border: none;
-      thead {
-
-      }
-      tbody {
-        tr:last-child {
-          td {
-            border-left: none;
-            &:last-child {
-              border-left: .1rem solid $porcelain;
+      .box-item {
+        position: relative;
+        margin-left: 10rem;
+        display: flex;
+        align-items: center;
+        height: 100vh;
+        z-index: 2;
+        .box-text {
+          margin-top: 4rem;
+          padding: 3rem;
+          width: 44rem; height: 14rem;
+          background: white;
+          border-radius: 1rem;
+          p {
+            &:nth-of-type(1) {
+              color: $denim;
+              font-family: $bold-poppins;
+              font-size: 3.4rem;
+              float: left;
+              height: 5rem; width: 8.6rem;
+            }
+            &:nth-of-type(2) {
+              margin-top: .5rem;
+              float: right;
+              width: calc(100% - 8.6rem);
+              font-size: 1.3rem;
+              a {
+                color: $raven;
+                &:hover {color: $cloud-burst}
+              }
             }
           }
         }
@@ -1842,191 +185,191 @@ main.proposition-edit, main.proposition-vue {
   }
 }
 
-//Popup modal
-.overlay-modal {
-  position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(99,62,197,.7);
-}
-.modal {
-  position: relative;
-  top: 50%;
-  transform: translateY(-50%);
-  background-color: white;
-  user-select: none;
-}
-.ReactModalPortal {
-  align-items: center;
-  display: flex;
-  justify-content: center;
-  transition: opacity .2s cubic-bezier(0.045, 0.715, 0.250, 1.000);
-  & > div {opacity: 0; z-index: 900;}
-  .ReactModal__Overlay--after-open {opacity: 1;}
-  .ReactModal__Overlay--before-close {opacity: 0;}
-}
-.ReactModal__Content {
-  position: relative;
-  margin: 0 auto;
-  display: table;
-  width: 60rem;
-  .box-popup-content {padding: 1rem 2rem 2rem 2rem;}
-}
-
-//forms
-form {
-  margin: 1rem 0;
-  label {position: relative; margin-bottom: 1.5rem; font-family: $medium;}
-  h2 {margin-bottom: 0; padding-bottom: 0;}
-  .box-signature {
-    position: relative;
-    margin: -1rem 0 2.5rem 0;
-    background: white;
-    padding: 2.9rem 2rem 2rem 2rem;
-    width: 100%; height: 8.5rem;
-    border-radius: .4rem;
-    border: .1rem solid $porcelain;
-    cursor: default;
-    &::before, &::after {display: none;}
-  }
-  [class*='large-'] {padding: 0;}
-  input[type="text"], input[type="email"], input[type="password"], input[type="number"], select#custom-select {
-    &.half-width {
-      width: calc(50% - .25rem);
-      &:nth-child(1) {float: left; margin-right: .25rem}
-      &:nth-child(2) {float: right; margin-left: .25rem}
-    }
-    &.quarter-width {
-      float: left;
-      width: calc(25% - .25rem);
-      &:nth-child(2n+1) {margin-left: .5rem}
-      &:nth-child(2), &:nth-child(3) {width: calc(25% - .5rem)}
-      &:nth-child(4) {margin-left: .5rem}
-    }
-    &.has-value {background: $polar;}
-  }
-  input[type="text"], input[type="email"], input[type="password"], input[type="number"], select#custom-select, textarea {
-    position: relative;
-    margin-bottom: 1.5rem;
-    width: 100%; height: 4rem;
-    color: $tarawera;
-    background: white;
-    padding: 0 0 0 1.5rem;
-    border-radius: .3rem;
-    border: .1rem solid $porcelain;
-    box-shadow: none;
-    font-size: 1.6rem;
-    font-family: $regular;
-    line-height: 4rem;
-    outline: none;
-    appearance: none;
-    cursor: pointer;
-    &::placeholder {color: $lynch !important; opacity: 1 !important}
-    &:hover, &:focus, &:active {
-      background: white;
-      border: .1rem solid $iron;
-      box-shadow: none;
-    }
-  }
-  select#custom-select {
-    padding-left: 1.2rem;
-    appearance: button;
-    user-select: none;
-    outline: none;
-    background: white url('/icons/arrow.svg');
-    background-size: 2rem;
-    background-position: calc(100% - 1.2rem) center;
+//Dashboard
+main.dashboard {
+  background-color: $athens-gray;
+  &::after {
+    position: absolute;
+    top: -7rem; right: 0;
+    background-image: url('/icons/vector-5.svg');
     background-repeat: no-repeat;
-    &:focus {color: $tarawera}
-    option:first-child {color: $lynch;}
+    background-position: top right;
+    background-size: 26rem;
+    width: 26rem; height: 100%;
+    content: '';
+    z-index: -1;
   }
-}
-
-.progress-bars {
-  position: relative;
-  margin-top: 1.9rem;
-  .depense {position: relative; margin: 3rem 0 0 0;}
-  .shell {
-    float: left;
-    height: .8rem;
-    width: 100%;
-    border: 1px solid #efefef;
-    border-radius: 6px;
-    padding: 3px;
-    background: $porcelain;
-    .bar {
-      position: relative;
-      margin: -3px 0 0 -3px;
-      background: $cornflower-blue;
-      height: .8rem;
-      width: 15px;
-      border-radius: 9px;
-      &.impayée {background: $radical-red;}
-    }
-    .montant, .percent {
-      position: relative;
-      margin-top: -2.5rem;
-      float: left;
-      p {color: black; font-family: $regular; font-size: 1.4rem;}
-    }
+  &::before {
+    position: absolute;
+    bottom: 0rem; left: 0;
+    background-image: url('/icons/vector-6.svg');
+    background-repeat: no-repeat;
+    background-position: bottom left;
+    background-size: 15rem;
+    width: 15rem; height: 100%;
+    content: '';
+    z-index: -1;
   }
-}
-
-//Drag & drop
-.dropzone {
-  height: 16rem; width: 25rem;
-  border: 2px dashed $porcelain;
-  border-radius: .4rem;
-  text-align: center;
-  display: table-cell;
-  vertical-align: middle;
-}
-
-//Charts
-.Charts {
-  position: relative;
-	margin: 0 auto;
-	display: flex;
-	align-items: flex-end;
-	padding: 50px;
-	&--serie {
-		height: 100%;
-		margin: 0 1rem 0 0;
-		display: inline-block;
-		flex: 1;
-		display: flex;
-		align-items: flex-end;
-		label {
-			position: absolute;
-			left: 0; right: 0; bottom: -20px;
-      margin: 0 auto;
-			font-size: 12px;
-			text-align: center;
-		}
-	}
-	&--item {
+  button {position: absolute; right: 2rem;}
+  .icon {
     position: relative;
-    text-align: center;
-		display: inline-block;
-		margin: 0 1.6rem;
-		flex: 1;
-		border-radius: .2rem .2rem 0 0;
-    background: $cornflower-blue;
-    min-width: 2rem; max-width: 2rem;
-    p, b {font-size: 12px;}
-		b {
-			position: relative;
-      margin: 0 auto;
-      display: table;
-			top: -20px;
-      color: $cornflower-blue;
-		}
-    p {
+    margin: 0 2rem 2rem 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 6rem; height: 6rem;
+    border-radius: 50%;
+    float: left;
+    &.iron {background-color: $iron}
+    &.link-water {background-color: $link-water}
+    &.iceberg {background-color: $iceberg}
+    &.half-spanish-white {background-color: $half-spanish-white}
+  }
+  .box-encart, .box-item {
+    border-radius: 1rem;
+    box-shadow: 0 .2rem .8rem rgba(35, 52, 61, 0.1);
+    margin-bottom: 3rem;
+  }
+  .box-encart {
+    position: relative;
+    padding: 4rem 3rem;
+    background: $denim;
+    background-image: url('/icons/vector-encart-1.svg');
+    background-position: 110% -15%;
+    background-repeat: no-repeat;
+    background-size: 18rem;
+    overflow: hidden;
+    &::after {
       position: absolute;
-      left: 0; right: 0;
-      margin: 0 auto;
-      bottom: -2rem;
-      font-family: $medium;
-      color: $lynch;
+      bottom: 0; right: 0;
+      background-image: url('/icons/vector-3.svg');
+      background-repeat: no-repeat;
+      background-position: bottom right;
+      background-size: 18rem;
+      width: 100%; height: 100%;
+      content: '';
     }
-	}
+    p {
+      margin: 0;
+      font-size: 2.1rem;
+      color: white;
+      span {font-family: $bold-poppins}
+    }
+  }
+  .box-views {
+    position: relative;
+    margin-bottom: 2rem;
+    height: 9.5rem; width: 100%;
+    border-radius: 1rem;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    div {width: 100%}
+    p {
+      position: relative;
+      left: -4rem;
+      text-align: center;
+      &:nth-of-type(1) {
+        font-family: $bold-poppins;
+        font-size: 2.2rem;
+        &::before {
+          position: absolute;
+          margin: .5rem 0 0 -3rem;
+          background-image: url('/icons/view.svg');
+          background-repeat: no-repeat;
+          background-size: 2.4rem;
+          width: 2.4rem; height: 2.4rem;
+          content: '';
+        }
+      }
+      &:nth-of-type(2) {
+      }
+    }
+  }
+  .box-item {
+    position: relative;
+    width: 100%;
+    display: inherit;
+    padding: 2.65rem 2rem .65rem 2rem;
+    background: white;
+    &.cooptation, &.communication {
+      button {top: 2rem}
+      .box-views {background: rgba(249, 188, 75, 0.15)}
+    }
+    &.communication {
+      .box-views {background: rgba(21, 90, 196, 0.1)}
+    }
+    h4 {margin-bottom: 2rem}
+    p {
+      width: calc(100% - 8rem);
+      float: right;
+      margin: 0;
+      &:first-child {margin-top: .5rem}
+      &:nth-child(2) {
+        color: $raven;
+        span {
+          &:nth-of-type(1) {font-family: $bold-poppins; color: $cloud-burst; font-size: 2.3rem}
+          &:nth-of-type(2) {color: $raven; font-size: 1.3rem}
+        }
+      }
+    }
+  }
+}
+
+//Cooptation
+main.cooptation {
+  .navigation {
+    li {
+      margin: 0 4.5rem 0 0;
+      list-style: none;
+      display: inline-block;
+      font-size: $font-size-base;
+      color: $raven;
+      line-height: 3.3rem;
+      border-bottom: .3rem solid transparent;
+      cursor: pointer;
+      a {color: $raven}
+      &:hover {border-color: $denim; color: $denim}
+      &:hover a {color: $denim}
+      span {
+        margin: .1rem 0 0 1rem;
+        display: inline-block;
+        font-size: 1.3rem;
+        line-height: 1.8rem;
+        width: 2.9rem; height: 1.8rem;
+        background: rgba(114, 124, 137, 0.1);
+        border-radius: 2rem;
+        color: $raven;
+        text-align: center;
+      }
+    }
+  }
+  .box-item {
+    padding: 2rem;
+    background: $athens-gray;
+    border: .1rem solid $heather;
+    border-radius: 1rem;
+    &.denim {
+      background-color: $denim;
+      border: 0;
+      h4 {color: white}
+    }
+    h4 {margin-bottom: 2rem}
+  }
+  .box-encart {
+    padding: 2rem;
+    background-color: white;
+    box-shadow: 0 .2rem .8rem rgba(35, 52, 61, 0.1);
+    border-radius: 1rem;
+    p {
+      color: $raven;
+      a {color: $raven}
+      &:nth-of-type(1) {
+        color: $cloud-burst;
+        span {font-family: $bold-heebo}
+      }
+      &.date {font-size: 1.3rem}
+      &:not(:nth-of-type(1)) {margin: -.5rem 0 -.5rem 0}
+    }
+  }
 }

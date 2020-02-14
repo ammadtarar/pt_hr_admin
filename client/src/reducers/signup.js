@@ -1,4 +1,3 @@
-
 const signupReducerDefaultState = [];
 
 export default (state = signupReducerDefaultState, action) => {
@@ -6,7 +5,7 @@ export default (state = signupReducerDefaultState, action) => {
     case 'SIGNUP':
       return {
         ...state,
-        clientKey: action.clientKey
+        user: action.user
       };
     default:
       return state;

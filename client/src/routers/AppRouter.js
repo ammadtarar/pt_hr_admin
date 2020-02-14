@@ -1,22 +1,31 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { BrowserRouter, Route, Switch, matchPath } from 'react-router-dom';
-import Aside from '../components/Aside';
-import Accueil from '../components/Accueil';
-
-const userRoutes = [
-  {
-    path: '/',
-    component: Accueil
-  }
-]
+import React from 'react'
+import { connect } from 'react-redux'
+import { Redirect, BrowserRouter, Route, Switch } from 'react-router-dom'
+import Login from '../pages/Login'
+import Dashboard from '../pages/Dashboard'
+import Cooptation from '../pages/Cooptation'
 
 export class AppRouter extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor () {
+    super()
   }
 
   render() {
+    const userRoutes = [
+      {
+        path: '/',
+        component: Login
+      },
+      {
+        path: '/dashboard',
+        component: Dashboard
+      },
+      {
+        path: '/cooptation',
+        component: Cooptation
+      }
+    ]
+
     return (
       <BrowserRouter>
         <Route
@@ -27,15 +36,12 @@ export class AppRouter extends React.Component {
                 <Route key={route.path} exact path={route.path} component={route.component} />
               ))}
             </Switch>
-          )}
+            )
+          }
         />
       </BrowserRouter>
     );
   }
 }
 
-const mapStateToProps = ({auth: {loginStatus}}) => ({
-  loginStatus
-});
-
-export default connect(mapStateToProps)(AppRouter);
+export default AppRouter;
