@@ -1,7 +1,7 @@
 {
-  "name": "Montana",
+  "name": "Pushtalents",
   "version": "1.0.0",
-  "description": "Automatisez la gestion de votre entreprise freelance",
+  "description": "Une nouvelle expérience du recrutement collaboratif",
   "engines": {
     "node": "10.x"
   },

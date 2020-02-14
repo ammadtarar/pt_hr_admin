@@ -1,6 +1,6 @@
 {
-  "name": "Montana",
-  "version": "1.0.1",
+  "name": "Pushtalents",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
     "foundation-sites": "^6.5.3",
