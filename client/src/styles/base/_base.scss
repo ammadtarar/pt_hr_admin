@@ -446,7 +446,7 @@ main.cooptation, main.recompenses {
   }
 }
 main.cooptation.annonces, main.recompenses {
-  .box-annonce, .box-recompense {
+  .box-annonce, .box-recompense, .box-demande {
     position: relative;
     margin: 0 auto;
     display: table;
@@ -462,6 +462,7 @@ main.cooptation.annonces, main.recompenses {
         display: inline-block
       }
       &.titre {
+        p {margin: 0 0 0 1rem; font-size: $font-size-base; color: $cloud-burst}
         li.date {
           margin: 0 0 0 1rem;
         }
@@ -517,6 +518,10 @@ main.cooptation.annonces, main.recompenses {
         }
       }
     }
+  }
+  .box-demande {
+    height: 5.8rem;
+    ul.infos {top: -.7rem}
   }
 }
 

@@ -1,7 +1,7 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
-import Header from '../components/Header'
-import NavRecompenses from '../components/NavRecompenses'
+import Header from '../../components/Header'
+import NavRecompenses from '../../components/NavRecompenses'
 import Switch from 'react-switch'
 
 export class Recompenses extends React.Component {
@@ -30,7 +30,6 @@ export class Recompenses extends React.Component {
             <div className="box-recompense">
               <ul className="titre">
                 <li><h4>Bonus de 1000 €</h4></li>
-                <li className="date"><p>Créé le <span>23 décembre 2019</span></p></li>
               </ul>
               <ul className="details">
                 <li>
