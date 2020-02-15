@@ -18,7 +18,7 @@ export class Dashboard extends React.Component {
             <div className="row-fluid">
               <h3>Tableau de bord</h3>
               <div className="large-4 columns">
-                <div className="box-encart">
+                <div className="box-note">
                   <p>Pilotez l’activité de <br/> votre <span>communauté<br/>  d’ambassadeurs</span></p>
                 </div>
                 <div className="box-item">

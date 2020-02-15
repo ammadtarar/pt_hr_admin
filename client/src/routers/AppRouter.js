@@ -2,8 +2,11 @@ import React from 'react'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import Login from '../pages/Login'
 import Dashboard from '../pages/Dashboard'
+import Communication from '../pages/Communication'
 import Candidats from '../pages/cooptation/Candidats'
+import CandidatsArchives from '../pages/cooptation/CandidatsArchives'
 import Annonces from '../pages/cooptation/Annonces'
+import Recompenses from '../pages/Recompenses'
 
 export class AppRouter extends React.Component {
   render() {
@@ -23,6 +26,18 @@ export class AppRouter extends React.Component {
       {
         path: '/cooptation/annonces',
         component: Annonces
+      },
+      {
+        path: '/cooptation/candidats-archives',
+        component: CandidatsArchives
+      },
+      {
+        path: '/cooptation/communication',
+        component: Communication
+      },
+      {
+        path: '/recompenses',
+        component: Recompenses
       }
     ]
 

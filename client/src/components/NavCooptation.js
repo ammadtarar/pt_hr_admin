@@ -1,10 +1,7 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 
-export class CooptationNav extends React.Component {
-  constructor(props) {
-    super(props)
-  }
+export class NavCooptation extends React.Component {
   render() {
     return (
       <ul className="nav-cooptation">
@@ -16,4 +13,4 @@ export class CooptationNav extends React.Component {
   }
 }
 
-export default CooptationNav;
+export default NavCooptation;

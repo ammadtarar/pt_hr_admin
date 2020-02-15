@@ -40,7 +40,7 @@ nav.primary {
   }
 }
 
-ul.nav-cooptation {
+ul.nav-cooptation, ul.nav-recompense {
   li {
     margin: 0 4.5rem 0 0;
     list-style: none;
@@ -66,6 +66,10 @@ ul.nav-cooptation {
       text-align: center;
     }
   }
+}
+ul.nav-recompense {
+  position: relative;
+  margin-left: 0;
 }
 
 ul.profile {

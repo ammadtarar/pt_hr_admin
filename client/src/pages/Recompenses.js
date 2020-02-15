@@ -1,10 +1,10 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
-import Header from '../../components/Header'
-import NavCooptation from '../../components/NavCooptation'
+import Header from '../components/Header'
+import NavRecompenses from '../components/NavRecompenses'
 import Switch from 'react-switch'
 
-export class Annonces extends React.Component {
+export class Recompenses extends React.Component {
   constructor() {
     super()
     this.state = { checked: false }
@@ -23,12 +23,13 @@ export class Annonces extends React.Component {
     return (
       <div className="wrapper" onDragStart={this.preventDragHandler}>
         <Header/>
-        <main className="cooptation annonces">
+        <main className="recompenses">
           <div className="container">
-            <NavCooptation/>
-            <div className="box-annonce">
+            <NavRecompenses/>
+            <button className="btn-primary">Créer</button>
+            <div className="box-recompense">
               <ul className="titre">
-                <li><h4>Product Manager</h4></li>
+                <li><h4>Bonus de 1000 €</h4></li>
                 <li className="date"><p>Créé le <span>23 décembre 2019</span></p></li>
               </ul>
               <ul className="details">
@@ -48,12 +49,9 @@ export class Annonces extends React.Component {
                   />
                   Actif</p>
                 </li>
-                <li className="star"><p><span>1000</span>€</p></li>
-                <li className="localisation"><p>New-York</p></li>
               </ul>
               <ul className="infos">
-                <li className="box-candidats-cooptes"><span>3</span> candidats cooptés</li>
-                <li className="box-views-small"><span>243</span></li>
+                <li className="box-points"><span>600</span> points</li>
               </ul>
             </div>
           </div>
@@ -63,4 +61,4 @@ export class Annonces extends React.Component {
   }
 }
 
-export default Annonces;
+export default Recompenses;
