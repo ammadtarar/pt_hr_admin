@@ -2,7 +2,8 @@ import React from 'react'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import Login from '../pages/Login'
 import Dashboard from '../pages/Dashboard'
-import Cooptation from '../pages/Cooptation'
+import Candidats from '../pages/cooptation/Candidats'
+import Annonces from '../pages/cooptation/Annonces'
 
 export class AppRouter extends React.Component {
   render() {
@@ -17,7 +18,11 @@ export class AppRouter extends React.Component {
       },
       {
         path: '/cooptation',
-        component: Cooptation
+        component: Candidats
+      },
+      {
+        path: '/cooptation/annonces',
+        component: Annonces
       }
     ]
 

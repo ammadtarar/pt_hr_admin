@@ -1,3 +1,111 @@
 /* ==|====================
    Layout/Nav
    ======================= */
+nav.primary {
+  position: absolute;
+  top: 0; left: 8rem;
+  transition: all .03s cubic-bezier(0.045, 0.715, 0.250, 1.000);
+  ul {
+    display: inline-block;
+    li {
+      margin: 0 4.5rem 0 0;
+      display: inline-block;
+      font-family: $regular-heebo;
+      font-size: $font-size-base;
+      line-height: 7rem;
+      border-bottom: .3rem solid transparent;
+      a {color: $raven; display: block; padding-left: 3.3rem;}
+      &:hover {
+        line-height: calc(7rem - .3rem);
+        border-color: $casablanca;
+        a {color: $cloud-burst}
+        &:after {filter: brightness(50%) sepia(1) hue-rotate(165deg) saturate(5)}
+      }
+      &::after {
+        position: absolute;
+        top: 50%;
+        transform: translateY(calc(-50% - .7rem));
+        background-image: url('/icons/dashboard.svg');
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: 2rem;
+        width: 2rem; height: 2rem;
+        content: '';
+      }
+      &.dashboard::after {background-image: url('/icons/dashboard.svg')}
+      &.recompenses::after {background-image: url('/icons/recompenses-b.svg')}
+      &.cooptation::after {background-image: url('/icons/cooptation.svg')}
+      &.communication::after {background-image: url('/icons/communication.svg')}
+    }
+  }
+}
+
+ul.nav-cooptation {
+  li {
+    margin: 0 4.5rem 0 0;
+    list-style: none;
+    display: inline-block;
+    font-size: $font-size-base;
+    color: $raven;
+    line-height: 3.3rem;
+    border-bottom: .3rem solid transparent;
+    cursor: pointer;
+    a {color: $raven}
+    &:hover, &.current {border-color: $denim; color: $denim}
+    &:hover a, &.current a, &:hover span {color: $denim}
+    span {
+      margin: 0 0 0 .8rem;
+      display: inline-block;
+      font-family: $regular-poppins;
+      font-size: 1.3rem;
+      line-height: 1.8rem;
+      width: 2.9rem; height: 1.8rem;
+      background: rgba(114, 124, 137, 0.1);
+      border-radius: 2rem;
+      color: $raven;
+      text-align: center;
+    }
+  }
+}
+
+ul.profile {
+  position: absolute;
+  top: 0; right: 0;
+  li {
+    list-style: none;
+    color: $raven;
+    font-size: $font-size-base;
+    line-height: 7rem;
+    cursor: pointer;
+    span {
+      padding-right: 2.5rem;
+      background-image: url('/icons/dropdown.svg');
+      background-repeat: no-repeat;
+      background-position: 100% 20%;
+    }
+    &:hover span, &.open span {color: $cloud-burst}
+    .sub-menu {
+      position: absolute;
+      left: -3rem;
+      margin: 0 auto;
+      min-width: 14rem;
+      display: none;
+      visibility: hidden;
+      opacity: 0;
+      padding: 1.5rem;
+      background-color: white;
+      box-shadow: 0 .2rem .8rem rgba(35, 52, 61, 0.1);
+      border-radius: 1rem;
+      transition: all .03s cubic-bezier(0.045, 0.715, 0.250, 1.000);
+      &.open {
+        display: block;
+        visibility: visible;
+        opacity: 1;
+      }
+      li {
+        line-height: 2rem;
+        &:hover {color: $cloud-burst}
+      }
+    }
+  }
+}
