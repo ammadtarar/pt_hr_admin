@@ -7,7 +7,10 @@ import Switch from 'react-switch'
 export class Recompenses extends React.Component {
   constructor() {
     super()
-    this.state = { checked: false }
+    this.state = {
+      checked: false,
+      popupOpen: false
+    }
     this.handleChange = this.handleChange.bind(this)
   }
 
@@ -23,10 +26,23 @@ export class Recompenses extends React.Component {
     return (
       <div className="wrapper" onDragStart={this.preventDragHandler}>
         <Header/>
+        <div onClick={(e) => this.setState({popupOpen: false})} className={`overlay-popup ${this.state.popupOpen === true ? 'open' : ''}`}/>
+        <div className={`popup ${this.state.popupOpen === true ? 'open' : ''}`}>
+          <img onClick={(e) => this.setState({popupOpen: false})} type="image/svg+xml" className="close" src="/icons/fermer.svg" alt=""/>
+          <h3>Créer une récompense</h3>
+          <form>
+            <label>Nom</label>
+            <input type="text" value="Nom de la récompense"/>
+            <label>Nombre de points</label>
+            <input type="text" value="Nombre de points requis"/>
+            <button className="btn-primary">Publier</button>
+            <p className="note">Une fois publiée, cette récompense sera visible par tous les ambassadeurs.</p>
+          </form>
+        </div>
         <main className="recompenses">
           <div className="container">
             <NavRecompenses/>
-            <button className="btn-primary">Créer</button>
+            <button onClick={(e) => this.setState({popupOpen: true})} className="btn-primary">Créer</button>
             <div className="box-recompense">
               <ul className="titre">
                 <li><h4>Bonus de 1000 €</h4></li>

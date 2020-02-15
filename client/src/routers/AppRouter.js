@@ -33,7 +33,7 @@ export class AppRouter extends React.Component {
         component: CandidatsArchives
       },
       {
-        path: '/cooptation/communication',
+        path: '/communication',
         component: Communication
       },
       {
