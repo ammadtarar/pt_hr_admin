@@ -2,13 +2,33 @@ import React from 'react'
 import { NavLink } from 'react-router-dom'
 import Header from '../components/Header'
 import CardCommunication from '../components/CardCommunication'
+const data = require('../datas.json')
 
 export class Communication extends React.Component {
+  constructor() {
+    super()
+    this.state = {
+      'data': data
+    }
+  }
+
   preventDragHandler = (e) => {
     e.preventDefault()
   }
 
+  componentDidMount() {
+    // fetch(data)
+    //   .then(res => res.json())
+    //   .then(res => {
+    //     this.setState({
+    //       'data': res
+    //     })
+    //   })
+
+  }
+
   render() {
+    const communication = this.state.data.communication
     return (
       <div className="wrapper" onDragStart={this.preventDragHandler}>
         <Header/>
@@ -25,18 +45,15 @@ export class Communication extends React.Component {
                   <p className="sub-note">Ils pourront les consulter et les partager auprès de leur réseau.</p>
                 </div>
               </div>
-              <div className="large-3 columns">
-                <CardCommunication/>
-              </div>
-              <div className="large-3 columns">
-                <CardCommunication/>
-              </div>
-              <div className="large-3 columns">
-                <CardCommunication/>
-              </div>
-              <div className="large-3 columns">
-                <CardCommunication/>
-              </div>
+
+              {Object.keys(communication).map((key, item, i) => {
+                return (
+                  <div className="large-3 columns">
+                    <CardCommunication data={communication[key]}/>
+                  </div>
+                )
+              })}
+
             </div>
           </div>
         </main>

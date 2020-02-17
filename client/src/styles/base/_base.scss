@@ -185,9 +185,11 @@ img {
     content: '';
   }
   p {
+    position: relative;
     margin: 0;
     font-size: 2.1rem;
     color: white;
+    z-index: 5;
     span {font-family: $bold-poppins}
     &.sub-note {margin-top: 2rem; font-size: $font-size-base}
   }
@@ -599,6 +601,9 @@ main.communication {
     height: 20rem;
     border-radius: 1rem;
     background-color: $athens-gray;
+    background-size: cover;
+    background-position: center center;
+
   }
   .box-views-small {
     position: absolute;
