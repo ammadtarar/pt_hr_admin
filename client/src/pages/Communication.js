@@ -1,7 +1,6 @@
-import React from 'react'
-import { NavLink } from 'react-router-dom'
+import React, { Suspense } from 'react'
 import Header from '../components/Header'
-import CardCommunication from '../components/CardCommunication'
+const CardCommunication = React.lazy(() => import('../components/CardCommunication'))
 const data = require('../datas.json')
 
 export class Communication extends React.Component {
@@ -25,6 +24,7 @@ export class Communication extends React.Component {
 
   render() {
     const communication = this.state.data.communication
+
     return (
       <div className="wrapper" onDragStart={this.preventDragHandler}>
         <Header/>
@@ -35,20 +35,23 @@ export class Communication extends React.Component {
               <li><p><span>{Object.keys(communication).length}</span> contenus actifs</p></li>
             </ul>
             <div className="row-fluid">
-              <div className="large-3 columns">
-                <div className="box-note">
-                  <p>Consultez et gérez les<br/> <span>contenus de marque<br/> employeur</span> visibles par vos<br/> <span>collaborateurs</span>.</p>
-                  <p className="sub-note">Ils pourront les consulter et les partager auprès de leur réseau.</p>
-                </div>
-              </div>
 
-              {Object.keys(communication).map((key, item, i) => {
-                return (
-                  <div className="large-3 columns">
-                    <CardCommunication data={communication[key]}/>
+              <Suspense fallback={<div className="text-center">Loading ...</div>}>
+                <div className="large-3 columns">
+                  <div className="box-note">
+                    <p>Consultez et gérez les<br/> <span>contenus de marque<br/> employeur</span> visibles par vos<br/> <span>collaborateurs</span>.</p>
+                    <p className="sub-note">Ils pourront les consulter et les partager auprès de leur réseau.</p>
                   </div>
-                )
-              })}
+                </div>
+
+                {Object.keys(communication).map((key, item, i) => {
+                  return (
+                    <div className="large-3 columns">
+                      <CardCommunication data={communication[key]}/>
+                    </div>
+                  )
+                })}
+              </Suspense>
 
             </div>
           </div>

@@ -1,8 +1,6 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
 import Header from '../../components/Header'
 import NavRecompenses from '../../components/NavRecompenses'
-import Switch from 'react-switch'
 
 export class Demandes extends React.Component {
   constructor() {

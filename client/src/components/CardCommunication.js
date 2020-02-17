@@ -1,5 +1,4 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
 import Switch from 'react-switch'
 
 export class CardCommunication extends React.Component {

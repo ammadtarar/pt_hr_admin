@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import Header from '../../components/Header'
 import NavRecompenses from '../../components/NavRecompenses'
-import BoxRecompense from '../../components/BoxRecompense'
+const BoxRecompense = React.lazy(() => import('../../components/BoxRecompense'))
 const data = require('../../datas.json')
 
 export class Recompenses extends React.Component {
@@ -35,6 +35,7 @@ export class Recompenses extends React.Component {
 
   render() {
     const recompenses = this.state.data.recompenses
+
     return (
       <div className="wrapper" onDragStart={this.preventDragHandler}>
         <Header/>
@@ -56,11 +57,13 @@ export class Recompenses extends React.Component {
             <NavRecompenses/>
             <button onClick={(e) => this.setState({popupOpen: true})} className="btn-primary">Créer</button>
 
+            <Suspense fallback={<div className="text-center">Loading ....</div>}>
               {Object.keys(recompenses).map((key, item, i) => {
                 return (
                   <BoxRecompense data={recompenses[key]}/>
                 )
               })}
+            </Suspense>
 
           </div>
         </main>

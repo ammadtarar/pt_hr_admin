@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import Header from '../../components/Header'
 import NavCooptation from '../../components/NavCooptation'
-import BoxCandidat from '../../components/BoxCandidat'
+const BoxCandidat = React.lazy(() => import('../../components/BoxCandidat'))
 
 export class CandidatsArchives extends React.Component {
   preventDragHandler = (e) => {
@@ -16,36 +16,40 @@ export class CandidatsArchives extends React.Component {
           <div className="container">
             <NavCooptation/>
             <div className="row-fluid">
-              <div className="columns large-3">
-                <BoxCandidat/>
-              </div>
-              <div className="columns large-3">
-                <BoxCandidat/>
-              </div>
-              <div className="columns large-3">
-                <BoxCandidat/>
-              </div>
-              <div className="columns large-3">
-                <BoxCandidat/>
-              </div>
-              <div className="columns large-3">
-                <BoxCandidat/>
-              </div>
-              <div className="columns large-3">
-                <BoxCandidat/>
-              </div>
-              <div className="columns large-3">
-                <BoxCandidat/>
-              </div>
-              <div className="columns large-3">
-                <BoxCandidat/>
-              </div>
-              <div className="columns large-3">
-                <BoxCandidat/>
-              </div>
-              <div className="columns large-3">
-                <BoxCandidat/>
-              </div>
+
+              <Suspense fallback={<div className="text-center">Loading ...</div>}>
+                <div className="columns large-3">
+                  <BoxCandidat/>
+                </div>
+                <div className="columns large-3">
+                  <BoxCandidat/>
+                </div>
+                <div className="columns large-3">
+                  <BoxCandidat/>
+                </div>
+                <div className="columns large-3">
+                  <BoxCandidat/>
+                </div>
+                <div className="columns large-3">
+                  <BoxCandidat/>
+                </div>
+                <div className="columns large-3">
+                  <BoxCandidat/>
+                </div>
+                <div className="columns large-3">
+                  <BoxCandidat/>
+                </div>
+                <div className="columns large-3">
+                  <BoxCandidat/>
+                </div>
+                <div className="columns large-3">
+                  <BoxCandidat/>
+                </div>
+                <div className="columns large-3">
+                  <BoxCandidat/>
+                </div>
+              </Suspense>
+
             </div>
           </div>
         </main>
