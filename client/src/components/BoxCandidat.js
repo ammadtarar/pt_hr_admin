@@ -1,7 +1,6 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
 
-export class BoxCandidatInfos extends React.Component {
+export class BoxCandidat extends React.Component {
   render() {
     return (
       <div className="box-encart">
@@ -19,4 +18,4 @@ export class BoxCandidatInfos extends React.Component {
   }
 }
 
-export default BoxCandidatInfos;
+export default BoxCandidat;

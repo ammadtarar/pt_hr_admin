@@ -1,8 +1,7 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
 import Header from '../../components/Header'
 import NavCooptation from '../../components/NavCooptation'
-import BoxCandidatInfos from '../../components/BoxCandidatInfos'
+import BoxCandidat from '../../components/BoxCandidat'
 
 export class Candidats extends React.Component {
   componentDidMount() {
@@ -25,8 +24,8 @@ export class Candidats extends React.Component {
                 <div className="box-item">
                   <h4 className="light">Candidats cooptés</h4>
                   <div className="container-scroll">
-                    <BoxCandidatInfos/>
-                    <BoxCandidatInfos/>
+                    <BoxCandidat/>
+                    <BoxCandidat/>
                   </div>
                 </div>
               </div>
@@ -34,10 +33,10 @@ export class Candidats extends React.Component {
                 <div className="box-item">
                   <h4 className="light">Candidatures reçues</h4>
                   <div className="container-scroll">
-                    <BoxCandidatInfos/>
-                    <BoxCandidatInfos/>
-                    <BoxCandidatInfos/>
-                    <BoxCandidatInfos/>
+                    <BoxCandidat/>
+                    <BoxCandidat/>
+                    <BoxCandidat/>
+                    <BoxCandidat/>
                   </div>
                 </div>
               </div>
@@ -45,8 +44,8 @@ export class Candidats extends React.Component {
                 <div className="box-item">
                   <h4 className="light">Entretiens en cours</h4>
                   <div className="container-scroll">
-                    <BoxCandidatInfos/>
-                    <BoxCandidatInfos/>
+                    <BoxCandidat/>
+                    <BoxCandidat/>
                   </div>
                 </div>
               </div>
@@ -54,8 +53,8 @@ export class Candidats extends React.Component {
                 <div className="box-item denim">
                   <h4 className="light">Candidats sélectionnés</h4>
                   <div className="container-scroll">
-                    <BoxCandidatInfos/>
-                    <BoxCandidatInfos/>
+                    <BoxCandidat/>
+                    <BoxCandidat/>
                   </div>
                 </div>
               </div>

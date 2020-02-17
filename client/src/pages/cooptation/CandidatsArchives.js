@@ -1,9 +1,7 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
 import Header from '../../components/Header'
 import NavCooptation from '../../components/NavCooptation'
-import BoxCandidatInfos from '../../components/BoxCandidatInfos'
-import Switch from 'react-switch'
+import BoxCandidat from '../../components/BoxCandidat'
 
 export class CandidatsArchives extends React.Component {
   preventDragHandler = (e) => {
@@ -19,34 +17,34 @@ export class CandidatsArchives extends React.Component {
             <NavCooptation/>
             <div className="row-fluid">
               <div className="columns large-3">
-                <BoxCandidatInfos/>
+                <BoxCandidat/>
               </div>
               <div className="columns large-3">
-                <BoxCandidatInfos/>
+                <BoxCandidat/>
               </div>
               <div className="columns large-3">
-                <BoxCandidatInfos/>
+                <BoxCandidat/>
               </div>
               <div className="columns large-3">
-                <BoxCandidatInfos/>
+                <BoxCandidat/>
               </div>
               <div className="columns large-3">
-                <BoxCandidatInfos/>
+                <BoxCandidat/>
               </div>
               <div className="columns large-3">
-                <BoxCandidatInfos/>
+                <BoxCandidat/>
               </div>
               <div className="columns large-3">
-                <BoxCandidatInfos/>
+                <BoxCandidat/>
               </div>
               <div className="columns large-3">
-                <BoxCandidatInfos/>
+                <BoxCandidat/>
               </div>
               <div className="columns large-3">
-                <BoxCandidatInfos/>
+                <BoxCandidat/>
               </div>
               <div className="columns large-3">
-                <BoxCandidatInfos/>
+                <BoxCandidat/>
               </div>
             </div>
           </div>

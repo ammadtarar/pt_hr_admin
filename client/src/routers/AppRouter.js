@@ -9,9 +9,15 @@ import Annonces from '../pages/cooptation/Annonces'
 import Recompenses from '../pages/recompenses/Recompenses'
 import Demandes from '../pages/recompenses/Demandes'
 
+import Test from '../pages/test'
+
 export class AppRouter extends React.Component {
   render() {
-    const userRoutes = [
+    const userRoutes = [,
+      {
+        path: '/test',
+        component: Test
+      },
       {
         path: '/',
         component: Login

@@ -5,11 +5,8 @@ import CardCommunication from '../components/CardCommunication'
 const data = require('../datas.json')
 
 export class Communication extends React.Component {
-  constructor() {
-    super()
-    this.state = {
-      'data': data
-    }
+  state = {
+    'data': data
   }
 
   preventDragHandler = (e) => {

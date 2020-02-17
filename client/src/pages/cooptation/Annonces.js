@@ -1,5 +1,4 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
 import Header from '../../components/Header'
 import NavCooptation from '../../components/NavCooptation'
 import Switch from 'react-switch'
