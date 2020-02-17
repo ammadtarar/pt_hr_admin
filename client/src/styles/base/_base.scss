@@ -567,6 +567,18 @@ main.cooptation.annonces, main.recompenses {
       }
     }
   }
+  .box-recompense {
+    margin: 3rem 0 0 0;
+    height: 9.8rem;
+    ul {
+      &.titre {
+        margin-bottom: .5rem;
+      }
+    }
+    &:last-child {
+      border-color: transparent;
+    }
+  }
   .box-demande {
     height: 5.8rem;
     ul.infos {top: -.7rem}

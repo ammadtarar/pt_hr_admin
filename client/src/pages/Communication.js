@@ -24,7 +24,6 @@ export class Communication extends React.Component {
     //       'data': res
     //     })
     //   })
-
   }
 
   render() {
@@ -36,7 +35,7 @@ export class Communication extends React.Component {
           <div className="container">
             <ul className="headline">
               <li><h3>Communication</h3></li>
-              <li><p><span>6</span> contenus actifs</p></li>
+              <li><p><span>{Object.keys(communication).length}</span> contenus actifs</p></li>
             </ul>
             <div className="row-fluid">
               <div className="large-3 columns">

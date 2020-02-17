@@ -27,10 +27,12 @@ export class CardCommunication extends React.Component {
           <h4>{data.titre}</h4>
           <p className="react-switch">
           <Switch
-            checked={this.state.checked}
+            checked={data.checked}
             onChange={this.handleChange}
             onColor="#155ac4"
-            onHandleColor="white"
+            offColor="#c0c9d6"
+            onHandleColor="#ffffff"
+            offHandleColor="#ffffff"
             handleDiameter={20}
             uncheckedIcon={false}
             checkedIcon={false}
@@ -38,7 +40,7 @@ export class CardCommunication extends React.Component {
             width={35}
             className="react-switch"
           />
-          Actif</p>
+          {data.checked === true ? 'Actif' : 'Inactif'}</p>
         </div>
       </div>
     )

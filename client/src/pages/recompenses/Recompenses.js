@@ -1,15 +1,16 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
 import Header from '../../components/Header'
 import NavRecompenses from '../../components/NavRecompenses'
-import Switch from 'react-switch'
+import BoxRecompense from '../../components/BoxRecompense'
+const data = require('../../datas.json')
 
 export class Recompenses extends React.Component {
   constructor() {
     super()
     this.state = {
       checked: false,
-      popupOpen: false
+      popupOpen: false,
+      data: data
     }
     this.handleChange = this.handleChange.bind(this)
   }
@@ -22,7 +23,18 @@ export class Recompenses extends React.Component {
     e.preventDefault()
   }
 
+  componentDidMount() {
+    // fetch(data)
+    //   .then(res => res.json())
+    //   .then(res => {
+    //     this.setState({
+    //       'data': res
+    //     })
+    //   })
+  }
+
   render() {
+    const recompenses = this.state.data.recompenses
     return (
       <div className="wrapper" onDragStart={this.preventDragHandler}>
         <Header/>
@@ -43,32 +55,13 @@ export class Recompenses extends React.Component {
           <div className="container">
             <NavRecompenses/>
             <button onClick={(e) => this.setState({popupOpen: true})} className="btn-primary">Créer</button>
-            <div className="box-recompense">
-              <ul className="titre">
-                <li><h4>Bonus de 1000 €</h4></li>
-              </ul>
-              <ul className="details">
-                <li>
-                  <p className="react-switch">
-                  <Switch
-                    checked={this.state.checked}
-                    onChange={this.handleChange}
-                    onColor="#155ac4"
-                    onHandleColor="white"
-                    handleDiameter={20}
-                    uncheckedIcon={false}
-                    checkedIcon={false}
-                    height={20}
-                    width={35}
-                    className="react-switch"
-                  />
-                  Actif</p>
-                </li>
-              </ul>
-              <ul className="infos">
-                <li className="box-points"><span>600</span> points</li>
-              </ul>
-            </div>
+
+              {Object.keys(recompenses).map((key, item, i) => {
+                return (
+                  <BoxRecompense data={recompenses[key]}/>
+                )
+              })}
+
           </div>
         </main>
       </div>
