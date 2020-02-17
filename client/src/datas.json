@@ -1,4 +1,69 @@
 {
+  "candidats": {
+    "2cec1876-5189-11ea-8d77-2e728ce88125": {
+      "nom": "Mitchell",
+      "prenom":"Murphy",
+      "titre": "Product Manager",
+      "date": "2019-12-14T01:00:00.000Z",
+      "email": "mitchell.murphy@mail.com"
+    },
+    "2cec1ae2-5189-11ea-8d77-2e728ce88125": {
+      "nom": "Bessie",
+      "prenom":"Henry",
+      "titre": "Backend Developer Python",
+      "date": "2019-12-23T01:00:00.000Z",
+      "email": "bessie.henry@mail.com"
+    },
+    "2cec1c2c-5189-11ea-8d77-2e728ce88125": {
+      "nom": "Randall",
+      "prenom":"Mckinney",
+      "titre": "Frontend Developer React",
+      "date": "2019-12-22T01:00:00.000Z",
+      "email": "randallmckinney@mail.com"
+    },
+    "2cec1f88-5189-11ea-8d77-2e728ce88125": {
+      "nom": "Janne",
+      "prenom":"Cooper",
+      "titre": "Frontend Developer Angular",
+      "date": "2019-12-18T01:00:00.000Z",
+      "email": "jannecooper@mail.com"
+    },
+    "2cec1f76-5189-11ea-8d77-2e728ce88125": {
+      "nom": "Tomothy",
+      "prenom":" Cooper",
+      "titre": "Dev Ops",
+      "date": "2019-12-29T01:00:00.000Z",
+      "email": "tomothycooper@mail.com"
+    },
+    "2cec1f6c-5189-11ea-8d77-2e728ce88125": {
+      "nom": "Jane",
+      "prenom":"Fisher",
+      "titre": "Product Marketing Manager",
+      "date": "2019-12-27T01:00:00.000Z",
+      "email": "jfisher@mail.com"
+    },
+    "2cec1f43-5189-11ea-8d77-2e728ce88125": {
+      "nom": "Debra",
+      "prenom": "Mccoy",
+      "titre": "Customer success manager",
+      "date": "2020-01-14T01:00:00.000Z",
+      "email": "debramccoy@mail.com"
+    },
+    "2cec1fac-5189-11ea-8d77-2e728ce88125": {
+      "nom": "Devon",
+      "prenom": "Willson",
+      "titre": "Customer success manager",
+      "date": "2020-02-07T01:00:00.000Z",
+      "email": "devonwillson@mail.com"
+    },
+    "2cec1fff-5189-11ea-8d77-2e728ce88125": {
+      "nom": "Priscillia",
+      "prenom": "Flores",
+      "titre": "Vp of product",
+      "date": "2020-01-18T01:00:00.000Z",
+      "email": "priscilliaflores@mail.com"
+    }
+  },
   "communication": {
     "c67e502e-5168-11ea-8d77-2e728ce88125": {
       "titre": "Comment mettre en avant vos compétences en langues ?",
@@ -85,18 +150,12 @@
     "2cec1876-5189-11ea-8d77-2e728ce88125": {
       "titre": "Bonus de 1000€",
       "points": "600",
-      "checked": true,
-      "demandes-attente": {
-        "Greg Flores"
-      }
+      "checked": true
     },
     "2cec1ae2-5189-11ea-8d77-2e728ce88125": {
       "titre": "Abonnement de 6 mois à Netflix",
       "points": "300",
-      "checked": true,
-      "demandes-attente": {
-        "Shawn Black","Diane Webb","Brandon Patrick"
-      }
+      "checked": true
     },
     "2cec1c2c-5189-11ea-8d77-2e728ce88125": {
       "titre": "Hoodie d’entreprise",

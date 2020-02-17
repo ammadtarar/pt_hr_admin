@@ -2,11 +2,8 @@ import React from 'react'
 import { NavLink } from 'react-router-dom'
 
 export class Header extends React.Component {
-  constructor() {
-    super()
-    this.state = {
-      profileOpen: false
-    };
+  state = {
+    profileOpen: false
   }
 
   preventDragHandler = (e) => {
