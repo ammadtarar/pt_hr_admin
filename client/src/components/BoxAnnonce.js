@@ -19,10 +19,10 @@ export class BoxRecompense extends React.Component {
     const date = new Date(dateToFormat)
     date.setDate(date.getDate())
     const mois = [
-      "Janvier", "Février", "Mars",
-      "Avril", "Mai", "Juin", "Jullet",
-      "Août", "Septembre", "Octobre",
-      "Novembre", "Décembre"
+      "janvier", "février", "mars",
+      "avril", "mai", "juin", "jullet",
+      "août", "septembre", "octobre",
+      "novembre", "décembre"
     ]
     const dateReformat = date.getDate() + ' ' + mois[date.getMonth()] + ' ' + date.getFullYear()
     return dateReformat
@@ -48,6 +48,7 @@ export class BoxRecompense extends React.Component {
               offColor="#c0c9d6"
               onHandleColor="#ffffff"
               offHandleColor="#ffffff"
+              activeBoxShadow="0 0 0 0 transparent"
               handleDiameter={20}
               uncheckedIcon={false}
               checkedIcon={false}
@@ -55,7 +56,7 @@ export class BoxRecompense extends React.Component {
               width={35}
               className="react-switch"
             />
-            Actif</p>
+            {data.checked === true ? 'Actif' : 'Inactif'}</p>
           </li>
           <li className="star"><p><span>{data.points}</span>€</p></li>
           <li className="localisation"><p>{data.lieu}</p></li>

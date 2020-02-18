@@ -40,38 +40,6 @@ nav.primary {
   }
 }
 
-ul.nav-cooptation, ul.nav-recompense {
-  li {
-    margin: 0 4.5rem 0 0;
-    list-style: none;
-    display: inline-block;
-    font-size: $font-size-base;
-    color: $raven;
-    line-height: 3.3rem;
-    border-bottom: .3rem solid transparent;
-    cursor: pointer;
-    a {color: $raven}
-    &:hover, &.current {border-color: $denim; color: $denim}
-    &:hover a, &.current a, &:hover span {color: $denim}
-    span {
-      margin: 0 0 0 .5rem;
-      display: inline-block;
-      font-family: $regular-poppins;
-      font-size: 1.3rem;
-      line-height: 1.8rem;
-      width: 2.9rem; height: 1.8rem;
-      background: rgba(114, 124, 137, 0.1);
-      border-radius: 2rem;
-      color: $raven;
-      text-align: center;
-    }
-  }
-}
-ul.nav-recompense {
-  position: relative;
-  margin-left: 0;
-}
-
 ul.profile {
   position: absolute;
   top: 0; right: 0;

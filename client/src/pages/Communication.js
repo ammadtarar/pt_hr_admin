@@ -61,4 +61,4 @@ export class Communication extends React.Component {
   }
 }
 
-export default Communication;
+export default Communication

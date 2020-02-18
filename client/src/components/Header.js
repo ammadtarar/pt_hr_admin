@@ -25,7 +25,7 @@ function Header() {
           </ul>
         </nav>
         <ul className="profile">
-          <li className={profileOpen === false ? 'open' : ''}><span onClick={(e) => toggleSubmenu(e)}>Sébastien</span>
+          <li onClick={(e) => toggleSubmenu(e)} className={profileOpen === false ? 'open' : ''}><span>Sébastien</span>
             <ul className={`sub-menu ${profileOpen === false ? 'open' : ''}`}>
               <li><NavLink to="/" activeClassName="is-active" exact={true}>Se déconnecter</NavLink></li>
             </ul>

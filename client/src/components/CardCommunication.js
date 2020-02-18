@@ -32,6 +32,7 @@ export class CardCommunication extends React.Component {
             offColor="#c0c9d6"
             onHandleColor="#ffffff"
             offHandleColor="#ffffff"
+            activeBoxShadow="0 0 0 0 transparent"
             handleDiameter={20}
             uncheckedIcon={false}
             checkedIcon={false}

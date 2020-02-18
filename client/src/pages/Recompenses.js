@@ -29,6 +29,7 @@ function PageRecompenses() {
             <Tab>Récompenses</Tab>
             <Tab>Demandes en attente<span>{Object.keys(data.annonces).length}</span></Tab>
           </TabList>
+          
           <TabPanel>
             <Recompenses/>
           </TabPanel>

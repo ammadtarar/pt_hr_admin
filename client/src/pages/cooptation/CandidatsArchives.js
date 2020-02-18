@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react'
-const BoxCandidat = React.lazy(() => import('../../components/BoxCandidat'))
+const CardCandidat = React.lazy(() => import('../../components/CardCandidat'))
 const data = require('../../datas.json')
 
 export class CandidatsArchives extends React.Component {
@@ -32,7 +32,7 @@ export class CandidatsArchives extends React.Component {
                 if (candidats[key].archive === true) {
                   return (
                     <div className="columns large-3">
-                      <BoxCandidat data={candidats[key]}/>
+                      <CardCandidat data={candidats[key]}/>
                     </div>
                   )
                 }

@@ -114,11 +114,6 @@ input[type="text"], input[type="email"], input[type="password"] {
   }
 }
 
-//Images & icones
-img {
-  &.rejeter {cursor: pointer}
-}
-
 //Popup
 .overlay-popup {
   position: fixed;
@@ -165,6 +160,21 @@ img {
       span {font-family: $bold-poppins}
     }
     .box-note-popup {
+      position: relative;
+      padding: 2rem;
+      background-color: $athens-gray;
+      border-radius: 1rem;
+      overflow: hidden;
+      z-index: 2;
+      &::after {
+        position: absolute;
+        bottom: -1.5rem; right: -1rem;
+        background-image: url('/icons/vector-encart-2.svg');
+        background-size: 10rem;
+        width: 10rem; height: 11rem;
+        content: '';
+        z-index: 1;
+      }
       strong, p {color: $cloud-burst}
       p {margin: 0}
     }
@@ -189,7 +199,7 @@ img {
   }
 }
 
-//Common box
+//Common box's
 .box-note {
   position: relative;
   padding: 4rem 3rem;
@@ -218,23 +228,6 @@ img {
     z-index: 5;
     span {font-family: $bold-poppins}
     &.sub-note {margin-top: 2rem; font-size: $font-size-base}
-  }
-}
-.box-note-popup {
-  position: relative;
-  padding: 2rem;
-  background-color: $athens-gray;
-  border-radius: 1rem;
-  overflow: hidden;
-  z-index: 2;
-  &::after {
-    position: absolute;
-    bottom: -1.5rem; right: -1rem;
-    background-image: url('/icons/vector-encart-2.svg');
-    background-size: 10rem;
-    width: 10rem; height: 11rem;
-    content: '';
-    z-index: 1;
   }
 }
 .box-candidats-cooptes, .box-views-small, .box-points {
@@ -273,20 +266,20 @@ img {
   }
 }
 
-//common
-p.react-switch {
-  color: $raven;
-  .react-switch {top: .5rem; margin-right: 1.2rem}
-}
-
-//Common main
+//Common
 main:not(.login) {
   position: relative;
   margin-top: 7rem;
-  background-color: white;
+  background-color: rgba(242, 243, 245, 0);
   height: 100%; min-height: calc(100vh - 7rem); width: 100%;
   padding: 5rem;
   z-index: 1;
+  transition: all .03s cubic-bezier(0.045, 0.715, 0.250, 1.000);
+  &.background-athens-gray {background-color: rgba(242, 243, 245, 1)}
+  p.react-switch {
+    color: $raven;
+    .react-switch {top: .5rem; margin-right: 1.2rem}
+  }
 }
 
 //Login
@@ -540,96 +533,112 @@ main.cooptation, main.recompenses {
     .container-scroll {padding: 0 2rem; overflow-y: scroll; height: 100%;}
   }
 }
+
+//Cooptation & Recompenses
 main.cooptation, main.recompenses {
-  .tab-annonces, .tab-recompenses, .tab-demandes, .tab-candidats-archives {
-    .box-annonce, .box-recompense, .box-demande {
-      position: relative;
-      margin: 0 auto;
-      display: table;
-      width: 100%; height: 9.8rem;
-      border-bottom: .1rem solid $mischka;
-      &:nth-of-type(1) {margin-top: 3rem}
-      p {font-size: 1.3rem; color: $raven}
-      ul {
-        margin: 0;
-        padding: 0;
-        li {
-          list-style: none;
-          display: inline-block
+  .box-annonce, .box-recompense, .box-demande {
+    position: relative;
+    margin: 0 auto;
+    display: table;
+    width: 100%; height: 9.8rem;
+    border-bottom: .1rem solid $mischka;
+    &:nth-of-type(1) {margin-top: 3rem}
+    p {font-size: 1.3rem; color: $raven}
+    ul {
+      margin: 0;
+      padding: 0;
+      li {
+        list-style: none;
+        display: inline-block
+      }
+      &.titre {
+        p {margin: 0 0 0 1rem; font-size: $font-size-base; color: $cloud-burst}
+        li.date {
+          margin: 0;
+          p {color: $raven}
         }
-        &.titre {
-          p {margin: 0 0 0 1rem; font-size: $font-size-base; color: $cloud-burst}
-          li.date {
-            margin: 0;
-            p {color: $raven}
+      }
+      &.details {
+        li {
+          margin: 0 4.5rem 0 0;
+          &::before {
+            position: absolute;
+            margin: -.1rem 0 0 -2rem;
+            background-repeat: no-repeat;
+            background-position: center left;
+            background-size: 2rem;
+            width: 2rem; height: 2rem;
+            content: '';
+          }
+          &.star::before {
+            background-image: url('/icons/star.svg');
+          }
+          &.localisation::before {
+            background-image: url('/icons/localisation.svg');
           }
         }
-        &.details {
-          li {
-            margin: 0 4.5rem 0 0;
+      }
+      &.infos {
+        position: absolute;
+        top: 1rem; right: 0;
+        li {
+          margin-left: 1rem;
+          &.box-candidats-cooptes, &.box-views-small {
+            background-color: $solitaire;
+            padding: 0 1rem 0 4.4rem;
+            height: 4rem;
+            line-height: 4rem;
+            font-family: $regular-heebo;
+            font-size: 1.3rem;
+            border-radius: .5rem;
+            color: $raven;
+            span {font-family: $bold-poppins; color: $cloud-burst; font-size: $font-size-base}
+          }
+          &.box-candidats-cooptes {
+            padding-left: 5rem;
             &::before {
               position: absolute;
-              margin: -.1rem 0 0 -2rem;
+              margin: .5rem 0 0 -4rem;
+              background-image: url('/icons/nouveau-candidat.svg');
               background-repeat: no-repeat;
-              background-position: center left;
-              background-size: 2rem;
-              width: 2rem; height: 2rem;
+              background-size: 3rem;
+              width: 3rem; height: 3rem;
               content: '';
             }
-            &.star::before {
-              background-image: url('/icons/star.svg');
-            }
-            &.localisation::before {
-              background-image: url('/icons/localisation.svg');
-            }
-          }
-        }
-        &.infos {
-          position: absolute;
-          top: 1rem; right: 0;
-          li {
-            margin-left: 1rem;
-            &.box-candidats-cooptes, &.box-views-small {
-              background-color: $solitaire;
-              padding: 0 1rem 0 4.4rem;
-              height: 4rem;
-              line-height: 4rem;
-              font-family: $regular-heebo;
-              font-size: 1.3rem;
-              border-radius: .5rem;
-              color: $raven;
-              span {font-family: $bold-poppins; color: $cloud-burst; font-size: $font-size-base}
-            }
-            &.box-candidats-cooptes {
-              padding-left: 5rem;
-              &::before {
-                position: absolute;
-                margin: .5rem 0 0 -4rem;
-                background-image: url('/icons/nouveau-candidat.svg');
-                background-repeat: no-repeat;
-                background-size: 3rem;
-                width: 3rem; height: 3rem;
-                content: '';
-              }
-            }
           }
         }
       }
     }
-    .box-recompense, .box-annonce, .box-demande {
-      margin: 3rem auto 0 auto;
-      height: 9.8rem;
-      ul {
-        &.titre {margin-bottom: .5rem}
-      }
-      &:last-child {border-color: transparent;}
+  }
+  .box-recompense, .box-annonce, .box-demande {
+    margin: 3rem auto 0 auto;
+    height: 9.8rem;
+    ul {
+      &.titre {margin-bottom: .5rem}
     }
-    .box-annonce {max-width: 98rem}
-    .box-demande {
-      height: 5.8rem;
-      max-width: 100%;
-      ul.infos {top: -.7rem}
-    }
+    &:last-child {border-color: transparent;}
+  }
+  .box-annonce {max-width: 98rem}
+  .box-demande {
+    height: 5.8rem;
+    max-width: 100%;
+    ul.infos {top: -.7rem}
+  }
+}
+
+//Cooptation
+main.cooptation {
+  :not(.tab-candidats-archives) {
+    &.container {max-width: 150rem}
+  }
+  img.rejeter {cursor: pointer}
+}
+
+//Récompenses
+main.recompenses {
+  .container, .react-tabs__tab-list {max-width: 124.5rem}
+  .tab-recompenses {
+    button:nth-of-type(1) {position: absolute; right: 0; top: -5rem;}
   }
 }
 
@@ -668,28 +677,5 @@ main.communication {
     position: absolute;
     right: 1rem; bottom: 1rem;
     background-color: white;
-  }
-}
-
-//Cooptation
-main.cooptation {
-  transition: all .03s cubic-bezier(0.045, 0.715, 0.250, 1.000);
-  background-color: rgba(242, 243, 245, 0);
-  .container {
-    max-width: 150rem;
-  }
-  .tab-candidats-archives {
-    &.container {max-width: 152.5rem}
-  }
-  &.background-athens-gray {background-color: rgba(242, 243, 245, 1)}
-}
-
-//Récompenses
-main.recompenses {
-  .container, .react-tabs__tab-list {
-    max-width: 124.5rem;
-  }
-  .tab-recompenses {
-    button:nth-of-type(1) {position: absolute; right: 0; top: -5rem;}
   }
 }

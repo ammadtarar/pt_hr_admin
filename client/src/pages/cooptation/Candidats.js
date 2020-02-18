@@ -1,6 +1,6 @@
 import React from 'react'
 
-import BoxCandidat from '../../components/BoxCandidat'
+import CardCandidat from '../../components/CardCandidat'
 const data = require('../../datas.json')
 
 export class Candidats extends React.Component {
@@ -24,8 +24,8 @@ export class Candidats extends React.Component {
                 <div className="box-item">
                   <h4 className="light">Candidats cooptés</h4>
                   <div className="container-scroll">
-                    <BoxCandidat data={data}/>
-                    <BoxCandidat data={data}/>
+                    <CardCandidat data={data}/>
+                    <CardCandidat data={data}/>
                   </div>
                 </div>
               </div>
@@ -33,10 +33,10 @@ export class Candidats extends React.Component {
                 <div className="box-item">
                   <h4 className="light">Candidatures reçues</h4>
                   <div className="container-scroll">
-                    <BoxCandidat data={data}/>
-                    <BoxCandidat data={data}/>
-                    <BoxCandidat data={data}/>
-                    <BoxCandidat data={data}/>
+                    <CardCandidat data={data}/>
+                    <CardCandidat data={data}/>
+                    <CardCandidat data={data}/>
+                    <CardCandidat data={data}/>
                   </div>
                 </div>
               </div>
@@ -44,8 +44,8 @@ export class Candidats extends React.Component {
                 <div className="box-item">
                   <h4 className="light">Entretiens en cours</h4>
                   <div className="container-scroll">
-                    <BoxCandidat data={data}/>
-                    <BoxCandidat data={data}/>
+                    <CardCandidat data={data}/>
+                    <CardCandidat data={data}/>
                   </div>
                 </div>
               </div>
@@ -53,8 +53,8 @@ export class Candidats extends React.Component {
                 <div className="box-item denim">
                   <h4 className="light">Candidats sélectionnés</h4>
                   <div className="container-scroll">
-                    <BoxCandidat data={data}/>
-                    <BoxCandidat data={data}/>
+                    <CardCandidat data={data}/>
+                    <CardCandidat data={data}/>
                   </div>
                 </div>
               </div>

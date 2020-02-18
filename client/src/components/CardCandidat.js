@@ -1,6 +1,6 @@
 import React from 'react'
 
-function BoxCandidat(props) {
+function CardCandidat(props) {
   const data = props.data
   const dateToFormat = props.data.date
 
@@ -8,10 +8,10 @@ function BoxCandidat(props) {
     const date = new Date(dateToFormat)
     date.setDate(date.getDate())
     const mois = [
-      "Janvier", "Février", "Mars",
-      "Avril", "Mai", "Juin", "Jullet",
-      "Août", "Septembre", "Octobre",
-      "Novembre", "Décembre"
+      "janvier", "février", "mars",
+      "avril", "mai", "juin", "jullet",
+      "août", "septembre", "octobre",
+      "novembre", "décembre"
     ]
     const dateReformat = date.getDate() + ' ' + mois[date.getMonth()] + ' ' + date.getFullYear()
     return dateReformat
@@ -34,4 +34,4 @@ function BoxCandidat(props) {
   )
 }
 
-export default BoxCandidat
+export default CardCandidat

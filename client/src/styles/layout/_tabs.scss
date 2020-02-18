@@ -5,7 +5,8 @@
   -webkit-tap-highlight-color: transparent;
 }
 .react-tabs__tab-list {
-  position: relative;
+  position: fixed;
+  left: 0; right: 0;
   margin: 0 auto;
   display: table;
   max-width: 150rem; width: 100%;
