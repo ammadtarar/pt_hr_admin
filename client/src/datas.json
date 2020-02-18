@@ -5,63 +5,202 @@
       "prenom":"Murphy",
       "titre": "Product Manager",
       "date": "2019-12-14T01:00:00.000Z",
-      "email": "mitchell.murphy@mail.com"
+      "email": "mitchell.murphy@mail.com",
+      "archive": false
     },
     "2cec1ae2-5189-11ea-8d77-2e728ce88125": {
       "nom": "Bessie",
       "prenom":"Henry",
       "titre": "Backend Developer Python",
       "date": "2019-12-23T01:00:00.000Z",
-      "email": "bessie.henry@mail.com"
+      "email": "bessie.henry@mail.com",
+      "archive": false
     },
     "2cec1c2c-5189-11ea-8d77-2e728ce88125": {
       "nom": "Randall",
       "prenom":"Mckinney",
       "titre": "Frontend Developer React",
       "date": "2019-12-22T01:00:00.000Z",
-      "email": "randallmckinney@mail.com"
+      "email": "randallmckinney@mail.com",
+      "archive": false
     },
     "2cec1f88-5189-11ea-8d77-2e728ce88125": {
       "nom": "Janne",
       "prenom":"Cooper",
       "titre": "Frontend Developer Angular",
       "date": "2019-12-18T01:00:00.000Z",
-      "email": "jannecooper@mail.com"
+      "email": "jannecooper@mail.com",
+      "archive": false
     },
     "2cec1f76-5189-11ea-8d77-2e728ce88125": {
       "nom": "Tomothy",
       "prenom":" Cooper",
       "titre": "Dev Ops",
       "date": "2019-12-29T01:00:00.000Z",
-      "email": "tomothycooper@mail.com"
+      "email": "tomothycooper@mail.com",
+      "archive": false
     },
     "2cec1f6c-5189-11ea-8d77-2e728ce88125": {
       "nom": "Jane",
       "prenom":"Fisher",
       "titre": "Product Marketing Manager",
       "date": "2019-12-27T01:00:00.000Z",
-      "email": "jfisher@mail.com"
+      "email": "jfisher@mail.com",
+      "archive": false
     },
     "2cec1f43-5189-11ea-8d77-2e728ce88125": {
       "nom": "Debra",
       "prenom": "Mccoy",
       "titre": "Customer success manager",
       "date": "2020-01-14T01:00:00.000Z",
-      "email": "debramccoy@mail.com"
+      "email": "debramccoy@mail.com",
+      "archive": false
     },
     "2cec1fac-5189-11ea-8d77-2e728ce88125": {
       "nom": "Devon",
       "prenom": "Willson",
       "titre": "Customer success manager",
       "date": "2020-02-07T01:00:00.000Z",
-      "email": "devonwillson@mail.com"
+      "email": "devonwillson@mail.com",
+      "archive": false
     },
     "2cec1fff-5189-11ea-8d77-2e728ce88125": {
       "nom": "Priscillia",
       "prenom": "Flores",
       "titre": "Vp of product",
       "date": "2020-01-18T01:00:00.000Z",
-      "email": "priscilliaflores@mail.com"
+      "email": "priscilliaflores@mail.com",
+      "archive": false
+    },
+    "7411adba-525b-11ea-8d77-2e728ce88125": {
+      "nom": "Eduardo",
+      "prenom": "Fisher",
+      "titre": "Sales",
+      "date": "2020-12-22T01:00:00.000Z",
+      "email": "eduardofisher@mail.com",
+      "archive": true
+    },
+    "7411b238-525b-11ea-8d77-2e728ce88125": {
+      "nom": "Ariene",
+      "prenom": "Edwards",
+      "titre": "Sales",
+      "date": "2020-12-21T01:00:00.000Z",
+      "email": "arieneedwards@mail.com",
+      "archive": true
+    },
+    "7411b3aa-525b-11ea-8d77-2e728ce88125": {
+      "nom": "Victoria",
+      "prenom": "Cooper",
+      "titre": "RH France",
+      "date": "2020-12-20T01:00:00.000Z",
+      "email": "victoriacooper@mail.com",
+      "archive": true
+    },
+    "7411b4ea-525b-11ea-8d77-2e728ce88125": {
+      "nom": "Pat",
+      "prenom": "Watson",
+      "titre": "RH France",
+      "date": "2020-12-19T01:00:00.000Z",
+      "email": "pat.watson@mail.com",
+      "archive": true
+    },
+    "7411b616-525b-11ea-8d77-2e728ce88125": {
+      "nom": "Irma",
+      "prenom": "Mckinney",
+      "titre": "Sales",
+      "date": "2020-12-17T01:00:00.000Z",
+      "email": "irmamckinney@mail.com",
+      "archive": true
+    },
+    "7411b742-525b-11ea-8d77-2e728ce88125": {
+      "nom": "Calvin",
+      "prenom": "Black",
+      "titre": "Sales",
+      "date": "2020-12-15T01:00:00.000Z",
+      "email": "calvinblack@mail.com",
+      "archive": true
+    }
+  },
+  "annonces": {
+    "2cec1876-5189-11ea-8d77-2e728ce88125": {
+      "titre": "Product Manager",
+      "date": "2019-12-14T01:00:00.000Z",
+      "lieu": "Paris",
+      "points": "500",
+      "views": "234",
+      "cooptations": 2,
+      "checked": true
+    },
+    "2cec1ae2-5189-11ea-8d77-2e728ce88125": {
+      "titre": "Backend Developer Python",
+      "date": "2019-12-23T01:00:00.000Z",
+      "lieu": "Londres",
+      "points": "1000",
+      "views": "193",
+      "cooptations": 3,
+      "checked": true
+    },
+    "2cec1c2c-5189-11ea-8d77-2e728ce88125": {
+      "titre": "Frontend Developer React",
+      "date": "2019-12-22T01:00:00.000Z",
+      "lieu": "Lyon",
+      "points": "1500",
+      "views": "97",
+      "checked": false
+    },
+    "2cec1f88-5189-11ea-8d77-2e728ce88125": {
+      "titre": "Frontend Developer Angular",
+      "date": "2019-12-18T01:00:00.000Z",
+      "lieu": "Paris",
+      "points": "1200",
+      "views": "325",
+      "cooptations": 0,
+      "checked": false
+    },
+    "2cec1f76-5189-11ea-8d77-2e728ce88125": {
+      "titre": "Dev Ops",
+      "date": "2019-12-29T01:00:00.000Z",
+      "lieu": "Paris",
+      "points": "800",
+      "views": "193",
+      "cooptations": 1,
+      "checked": true
+    },
+    "2cec1f6c-5189-11ea-8d77-2e728ce88125": {
+      "titre": "Product Marketing Manager",
+      "date": "2019-12-27T01:00:00.000Z",
+      "lieu": "New-York",
+      "points": "1000",
+      "views": "277",
+      "cooptations": 1,
+      "checked": true
+    },
+    "2cec1f43-5189-11ea-8d77-2e728ce88125": {
+      "titre": "Customer success manager",
+      "date": "2020-01-14T01:00:00.000Z",
+      "lieu": "Chicago",
+      "points": "1800",
+      "views": "243",
+      "cooptations": 0,
+      "checked": false
+    },
+    "2cec1fac-5189-11ea-8d77-2e728ce88125": {
+      "titre": "Customer success manager",
+      "date": "2020-02-07T01:00:00.000Z",
+      "lieu": "New-York",
+      "points": "1000",
+      "views": "367",
+      "cooptations": 0,
+      "checked": false
+    },
+    "2cec1fff-5189-11ea-8d77-2e728ce88125": {
+      "titre": "Vp of product",
+      "date": "2020-02-14T01:00:00.000Z",
+      "lieu": "Bordeaux",
+      "points": "1000",
+      "views": "302",
+      "cooptations": 1,
+      "checked": true
     }
   },
   "communication": {

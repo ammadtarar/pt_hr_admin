@@ -24,6 +24,7 @@ hr {
   border-top: .1rem solid $mischka;
   margin: 2rem 0;
 }
+strong {font-family: $bold-heebo; font-weight: 400}
 p, ul li, ol li, label, input, button, h1, h2, h3, h4, h5, h6 {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -143,6 +144,31 @@ img {
   transform: translateX(100%);
   transition: all .4s cubic-bezier(0.045, 0.715, 0.250, 1.000);
   z-index: 4;
+  &.center {
+    right: 0; left: 0; top: 25%;
+    margin: 0 auto;
+    padding: 4rem 4rem 2rem 4rem;
+    max-width: 43rem; width: 100%; height: auto;
+    transform: translateY(-10%);
+    border-radius: 1rem;
+    &.open {transform: translateY(0)}
+    button {
+      position: relative;
+      margin: 0 auto;
+      display: table;
+      left: 0rem;
+      &:nth-of-type(1) {margin-top: 2rem}
+    }
+    p {color: $raven}
+    h4 {
+      font-family: $regular-poppins;
+      span {font-family: $bold-poppins}
+    }
+    .box-note-popup {
+      strong, p {color: $cloud-burst}
+      p {margin: 0}
+    }
+  }
   &.open {
     visibility: visible;
     opacity: 1;
@@ -192,6 +218,23 @@ img {
     z-index: 5;
     span {font-family: $bold-poppins}
     &.sub-note {margin-top: 2rem; font-size: $font-size-base}
+  }
+}
+.box-note-popup {
+  position: relative;
+  padding: 2rem;
+  background-color: $athens-gray;
+  border-radius: 1rem;
+  overflow: hidden;
+  z-index: 2;
+  &::after {
+    position: absolute;
+    bottom: -1.5rem; right: -1rem;
+    background-image: url('/icons/vector-encart-2.svg');
+    background-size: 10rem;
+    width: 10rem; height: 11rem;
+    content: '';
+    z-index: 1;
   }
 }
 .box-candidats-cooptes, .box-views-small, .box-points {
@@ -452,6 +495,7 @@ main.cooptation, main.recompenses {
     p {
       color: $raven;
       a {color: $raven}
+      &.email a:hover {color: $cloud-burst}
       &:nth-of-type(1) {
         color: $cloud-burst;
         font-family: $bold-heebo;
@@ -512,7 +556,8 @@ main.cooptation.annonces, main.recompenses {
       &.titre {
         p {margin: 0 0 0 1rem; font-size: $font-size-base; color: $cloud-burst}
         li.date {
-          margin: 0 0 0 1rem;
+          margin: 0;
+          p {color: $raven}
         }
       }
       &.details {
@@ -567,8 +612,8 @@ main.cooptation.annonces, main.recompenses {
       }
     }
   }
-  .box-recompense {
-    margin: 3rem 0 0 0;
+  .box-recompense, .box-annonce {
+    margin: 3rem auto 0 auto;
     height: 9.8rem;
     ul {
       &.titre {
@@ -619,7 +664,6 @@ main.communication {
     background-color: $athens-gray;
     background-size: cover;
     background-position: center center;
-
   }
   .box-views-small {
     position: absolute;

@@ -4,9 +4,6 @@ import NavCooptation from '../../components/NavCooptation'
 import BoxCandidat from '../../components/BoxCandidat'
 
 export class Candidats extends React.Component {
-  componentDidMount() {
-  }
-
   preventDragHandler = (e) => {
     e.preventDefault()
   }
