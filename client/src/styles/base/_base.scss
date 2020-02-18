@@ -686,8 +686,8 @@ main.cooptation {
 
 //Récompenses
 main.recompenses {
-  .container {
-    max-width: 150rem;
+  .container, .react-tabs__tab-list {
+    max-width: 124.5rem;
   }
   .tab-recompenses {
     button:nth-of-type(1) {position: absolute; right: 0; top: -5rem;}
