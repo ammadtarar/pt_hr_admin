@@ -13,7 +13,7 @@ function Header() {
   }
 
   return (
-    <header  onDragStart={(e) => preventDragHandler(e)}>
+    <header onDragStart={(e) => preventDragHandler(e)}>
       <div className="container">
         <a href="/dashboard" className="logo" rel="noopener noreferrer" title=""><div><img type="image/svg+xml" src="/icons/logo-pushtalents-small.svg" alt=""/></div></a>
         <nav className="primary" role="navigation">

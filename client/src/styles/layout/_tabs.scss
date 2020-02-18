@@ -1,0 +1,52 @@
+/* ==|====================
+   Layout/Tabs
+   ======================= */
+.react-tabs {
+  -webkit-tap-highlight-color: transparent;
+}
+.react-tabs__tab-list {
+  position: relative;
+  margin: 0 auto;
+  display: table;
+  max-width: 124.5rem; width: 100%;
+}
+.react-tabs__tab {
+  position: relative;
+  margin: 0 4.5rem 0 0;
+  list-style: none;
+  display: inline-block;
+  font-size: $font-size-base;
+  color: $raven;
+  line-height: 3.3rem;
+  border-bottom: .3rem solid transparent;
+  cursor: pointer;
+  a {color: $raven}
+  &:hover, &.current {border-color: $denim; color: $denim}
+  &:hover a, &.current a, &:hover span {color: $denim}
+  span {
+    margin: 0 0 0 .5rem;
+    display: inline-block;
+    font-family: $regular-poppins;
+    font-size: 1.3rem;
+    line-height: 1.8rem;
+    width: 2.9rem; height: 1.8rem;
+    background: rgba(114, 124, 137, 0.1);
+    border-radius: 2rem;
+    color: $raven;
+    text-align: center;
+  }
+}
+.react-tabs__tab--selected {
+  border-color: $denim; color: $denim;
+  span {color: $denim}
+}
+.react-tabs__tab:focus {
+  outline: none;
+}
+.react-tabs__tab-panel {
+  display: none;
+  padding: 1rem 0 0 0;
+}
+.react-tabs__tab-panel--selected {
+  display: block;
+}

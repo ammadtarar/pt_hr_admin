@@ -145,12 +145,12 @@ img {
   transition: all .4s cubic-bezier(0.045, 0.715, 0.250, 1.000);
   z-index: 4;
   &.center {
-    right: 0; left: 0; top: 25%;
+    right: 0; left: 0; top: 15%;
     margin: 0 auto;
     padding: 4rem 4rem 2rem 4rem;
     max-width: 43rem; width: 100%; height: auto;
-    transform: translateY(-10%);
     border-radius: 1rem;
+    transform: translateX(0) translateY(-10%);
     &.open {transform: translateY(0)}
     button {
       position: relative;
@@ -612,26 +612,19 @@ main.cooptation.annonces, main.recompenses {
       }
     }
   }
-  .box-recompense, .box-annonce {
+  .box-recompense, .box-annonce, .box-demande {
     margin: 3rem auto 0 auto;
     height: 9.8rem;
     ul {
-      &.titre {
-        margin-bottom: .5rem;
-      }
+      &.titre {margin-bottom: .5rem}
     }
-    &:last-child {
-      border-color: transparent;
-    }
+    &:last-child {border-color: transparent;}
   }
   .box-demande {
     height: 5.8rem;
+    max-width: 100%;
     ul.infos {top: -.7rem}
   }
-}
-
-#top {
-  float: left
 }
 
 //Communication
@@ -674,8 +667,10 @@ main.communication {
 
 //Récompenses
 main.recompenses {
-  button {position: absolute; right: 0; top: 0;}
   .box-recompense, .container {
     max-width: 124.5rem;
+  }
+  .tab-recompenses {
+    button:nth-of-type(1) {position: absolute; right: 0; top: -5rem;}
   }
 }

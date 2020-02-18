@@ -6,8 +6,7 @@ import Communication from '../pages/Communication'
 import Candidats from '../pages/cooptation/Candidats'
 import CandidatsArchives from '../pages/cooptation/CandidatsArchives'
 import Annonces from '../pages/cooptation/Annonces'
-import Recompenses from '../pages/recompenses/Recompenses'
-import Demandes from '../pages/recompenses/Demandes'
+import Recompenses from '../pages/Recompenses'
 
 import Test from '../pages/test'
 
@@ -43,12 +42,8 @@ export class AppRouter extends React.Component {
         component: Communication
       },
       {
-        path: '/recompenses/recompenses',
+        path: '/recompenses',
         component: Recompenses
-      },
-      {
-        path: '/recompenses/demandes',
-        component: Demandes
       }
     ]
 
