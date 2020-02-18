@@ -98,7 +98,7 @@ input[type="text"], input[type="email"], input[type="password"] {
   position: relative;
   margin: 0 auto;
   display: table;
-  max-width: 127rem; width: 100%;
+  max-width: 152.5rem; width: 100%;
 }
 .columns {float: none; display: inline-block; vertical-align: top}
 .row-fluid {
@@ -368,7 +368,7 @@ main.login {
 main.dashboard {
   background-color: $athens-gray;
   .container {
-    max-width: 124.5rem;
+    max-width: 150rem;
   }
   &::after {
     position: absolute;
@@ -624,7 +624,7 @@ main.cooptation, main.recompenses {
       }
       &:last-child {border-color: transparent;}
     }
-    .box-annonce {max-width: 99rem}
+    .box-annonce {max-width: 98rem}
     .box-demande {
       height: 5.8rem;
       max-width: 100%;
@@ -676,10 +676,10 @@ main.cooptation {
   transition: all .03s cubic-bezier(0.045, 0.715, 0.250, 1.000);
   background-color: rgba(242, 243, 245, 0);
   .container {
-    max-width: 124.5rem;
+    max-width: 150rem;
   }
   .tab-candidats-archives {
-    &.container {max-width: 127rem}
+    &.container {max-width: 152.5rem}
   }
   &.background-athens-gray {background-color: rgba(242, 243, 245, 1)}
 }
@@ -687,7 +687,7 @@ main.cooptation {
 //Récompenses
 main.recompenses {
   .container {
-    max-width: 124.5rem;
+    max-width: 150rem;
   }
   .tab-recompenses {
     button:nth-of-type(1) {position: absolute; right: 0; top: -5rem;}
