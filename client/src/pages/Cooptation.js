@@ -1,16 +1,21 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import Header from '../components/Header'
-import Recompenses from './recompenses/Recompenses'
-import Demandes from './recompenses/Demandes'
+import Annonces from './cooptation/Annonces'
+import CandidatsArchives from './cooptation/CandidatsArchives'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
 const data = require('../datas.json')
 
-function PageRecompenses() {
+function PageCooptation(props) {
   // const [data, setData] = useState([])
+  const [checkedTab, setCheckedTab] = useState([])
 
   const preventDragHandler = e => {
     e.preventDefault()
+  }
+
+  const tab = index => {
+    setCheckedTab(index)
   }
 
   // useEffect(() => {
@@ -22,19 +27,22 @@ function PageRecompenses() {
   return (
     <div className="wrapper" onDragStart={(e) => preventDragHandler(e)}>
       <Header/>
-
-      <main className="recompenses">
-        <Tabs>
+      <main className={`cooptation ${checkedTab === 2 ? 'background-athens-gray' :''}`}>
+        <Tabs onSelect={index => tab(index)}>
           <TabList>
-            <Tab>Récompenses</Tab>
-            <Tab>Demandes en attente<span>{Object.keys(data.annonces).length}</span></Tab>
+            <Tab>Candidats</Tab>
+            <Tab>Annonces<span>{Object.keys(data.candidats).length}</span></Tab>
+            <Tab>Candidats archivés</Tab>
           </TabList>
 
           <TabPanel>
-            <Recompenses/>
+
           </TabPanel>
           <TabPanel>
-            <Demandes/>
+            <Annonces/>
+          </TabPanel>
+          <TabPanel>
+            <CandidatsArchives/>
           </TabPanel>
         </Tabs>
       </main>
@@ -42,4 +50,4 @@ function PageRecompenses() {
   )
 }
 
-export default PageRecompenses;
+export default PageCooptation;

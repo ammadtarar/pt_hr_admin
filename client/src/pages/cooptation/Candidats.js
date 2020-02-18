@@ -1,28 +1,31 @@
 import React from 'react'
-import Header from '../../components/Header'
-import NavCooptation from '../../components/NavCooptation'
+
 import BoxCandidat from '../../components/BoxCandidat'
+const data = require('../../datas.json')
 
 export class Candidats extends React.Component {
-  preventDragHandler = (e) => {
-    e.preventDefault()
+  state = {
+    'data': data
   }
 
+
   render() {
+    const data = this.state.data.candidats[0]
+
     return (
-      <div className="wrapper" onDragStart={this.preventDragHandler}>
-        <Header/>
+      <div className="wrapper">
+
         <main className="cooptation candidats">
           <div className="container">
-            <NavCooptation/>
+
             <input type="text" name="search" className="search" value="Rechercher" />
             <div className="row-fluid">
               <div className="large-3 columns">
                 <div className="box-item">
                   <h4 className="light">Candidats cooptés</h4>
                   <div className="container-scroll">
-                    <BoxCandidat/>
-                    <BoxCandidat/>
+                    <BoxCandidat data={data}/>
+                    <BoxCandidat data={data}/>
                   </div>
                 </div>
               </div>
@@ -30,10 +33,10 @@ export class Candidats extends React.Component {
                 <div className="box-item">
                   <h4 className="light">Candidatures reçues</h4>
                   <div className="container-scroll">
-                    <BoxCandidat/>
-                    <BoxCandidat/>
-                    <BoxCandidat/>
-                    <BoxCandidat/>
+                    <BoxCandidat data={data}/>
+                    <BoxCandidat data={data}/>
+                    <BoxCandidat data={data}/>
+                    <BoxCandidat data={data}/>
                   </div>
                 </div>
               </div>
@@ -41,8 +44,8 @@ export class Candidats extends React.Component {
                 <div className="box-item">
                   <h4 className="light">Entretiens en cours</h4>
                   <div className="container-scroll">
-                    <BoxCandidat/>
-                    <BoxCandidat/>
+                    <BoxCandidat data={data}/>
+                    <BoxCandidat data={data}/>
                   </div>
                 </div>
               </div>
@@ -50,8 +53,8 @@ export class Candidats extends React.Component {
                 <div className="box-item denim">
                   <h4 className="light">Candidats sélectionnés</h4>
                   <div className="container-scroll">
-                    <BoxCandidat/>
-                    <BoxCandidat/>
+                    <BoxCandidat data={data}/>
+                    <BoxCandidat data={data}/>
                   </div>
                 </div>
               </div>

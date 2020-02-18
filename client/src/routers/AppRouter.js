@@ -3,16 +3,14 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import Login from '../pages/Login'
 import Dashboard from '../pages/Dashboard'
 import Communication from '../pages/Communication'
-import Candidats from '../pages/cooptation/Candidats'
-import CandidatsArchives from '../pages/cooptation/CandidatsArchives'
-import Annonces from '../pages/cooptation/Annonces'
+import Cooptation from '../pages/Cooptation'
 import Recompenses from '../pages/Recompenses'
 
 import Test from '../pages/test'
 
 export class AppRouter extends React.Component {
   render() {
-    const userRoutes = [,
+    const userRoutes = [
       {
         path: '/test',
         component: Test
@@ -27,15 +25,7 @@ export class AppRouter extends React.Component {
       },
       {
         path: '/cooptation',
-        component: Candidats
-      },
-      {
-        path: '/cooptation/annonces',
-        component: Annonces
-      },
-      {
-        path: '/cooptation/candidats-archives',
-        component: CandidatsArchives
+        component: Cooptation
       },
       {
         path: '/communication',

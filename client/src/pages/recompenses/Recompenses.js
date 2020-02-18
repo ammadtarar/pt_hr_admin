@@ -1,6 +1,4 @@
 import React, { Suspense } from 'react'
-import Header from '../../components/Header'
-import NavRecompenses from '../../components/NavRecompenses'
 const BoxRecompense = React.lazy(() => import('../../components/BoxRecompense'))
 const data = require('../../datas.json')
 

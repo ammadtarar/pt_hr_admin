@@ -109,7 +109,7 @@ input[type="text"], input[type="email"], input[type="password"] {
     &:nth-of-type(3) {padding: 0 0 0 1.5rem}
   }
   [class*='large-3'] {
-    &:nth-child(1n+1) {padding: 0 1.5rem; float: left}
+    &:nth-child(1n+1) {padding: 0 1.5rem; margin-bottom: -.5rem; float: left}
     .box-encart {margin-bottom: 3rem}
   }
 }
@@ -537,93 +537,96 @@ main.cooptation, main.recompenses {
     .container-scroll {padding: 0 2rem; overflow-y: scroll; height: 100%;}
   }
 }
-main.cooptation.annonces, main.recompenses {
-  .box-annonce, .box-recompense, .box-demande {
-    position: relative;
-    margin: 0 auto;
-    display: table;
-    max-width: 99rem; width: 100%; height: 9.8rem;
-    border-bottom: .1rem solid $mischka;
-    &:nth-of-type(1) {margin-top: 3rem}
-    p {font-size: 1.3rem; color: $raven}
-    ul {
-      margin: 0;
-      padding: 0;
-      li {
-        list-style: none;
-        display: inline-block
-      }
-      &.titre {
-        p {margin: 0 0 0 1rem; font-size: $font-size-base; color: $cloud-burst}
-        li.date {
-          margin: 0;
-          p {color: $raven}
-        }
-      }
-      &.details {
+main.cooptation, main.recompenses {
+  .tab-annonces, .tab-recompenses, .tab-demandes, .tab-candidats-archives {
+    .box-annonce, .box-recompense, .box-demande {
+      position: relative;
+      margin: 0 auto;
+      display: table;
+      width: 100%; height: 9.8rem;
+      border-bottom: .1rem solid $mischka;
+      &:nth-of-type(1) {margin-top: 3rem}
+      p {font-size: 1.3rem; color: $raven}
+      ul {
+        margin: 0;
+        padding: 0;
         li {
-          margin: 0 4.5rem 0 0;
-          &::before {
-            position: absolute;
-            margin: -.1rem 0 0 -2rem;
-            background-repeat: no-repeat;
-            background-position: center left;
-            background-size: 2rem;
-            width: 2rem; height: 2rem;
-            content: '';
-          }
-          &.star::before {
-            background-image: url('/icons/star.svg');
-          }
-          &.localisation::before {
-            background-image: url('/icons/localisation.svg');
+          list-style: none;
+          display: inline-block
+        }
+        &.titre {
+          p {margin: 0 0 0 1rem; font-size: $font-size-base; color: $cloud-burst}
+          li.date {
+            margin: 0;
+            p {color: $raven}
           }
         }
-      }
-      &.infos {
-        position: absolute;
-        top: 1rem; right: 0;
-        li {
-          margin-left: 1rem;
-          &.box-candidats-cooptes, &.box-views-small {
-            background-color: $solitaire;
-            padding: 0 1rem 0 4.4rem;
-            height: 4rem;
-            line-height: 4rem;
-            font-family: $regular-heebo;
-            font-size: 1.3rem;
-            border-radius: .5rem;
-            color: $raven;
-            span {font-family: $bold-poppins; color: $cloud-burst; font-size: $font-size-base}
-          }
-          &.box-candidats-cooptes {
-            padding-left: 5rem;
+        &.details {
+          li {
+            margin: 0 4.5rem 0 0;
             &::before {
               position: absolute;
-              margin: .5rem 0 0 -4rem;
-              background-image: url('/icons/nouveau-candidat.svg');
+              margin: -.1rem 0 0 -2rem;
               background-repeat: no-repeat;
-              background-size: 3rem;
-              width: 3rem; height: 3rem;
+              background-position: center left;
+              background-size: 2rem;
+              width: 2rem; height: 2rem;
               content: '';
+            }
+            &.star::before {
+              background-image: url('/icons/star.svg');
+            }
+            &.localisation::before {
+              background-image: url('/icons/localisation.svg');
+            }
+          }
+        }
+        &.infos {
+          position: absolute;
+          top: 1rem; right: 0;
+          li {
+            margin-left: 1rem;
+            &.box-candidats-cooptes, &.box-views-small {
+              background-color: $solitaire;
+              padding: 0 1rem 0 4.4rem;
+              height: 4rem;
+              line-height: 4rem;
+              font-family: $regular-heebo;
+              font-size: 1.3rem;
+              border-radius: .5rem;
+              color: $raven;
+              span {font-family: $bold-poppins; color: $cloud-burst; font-size: $font-size-base}
+            }
+            &.box-candidats-cooptes {
+              padding-left: 5rem;
+              &::before {
+                position: absolute;
+                margin: .5rem 0 0 -4rem;
+                background-image: url('/icons/nouveau-candidat.svg');
+                background-repeat: no-repeat;
+                background-size: 3rem;
+                width: 3rem; height: 3rem;
+                content: '';
+              }
             }
           }
         }
       }
     }
-  }
-  .box-recompense, .box-annonce, .box-demande {
-    margin: 3rem auto 0 auto;
-    height: 9.8rem;
-    ul {
-      &.titre {margin-bottom: .5rem}
+    .box-recompense, .box-annonce, .box-demande {
+      margin: 3rem auto 0 auto;
+      height: 9.8rem;
+      ul {
+        &.titre {margin-bottom: .5rem}
+      }
+      &:last-child {border-color: transparent;}
     }
-    &:last-child {border-color: transparent;}
-  }
-  .box-demande {
-    height: 5.8rem;
-    max-width: 100%;
-    ul.infos {top: -.7rem}
+    .box-annonce {max-width: 99rem}
+    .box-demande {
+      height: 5.8rem;
+      max-width: 100%;
+      ul.infos {top: -.7rem}
+    }
   }
 }
 
@@ -665,9 +668,22 @@ main.communication {
   }
 }
 
+//Cooptation
+main.cooptation {
+  transition: all .03s cubic-bezier(0.045, 0.715, 0.250, 1.000);
+  background-color: rgba(242, 243, 245, 0);
+  .container {
+    max-width: 124.5rem;
+  }
+  .tab-candidats-archives {
+    &.container {max-width: 127rem}
+  }
+  &.background-athens-gray {background-color: rgba(242, 243, 245, 1)}
+}
+
 //Récompenses
 main.recompenses {
-  .box-recompense, .container {
+  .container {
     max-width: 124.5rem;
   }
   .tab-recompenses {
