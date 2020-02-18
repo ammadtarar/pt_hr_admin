@@ -46,4 +46,4 @@ export class CandidatsArchives extends React.Component {
   }
 }
 
-export default CandidatsArchives;
+export default CandidatsArchives

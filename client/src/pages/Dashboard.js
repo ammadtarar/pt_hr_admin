@@ -39,14 +39,14 @@ export class Dashboard extends React.Component {
                   <div className="box-text">
                     <p>Demandes de récompenses</p>
                     <p><span>3</span></p>
-                    <button className="btn-primary">Voir</button>
+                    <button onClick={(e) => this.props.history.push('/recompenses')} className="btn-primary">Voir</button>
                   </div>
                 </div>
               </div>
               <div className="large-4 columns">
                 <div className="box-item cooptation">
                   <h4>Cooptation</h4>
-                  <button className="btn-primary">Voir</button>
+                  <button onClick={(e) => this.props.history.push('/cooptation')} className="btn-primary">Voir</button>
                   <div className="box-views">
                     <div>
                       <p>2,986</p>
@@ -75,7 +75,7 @@ export class Dashboard extends React.Component {
               <div className="large-4 columns">
                 <div className="box-item communication">
                   <h4>Communication</h4>
-                  <button className="btn-primary">Voir</button>
+                  <button onClick={(e) => this.props.history.push('/communication')} className="btn-primary">Voir</button>
                   <div className="box-views">
                     <div>
                       <p>8,908</p>

@@ -50,4 +50,4 @@ function PageCooptation(props) {
   )
 }
 
-export default PageCooptation;
+export default PageCooptation

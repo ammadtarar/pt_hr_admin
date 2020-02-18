@@ -48,4 +48,4 @@ export class Demandes extends React.Component {
   }
 }
 
-export default Demandes;
+export default Demandes

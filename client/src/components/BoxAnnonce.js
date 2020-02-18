@@ -69,4 +69,4 @@ export class BoxRecompense extends React.Component {
   }
 }
 
-export default BoxRecompense;
+export default BoxRecompense

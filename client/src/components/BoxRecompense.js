@@ -17,7 +17,7 @@ export class BoxRecompense extends React.Component {
 
   render() {
     const data = this.state.data
-    
+
     return (
       <div className="box-recompense">
         <ul className="titre">
@@ -51,4 +51,4 @@ export class BoxRecompense extends React.Component {
   }
 }
 
-export default BoxRecompense;
+export default BoxRecompense

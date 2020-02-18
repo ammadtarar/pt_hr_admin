@@ -46,4 +46,4 @@ export class CardCommunication extends React.Component {
   }
 }
 
-export default CardCommunication;
+export default CardCommunication

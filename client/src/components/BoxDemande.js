@@ -20,4 +20,4 @@ export class BoxDemande extends React.Component {
   }
 }
 
-export default BoxDemande;
+export default BoxDemande

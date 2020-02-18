@@ -98,7 +98,7 @@ input[type="text"], input[type="email"], input[type="password"] {
   position: relative;
   margin: 0 auto;
   display: table;
-  max-width: 160rem; width: 100%;
+  max-width: 127rem; width: 100%;
 }
 .columns {float: none; display: inline-block; vertical-align: top}
 .row-fluid {
@@ -367,6 +367,9 @@ main.login {
 //Dashboard
 main.dashboard {
   background-color: $athens-gray;
+  .container {
+    max-width: 124.5rem;
+  }
   &::after {
     position: absolute;
     top: -7rem; right: 0;

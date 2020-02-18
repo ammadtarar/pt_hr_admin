@@ -34,4 +34,4 @@ function BoxCandidat(props) {
   )
 }
 
-export default BoxCandidat;
+export default BoxCandidat
