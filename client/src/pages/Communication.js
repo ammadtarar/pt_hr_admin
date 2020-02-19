@@ -5,7 +5,8 @@ const data = require('../datas.json')
 
 export class Communication extends React.Component {
   state = {
-    'data': data
+    'data': data,
+    'countActivesPosts': ''
   }
 
   preventDragHandler = (e) => {
@@ -20,9 +21,21 @@ export class Communication extends React.Component {
     //       'data': res
     //     })
     //   })
+
+    //Obtenir nombres de posts actifs
+    const communication = this.state.data.communication
+    const triCandidaturesRecues = Object.keys(communication).reduce((item, e) => {
+      if ([true].includes(communication[e].checked)) item[e] = communication[e]
+      return item
+    }, {})
+
+    this.setState({
+      'countActivesPosts': Object.keys(triCandidaturesRecues).length
+    })
   }
 
   render() {
+    const count = this.state.countActivesPosts
     const communication = this.state.data.communication
 
     return (
@@ -32,7 +45,7 @@ export class Communication extends React.Component {
           <div className="container">
             <ul className="headline">
               <li><h3>Communication</h3></li>
-              <li><p><span>{Object.keys(communication).length}</span> contenus actifs</p></li>
+              <li><p><span>{count}</span> contenus actifs</p></li>
             </ul>
             <div className="row-fluid">
 
@@ -44,7 +57,11 @@ export class Communication extends React.Component {
                   </div>
                 </div>
 
-                {Object.keys(communication).map((key, item, i) => {
+                {Object.keys(communication)
+                  .sort((a, b) => {
+                    return new Date(communication[a].publishedDate) < new Date(communication[b].publishedDate) ? 1 : (new Date(communication[a].publishedDate) > new Date(communication[b].publishedDate) ? -1 : 0)
+                  })
+                  .map((key, item, i) => {
                   return (
                     <div className="large-3 columns">
                       <CardCommunication data={communication[key]}/>

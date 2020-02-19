@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import CardCandidat from '../../components/CardCandidat'
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
 const data = require('../../datas.json')
@@ -29,28 +29,47 @@ const move = (source, destination, droppableSource, droppableDestination) => {
   return result
 }
 
-const grid = 8
-
 export class Candidats extends React.Component {
   state = {
     'candidatsCooptes': [],
-    'candidaturesRecues': []
+    'candidaturesRecues': [],
+    'candidatEntretient': [],
+    'candidatSelectionne': [],
+    'popupOpen': false,
+    'popupData': '',
+    'search': ''
   }
 
   componentDidMount() {
-    const triCandidatsCooptes = Object.keys(data.candidats).reduce(function(r, e) {
-      if (['candidat-coopte'].includes(data.candidats[e].status)) r[e] = data.candidats[e]
-      return r
+    const triCandidatsCooptes = Object.keys(data.candidats).reduce(function(item, e) {
+      let acceptedValue = ['candidat-coopte']
+      if (acceptedValue.includes(data.candidats[e].status)) item[e] = data.candidats[e]
+      return item
     }, {})
 
-    const triCandidaturesRecues = Object.keys(data.candidats).reduce(function(r, e) {
-      if (['candidature-recue'].includes(data.candidats[e].status)) r[e] = data.candidats[e]
-      return r
+    const triCandidaturesRecues = Object.keys(data.candidats).reduce(function(item, e) {
+      let acceptedValue = ['candidature-recue']
+      if (acceptedValue.includes(data.candidats[e].status)) item[e] = data.candidats[e]
+      return item
+    }, {})
+
+    const triCandidatEntretient = Object.keys(data.candidats).reduce(function(item, e) {
+      let acceptedValue = ['en-entretient']
+      if (acceptedValue.includes(data.candidats[e].status)) item[e] = data.candidats[e]
+      return item
+    }, {})
+
+    const triCandidatSelectionne = Object.keys(data.candidats).reduce(function(item, e) {
+      let acceptedValue = ['candidat-selectionne']
+      if (acceptedValue.includes(data.candidats[e].status)) item[e] = data.candidats[e]
+      return item
     }, {})
 
     this.setState({
       'candidatsCooptes': triCandidatsCooptes,
-      'candidaturesRecues': triCandidaturesRecues
+      'candidaturesRecues': triCandidaturesRecues,
+      'candidatEntretient': triCandidatEntretient,
+      'candidatSelectionne': triCandidatSelectionne
     })
   }
 
@@ -59,12 +78,14 @@ export class Candidats extends React.Component {
    * the IDs of the droppable container to the names of the
    * source arrays stored in the state.
    */
-  id2List = {
+  idList = {
     droppable: 'candidatsCooptes',
-    droppable2: 'candidaturesRecues'
+    droppable2: 'candidaturesRecues',
+    droppable3: 'candidatEntretient',
+    droppable4: 'candidatSelectionne'
   }
 
-  getList = id => this.state[this.id2List[id]]
+  getList = id => this.state[this.idList[id]]
 
   onDragEnd = result => {
     const { source, destination } = result
@@ -87,6 +108,14 @@ export class Candidats extends React.Component {
         state = { 'candidaturesRecues': items }
       }
 
+      if (source.droppableId === 'droppable3') {
+        state = { 'candidatEntretient': items }
+      }
+
+      if (source.droppableId === 'droppable4') {
+        state = { 'candidatSelectionne': items }
+      }
+
       this.setState(state)
     } else {
       const result = move(
@@ -98,109 +127,216 @@ export class Candidats extends React.Component {
 
       this.setState({
         'candidatsCooptes': result.droppable,
-        'candidaturesRecues': result.droppable2
+        'candidaturesRecues': result.droppable2,
+        'candidatEntretient': result.droppable3,
+        'candidatSelectionne': result.droppable4
       })
     }
+    console.log(this.state)
+  }
+
+  archiverCandidat = (nom) => {
+    this.setState({
+      popupOpen: true,
+      popupData: {
+        'nom': nom
+      }
+    })
+  }
+
+  handleSearch (e) {
+    e.preventDefault()
+    const name = e.target.name
+    const value = e.target.value
+    
+    this.setState({
+      search: value
+    })
   }
 
   render() {
     const candidatsCooptes = this.state.candidatsCooptes
     const candidaturesRecues = this.state.candidaturesRecues
+    const candidatEntretient = this.state.candidatEntretient
+    const candidatSelectionne = this.state.candidatSelectionne
 
     return (
       <div className="wrapper">
         <main className="cooptation candidats">
+
+          {/* Popup */}
+          <div onClick={(e) => this.setState({popupOpen: false})} className={`overlay-popup ${this.state.popupOpen === true ? 'open' : ''}`}/>
+
+          <div className={`popup center ${this.state.popupOpen === true ? 'open' : ''}`}>
+            <h4 className="text-center">Etes-vous sûr de vouloir archiver le candidat <span>{this.state.popupData.nom}</span> ?</h4>
+            <p className="text-center">Cette action est irréversible et notifiera automatiquement le collaborateur l’ayant coopté.</p>
+            <button className="btn-primary">Oui, archiver</button>
+            <button onClick={(e) => this.setState({popupOpen: false})} className="btn-secondary">Annuler</button>
+          </div>
+         {/* End popup */}
+
           <div className="container">
 
-            <input type="text" name="search" className="search" value="Rechercher" />
+            <input
+              type="text"
+              name="search"
+              className="search"
+              placeholder="Rechercher"
+              onChange={(e) => this.handleSearch(e)}
+              value={this.state.search}
+            />
 
             <DragDropContext onDragEnd={this.onDragEnd}>
-            <div className="row-fluid">
-              <div className="large-3 columns">
-                <div className="box-item">
-                  <h4 className="light">Candidats cooptés</h4>
-                  <div className="container-scroll">
+              <div className="row-fluid">
+                <div className="large-3 columns">
+                  <div className="box-item">
+                    <h4 className="light">Candidats cooptés</h4>
+                    <div className="container-scroll">
 
-                    <Droppable droppableId="droppable">
-                      {(provided, snapshot) => (
-                        <div
-                          ref={provided.innerRef}>
-                          {Object.keys(candidatsCooptes).map((key, item, index) => (
-                            <Draggable
-                              key={key}
-                              draggableId={key}
-                              index={index}>
-                              {(provided, snapshot) => (
-                                <div
-                                  className="box-encart"
-                                  ref={provided.innerRef}
-                                  {...provided.draggableProps}
-                                  {...provided.dragHandleProps}
-                                  >
-                                    <CardCandidat data={candidatsCooptes[key]}/>
-                                </div>
-                              )}
-                            </Draggable>
-                          ))}
-                          {provided.placeholder}
-                        </div>
-                      )}
-                    </Droppable>
-
-                  </div>
-                </div>
-              </div>
-              <div className="large-3 columns">
-                <div className="box-item">
-                  <h4 className="light">Candidatures reçues</h4>
-                  <div className="container-scroll">
-
-                    <Droppable droppableId="droppable2">
-                      {(provided, snapshot) => (
-                        <div
-                          ref={provided.innerRef}>
-                          {Object.keys(candidaturesRecues).map((key, item, index) => (
+                      <Droppable droppableId="droppable">
+                        {(provided, snapshot) => (
+                          <div
+                            ref={provided.innerRef}>
+                            {Object.keys(candidatsCooptes)
+                              .sort((a, b) => {
+                                return new Date(candidatsCooptes[a].date) < new Date(candidatsCooptes[b].date) ? 1 : (new Date(candidatsCooptes[a].date) > new Date(candidatsCooptes[b].date) ? -1 : 0)
+                              })
+                              .map((key, index) => (
                               <Draggable
                                 key={key}
                                 draggableId={key}
                                 index={index}>
                                 {(provided, snapshot) => (
                                   <div
-                                    className="box-encart"
                                     ref={provided.innerRef}
                                     {...provided.draggableProps}
                                     {...provided.dragHandleProps}
                                     >
-                                      <CardCandidat data={candidaturesRecues[key]}/>
+                                      <CardCandidat data={candidatsCooptes[key]} archiverCandidat={this.archiverCandidat}/>
                                   </div>
                                 )}
                               </Draggable>
-                          ))}
-                          {provided.placeholder}
-                        </div>
-                      )}
-                    </Droppable>
+                            ))}
+                            {provided.placeholder}
+                          </div>
+                        )}
+                      </Droppable>
 
+                    </div>
+                  </div>
+                </div>
+                <div className="large-3 columns">
+                  <div className="box-item">
+                    <h4 className="light">Candidatures reçues</h4>
+                    <div className="container-scroll">
+
+                      <Droppable droppableId="droppable2">
+                        {(provided, snapshot) => (
+                          <div
+                            ref={provided.innerRef}>
+                            {Object.keys(candidaturesRecues)
+                              .sort((a, b) => {
+                                return new Date(candidaturesRecues[a].date) < new Date(candidaturesRecues[b].date) ? 1 : (new Date(candidaturesRecues[a].date) > new Date(candidaturesRecues[b].date) ? -1 : 0)
+                              })
+                              .map((key, index) => (
+                              <Draggable
+                                key={key}
+                                draggableId={key}
+                                index={index}>
+                                {(provided, snapshot) => (
+                                  <div
+                                    ref={provided.innerRef}
+                                    {...provided.draggableProps}
+                                    {...provided.dragHandleProps}
+                                    >
+                                      <CardCandidat data={candidaturesRecues[key]} archiverCandidat={this.archiverCandidat}/>
+                                  </div>
+                                )}
+                              </Draggable>
+                            ))}
+                            {provided.placeholder}
+                          </div>
+                        )}
+                      </Droppable>
+
+                    </div>
+                  </div>
+                </div>
+                <div className="large-3 columns">
+                  <div className="box-item">
+                    <h4 className="light">Entretiens en cours</h4>
+                    <div className="container-scroll">
+
+                      <Droppable droppableId="droppable3">
+                        {(provided, snapshot) => (
+                          <div
+                            ref={provided.innerRef}>
+                            {Object.keys(candidatEntretient)
+                              .sort((a, b) => {
+                                return new Date(candidatEntretient[a].date) < new Date(candidatEntretient[b].date) ? 1 : (new Date(candidatEntretient[a].date) > new Date(candidatEntretient[b].date) ? -1 : 0)
+                              })
+                              .map((key, index) => (
+                              <Draggable
+                                key={key}
+                                draggableId={key}
+                                index={index}>
+                                {(provided, snapshot) => (
+                                  <div
+                                    ref={provided.innerRef}
+                                    {...provided.draggableProps}
+                                    {...provided.dragHandleProps}
+                                    >
+                                      <CardCandidat data={candidatEntretient[key]} archiverCandidat={this.archiverCandidat}/>
+                                  </div>
+                                )}
+                              </Draggable>
+                            ))}
+                            {provided.placeholder}
+                          </div>
+                        )}
+                      </Droppable>
+
+                    </div>
+                  </div>
+                </div>
+                <div className="large-3 columns">
+                  <div className="box-item denim">
+                    <h4 className="light">Candidats sélectionnés</h4>
+                    <div className="container-scroll">
+
+                      <Droppable droppableId="droppable4">
+                        {(provided, snapshot) => (
+                          <div
+                            ref={provided.innerRef}>
+                            {Object.keys(candidatSelectionne)
+                              .sort((a, b) => {
+                                return new Date(candidatSelectionne[a].date) < new Date(candidatSelectionne[b].date) ? 1 : (new Date(candidatSelectionne[a].date) > new Date(candidatSelectionne[b].date) ? -1 : 0)
+                              })
+                              .map((key, index) => (
+                              <Draggable
+                                key={key}
+                                draggableId={key}
+                                index={index}>
+                                {(provided, snapshot) => (
+                                  <div
+                                    ref={provided.innerRef}
+                                    {...provided.draggableProps}
+                                    {...provided.dragHandleProps}
+                                    >
+                                      <CardCandidat data={candidatSelectionne[key]} archiverCandidat={this.archiverCandidat}/>
+                                  </div>
+                                )}
+                              </Draggable>
+                            ))}
+                            {provided.placeholder}
+                          </div>
+                        )}
+                      </Droppable>
+
+                    </div>
                   </div>
                 </div>
               </div>
-              <div className="large-3 columns">
-                <div className="box-item">
-                  <h4 className="light">Entretiens en cours</h4>
-                  <div className="container-scroll">
-
-                  </div>
-                </div>
-              </div>
-              <div className="large-3 columns">
-                <div className="box-item denim">
-                  <h4 className="light">Candidats sélectionnés</h4>
-                  <div className="container-scroll">
-
-                  </div>
-                </div>
-              </div>
-            </div>
             </DragDropContext>
 
           </div>

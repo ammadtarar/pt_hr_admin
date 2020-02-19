@@ -1,8 +1,10 @@
 import React from 'react'
 import Header from '../components/Header'
+const data = require('../datas.json')
 
 export class Dashboard extends React.Component {
-  componentDidMount() {
+  state = {
+    data: data
   }
 
   preventDragHandler = (e) => {
@@ -10,6 +12,8 @@ export class Dashboard extends React.Component {
   }
 
   render() {
+    const data = this.state.data
+
     return (
       <div className="wrapper" onDragStart={this.preventDragHandler}>
         <Header/>

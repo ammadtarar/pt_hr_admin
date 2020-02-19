@@ -3,16 +3,12 @@ const BoxRecompense = React.lazy(() => import('../../components/BoxRecompense'))
 const data = require('../../datas.json')
 
 export class Recompenses extends React.Component {
-  constructor() {
-    super()
-    this.state = {
-      checked: false,
-      popupOpen: false,
-      data: data
-    }
-    this.handleChange = this.handleChange.bind(this)
+  state = {
+    checked: false,
+    popupOpen: false,
+    data: data
   }
-
+  
   handleChange(checked) {
     this.setState({ checked })
   }

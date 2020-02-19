@@ -125,11 +125,11 @@ input[type="text"], input[type="email"], input[type="password"] {
   transition: all .4s cubic-bezier(0.045, 0.715, 0.250, 1.000);
   &.open {
     background-color: rgba(34, 57, 79, .5);
-    pointer-events: auto;
+    pointer-events: none;
   }
 }
 .popup {
-  position: absolute;
+  position: fixed;
   visibility: hidden;
   opacity: 0;
   top: 0; right: 0;
@@ -140,7 +140,7 @@ input[type="text"], input[type="email"], input[type="password"] {
   transition: all .4s cubic-bezier(0.045, 0.715, 0.250, 1.000);
   z-index: 4;
   &.center {
-    right: 0; left: 0; top: 15%;
+    right: 0; left: 0; top: 35%;
     margin: 0 auto;
     padding: 4rem 4rem 2rem 4rem;
     max-width: 43rem; width: 100%; height: auto;
@@ -487,6 +487,7 @@ main.cooptation, main.recompenses {
       color: $denim;
       text-transform: uppercase;
       font-size: $font-size-base;
+      &.athens-gray {background-color: $athens-gray; color: $raven}
     }
     p {
       color: $raven;

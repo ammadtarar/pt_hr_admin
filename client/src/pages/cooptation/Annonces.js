@@ -24,7 +24,11 @@ export class Annonces extends React.Component {
       <div className="wrapper">
         <div className="tab-annonces container">
           <Suspense fallback={<div className="text-center">Loading ...</div>}>
-            {Object.keys(annonces).map((key, item, i) => {
+            {Object.keys(annonces)
+              .sort((a, b) => {
+                return new Date(annonces[a].date) < new Date(annonces[b].date) ? 1 : (new Date(annonces[a].date) > new Date(annonces[b].date) ? -1 : 0)
+              })
+              .map((key, item, i) => {
               return (
                 <BoxAnnonce data={annonces[key]}/>
               )
@@ -36,4 +40,4 @@ export class Annonces extends React.Component {
   }
 }
 
-export default Annonces;
+export default Annonces

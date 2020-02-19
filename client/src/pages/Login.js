@@ -9,8 +9,8 @@ export class Login extends React.Component {
   }
 
   onSubmit = (e) => {
-    e.preventDefault();
-    this.props.history.push('/dashboard');
+    e.preventDefault()
+    this.props.history.push('/dashboard')
   }
 
   render() {
@@ -55,4 +55,4 @@ export class Login extends React.Component {
   }
 }
 
-export default Login;
+export default Login

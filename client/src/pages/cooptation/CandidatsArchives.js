@@ -3,11 +3,8 @@ const CardCandidat = React.lazy(() => import('../../components/CardCandidat'))
 const data = require('../../datas.json')
 
 export class CandidatsArchives extends React.Component {
-  constructor() {
-    super()
-    this.state = {
-      data: data
-    }
+  state = {
+    data: data
   }
 
   componentDidMount() {
@@ -27,19 +24,22 @@ export class CandidatsArchives extends React.Component {
       <div className="wrapper">
         <div className="tab-candidats-archives container">
           <div className="row-fluid">
-            <Suspense fallback={<div className="text-center">Loading ...</div>}>
-              {Object.keys(candidats).map((key) => {
-                if (candidats[key].archive === true) {
-                  return (
-                    <div className="columns large-3">
-                      <CardCandidat data={candidats[key]}/>
-                    </div>
-                  )
-                }
-              })}
-          </Suspense>
-          </div>
 
+            <Suspense fallback={<div className="text-center">Loading ...</div>}>
+              {Object.keys(candidats)
+                .sort((a, b) => {
+                  return new Date(candidats[a].date) < new Date(candidats[b].date) ? 1 : (new Date(candidats[a].date) > new Date(candidats[b].date) ? -1 : 0)
+                })
+                .map((key) => (
+                candidats[key].archive === true ?
+                  <div className="columns large-3">
+                    <CardCandidat data={candidats[key]}/>
+                  </div>
+                : ''
+              ))}
+            </Suspense>
+
+          </div>
         </div>
       </div>
     )

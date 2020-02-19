@@ -5,7 +5,7 @@ export class CardCommunication extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      checked: false,
+      checked: this.props.data.checked,
       data: this.props.data
      }
     this.handleChange = this.handleChange.bind(this)
@@ -26,7 +26,7 @@ export class CardCommunication extends React.Component {
           <h4>{data.titre}</h4>
           <p className="react-switch">
           <Switch
-            checked={data.checked}
+            checked={this.state.checked}
             onChange={this.handleChange}
             onColor="#155ac4"
             offColor="#c0c9d6"
@@ -40,7 +40,7 @@ export class CardCommunication extends React.Component {
             width={35}
             className="react-switch"
           />
-          {data.checked === true ? 'Actif' : 'Inactif'}</p>
+          {this.state.checked === true ? 'Actif' : 'Inactif'}</p>
         </div>
       </div>
     )

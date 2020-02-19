@@ -3,10 +3,7 @@ const BoxDemande = React.lazy(() => import('../../components/BoxDemande'))
 const data = require('../../datas.json')
 
 export class Demandes extends React.Component {
-  constructor() {
-    super()
-    this.state = { data: data, popupOpen: false }
-  }
+  state = { data: data, popupOpen: false }
 
   traiterDemande = () => {
     this.setState({

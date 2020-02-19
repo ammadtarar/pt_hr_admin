@@ -1,5 +1,4 @@
-import React from 'react'
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import Header from '../components/Header'
 import Candidats from './cooptation/Candidats'
 import Annonces from './cooptation/Annonces'
