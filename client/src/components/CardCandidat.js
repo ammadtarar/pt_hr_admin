@@ -18,7 +18,7 @@ function CardCandidat(props) {
   }
 
   return (
-    <div className="box-encart">
+    <div>
       <div className="icon">{data.prenom.charAt(0) + data.nom.charAt(0)}</div>
       <p>{data.prenom + ' ' + data.nom}</p>
       <p>{data.titre}</p>

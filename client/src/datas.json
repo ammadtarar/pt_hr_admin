@@ -6,6 +6,7 @@
       "titre": "Product Manager",
       "date": "2019-12-14T01:00:00.000Z",
       "email": "mitchell.murphy@mail.com",
+      "status": "candidat-coopte",
       "archive": false
     },
     "2cec1ae2-5189-11ea-8d77-2e728ce88125": {
@@ -14,6 +15,7 @@
       "titre": "Backend Developer Python",
       "date": "2019-12-23T01:00:00.000Z",
       "email": "bessie.henry@mail.com",
+      "status": "candidat-coopte",
       "archive": false
     },
     "2cec1c2c-5189-11ea-8d77-2e728ce88125": {
@@ -22,6 +24,7 @@
       "titre": "Frontend Developer React",
       "date": "2019-12-22T01:00:00.000Z",
       "email": "randallmckinney@mail.com",
+      "status": "candidature-recue",
       "archive": false
     },
     "2cec1f88-5189-11ea-8d77-2e728ce88125": {
@@ -30,6 +33,7 @@
       "titre": "Frontend Developer Angular",
       "date": "2019-12-18T01:00:00.000Z",
       "email": "jannecooper@mail.com",
+      "status": "candidature-recue",
       "archive": false
     },
     "2cec1f76-5189-11ea-8d77-2e728ce88125": {
@@ -38,6 +42,7 @@
       "titre": "Dev Ops",
       "date": "2019-12-29T01:00:00.000Z",
       "email": "tomothycooper@mail.com",
+      "status": "candidature-recue",
       "archive": false
     },
     "2cec1f6c-5189-11ea-8d77-2e728ce88125": {
@@ -46,6 +51,7 @@
       "titre": "Product Marketing Manager",
       "date": "2019-12-27T01:00:00.000Z",
       "email": "jfisher@mail.com",
+      "status": "en-entretient",
       "archive": false
     },
     "2cec1f43-5189-11ea-8d77-2e728ce88125": {
@@ -54,6 +60,7 @@
       "titre": "Customer success manager",
       "date": "2020-01-14T01:00:00.000Z",
       "email": "debramccoy@mail.com",
+      "status": "en-entretient",
       "archive": false
     },
     "2cec1fac-5189-11ea-8d77-2e728ce88125": {
@@ -62,6 +69,7 @@
       "titre": "Customer success manager",
       "date": "2020-02-07T01:00:00.000Z",
       "email": "devonwillson@mail.com",
+      "status": "candidat-selectionne",
       "archive": false
     },
     "2cec1fff-5189-11ea-8d77-2e728ce88125": {
@@ -70,6 +78,7 @@
       "titre": "Vp of product",
       "date": "2020-01-18T01:00:00.000Z",
       "email": "priscilliaflores@mail.com",
+      "status": "candidat-selectionne",
       "archive": false
     },
     "7411adba-525b-11ea-8d77-2e728ce88125": {
@@ -78,6 +87,7 @@
       "titre": "Sales",
       "date": "2020-12-22T01:00:00.000Z",
       "email": "eduardofisher@mail.com",
+      "status": "",
       "archive": true
     },
     "7411b238-525b-11ea-8d77-2e728ce88125": {
@@ -86,6 +96,7 @@
       "titre": "Sales",
       "date": "2020-12-21T01:00:00.000Z",
       "email": "arieneedwards@mail.com",
+      "status": "",
       "archive": true
     },
     "7411b3aa-525b-11ea-8d77-2e728ce88125": {
@@ -94,6 +105,7 @@
       "titre": "RH France",
       "date": "2020-12-20T01:00:00.000Z",
       "email": "victoriacooper@mail.com",
+      "status": "",
       "archive": true
     },
     "7411b4ea-525b-11ea-8d77-2e728ce88125": {
@@ -102,6 +114,7 @@
       "titre": "RH France",
       "date": "2020-12-19T01:00:00.000Z",
       "email": "pat.watson@mail.com",
+      "status": "",
       "archive": true
     },
     "7411b616-525b-11ea-8d77-2e728ce88125": {
@@ -110,6 +123,7 @@
       "titre": "Sales",
       "date": "2020-12-17T01:00:00.000Z",
       "email": "irmamckinney@mail.com",
+      "status": "",
       "archive": true
     },
     "7411b742-525b-11ea-8d77-2e728ce88125": {
@@ -118,6 +132,7 @@
       "titre": "Sales",
       "date": "2020-12-15T01:00:00.000Z",
       "email": "calvinblack@mail.com",
+      "status": "",
       "archive": true
     }
   },

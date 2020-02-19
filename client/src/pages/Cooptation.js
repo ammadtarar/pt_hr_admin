@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import Header from '../components/Header'
+import Candidats from './cooptation/Candidats'
 import Annonces from './cooptation/Annonces'
 import CandidatsArchives from './cooptation/CandidatsArchives'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
@@ -36,7 +37,7 @@ function PageCooptation(props) {
           </TabList>
 
           <TabPanel>
-
+            <Candidats/>
           </TabPanel>
           <TabPanel>
             <Annonces/>
