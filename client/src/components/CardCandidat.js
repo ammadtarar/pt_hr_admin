@@ -20,7 +20,7 @@ function CardCandidat(props) {
       <p className="date">Le {date(dateToFormat)}</p>
       <hr/>
       <p className="email"><a href="mailto:randallmck@mail.com" rel="noopener noreferrer" title="">{data.email}</a></p>
-      {data.archive === false ? <div>
+      {data.archive === false ? <div className="box-rejeter">
         <hr/>
         <img onClick={(e) => archiverCandidat(e,nom)} type="image/svg+xml" className="rejeter" src="/icons/rejeter.svg" alt=""/>
       </div> : <br/>}

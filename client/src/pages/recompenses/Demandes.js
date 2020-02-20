@@ -12,7 +12,7 @@ export class Demandes extends React.Component {
   }
 
   render() {
-    const demandes = this.state.data.recompenses
+    const demandes = this.state.data.annonces
 
     return (
       <div className="wrapper">
@@ -33,11 +33,20 @@ export class Demandes extends React.Component {
 
         <div className="tab-demandes container">
           <Suspense fallback={<div className="text-center">Loading ...</div>}>
-            {Object.keys(demandes).map((key, item, i) => {
-              return (
-                <BoxDemande data={demandes[key]} traiterDemande={this.traiterDemande}/>
-              )
-            })}
+            {Object.keys(demandes).length > 0 ?
+
+                Object.keys(demandes).map((key, item, i) => {
+                  return (
+                    <BoxDemande data={demandes[key]} traiterDemande={this.traiterDemande}/>
+                  )
+                })
+              :
+              <div className="container empty">
+                <img type="image/svg+xml" className="icon" src="/icons/demandes.svg" alt=""/>
+                <p className="text-center">Aucune demande en attente</p>
+                <p className="text-center">Il semblerait qu’il n’y ait pas de demande de récompense en attente.</p>
+              </div>
+            }
           </Suspense>
         </div>
       </div>

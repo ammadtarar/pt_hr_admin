@@ -1,50 +1,42 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import Switch from 'react-switch'
 
-export class CardCommunication extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      checked: this.props.data.checked,
-      data: this.props.data
-     }
-    this.handleChange = this.handleChange.bind(this)
+function CardCommunication (props) {
+  const [checked, setChecked] = useState(props.data.checked)
+  const [data, setData] = useState(props.data)
+  const dateToFormat = data.date
+
+  const handleChange = (e) => {
+    setChecked(!checked)
   }
 
-  handleChange(checked) {
-    this.setState({ checked })
-  }
-
-  render() {
-    const data = this.state.data
-    return (
-      <div className="card-communication">
-        <div>
-          <div className="box-thumbnail" style={{backgroundImage: "url("+data.file.url+")" }}>
-            <div className="box-views-small"><span>{data.views}</span></div>
-          </div>
-          <h4>{data.titre}</h4>
-          <p className="react-switch">
-          <Switch
-            checked={this.state.checked}
-            onChange={this.handleChange}
-            onColor="#155ac4"
-            offColor="#c0c9d6"
-            onHandleColor="#ffffff"
-            offHandleColor="#ffffff"
-            activeBoxShadow="0 0 0 0 transparent"
-            handleDiameter={20}
-            uncheckedIcon={false}
-            checkedIcon={false}
-            height={20}
-            width={35}
-            className="react-switch"
-          />
-          {this.state.checked === true ? 'Actif' : 'Inactif'}</p>
+  return (
+    <div className="card-communication">
+      <div>
+        <div className="box-thumbnail" style={{backgroundImage: "url("+data.file.url+")" }}>
+          <div className="box-views-small"><span>{data.views}</span></div>
         </div>
+        <h4>{data.titre}</h4>
+        <p className="react-switch">
+        <Switch
+          checked={checked}
+          onChange={(e) => handleChange(e)}
+          onColor="#155ac4"
+          offColor="#c0c9d6"
+          onHandleColor="#ffffff"
+          offHandleColor="#ffffff"
+          activeBoxShadow="0 0 0 0 transparent"
+          handleDiameter={20}
+          uncheckedIcon={false}
+          checkedIcon={false}
+          height={20}
+          width={35}
+          className="react-switch"
+        />
+        {checked === true ? 'Actif' : 'Inactif'}</p>
       </div>
-    )
-  }
+    </div>
+  )
 }
 
 export default CardCommunication

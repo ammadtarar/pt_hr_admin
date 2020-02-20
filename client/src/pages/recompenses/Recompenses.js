@@ -8,7 +8,7 @@ export class Recompenses extends React.Component {
     popupOpen: false,
     data: data
   }
-  
+
   handleChange(checked) {
     this.setState({ checked })
   }
@@ -50,11 +50,20 @@ export class Recompenses extends React.Component {
           <button onClick={(e) => this.setState({popupOpen: true})} className="btn-primary">Créer</button>
 
           <Suspense fallback={<div className="text-center">Loading ...</div>}>
-            {Object.keys(recompenses).map((key, item, i) => {
-              return (
-                <BoxRecompense data={recompenses[key]}/>
-              )
-            })}
+            {Object.keys(recompenses).length > 0 ?
+
+                Object.keys(recompenses).map((key, item, i) => {
+                  return (
+                    <BoxRecompense data={recompenses[key]}/>
+                  )
+                })
+              :
+              <div className="container empty">
+                <img type="image/svg+xml" className="icon" src="/icons/recompense.svg" alt=""/>
+                <p className="text-center">Créez votre première récompense !</p>
+                <p className="text-center">Vous pouvez dès à présent créer votre première récompense en cliquant sur le bouton “Créer” en haut à droite.</p>
+              </div>
+            }
           </Suspense>
         </div>
       </div>

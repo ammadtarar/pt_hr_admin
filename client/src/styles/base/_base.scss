@@ -81,7 +81,7 @@ input[type="text"], input[type="email"], input[type="password"] {
   &:hover, &:focus, &:active {border: 0; border-bottom: .1rem solid $raven; box-shadow: none;}
   &.search {
     position: absolute;
-    right: 1rem; top: -1rem;
+    right: 1rem; top: -8rem;
     width: 29.4rem; min-width: 29.4rem;
     border-radius: 2rem;
     border: 0;
@@ -98,7 +98,28 @@ input[type="text"], input[type="email"], input[type="password"] {
   position: relative;
   margin: 0 auto;
   display: table;
-  max-width: 152.5rem; width: 100%;
+  max-width: 153rem; width: 100%;
+  &.empty {
+    margin-top: 8rem;
+    * {
+      position: relative;
+      margin: 0 auto;
+      display: table;
+      max-width: 28rem; width: 100%;
+    }
+    .icon {margin-bottom: 1rem; max-width: 12rem; height: auto; width: auto}
+    p {
+      &:first-child {color: $cloud-burst}
+      &:last-child {margin-top: .5rem; color: $raven; font-size: 1.3rem}
+    }
+  }
+  &.candidats {margin-top: 2rem}
+  &.candidats-selectionnes {
+    p {
+      &:nth-of-type(1) {color: white}
+      &:last-child {color: white}
+    }
+  }
 }
 .columns {float: none; display: inline-block; vertical-align: top}
 .row-fluid {
@@ -125,7 +146,7 @@ input[type="text"], input[type="email"], input[type="password"] {
   transition: all .4s cubic-bezier(0.045, 0.715, 0.250, 1.000);
   &.open {
     background-color: rgba(34, 57, 79, .5);
-    pointer-events: none;
+    pointer-events: auto;
   }
 }
 .popup {
@@ -467,7 +488,11 @@ main.dashboard {
 
 //Cooptation
 main.cooptation, main.recompenses {
-  .row-fluid {margin: 3rem 0 0 0}
+  .tab-candidats-archives, .tab-annonces, .tab-candidats {margin-top: 4rem}
+   &.background-athens-gray .react-tabs__tab-list {background: $athens-gray}
+   .col-candidats-selectionnes {
+     .box-rejeter {display: none}
+   }
   .box-encart {
     padding: 2rem;
     margin-bottom: 1.5rem;
@@ -514,11 +539,10 @@ main.cooptation, main.recompenses {
     }
     .rejeter {margin-top: -1rem}
   }
-  &.canditas-archives {background: $athens-gray}
-  &.candidats {
+  .tab-candidats {
     .box-item {
       height: 68rem; max-height: 75vh;
-      padding: 2rem 0 3rem 0;
+      padding: 2rem 0 5rem 0;
       background: $athens-gray;
       border: .1rem solid $heather;
       border-radius: 1rem;
@@ -531,6 +555,7 @@ main.cooptation, main.recompenses {
       }
       h4 {margin: 0 0 2rem 2rem}
     }
+    .box-encart {margin-bottom: 1.5rem}
     .container-scroll {padding: 0 2rem; overflow-y: scroll; height: 100%;}
   }
 }
@@ -629,17 +654,15 @@ main.cooptation, main.recompenses {
 
 //Cooptation
 main.cooptation {
-  :not(.tab-candidats-archives) {
-    &.container {max-width: 150rem}
-  }
-  img.rejeter {cursor: pointer}
+  .rejeter {cursor: pointer}
 }
 
 //Récompenses
 main.recompenses {
-  .container, .react-tabs__tab-list {max-width: 124.5rem}
+  margin-top: 11rem;
+  .container, .react-tabs__tab-list {max-width: 128.5rem; padding-left: 2rem; padding-right: 2rem}
   .tab-recompenses {
-    button:nth-of-type(1) {position: absolute; right: 0; top: -5rem;}
+    button:nth-of-type(1) {position: absolute; right: 2rem; top: -5rem; z-index: 5}
   }
 }
 

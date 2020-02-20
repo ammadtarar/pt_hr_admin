@@ -35,13 +35,13 @@ function BoxRecompense(props) {
               width={35}
               className="react-switch"
             />
-          {data.checked === true ? 'Actif' : 'Inactif'}</p>
+            {checked === true ? 'Actif' : 'Inactif'}</p>
           </li>
           <li className="star"><p><span>{data.points}</span>€</p></li>
           <li className="localisation"><p>{data.lieu}</p></li>
         </ul>
         <ul className="infos">
-          {data.checked === true ? <li className="box-candidats-cooptes"><span>{data.cooptations}</span> {data.cooptations === 1 ? 'candidat coopté' : 'candidats cooptés'}</li> : ''}
+          {checked === true ? <li className="box-candidats-cooptes"><span>{data.cooptations}</span> {data.cooptations === 1 ? 'candidat coopté' : 'candidats cooptés'}</li> : ''}
           <li className="box-views-small"><span>{data.views}</span></li>
         </ul>
       </div>

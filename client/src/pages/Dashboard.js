@@ -71,7 +71,7 @@ export class Dashboard extends React.Component {
                   <hr/>
                   <div className="icon half-spanish-white"><img src="/icons/profils-identifies.svg" alt=""/></div>
                   <div className="box-text">
-                    <p>Porfils identifiés</p>
+                    <p>Profils identifiés</p>
                     <p><span>126</span></p>
                   </div>
                 </div>
@@ -83,7 +83,7 @@ export class Dashboard extends React.Component {
                   <div className="box-views">
                     <div>
                       <p>8,908</p>
-                      <p>visiteurs sur les annonces</p>
+                      <p>visiteurs sur les contenus</p>
                     </div>
                   </div>
                   <div className="icon link-water"><img src="/icons/contenus-actifs.svg" alt=""/></div>

@@ -8,8 +8,13 @@
   position: fixed;
   left: 0; right: 0;
   margin: 0 auto;
+  top: 7rem;
+  padding-top: 4rem;
   display: table;
   max-width: 150rem; width: 100%;
+  background-color: white;
+  z-index: 3;
+  transition: all .03s cubic-bezier(0.045, 0.715, 0.250, 1.000);
 }
 .react-tabs__tab {
   position: relative;
@@ -45,8 +50,10 @@
   outline: none;
 }
 .react-tabs__tab-panel {
+  position: relative;
   display: none;
   padding: 1rem 0 0 0;
+  z-index: 2;
 }
 .react-tabs__tab-panel--selected {
   display: block;
