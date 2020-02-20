@@ -1,6 +1,7 @@
 {
   "candidats": {
     "2cec1876-5189-11ea-8d77-2e728ce88125": {
+      "id": "2cec1876-5189-11ea-8d77-2e728ce88125",
       "nom": "Mitchell",
       "prenom":"Murphy",
       "titre": "Product Manager",
@@ -10,6 +11,7 @@
       "archive": false
     },
     "2cec1ae2-5189-11ea-8d77-2e728ce88125": {
+      "id": "2cec1ae2-5189-11ea-8d77-2e728ce88125",
       "nom": "Bessie",
       "prenom":"Henry",
       "titre": "Backend Developer Python",
@@ -19,6 +21,7 @@
       "archive": false
     },
     "2cec1c2c-5189-11ea-8d77-2e728ce88125": {
+      "id": "2cec1c2c-5189-11ea-8d77-2e728ce88125",
       "nom": "Randall",
       "prenom":"Mckinney",
       "titre": "Frontend Developer React",
@@ -28,6 +31,7 @@
       "archive": false
     },
     "2cec1f88-5189-11ea-8d77-2e728ce88125": {
+      "id": "2cec1f88-5189-11ea-8d77-2e728ce88125",
       "nom": "Janne",
       "prenom":"Cooper",
       "titre": "Frontend Developer Angular",
@@ -37,6 +41,7 @@
       "archive": false
     },
     "2cec1f76-5189-11ea-8d77-2e728ce88125": {
+      "id": "2cec1f76-5189-11ea-8d77-2e728ce88125",
       "nom": "Tomothy",
       "prenom":" Cooper",
       "titre": "Dev Ops",
@@ -46,6 +51,7 @@
       "archive": false
     },
     "2cec1f6c-5189-11ea-8d77-2e728ce88125": {
+      "id": "2cec1f6c-5189-11ea-8d77-2e728ce88125",
       "nom": "Jane",
       "prenom":"Fisher",
       "titre": "Product Marketing Manager",
@@ -55,6 +61,7 @@
       "archive": false
     },
     "2cec1f43-5189-11ea-8d77-2e728ce88125": {
+      "id": "2cec1f43-5189-11ea-8d77-2e728ce88125",
       "nom": "Debra",
       "prenom": "Mccoy",
       "titre": "Customer success manager",
@@ -64,6 +71,7 @@
       "archive": false
     },
     "2cec1fac-5189-11ea-8d77-2e728ce88125": {
+      "id": "2cec1fac-5189-11ea-8d77-2e728ce88125",
       "nom": "Devon",
       "prenom": "Willson",
       "titre": "Customer success manager",
@@ -73,6 +81,7 @@
       "archive": false
     },
     "2cec1fff-5189-11ea-8d77-2e728ce88125": {
+      "id": "2cec1fff-5189-11ea-8d77-2e728ce88125",
       "nom": "Priscillia",
       "prenom": "Flores",
       "titre": "Vp of product",
@@ -82,6 +91,7 @@
       "archive": false
     },
     "7411adba-525b-11ea-8d77-2e728ce88125": {
+      "id": "7411adba-525b-11ea-8d77-2e728ce88125",
       "nom": "Eduardo",
       "prenom": "Fisher",
       "titre": "Sales",
@@ -91,6 +101,7 @@
       "archive": true
     },
     "7411b238-525b-11ea-8d77-2e728ce88125": {
+      "id": "7411b238-525b-11ea-8d77-2e728ce88125",
       "nom": "Ariene",
       "prenom": "Edwards",
       "titre": "Sales",
@@ -100,6 +111,7 @@
       "archive": true
     },
     "7411b3aa-525b-11ea-8d77-2e728ce88125": {
+      "id": "7411b3aa-525b-11ea-8d77-2e728ce88125",
       "nom": "Victoria",
       "prenom": "Cooper",
       "titre": "RH France",
@@ -109,6 +121,7 @@
       "archive": true
     },
     "7411b4ea-525b-11ea-8d77-2e728ce88125": {
+      "id": "7411b4ea-525b-11ea-8d77-2e728ce88125",
       "nom": "Pat",
       "prenom": "Watson",
       "titre": "RH France",
@@ -118,6 +131,7 @@
       "archive": true
     },
     "7411b616-525b-11ea-8d77-2e728ce88125": {
+      "id": "7411b616-525b-11ea-8d77-2e728ce88125",
       "nom": "Irma",
       "prenom": "Mckinney",
       "titre": "Sales",
@@ -127,6 +141,7 @@
       "archive": true
     },
     "7411b742-525b-11ea-8d77-2e728ce88125": {
+      "id": "7411b742-525b-11ea-8d77-2e728ce88125",
       "nom": "Calvin",
       "prenom": "Black",
       "titre": "Sales",

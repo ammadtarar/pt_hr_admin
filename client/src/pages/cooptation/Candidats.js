@@ -135,13 +135,22 @@ export class Candidats extends React.Component {
     console.log(this.state)
   }
 
-  archiverCandidat = (nom) => {
+  popup = (data) => {
     this.setState({
       popupOpen: true,
-      popupData: {
-        'nom': nom
-      }
+      popupData: data
     })
+  }
+
+  archiverCandidat(e) {
+    e.preventDefault()
+    this.setState({popupOpen: false})
+
+    //Candidat à archiver
+    const data = this.state.popupData
+    data.archive = true
+    console.log(data.archive)
+    console.log(data.id)
   }
 
   handleSearch (e) {
@@ -169,9 +178,9 @@ export class Candidats extends React.Component {
 
           <div className={`wrapper-popup ${this.state.popupOpen === true ? 'open' : ''}`}>
             <div className={`popup center ${this.state.popupOpen === true ? 'open' : ''}`}>
-              <h4 className="text-center">Etes-vous sûr de vouloir archiver le candidat <span>{this.state.popupData.nom}</span> ?</h4>
+              <h4 className="text-center">Etes-vous sûr de vouloir archiver le candidat <span>{this.state.popupData.prenom + ' ' + this.state.popupData.nom}</span> ?</h4>
               <p className="text-center">Cette action est irréversible et notifiera automatiquement le collaborateur l’ayant coopté.</p>
-              <button className="btn-primary">Oui, archiver</button>
+              <button onClick={(e) => this.archiverCandidat(e,data)} className="btn-primary">Oui, archiver</button>
               <button onClick={(e) => this.setState({popupOpen: false})} className="btn-secondary">Annuler</button>
             </div>
           </div>
@@ -231,7 +240,7 @@ export class Candidats extends React.Component {
                                       {...provided.draggableProps}
                                       {...provided.dragHandleProps}
                                       >
-                                        <CardCandidat data={candidatsCooptes[key]} archiverCandidat={this.archiverCandidat}/>
+                                        <CardCandidat data={candidatsCooptes[key]} popup={this.popup}/>
                                     </div>
                                   )}
                                 </Draggable>
@@ -277,7 +286,7 @@ export class Candidats extends React.Component {
                                       {...provided.draggableProps}
                                       {...provided.dragHandleProps}
                                       >
-                                        <CardCandidat data={candidaturesRecues[key]} archiverCandidat={this.archiverCandidat}/>
+                                        <CardCandidat data={candidaturesRecues[key]} popup={this.popup}/>
                                     </div>
                                   )}
                                 </Draggable>
@@ -323,7 +332,7 @@ export class Candidats extends React.Component {
                                       {...provided.draggableProps}
                                       {...provided.dragHandleProps}
                                       >
-                                        <CardCandidat data={candidatEntretient[key]} archiverCandidat={this.archiverCandidat}/>
+                                        <CardCandidat data={candidatEntretient[key]} popup={this.popup}/>
                                     </div>
                                   )}
                                 </Draggable>
@@ -369,7 +378,7 @@ export class Candidats extends React.Component {
                                       {...provided.draggableProps}
                                       {...provided.dragHandleProps}
                                       >
-                                        <CardCandidat data={candidatSelectionne[key]} archiverCandidat={this.archiverCandidat}/>
+                                        <CardCandidat data={candidatSelectionne[key]} popup={this.popup}/>
                                     </div>
                                   )}
                                 </Draggable>
