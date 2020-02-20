@@ -81,7 +81,7 @@ input[type="text"], input[type="email"], input[type="password"] {
   &:hover, &:focus, &:active {border: 0; border-bottom: .1rem solid $raven; box-shadow: none;}
   &.search {
     position: absolute;
-    right: 1rem; top: -8rem;
+    right: 1.5rem; top: -7rem;
     width: 29.4rem; min-width: 29.4rem;
     border-radius: 2rem;
     border: 0;
@@ -90,6 +90,7 @@ input[type="text"], input[type="email"], input[type="password"] {
     background-image: url('/icons/recherche.svg');
     background-position: 1.5rem 55%;
     background-repeat: no-repeat;
+    z-index: 4;
   }
 }
 
@@ -490,6 +491,7 @@ main.dashboard {
 main.cooptation, main.recompenses {
   .tab-candidats-archives, .tab-annonces, .tab-candidats {margin-top: 4rem}
    &.background-athens-gray .react-tabs__tab-list {background: $athens-gray}
+   &.background-white .react-tabs__tab-list {background-color: transparent; z-index: 2;}
    .col-candidats-selectionnes {
      .box-rejeter {display: none}
    }
@@ -662,7 +664,12 @@ main.recompenses {
   margin-top: 11rem;
   .container, .react-tabs__tab-list {max-width: 128.5rem; padding-left: 2rem; padding-right: 2rem}
   .tab-recompenses {
-    button:nth-of-type(1) {position: absolute; right: 2rem; top: -5rem; z-index: 5}
+    button:nth-of-type(1) {
+      position: fixed;
+      top: 10.5rem;
+      margin-left: 1.3rem;
+      z-index: 3
+    }
   }
 }
 

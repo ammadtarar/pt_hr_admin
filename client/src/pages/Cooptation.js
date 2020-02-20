@@ -27,7 +27,7 @@ function PageCooptation(props) {
   return (
     <div className="wrapper" onDragStart={(e) => preventDragHandler(e)}>
       <Header/>
-      <main className={`cooptation ${checkedTab === 2 ? 'background-athens-gray' :''}`}>
+      <main className={`cooptation ${checkedTab === 2 ? 'background-athens-gray' : checkedTab === 0 ? 'background-white' : ''}`}>
         <Tabs onSelect={index => tab(index)}>
           <TabList>
             <Tab>Candidats</Tab>

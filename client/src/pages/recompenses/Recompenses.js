@@ -47,7 +47,14 @@ export class Recompenses extends React.Component {
         {/* End popup */}
 
         <div className="tab-recompenses container">
-          <button onClick={(e) => this.setState({popupOpen: true})} className="btn-primary">Créer</button>
+          <div className="container">
+            <div className="row-fluid">
+              <div className="large-11 columns"></div>
+              <div className="large-1 columns">
+                <button onClick={(e) => this.setState({popupOpen: true})} className="btn-primary">Créer</button>
+              </div>
+            </div>
+          </div>
 
           <Suspense fallback={<div className="text-center">Loading ...</div>}>
             {Object.keys(recompenses).length > 0 ?
