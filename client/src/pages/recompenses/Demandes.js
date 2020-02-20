@@ -5,7 +5,7 @@ const data = require('../../datas.json')
 export class Demandes extends React.Component {
   state = { data: data, popupOpen: false }
 
-  traiterDemande = () => {
+  popup = (data) => {
     this.setState({
       popupOpen: true
     })
@@ -36,7 +36,7 @@ export class Demandes extends React.Component {
 
                 Object.keys(demandes).map((key, item, i) => {
                   return (
-                    <BoxDemande data={demandes[key]} traiterDemande={this.traiterDemande}/>
+                    <BoxDemande data={demandes[key]} popup={this.popup}/>
                   )
                 })
               :

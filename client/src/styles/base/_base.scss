@@ -16,6 +16,7 @@ body {
 //liens
 a {
   transition: all .03s cubic-bezier(0.045, 0.715, 0.250, 1.000);
+  &:hover {color: $cloud-burst}
 }
 
 //Typographies
@@ -72,17 +73,24 @@ input[type="text"], input[type="number"], input[type="email"], input[type="passw
   padding: 0;
   height: 4rem; min-width: 45rem;
   line-height: 4rem;
+  font-family: $regular-heebo;
   font-size: $font-size-base;
   color: $raven;
   border: 0;
   border-bottom: .1rem solid $raven;
   box-shadow: none;
   &.error {
+    color: red;
     border-bottom: .1rem solid red;
     &:hover, &:focus, &:active {border-bottom: .1rem solid red}
   }
   &::placeholder {color: $raven !important;}
-  &:hover, &:focus, &:active {border: 0; border-bottom: .1rem solid $raven; box-shadow: none;}
+  &:hover, &:focus, &:active {
+    border: 0;
+    border-bottom: .1rem solid $raven;
+    box-shadow: none;
+  }
+  &:focus, &:active {color: $cloud-burst}
   &.search {
     position: absolute;
     right: 1.5rem; top: -7rem;
@@ -343,7 +351,13 @@ main.login {
         align-items: center;
         height: calc(100vh - 12.5rem); width: 100%;
         label {margin-top: 4rem}
-        .note {margin: 2rem 0 6rem 0; font-size: 1.3rem}
+        .note {
+          margin: 2rem 0 5rem 0;
+          font-size: 1.3rem;
+          &.note-envoie-code {margin: 2rem 0 2rem 0}
+          &.note-connection-echec {color: red; margin: 1rem 0 -1rem 0}
+        }
+        &.step-2 button {margin-top: 5rem}
       }
     }
     &:last-child {

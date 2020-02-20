@@ -4,7 +4,6 @@ import Switch from 'react-switch'
 function BoxRecompense (props) {
   const [checked, setChecked] = useState(props.data.checked)
   const [data, setData] = useState(props.data)
-  const dateToFormat = data.date
 
   const handleChange = (e) => {
     setChecked(!checked)

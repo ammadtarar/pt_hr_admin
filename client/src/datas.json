@@ -394,5 +394,31 @@
       "points": "12500",
       "checked": false
     }
+  },
+  "utilisateurs": {
+    "2cec21ea-5189-11ea-8d77-2e728ce88125": {
+      "id": "2cec21ea-5189-11ea-8d77-2e728ce88125",
+      "prenom": "Sébastien",
+      "nom": "Aumaître",
+      "email": "sebastien.aumaitre@pushtalents.com",
+      "codeActivation": "909709",
+      "compteurConnections": 0
+    },
+    "2cec244c-5189-11ea-8d77-2e728ce88125": {
+      "id": "2cec244c-5189-11ea-8d77-2e728ce88125",
+      "prenom": "Vincent",
+      "nom": "Delacourt",
+      "email": "vincent.delacourt@pushtalents.com",
+      "codeActivation": "111111",
+      "compteurConnections": 0
+    },
+    "2cec2316-5189-11ea-8d77-2e728ce88125": {
+      "id": "2cec2316-5189-11ea-8d77-2e728ce88125",
+      "prenom": "Julien",
+      "nom": "Lucas",
+      "email": "contact@julienlucas.com",
+      "codeActivation": "222222",
+      "compteurConnections": 0
+    }
   }
 }

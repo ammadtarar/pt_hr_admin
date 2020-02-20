@@ -1,16 +1,109 @@
 import React from 'react'
+const data = require('../datas.json')
 
 export class Login extends React.Component {
-  componentDidMount() {
+  state = {
+    utilisateurs: [],
+    email: '',
+    code: '',
+    errors: '',
+    steps: {
+      demandeCode: true,
+      envoieCode: false
+    },
+    inputCode: 'number',
+    compteurConnections: 0
   }
 
   preventDragHandler = (e) => {
     e.preventDefault()
   }
 
-  onSubmit = (e) => {
+  handleChangeText (e) {
+    this.setState({inputCode: 'number'}, () => {
+      const name = e.target.name
+      const value = e.target.value
+      this.setState({[name]: value})
+    })
+  }
+
+  recevoirCode = (e) => {
     e.preventDefault()
-    this.props.history.push('/dashboard')
+    const regexp = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    const testEmail = regexp.test(this.state.email)
+
+    if (testEmail === true) {
+      this.setState({
+        steps: {
+          demandeCode: false,
+          envoieCode: true
+        },
+        errors: {
+          email: ''
+        }
+      })
+      //Clear compteur d'essaid de connection
+      localStorage.clear()
+      //Envoyer email à l'utilisateur
+
+
+    } else {
+      this.setState({
+        email: 'Votre adresse email est manquante',
+        errors: {
+          email: 'error'
+        }
+      })
+    }
+  }
+
+  seConnecter = (e) => {
+    e.preventDefault()
+
+    console.log(this.state.utilisateurs)
+
+    if (this.state.code === '222222') {
+      this.props.history.push('/dashboard')
+      localStorage.setItem('compteurConnections', 0)
+      localStorage.setItem('utilisateur', '')
+    } else {
+      this.setState({inputCode: 'text'}, () => {
+        this.setState({
+          code: "Votre code d'activation à 6 chiffres est incorrect",
+          errors: {
+            code: 'error'
+          },
+          'compteurConnections': this.state.compteurConnections + 1
+        })
+      })
+      localStorage.setItem('compteurConnections', this.state.compteurConnections + 1)
+    }
+  }
+
+  retourStep1(e) {
+    e.preventDefault()
+    this.setState({
+      email: '',
+      errors: '',
+      steps: {
+        demandeCode: true,
+        envoieCode: false
+      }
+    })
+  }
+
+  componentDidMount() {
+    this.setState({
+      utilisateurs: data.utilisateurs
+    })
+
+    // fetch(data)
+    //   .then(res => res.json())
+    //   .then(res => {
+    //     this.setState({
+    //       utilisateurs: res
+    //     })
+    //   })
   }
 
   render() {
@@ -20,15 +113,31 @@ export class Login extends React.Component {
           <div clasName="row-fluid">
             <div className="large-5 columns">
               <a href="/" className="logo" rel="noopener noreferrer" title=""><img src="/icons/logo-pushtalents.svg" alt=""/></a>
-              <div className="box-item">
+
+              {this.state.steps.demandeCode === true || this.state.compteurConnections > 2 ?
+              <div className="box-item step-1">
                 <div>
                   <h2>Bienvenue</h2>
+                  {this.state.compteurConnections > 2 ? <p className="note note-connection-echec">Vous avez tenté de vous connecter 3 fois sans succès, merci de demander un nouveau code.</p> : ''}
                   <label>Adresse email</label>
-                  <input type="text" value="Votre adresse email"/>
-                  <p className="note">Nous vous enverrons un code d’activation à 6 chiffres.</p>
-                  <button onClick={this.onSubmit} className="btn-primary">Recevoir un code d’activation</button>
+                  <input type="text" name="email" className={this.state.errors.email} onChange={(e) => this.handleChangeText(e)} value={this.state.email} placeholder="Vorre adresse email"/>
+                  <p className="note note-demande-code">Nous vous enverrons un code d’activation à 6 chiffres.</p>
+                  <button onClick={this.recevoirCode} className="btn-primary">Recevoir un code d’activation</button>
                 </div>
               </div>
+              : this.state.steps.envoieCode === true ?
+              <div className="box-item step-2">
+                <div>
+                  <h2>Bienvenue</h2>
+                  <p className="note note-envoie-code">Nous avons envoyé le code d’activation à <strong>{this.state.email}</strong>.  Une fois connecté, votre connexion sera assurée pour 30 jours.<br/>
+                    <a href="javascript:void(0);" onClick={(e) => this.retourStep1(e)} rel="noopener noreferrer">Retour à la connexion</a>
+                  </p>
+                  <label>Code d'activation</label>
+                  <input type={this.state.inputCode === 'text' ? 'text' : 'number'} name="code" className={this.state.errors.code} onChange={(e) => this.handleChangeText(e)} value={this.state.code} placeholder="Votre code d’activation à 6 chiffres"/>
+                  <button onClick={this.seConnecter} className="btn-primary">Se connecter</button>
+                </div>
+              </div> : ''}
+
             </div>
             <div className="large-7 columns">
               <div className="box-item">
