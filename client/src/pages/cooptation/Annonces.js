@@ -7,6 +7,13 @@ export class Annonces extends React.Component {
     'data': data
   }
 
+  dataToChange(data) {
+    //Data à renvoyer au serveur
+    console.log(data)
+    //Puis refresh du component
+    // this.componentDidMount()
+  }
+
   componentDidMount() {
     // fetch(data)
     //   .then(res => res.json())
@@ -32,7 +39,7 @@ export class Annonces extends React.Component {
                 })
                 .map((key, item, i) => {
                 return (
-                  <BoxAnnonce data={annonces[key]}/>
+                  <BoxAnnonce data={annonces[key]} dataToChange={this.dataToChange}/>
                 )
               })
               :

@@ -13,6 +13,13 @@ export class Communication extends React.Component {
     e.preventDefault()
   }
 
+  dataToChange(data) {
+    //Data à renvoyer au serveur
+    console.log(data)
+    //Puis refresh du component
+    // this.componentDidMount()
+  }
+
   componentDidMount() {
     // fetch(data)
     //   .then(res => res.json())
@@ -67,7 +74,7 @@ export class Communication extends React.Component {
                     .map((key, item, i) => {
                     return (
                       <div className="large-3 columns">
-                        <CardCommunication data={communication[key]}/>
+                        <CardCommunication data={communication[key]} dataToChange={this.dataToChange}/>
                       </div>
                     )
                   })

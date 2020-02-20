@@ -8,6 +8,8 @@ function CardCommunication (props) {
 
   const handleChange = (e) => {
     setChecked(!checked)
+    data.checked = !checked
+    props.dataToChange(data)
   }
 
   return (

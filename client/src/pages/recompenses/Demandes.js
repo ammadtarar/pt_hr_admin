@@ -20,16 +20,15 @@ export class Demandes extends React.Component {
         {/* Popup */}
         <div onClick={(e) => this.setState({popupOpen: false})} className={`overlay-popup ${this.state.popupOpen === true ? 'open' : ''}`}/>
 
-        <div className={`popup center ${this.state.popupOpen === true ? 'open' : ''}`}>
-          <h4 className="text-center">Etes-vous sûr de vouloir changer le statut de candidature de <span>Debra Mccoy</span> de <span>Entretiens en cours</span> à <span>Sélectionné</span>, pour l’offre de <span>Customer success manager</span> ?</h4>
-          <p className="text-center">Cette action est irréversible et notifiera automatiquement le collaborateur l’ayant coopté.</p>
-          <div className="box-note-popup">
-            <p><strong>Conseil </strong><br/>Pensez à archiver les candidats non sélectionnés pour cette offre !</p>
+        <div className={`wrapper-popup ${this.state.popupOpen === true ? 'open' : ''}`}>
+          <div className={`popup center ${this.state.popupOpen === true ? 'open' : ''}`}>
+            <h4 className="text-center">Etes-vous sûr de vouloir accepter la demande de récompenses de <span>Shawn Black</span> ?</h4>
+            <p className="text-center">Cette action est irréversible et notifiera automatiquement le collaborateur.</p>
+            <button className="btn-primary">Confirmer</button>
+            <button onClick={(e) => this.setState({popupOpen: false})} className="btn-secondary">Annuler</button>
           </div>
-          <button className="btn-primary">Oui, changer</button>
-          <button onClick={(e) => this.setState({popupOpen: false})} className="btn-secondary">Annuler</button>
         </div>
-       {/* End popup */}
+        {/* End popup */}
 
         <div className="tab-demandes container">
           <Suspense fallback={<div className="text-center">Loading ...</div>}>
