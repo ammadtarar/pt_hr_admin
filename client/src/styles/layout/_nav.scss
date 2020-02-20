@@ -14,13 +14,14 @@ nav.primary {
       font-size: $font-size-base;
       line-height: 7rem;
       border-bottom: .3rem solid transparent;
-      a {color: $raven; display: block; padding-left: 3.3rem}
-      &:hover, &.current {
+      a {color: $raven; display: block; padding-left: 3.3rem; border-bottom: .3rem solid transparent}
+      a:hover, &.current a {
         line-height: calc(7rem - .3rem);
         border-color: $casablanca;
-        a {color: $cloud-burst}
+        color: $cloud-burst;
         &:after {filter: brightness(50%) sepia(1) hue-rotate(165deg) saturate(5)}
       }
+      &.current::after, &:hover::after {filter: brightness(50%) sepia(1) hue-rotate(165deg) saturate(5)}
       &::after {
         position: absolute;
         top: 50%;

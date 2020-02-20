@@ -7,7 +7,7 @@ button {
   &.btn-primary {
     height: 4rem;
     padding: 0 3rem;
-    box-shadow: 0px 1px 8px rgba(35, 52, 61, 0.3);
+    box-shadow: 0 .1rem .8rem rgba(35, 52, 61, .3);
     border-radius: 2rem;
     color: white;
     background-color: $denim;
@@ -17,6 +17,7 @@ button {
     &:hover {background-color: $cloud-burst}
   }
   &.btn-secondary {
+    height: 4rem;
     color: $denim;
     font-size: $font-size-base;
     font-family: $regular-heebo;

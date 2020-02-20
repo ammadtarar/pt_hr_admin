@@ -529,7 +529,8 @@ main.dashboard {
 
 //Cooptation
 main.cooptation, main.recompenses {
-  .tab-candidats-archives, .tab-annonces, .tab-candidats {margin-top: 4rem}
+  .tab-annonces, .tab-candidats {margin-top: 4rem}
+  .tab-candidats-archives {margin-top: 5rem}
    &.background-athens-gray .react-tabs__tab-list {background: $athens-gray}
    &.background-white .react-tabs__tab-list {background-color: transparent; z-index: 2;}
    .col-candidats-selectionnes {
@@ -703,6 +704,7 @@ main.cooptation {
 main.recompenses {
   margin-top: 11rem;
   .container, .react-tabs__tab-list {max-width: 128.5rem; padding-left: 2rem; padding-right: 2rem}
+  .tab-recompenses {margin-top: -1.5rem}
   .tab-recompenses {
     button:nth-of-type(1) {
       position: fixed;

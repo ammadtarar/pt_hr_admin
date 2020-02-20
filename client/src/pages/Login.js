@@ -4,6 +4,7 @@ const data = require('../datas.json')
 export class Login extends React.Component {
   state = {
     utilisateurs: [],
+    utilisateur: [],
     email: '',
     code: '',
     errors: '',
@@ -20,11 +21,9 @@ export class Login extends React.Component {
   }
 
   handleChangeText (e) {
-    this.setState({inputCode: 'number'}, () => {
-      const name = e.target.name
-      const value = e.target.value
-      this.setState({[name]: value})
-    })
+    const name = e.target.name
+    const value = e.target.value
+    this.setState({[name]: value})
   }
 
   recevoirCode = (e) => {
@@ -33,6 +32,9 @@ export class Login extends React.Component {
     const testEmail = regexp.test(this.state.email)
 
     if (testEmail === true) {
+
+      //Chercher is email présente dans DB
+
       this.setState({
         steps: {
           demandeCode: false,
