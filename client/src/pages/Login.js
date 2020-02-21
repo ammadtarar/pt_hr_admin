@@ -32,12 +32,12 @@ export class Login extends React.Component {
     e.preventDefault()
     const utilisateurs = this.state.utilisateurs
     const email = this.state.email
-    const regexp = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
     //Check si format email valide
+    const regexp = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
     const testFormatEmail = regexp.test(email)
 
-    //Check si email utilisateur est dans DB
+    //Check si email utilisateur est dans la DB
     const utilisateur = Object.keys(utilisateurs).reduce((item, e) => {
       if ([email].includes(utilisateurs[e].email)) item[e] = utilisateurs[e]
       return item
@@ -52,7 +52,7 @@ export class Login extends React.Component {
 
     //Check différents cas
     switch (true) {
-      //Si utilsateur présent dans DB
+      //Si utilsateur présent dans la DB
       case userIsOnDB(utilisateur):
         this.setState({
           steps: {
@@ -151,7 +151,6 @@ export class Login extends React.Component {
   componentDidMount() {
     //Afficher url / en entrant sur la page (au cas où l'utilisateur voudrait accéder à autre page et serait redirgé par router sur /)
     window.history.pushState('', '', '/')
-    //Vider utilisateur datas en localStorage
     localStorage.clear()
 
     // fetch(data)

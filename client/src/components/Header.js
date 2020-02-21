@@ -22,11 +22,10 @@ export class Header extends React.Component {
   deconnexion(e) {
     this.props.logout()
     window.location.href = '/'
-    localStorage.setItem('utilisateur', '')
+    localStorage.clear()
   }
 
   render() {
-    console.log(this.state.utilisateur)
     return (
       <header onDragStart={(e) => this.preventDragHandler(e)}>
         <div className="container">
