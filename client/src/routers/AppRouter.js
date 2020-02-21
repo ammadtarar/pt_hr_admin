@@ -1,7 +1,6 @@
 import React from 'react'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { login, logout } from '../actions/auth'
 import Login from '../pages/Login'
 import Dashboard from '../pages/Dashboard'
 import Communication from '../pages/Communication'

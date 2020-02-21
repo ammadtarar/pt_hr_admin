@@ -66,7 +66,7 @@ export class Login extends React.Component {
         //Ajout datas de l'utilisateur en localStorage
         const userObj = utilisateur[Object.keys(utilisateur)[0]]
         localStorage.setItem('utilisateur', JSON.stringify(userObj))
-        this.props.login()
+        this.setState({utilisateur: userObj})
         break
       //Si format email incorrect
       case testFormatEmail === false:
@@ -102,6 +102,7 @@ export class Login extends React.Component {
     switch (true) {
       //Si code tapé === code d'activation en DB
       case this.state.code === userObj.codeActivation:
+        this.props.login() //Ouvrir accès routes sur AppRouter
         this.props.history.push('/dashboard')
         this.setState({'compteurConnections': 0})
         localStorage.setItem('compteurConnections', 0)
@@ -188,7 +189,7 @@ export class Login extends React.Component {
               <div className="box-item step-2">
                 <div>
                   <h2>Bienvenue</h2>
-                  <p className="note note-envoie-code">Nous avons envoyé le code d’activation à <strong>{this.state.email}</strong>.  Une fois connecté, votre connexion sera assurée pour 30 jours.<br/>
+                  <p className="note note-envoie-code">Nous avons envoyé le code d’activation à <strong>{this.state.utilisateur.email}</strong>.  Une fois connecté, votre connexion sera assurée pour 30 jours.<br/>
                     <a onClick={(e) => this.retourStep1(e)} rel="noopener noreferrer">Retour à la connexion</a>
                   </p>
                   <label>Code d'activation</label>

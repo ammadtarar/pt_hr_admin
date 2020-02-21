@@ -4,7 +4,10 @@ import { logout } from '../actions/auth'
 import { NavLink } from 'react-router-dom'
 
 export class Header extends React.Component {
-  state = {profileOpen: false}
+  state = {
+    profileOpen: false,
+    utilisateur: localStorage.getItem('utilisateur') ? JSON.parse(localStorage.getItem('utilisateur')) : ''
+  }
 
   preventDragHandler = (e) => {
     e.preventDefault()
@@ -23,6 +26,7 @@ export class Header extends React.Component {
   }
 
   render() {
+    console.log(this.state.utilisateur)
     return (
       <header onDragStart={(e) => this.preventDragHandler(e)}>
         <div className="container">
@@ -36,8 +40,10 @@ export class Header extends React.Component {
             </ul>
           </nav>
           <ul className="profile">
-            <li onClick={(e) => this.toggleProfileMenu(e)} className={this.state.profileOpen === false ? 'open' : ''}><span>Sébastien</span>
-              <ul className={`sub-menu ${this.state.profileOpen === false ? 'open' : ''}`}>
+            <li onMouseEnter={(e) => this.toggleProfileMenu(e)}
+                onMouseLeave={(e) => this.toggleProfileMenu(e)}
+                className={this.state.profileOpen === true ? 'open' : ''}><span>{this.state.utilisateur.prenom}</span>
+              <ul className={`sub-menu ${this.state.profileOpen === true ? 'open' : ''}`}>
                 <li onClick={(e) => this.deconnexion(e)}>Se déconnecter</li>
               </ul>
             </li>
