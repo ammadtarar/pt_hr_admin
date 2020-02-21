@@ -1,5 +1,6 @@
 import React, { Suspense } from 'react'
 import Header from '../components/Header'
+import { compteArticlesActifs } from '../functions/ComptesCommunication.js'
 const CardCommunication = React.lazy(() => import('../components/CardCommunication'))
 const data = require('../datas.json')
 
@@ -17,7 +18,15 @@ export class Communication extends React.Component {
     //Data à renvoyer au serveur
     console.log(data)
     //Puis refresh du component
-    // this.componentDidMount()
+    // this.compterArticles()
+  }
+
+  compterArticles() {
+    const communication = this.state.data.communication
+
+    this.setState({
+      'countActivesPosts': compteArticlesActifs(communication)
+    })
   }
 
   componentDidMount() {
@@ -28,17 +37,7 @@ export class Communication extends React.Component {
     //       'data': res
     //     })
     //   })
-
-    //Obtenir nombres de posts actifs
-    const communication = this.state.data.communication
-    const triCandidaturesRecues = Object.keys(communication).reduce((item, e) => {
-      if ([true].includes(communication[e].checked)) item[e] = communication[e]
-      return item
-    }, {})
-
-    this.setState({
-      'countActivesPosts': Object.keys(triCandidaturesRecues).length
-    })
+    this.compterArticles()
   }
 
   render() {

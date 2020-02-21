@@ -1,5 +1,4 @@
-import React from 'react'
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import Header from '../components/Header'
 import Recompenses from './recompenses/Recompenses'
 import Demandes from './recompenses/Demandes'
@@ -29,7 +28,7 @@ function PageRecompenses() {
             <Tab>Récompenses</Tab>
             <Tab>Demandes en attente<span>{Object.keys(data.annonces).length}</span></Tab>
           </TabList>
-          
+
           <TabPanel>
             <Recompenses/>
           </TabPanel>

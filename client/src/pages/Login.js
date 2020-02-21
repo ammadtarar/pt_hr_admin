@@ -1,4 +1,6 @@
 import React from 'react'
+import { connect } from 'react-redux'
+import { login } from '../actions/auth'
 const data = require('../datas.json')
 
 export class Login extends React.Component {
@@ -28,57 +30,108 @@ export class Login extends React.Component {
 
   recevoirCode = (e) => {
     e.preventDefault()
-    const regexp = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    const testEmail = regexp.test(this.state.email)
+    const utilisateurs = this.state.utilisateurs
+    const email = this.state.email
+    const regexp = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
-    if (testEmail === true) {
+    //Check si format email valide
+    const testFormatEmail = regexp.test(email)
 
-      //Chercher is email présente dans DB
+    //Check si email utilisateur est dans DB
+    const utilisateur = Object.keys(utilisateurs).reduce((item, e) => {
+      if ([email].includes(utilisateurs[e].email)) item[e] = utilisateurs[e]
+      return item
+    }, {})
+    function userIsOnDB(obj) {
+      for(var key in obj) {
+        if(obj.hasOwnProperty(key))
+        return true
+      }
+      return false
+    }
 
-      this.setState({
-        steps: {
-          demandeCode: false,
-          envoieCode: true
-        },
-        errors: {
-          email: ''
-        }
-      })
-      //Clear compteur d'essaid de connection
-      localStorage.clear()
-      //Envoyer email à l'utilisateur
-
-
-    } else {
-      this.setState({
-        email: 'Votre adresse email est manquante',
-        errors: {
-          email: 'error'
-        }
-      })
+    //Check différents cas
+    switch (true) {
+      //Si utilsateur présent dans DB
+      case userIsOnDB(utilisateur):
+        this.setState({
+          steps: {
+            demandeCode: false,
+            envoieCode: true
+          },
+          errors: {
+            email: ''
+          }
+        })
+        //Ajout datas de l'utilisateur en localStorage
+        const userObj = utilisateur[Object.keys(utilisateur)[0]]
+        localStorage.setItem('utilisateur', JSON.stringify(userObj))
+        this.props.login()
+        break
+      //Si format email incorrect
+      case testFormatEmail === false:
+        this.setState({
+          email: "Votre adresse email a un format incorrect",
+          errors: {
+            email: 'error'
+          }
+        })
+        break
+      //Si utilisateur n'est pas dans la DB
+      case !userIsOnDB(utilisateur):
+        this.setState({
+          email: 'Votre adresse email est manquante',
+          errors: {
+            email: 'error'
+          }
+        })
+        break
+      default:
+        this.setState({
+          errors: {
+            email: ''
+          }
+        })
     }
   }
 
   seConnecter = (e) => {
     e.preventDefault()
+    const userObj = JSON.parse(localStorage.getItem('utilisateur'))
 
-    console.log(this.state.utilisateurs)
-
-    if (this.state.code === '222222') {
-      this.props.history.push('/dashboard')
-      localStorage.setItem('compteurConnections', 0)
-      localStorage.setItem('utilisateur', '')
-    } else {
-      this.setState({inputCode: 'text'}, () => {
+    switch (true) {
+      //Si code tapé === code d'activation en DB
+      case this.state.code === userObj.codeActivation:
+        this.props.history.push('/dashboard')
+        this.setState({'compteurConnections': 0})
+        localStorage.setItem('compteurConnections', 0)
+        break
+      //Si l'utilisateur a échoué 3 fois à taper le bon code d'activation
+      case ((this.state.code !== userObj.codeActivation) && (localStorage.getItem('compteurConnections') === 3)):
         this.setState({
-          code: "Votre code d'activation à 6 chiffres est incorrect",
-          errors: {
-            code: 'error'
-          },
-          'compteurConnections': this.state.compteurConnections + 1
+          steps: {
+            demandeCode: true,
+            envoieCode: false
+          }
         })
-      })
-      localStorage.setItem('compteurConnections', this.state.compteurConnections + 1)
+        //Signifier en DB que l'utilisateur a échoué 3 fois
+
+        break
+      //Si code tapé !== code d'activation en DB
+      case this.state.code !== userObj.codeActivation:
+        this.setState({inputCode: 'text'}, () => {
+          this.setState({
+            code: "Votre code d'activation à 6 chiffres est incorrect",
+            email: '',
+            errors: {
+              code: 'error'
+            },
+            'compteurConnections': this.state.compteurConnections + 1
+          })
+        })
+        localStorage.setItem('compteurConnections', this.state.compteurConnections + 1)
+        break
+      default:
     }
   }
 
@@ -95,9 +148,10 @@ export class Login extends React.Component {
   }
 
   componentDidMount() {
-    this.setState({
-      utilisateurs: data.utilisateurs
-    })
+    //Afficher url / en entrant sur la page (au cas où l'utilisateur voudrait accéder à autre page et serait redirgé par router sur /)
+    window.history.pushState('', '', '/')
+    //Vider utilisateur datas en localStorage
+    localStorage.clear()
 
     // fetch(data)
     //   .then(res => res.json())
@@ -106,6 +160,9 @@ export class Login extends React.Component {
     //       utilisateurs: res
     //     })
     //   })
+    this.setState({
+      utilisateurs: data.utilisateurs
+    })
   }
 
   render() {
@@ -132,7 +189,7 @@ export class Login extends React.Component {
                 <div>
                   <h2>Bienvenue</h2>
                   <p className="note note-envoie-code">Nous avons envoyé le code d’activation à <strong>{this.state.email}</strong>.  Une fois connecté, votre connexion sera assurée pour 30 jours.<br/>
-                    <a href="javascript:void(0);" onClick={(e) => this.retourStep1(e)} rel="noopener noreferrer">Retour à la connexion</a>
+                    <a onClick={(e) => this.retourStep1(e)} rel="noopener noreferrer">Retour à la connexion</a>
                   </p>
                   <label>Code d'activation</label>
                   <input type={this.state.inputCode === 'text' ? 'text' : 'number'} name="code" className={this.state.errors.code} onChange={(e) => this.handleChangeText(e)} value={this.state.code} placeholder="Votre code d’activation à 6 chiffres"/>
@@ -166,4 +223,9 @@ export class Login extends React.Component {
   }
 }
 
-export default Login
+
+const mapDispatchToProps = (dispatch) => ({
+  login: (loginStatus) => dispatch(login())
+})
+
+export default connect(undefined, mapDispatchToProps)(Login)

@@ -1,5 +1,7 @@
 import React from 'react'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { login, logout } from '../actions/auth'
 import Login from '../pages/Login'
 import Dashboard from '../pages/Dashboard'
 import Communication from '../pages/Communication'
@@ -9,6 +11,17 @@ import Recompenses from '../pages/Recompenses'
 import Test from '../pages/test'
 
 export class AppRouter extends React.Component {
+  state = {
+    login: false
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { loginStatus } = nextProps
+    if (loginStatus === true) {
+      this.setState({login: true})
+    }
+  }
+
   render() {
     const userRoutes = [
       {
@@ -42,11 +55,17 @@ export class AppRouter extends React.Component {
         <Route
           exact
           render={() => (
-            <Switch>
-              {userRoutes.map(route => (
-                <Route key={route.path} exact path={route.path} component={route.component} />
-              ))}
-            </Switch>
+            this.state.login === true || localStorage.getItem('utilisateur') ?
+              <Switch>
+                {userRoutes.map(route => (
+                  <Route key={route.path} exact path={route.path} component={route.component} />
+                ))}
+              </Switch>
+              :
+              <Switch>
+                <Route key="/" exact path="/" component={Login} />
+                <Route path="*" exact component={Login} />
+              </Switch>
             )
           }
         />
@@ -55,4 +74,8 @@ export class AppRouter extends React.Component {
   }
 }
 
-export default AppRouter;
+const mapStateToProps = ({auth: {loginStatus}}) => ({
+  loginStatus
+})
+
+export default connect(mapStateToProps)(AppRouter)
