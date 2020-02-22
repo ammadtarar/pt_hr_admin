@@ -343,8 +343,10 @@ main.login {
   [class*='large'] {
     height: 100vh;
     &:first-child {
+      position: relative;
       padding: 6rem;
       width: 68.6rem;
+      z-index: 4;
       .logo {position: absolute}
       .box-item {
         display: flex;
@@ -383,7 +385,7 @@ main.login {
       }
       .box-item {
         position: relative;
-        margin-left: 10rem;
+        padding: 0 10rem;
         display: flex;
         align-items: center;
         height: 100vh;
@@ -806,9 +808,40 @@ main.communication {
       }
     }
   }
+  main.login {
+    input[type="text"], input[type="number"], input[type="email"], input[type="password"] {
+      min-width: 100%;
+    }
+    [class*='large'] {
+      &:first-child {
+        width: auto;
+      }
+      &:last-child {
+        width: auto;
+        min-width: 64rem;
+      }
+    }
+  }
 }
 
-@media only screen and (max-width: 1023px) {
+@media only screen and (max-width: 1230px) {
+  main.login {
+    [class*='large'] {
+      &:first-child {
+        width: 44rem;
+      }
+      &:last-child {
+        width: calc(100% - 44rem);
+        min-width: calc(100% - 44rem);
+        .box-item {
+          padding: 0 5rem;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 1024px) {
   .row-fluid {
     [class*='large-3'] {
       &:nth-child(2n+1) {padding: 0 1.5rem 0 0}
@@ -839,6 +872,8 @@ main.communication {
     .row-fluid {
       column-count:1;
       .columns:nth-child(1n+2) {padding: 0 1.5rem 0 0}
+      .columns:nth-child(2n+2) {padding: 0 0 0 1.5rem}
+      .columns:nth-of-type(1) {padding: 0}
       .columns {
         display: flex;
         div:not(.icon):not(.box-views) {display: block}
@@ -850,6 +885,63 @@ main.communication {
         &:nth-of-type(3) {float: right}
         &:nth-of-type(4) {float: left}
         &:nth-of-type(5) {float: right}
+      }
+    }
+  }
+  main.login {
+    [class*='large'] {
+      &:first-child {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        padding-left: 21rem; padding-right: 21rem;
+        .logo {filter: grayscale(100%) brightness(600%)}
+        .logo img {width: 29rem}
+        .box-item {
+          margin-top: 35rem;
+          padding: 3rem;
+          height: auto; width: 100%;
+          background: white;
+          border-radius: 1rem;
+          button {position: relative; margin: 0 auto; display: table;}
+          div {
+            position: relative;
+            margin: 0 auto;
+            display: table;
+            width: 45rem;
+          }
+        }
+      }
+      &:last-child {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        min-width: 100%;
+        padding-left: 16rem; padding-right: 16rem;
+        .box-text {display: none}
+        .box-item {
+          height: auto;
+          margin-top: 15rem;
+        }
+        img {
+          &.vector-1 {height: 45rem; left: -17rem}
+          &.vector-2 {display: none}
+          &.vector-4 {bottom: -6.5rem}
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 970px) {
+  main.login {
+    [class*='large'] {
+      &:first-child {
+        padding-left: 17rem; padding-right: 17rem;
+        .box-item {margin-top: 40rem;}
+      }
+      &:last-child {
+        padding-left: 13rem; padding-right: 13rem;
       }
     }
   }
@@ -874,6 +966,19 @@ main.communication {
       }
     }
   }
+  main.login {
+    [class*='large'] {
+      &:first-child {
+        padding-left: 11rem; padding-right: 11rem;
+        .box-item {
+          div {width: 40rem}
+        }
+      }
+      &:last-child {
+        padding-left: 6rem; padding-right: 6rem;
+      }
+    }
+  }
 }
 
 @media only screen and (max-width: 800px) {
@@ -884,6 +989,18 @@ main.communication {
         &:nth-child(2n+1) {padding: 0 0 3rem 1.5rem}
         &:nth-child(2n+2) {padding: 0 1rem 3rem 0}
         &:nth-of-type(1) {padding: 0 0 3rem 0}
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  main.login {
+    [class*='large'] {
+      &:first-child {
+        .box-item {
+          div {width: auto}
+        }
       }
     }
   }
@@ -952,6 +1069,34 @@ main.communication {
       .columns {
         &:nth-of-type(2), &:nth-of-type(3),
         &:nth-of-type(4), &:nth-of-type(5) {width: 100%; float: none}
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 620px) {
+  h1 {
+    &.headline{font-size: 4rem}
+  }
+  main.login {
+    [class*='large'] {
+      &:first-child {
+        padding-left: 5rem; padding-right: 5rem;
+        .box-item {margin-top: 35rem}
+      }
+      &:last-child {
+        padding-left: 0; padding-right: 0;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 420px) {
+  main.login {
+    [class*='large'] {
+      &:first-child {
+        .box-item {margin-top: 40rem}
+        .logo img {width: 24rem}
       }
     }
   }

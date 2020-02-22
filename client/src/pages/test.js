@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
+const data = require('../datas.json')
 
 // fake data generator
 const getItems = (count, offset = 0) =>
@@ -34,31 +35,22 @@ const move = (source, destination, droppableSource, droppableDestination) => {
   return result
 }
 
-const grid = 8
+const triCandidatsCooptes = Object.keys(data.candidats).reduce(function(item, e) {
+  let acceptedValue = ['candidat-coopte']
+  if (acceptedValue.includes(data.candidats[e].status)) item[e] = data.candidats[e]
+  return item
+}, {})
 
-const getItemStyle = (isDragging, draggableStyle) => ({
-  // some basic styles to make the items look a bit nicer
-  userSelect: 'none',
-  padding: grid * 2,
-  margin: `0 0 ${grid}px 0`,
-
-  // change background colour if dragging
-  background: isDragging ? 'lightgreen' : 'grey',
-
-  // styles we need to apply on draggables
-  ...draggableStyle
-})
-
-const getListStyle = isDraggingOver => ({
-  background: isDraggingOver ? 'lightblue' : 'lightgrey',
-  padding: grid,
-  width: 250
-})
+const triCandidaturesRecues = Object.keys(data.candidats).reduce(function(item, e) {
+  let acceptedValue = ['candidature-recue']
+  if (acceptedValue.includes(data.candidats[e].status)) item[e] = data.candidats[e]
+  return item
+}, {})
 
 class App extends Component {
   state = {
-    items: getItems(10),
-    selected: getItems(5, 10)
+    'gigatop': Object.keys(triCandidatsCooptes).map(i => triCandidatsCooptes[i]),
+    'top': Object.keys(triCandidaturesRecues).map(i => triCandidaturesRecues[i])
   }
 
   /**
@@ -67,8 +59,8 @@ class App extends Component {
    * source arrays stored in the state.
    */
   id2List = {
-    droppable: 'items',
-    droppable2: 'selected'
+    droppable: 'gigatop',
+    droppable2: 'top'
   }
 
   getList = id => this.state[this.id2List[id]]
@@ -91,7 +83,7 @@ class App extends Component {
       let state = { items }
 
       if (source.droppableId === 'droppable2') {
-        state = { selected: items }
+        state = { 'top': items }
       }
 
       this.setState(state)
@@ -104,11 +96,10 @@ class App extends Component {
       )
 
       this.setState({
-        items: result.droppable,
-        selected: result.droppable2
+        'gigatop': result.droppable,
+        'top': result.droppable2
       })
     }
-    console.log(this.state)
   }
 
   // Normally you would want to split things out into separate components.
@@ -121,7 +112,7 @@ class App extends Component {
               <div
                 id="top"
                 ref={provided.innerRef}>
-                {this.state.items.map((item, index) => (
+                {this.state.gigatop.map((item, index) => (
                   <Draggable
                     key={item.id}
                     draggableId={item.id}
@@ -132,21 +123,8 @@ class App extends Component {
                         ref={provided.innerRef}
                         {...provided.draggableProps}
                         {...provided.dragHandleProps}
-                        style={getItemStyle(
-                            snapshot.isDragging,
-                            provided.draggableProps.style
-                        )}
                         >
-                          <div className="icon">SM</div>
-                          <p>Randall Mckinney</p>
-                          <p>Frontend Developer React</p>
-                          <p>Coopté par <span>Samantha Leigh</span></p>
-                          <p className="date">Le 23 décembre 2019</p>
-                          <hr/>
-                          {item.content}
-                          <p><a href="mailto:randallmck@mail.com" rel="noopener noreferrer" title="">randallmck@mail.com</a></p>
-                          <hr/>
-                          <img type="image/svg+xml" className="rejeter" src="/icons/rejeter.svg" alt=""/>
+                          {item.titre}
                         </div>
                     )}
                   </Draggable>
@@ -159,9 +137,8 @@ class App extends Component {
             {(provided, snapshot) => (
                 <div
                     id="top"
-                    ref={provided.innerRef}
-                    style={getListStyle(snapshot.isDraggingOver)}>
-                    {this.state.selected.map((item, index) => (
+                    ref={provided.innerRef}>
+                    {this.state.top.map((item, index) => (
                         <Draggable
                             key={item.id}
                             draggableId={item.id}
@@ -171,11 +148,34 @@ class App extends Component {
                                     ref={provided.innerRef}
                                     {...provided.draggableProps}
                                     {...provided.dragHandleProps}
-                                    style={getItemStyle(
-                                        snapshot.isDragging,
-                                        provided.draggableProps.style
-                                    )}>
-                                    {item.content}
+                                    >
+                                    {item.titre}
+                                </div>
+                            )}
+                        </Draggable>
+                    ))}
+                    {provided.placeholder}
+                </div>
+            )}
+        </Droppable>
+
+        <Droppable droppableId="droppable2">
+            {(provided, snapshot) => (
+                <div
+                    id="top"
+                    ref={provided.innerRef}>
+                    {this.state.top.map((item, index) => (
+                        <Draggable
+                            key={item.id}
+                            draggableId={item.id}
+                            index={index}>
+                            {(provided, snapshot) => (
+                                <div
+                                    ref={provided.innerRef}
+                                    {...provided.draggableProps}
+                                    {...provided.dragHandleProps}
+                                    >
+                                    {item.titre}
                                 </div>
                             )}
                         </Draggable>

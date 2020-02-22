@@ -29,48 +29,40 @@ const move = (source, destination, droppableSource, droppableDestination) => {
   return result
 }
 
+// Tri des candidats dans les 4 colonnes
+const triCandidatsCooptes = Object.keys(data.candidats).reduce(function(item, e) {
+  let acceptedValue = ['candidat-coopte']
+  if (acceptedValue.includes(data.candidats[e].status)) item[e] = data.candidats[e]
+  return item
+}, {})
+
+const triCandidaturesRecues = Object.keys(data.candidats).reduce(function(item, e) {
+  let acceptedValue = ['candidature-recue']
+  if (acceptedValue.includes(data.candidats[e].status)) item[e] = data.candidats[e]
+  return item
+}, {})
+
+const tricandidatsEntretient = Object.keys(data.candidats).reduce(function(item, e) {
+  let acceptedValue = ['en-entretient']
+  if (acceptedValue.includes(data.candidats[e].status)) item[e] = data.candidats[e]
+  return item
+}, {})
+
+const tricandidatsSelectionne = Object.keys(data.candidats).reduce(function(item, e) {
+  let acceptedValue = ['candidat-selectionne']
+  if (acceptedValue.includes(data.candidats[e].status)) item[e] = data.candidats[e]
+  return item
+}, {})
+
 export class Candidats extends React.Component {
   state = {
-    'candidatsCooptes': [],
-    'candidaturesRecues': [],
-    'candidatEntretient': [],
-    'candidatSelectionne': [],
+    'candidatsCooptes': Object.keys(triCandidatsCooptes).map(i => triCandidatsCooptes[i]),
+    'candidaturesRecues': Object.keys(triCandidaturesRecues).map(i => triCandidaturesRecues[i]),
+    'candidatsEntretient': Object.keys(tricandidatsEntretient).map(i => tricandidatsEntretient[i]),
+    'candidatsSelectionne': Object.keys(tricandidatsSelectionne).map(i => tricandidatsSelectionne[i]),
     'popupOpen': false,
     'popupData': '',
     'search': ''
-  }
-
-  componentDidMount() {
-    const triCandidatsCooptes = Object.keys(data.candidats).reduce(function(item, e) {
-      let acceptedValue = ['candidat-coopte']
-      if (acceptedValue.includes(data.candidats[e].status)) item[e] = data.candidats[e]
-      return item
-    }, {})
-
-    const triCandidaturesRecues = Object.keys(data.candidats).reduce(function(item, e) {
-      let acceptedValue = ['candidature-recue']
-      if (acceptedValue.includes(data.candidats[e].status)) item[e] = data.candidats[e]
-      return item
-    }, {})
-
-    const triCandidatEntretient = Object.keys(data.candidats).reduce(function(item, e) {
-      let acceptedValue = ['en-entretient']
-      if (acceptedValue.includes(data.candidats[e].status)) item[e] = data.candidats[e]
-      return item
-    }, {})
-
-    const triCandidatSelectionne = Object.keys(data.candidats).reduce(function(item, e) {
-      let acceptedValue = ['candidat-selectionne']
-      if (acceptedValue.includes(data.candidats[e].status)) item[e] = data.candidats[e]
-      return item
-    }, {})
-
-    this.setState({
-      'candidatsCooptes': triCandidatsCooptes,
-      'candidaturesRecues': triCandidaturesRecues,
-      'candidatEntretient': triCandidatEntretient,
-      'candidatSelectionne': triCandidatSelectionne
-    })
   }
 
   /**
@@ -81,8 +73,8 @@ export class Candidats extends React.Component {
   idList = {
     droppable: 'candidatsCooptes',
     droppable2: 'candidaturesRecues',
-    droppable3: 'candidatEntretient',
-    droppable4: 'candidatSelectionne'
+    droppable3: 'candidatsEntretient',
+    droppable4: 'candidatsSelectionne'
   }
 
   getList = id => this.state[this.idList[id]]
@@ -109,11 +101,11 @@ export class Candidats extends React.Component {
       }
 
       if (source.droppableId === 'droppable3') {
-        state = { 'candidatEntretient': items }
+        state = { 'candidatsEntretient': items }
       }
 
       if (source.droppableId === 'droppable4') {
-        state = { 'candidatSelectionne': items }
+        state = { 'candidatsSelectionne': items }
       }
 
       this.setState(state)
@@ -127,12 +119,9 @@ export class Candidats extends React.Component {
 
       this.setState({
         'candidatsCooptes': result.droppable,
-        'candidaturesRecues': result.droppable2,
-        'candidatEntretient': result.droppable3,
-        'candidatSelectionne': result.droppable4
+        'candidaturesRecues': result.droppable2
       })
     }
-    console.log(this.state)
   }
 
   popup = (data) => {
@@ -147,10 +136,10 @@ export class Candidats extends React.Component {
     this.setState({popupOpen: false})
 
     //Candidat à archiver
-    const data = this.state.popupData
-    data.archive = true
-    console.log(data.archive)
-    console.log(data.id)
+    // const data = this.state.popupData
+    // data.archive = true
+    // console.log(data.archive)
+    // console.log(data.id)
   }
 
   handleSearch (e) {
@@ -166,8 +155,8 @@ export class Candidats extends React.Component {
   render() {
     const candidatsCooptes = this.state.candidatsCooptes
     const candidaturesRecues = this.state.candidaturesRecues
-    const candidatEntretient = this.state.candidatEntretient
-    const candidatSelectionne = this.state.candidatSelectionne
+    const candidatsEntretient = this.state.candidatsEntretient
+    const candidatsSelectionne = this.state.candidatsSelectionne
 
     return (
       <div className="wrapper">
@@ -219,20 +208,20 @@ export class Candidats extends React.Component {
                     <h4 className="light">Candidats cooptés</h4>
                     <div className="container-scroll">
 
-                      {Object.keys(candidatsCooptes).length > 0 ?
+                      {candidatsCooptes.length > 0 ?
 
                         <Droppable droppableId="droppable">
                           {(provided, snapshot) => (
                             <div
                               ref={provided.innerRef}>
-                              {Object.keys(candidatsCooptes)
+                              {candidatsCooptes
                                 .sort((a, b) => {
-                                  return new Date(candidatsCooptes[a].date) < new Date(candidatsCooptes[b].date) ? 1 : (new Date(candidatsCooptes[a].date) > new Date(candidatsCooptes[b].date) ? -1 : 0)
+                                  return new Date(a.date) < new Date(b.date) ? 1 : (new Date(a.date) > new Date(b.date) ? -1 : 0)
                                 })
                                 .map((key, index) => (
                                 <Draggable
-                                  key={key}
-                                  draggableId={key}
+                                  key={key.id}
+                                  draggableId={key.id}
                                   index={index}>
                                   {(provided, snapshot) => (
                                     <div
@@ -240,7 +229,7 @@ export class Candidats extends React.Component {
                                       {...provided.draggableProps}
                                       {...provided.dragHandleProps}
                                       >
-                                        <CardCandidat data={candidatsCooptes[key]} popup={this.popup}/>
+                                        <CardCandidat data={key} popup={this.popup}/>
                                     </div>
                                   )}
                                 </Draggable>
@@ -265,20 +254,20 @@ export class Candidats extends React.Component {
                     <h4 className="light">Candidatures reçues</h4>
                     <div className="container-scroll">
 
-                      {Object.keys(candidaturesRecues).length > 0 ?
+                      {candidaturesRecues.length > 0 ?
 
                         <Droppable droppableId="droppable2">
                           {(provided, snapshot) => (
                             <div
                               ref={provided.innerRef}>
-                              {Object.keys(candidaturesRecues)
+                              {candidaturesRecues
                                 .sort((a, b) => {
-                                  return new Date(candidaturesRecues[a].date) < new Date(candidaturesRecues[b].date) ? 1 : (new Date(candidaturesRecues[a].date) > new Date(candidaturesRecues[b].date) ? -1 : 0)
+                                  return new Date(a.date) < new Date(b.date) ? 1 : (new Date(a.date) > new Date(b.date) ? -1 : 0)
                                 })
                                 .map((key, index) => (
                                 <Draggable
-                                  key={key}
-                                  draggableId={key}
+                                  key={key.id}
+                                  draggableId={key.id}
                                   index={index}>
                                   {(provided, snapshot) => (
                                     <div
@@ -286,7 +275,7 @@ export class Candidats extends React.Component {
                                       {...provided.draggableProps}
                                       {...provided.dragHandleProps}
                                       >
-                                        <CardCandidat data={candidaturesRecues[key]} popup={this.popup}/>
+                                        <CardCandidat data={key} popup={this.popup}/>
                                     </div>
                                   )}
                                 </Draggable>
@@ -311,20 +300,17 @@ export class Candidats extends React.Component {
                     <h4 className="light">Entretiens en cours</h4>
                     <div className="container-scroll">
 
-                      {Object.keys(candidatEntretient).length > 0 ?
+                      {candidatsEntretient.length > 0 ?
 
                         <Droppable droppableId="droppable3">
                           {(provided, snapshot) => (
                             <div
                               ref={provided.innerRef}>
-                              {Object.keys(candidatEntretient)
-                                .sort((a, b) => {
-                                  return new Date(candidatEntretient[a].date) < new Date(candidatEntretient[b].date) ? 1 : (new Date(candidatEntretient[a].date) > new Date(candidatEntretient[b].date) ? -1 : 0)
-                                })
+                              {candidatsEntretient
                                 .map((key, index) => (
                                 <Draggable
-                                  key={key}
-                                  draggableId={key}
+                                  key={key.id}
+                                  draggableId={key.id}
                                   index={index}>
                                   {(provided, snapshot) => (
                                     <div
@@ -332,7 +318,7 @@ export class Candidats extends React.Component {
                                       {...provided.draggableProps}
                                       {...provided.dragHandleProps}
                                       >
-                                        <CardCandidat data={candidatEntretient[key]} popup={this.popup}/>
+                                        <CardCandidat data={key} popup={this.popup}/>
                                     </div>
                                   )}
                                 </Draggable>
@@ -357,20 +343,20 @@ export class Candidats extends React.Component {
                     <h4 className="light">Candidats sélectionnés</h4>
                     <div className="container-scroll">
 
-                      {Object.keys(candidatSelectionne).length > 0 ?
+                      {candidatsSelectionne.length > 0 ?
 
                         <Droppable droppableId="droppable4">
                           {(provided, snapshot) => (
                             <div
                               ref={provided.innerRef}>
-                              {Object.keys(candidatSelectionne)
+                              {candidatsSelectionne
                                 .sort((a, b) => {
-                                  return new Date(candidatSelectionne[a].date) < new Date(candidatSelectionne[b].date) ? 1 : (new Date(candidatSelectionne[a].date) > new Date(candidatSelectionne[b].date) ? -1 : 0)
+                                  return new Date(a.date) < new Date(b.date) ? 1 : (new Date(a.date) > new Date(b.date) ? -1 : 0)
                                 })
                                 .map((key, index) => (
                                 <Draggable
-                                  key={key}
-                                  draggableId={key}
+                                  key={key.id}
+                                  draggableId={key.id}
                                   index={index}>
                                   {(provided, snapshot) => (
                                     <div
@@ -378,7 +364,7 @@ export class Candidats extends React.Component {
                                       {...provided.draggableProps}
                                       {...provided.dragHandleProps}
                                       >
-                                        <CardCandidat data={candidatSelectionne[key]} popup={this.popup}/>
+                                        <CardCandidat data={key} popup={this.popup}/>
                                     </div>
                                   )}
                                 </Draggable>
@@ -408,4 +394,4 @@ export class Candidats extends React.Component {
   }
 }
 
-export default Candidats;
+export default Candidats
