@@ -7,8 +7,6 @@ import Communication from '../pages/Communication'
 import Cooptation from '../pages/Cooptation'
 import Recompenses from '../pages/Recompenses'
 
-import Test from '../pages/test'
-
 export class AppRouter extends React.Component {
   state = {
     login: false
@@ -23,10 +21,6 @@ export class AppRouter extends React.Component {
 
   render() {
     const userRoutes = [
-      {
-        path: '/test',
-        component: Test
-      },
       {
         path: '/',
         component: Login

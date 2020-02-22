@@ -5,9 +5,13 @@ const CardCommunication = React.lazy(() => import('../components/CardCommunicati
 const data = require('../datas.json')
 
 export class Communication extends React.Component {
-  state = {
-    'data': data,
-    'countActivesPosts': ''
+  constructor(props) {
+    super(props)
+    this.state = {
+      'data': data.communication,
+      'countActivesPosts': ''
+    }
+    this.dataToChange = this.dataToChange.bind(this)
   }
 
   preventDragHandler = (e) => {
@@ -15,15 +19,16 @@ export class Communication extends React.Component {
   }
 
   dataToChange(data) {
-    //Data à renvoyer au serveur
-    console.log(data)
-    //Puis refresh du component
-    // this.compterArticles()
+    const communication = this.state.data
+
+    Object.keys(communication).push(data) //Remplacer ancienne key par nouvelle key
+    this.setState({data: communication})
+    this.compterArticles(communication)
+    //Puis objet à renvoyer au serveur
+
   }
 
-  compterArticles() {
-    const communication = this.state.data.communication
-
+  compterArticles(communication) {
     this.setState({
       'countActivesPosts': compteArticlesActifs(communication)
     })
@@ -37,12 +42,13 @@ export class Communication extends React.Component {
     //       'data': res
     //     })
     //   })
-    this.compterArticles()
+    const communication = this.state.data
+    this.compterArticles(communication)
   }
 
   render() {
     const count = this.state.countActivesPosts
-    const communication = this.state.data.communication
+    const communication = this.state.data
 
     return (
       <div className="wrapper" onDragStart={this.preventDragHandler}>
