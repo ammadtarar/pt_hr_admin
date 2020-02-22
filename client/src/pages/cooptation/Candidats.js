@@ -57,7 +57,7 @@ const tricandidatsSelectionne = Object.keys(data.candidats).reduce(function(item
 export class Candidats extends React.Component {
   state = {
     'candidatsCooptes': Object.keys(triCandidatsCooptes).map(i => triCandidatsCooptes[i]),
-    'candidaturesRecues': [],
+    'candidaturesRecues': Object.keys(triCandidaturesRecues).map(i => triCandidaturesRecues[i]),
     'candidatsEntretient': Object.keys(tricandidatsEntretient).map(i => tricandidatsEntretient[i]),
     'candidatsSelectionne': Object.keys(tricandidatsSelectionne).map(i => tricandidatsSelectionne[i]),
     'popupOpen': false,
@@ -110,6 +110,7 @@ export class Candidats extends React.Component {
 
       this.setState(state)
     } else {
+
       const result = move(
         this.getList(source.droppableId),
         this.getList(destination.droppableId),
@@ -118,12 +119,13 @@ export class Candidats extends React.Component {
       )
 
       this.setState({
-        // 'candidatsCooptes': result.droppable,
-        // 'candidaturesRecues': result.droppable2,
-        'candidatsEntretient': result.droppable3,
-        'candidatsSelectionne': result.droppable4
+        'candidatsCooptes': result.droppable ? result.droppable : this.state.candidatsCooptes,
+        'candidaturesRecues': result.droppable2 ? result.droppable2 : this.state.candidaturesRecues,
+        'candidatsEntretient': result.droppable3 ? result.droppable3 : this.state.candidatsEntretient,
+        'candidatsSelectionne': result.droppable4 ? result.droppable4 : this.state.candidatsSelectionne
       })
     }
+
   }
 
   popup = (data) => {
@@ -244,7 +246,7 @@ export class Candidats extends React.Component {
                         <Droppable droppableId="droppable">
                           {(provided, snapshot) => (
                           <div ref={provided.innerRef}>
-                            <div className="container empty candidats">
+                            <div className={`container empty candidats ${candidatsCooptes.length === 0 ? 'open' : ''}`}>
                               <img type="image/svg+xml" className="icon" src="/icons/candidat-coopte.svg" alt=""/>
                               <p className="text-center">Aucun candidat coopté</p>
                               <p className="text-center">Vos ambassadeurs n’ont pas encore coopté de profils sur vos annonces.</p>
@@ -295,7 +297,7 @@ export class Candidats extends React.Component {
                         <Droppable droppableId="droppable2">
                           {(provided, snapshot) => (
                           <div ref={provided.innerRef}>
-                            <div className="container empty candidats">
+                            <div className={`container empty candidats ${candidaturesRecues.length === 0 ? 'open' : ''}`}>
                               <img type="image/svg+xml" className="icon" src="/icons/entretien.svg" alt=""/>
                               <p className="text-center">Aucune candidature reçue</p>
                               <p className="text-center">Vous n’avez pas encore reçu de candidature sur vos annonces.</p>
@@ -343,7 +345,7 @@ export class Candidats extends React.Component {
                         <Droppable droppableId="droppable3">
                           {(provided, snapshot) => (
                           <div ref={provided.innerRef}>
-                            <div className="container empty candidats">
+                            <div className={`container empty candidats ${candidatsEntretient.length === 0 ? 'open' : ''}`}>
                               <img type="image/svg+xml" className="icon" src="/icons/candidature.svg" alt=""/>
                               <p className="text-center">Aucun entretien en cours</p>
                               <p className="text-center">Il semblerait qu’il n’y ait pas d’entretien en ce moment !</p>
@@ -394,7 +396,7 @@ export class Candidats extends React.Component {
                         <Droppable droppableId="droppable4">
                           {(provided, snapshot) => (
                           <div ref={provided.innerRef}>
-                            <div className="container empty candidats candidats-selectionnes">
+                            <div className={`container empty candidats candidats-selectionnes ${candidatsSelectionne.length === 0 ? 'open' : ''}`}>
                               <img type="image/svg+xml" className="icon" src="/icons/selectionne.svg" alt=""/>
                               <p className="text-center">Aucun candidat sélectionné</p>
                               <p className="text-center">Déplacez ici les candidats que vous avez sélectionné.</p>
