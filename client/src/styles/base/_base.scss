@@ -623,7 +623,7 @@ main.cooptation, main.recompenses {
       h4 {margin: 0 0 2rem 2rem}
     }
     .box-encart {margin-bottom: 1.5rem}
-    .container-scroll {padding: 0 2rem; overflow-y: scroll; height: 100%;}
+    .container-scroll {padding: 0 2rem; overflow-y: scroll; height: 100%; scroll-behavior: smooth}
   }
 }
 

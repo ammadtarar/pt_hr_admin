@@ -29,37 +29,13 @@ const move = (source, destination, droppableSource, droppableDestination) => {
   return result
 }
 
-// Tri des candidats dans les 4 colonnes
-const triCandidatsCooptes = Object.keys(data.candidats).reduce(function(item, e) {
-  let acceptedValue = ['candidat-coopte']
-  if (acceptedValue.includes(data.candidats[e].status)) item[e] = data.candidats[e]
-  return item
-}, {})
-
-const triCandidaturesRecues = Object.keys(data.candidats).reduce(function(item, e) {
-  let acceptedValue = ['candidature-recue']
-  if (acceptedValue.includes(data.candidats[e].status)) item[e] = data.candidats[e]
-  return item
-}, {})
-
-const tricandidatsEntretient = Object.keys(data.candidats).reduce(function(item, e) {
-  let acceptedValue = ['en-entretient']
-  if (acceptedValue.includes(data.candidats[e].status)) item[e] = data.candidats[e]
-  return item
-}, {})
-
-const tricandidatsSelectionne = Object.keys(data.candidats).reduce(function(item, e) {
-  let acceptedValue = ['candidat-selectionne']
-  if (acceptedValue.includes(data.candidats[e].status)) item[e] = data.candidats[e]
-  return item
-}, {})
-
 export class Candidats extends React.Component {
   state = {
-    'candidatsCooptes': Object.keys(triCandidatsCooptes).map(i => triCandidatsCooptes[i]),
-    'candidaturesRecues': Object.keys(triCandidaturesRecues).map(i => triCandidaturesRecues[i]),
-    'candidatsEntretient': Object.keys(tricandidatsEntretient).map(i => tricandidatsEntretient[i]),
-    'candidatsSelectionne': Object.keys(tricandidatsSelectionne).map(i => tricandidatsSelectionne[i]),
+    'data': data.candidats,
+    'candidatsCooptes': [],
+    'candidaturesRecues': [],
+    'candidatsEntretient': [],
+    'candidatsSelectionne': [],
     'popupOpen': false,
     'popupData': '',
     'search': ''
@@ -99,11 +75,9 @@ export class Candidats extends React.Component {
       if (source.droppableId === 'droppable2') {
         state = { 'candidaturesRecues': items }
       }
-
       if (source.droppableId === 'droppable3') {
         state = { 'candidatsEntretient': items }
       }
-
       if (source.droppableId === 'droppable4') {
         state = { 'candidatsSelectionne': items }
       }
@@ -140,10 +114,12 @@ export class Candidats extends React.Component {
     this.setState({popupOpen: false})
 
     //Candidat à archiver
-    // const data = this.state.popupData
-    // data.archive = true
-    // console.log(data.archive)
-    // console.log(data.id)
+    const data = this.state.popupData
+    data.archive = true
+    console.log(data.archive)
+    console.log(data.id)
+    // À modifier sur serveur
+
   }
 
   handleSearch (e) {
@@ -153,6 +129,49 @@ export class Candidats extends React.Component {
 
     this.setState({
       search: value
+    })
+  }
+
+  componentDidMount() {
+    // fetch(data)
+    //   .then(res => res.json())
+    //   .then(res => {
+    //     this.setState({
+    //       'data': res
+    //     })
+    //   })
+
+    const data = this.state.data
+    // Tri des candidats dans les 4 colonnes
+    const triCandidatsCooptes = Object.keys(data).reduce((item, e) => {
+      let acceptedValue = ['candidat-coopte']
+      if (acceptedValue.includes(data[e].status)) item[e] = data[e]
+      return item
+    }, {})
+
+    const triCandidaturesRecues = Object.keys(data).reduce((item, e) => {
+      let acceptedValue = ['candidature-recue']
+      if (acceptedValue.includes(data[e].status)) item[e] = data[e]
+      return item
+    }, {})
+
+    const tricandidatsEntretient = Object.keys(data).reduce((item, e) => {
+      let acceptedValue = ['en-entretient']
+      if (acceptedValue.includes(data[e].status)) item[e] = data[e]
+      return item
+    }, {})
+
+    const tricandidatsSelectionne = Object.keys(data).reduce((item, e) => {
+      let acceptedValue = ['candidat-selectionne']
+      if (acceptedValue.includes(data[e].status)) item[e] = data[e]
+      return item
+    }, {})
+
+    this.setState({
+      'candidatsCooptes': Object.keys(triCandidatsCooptes).map(i => triCandidatsCooptes[i]),
+      'candidaturesRecues': Object.keys(triCandidaturesRecues).map(i => triCandidaturesRecues[i]),
+      'candidatsEntretient': Object.keys(tricandidatsEntretient).map(i => tricandidatsEntretient[i]),
+      'candidatsSelectionne': Object.keys(tricandidatsSelectionne).map(i => tricandidatsSelectionne[i])
     })
   }
 
