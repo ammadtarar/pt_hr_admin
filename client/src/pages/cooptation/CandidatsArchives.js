@@ -34,7 +34,7 @@ export class CandidatsArchives extends React.Component {
                   })
                   .map((key) => (
                   candidats[key].archive === true ?
-                    <div className="columns large-3">
+                    <div className="columns large-3 medium-6">
                       <CardCandidat data={candidats[key]}/>
                     </div>
                   : ''

@@ -12,8 +12,8 @@ function CardCandidat(props) {
   return (
     <div className="box-encart">
       <div className={`icon ${data.archive === true ? 'athens-gray': ''}`}>{data.prenom.charAt(0) + data.nom.charAt(0)}</div>
-      <p>{data.prenom + ' ' + data.nom}</p>
-      <p>{data.titre}</p>
+      <p className="nom">{data.prenom + ' ' + data.nom}</p>
+      <p className="titre">{data.titre}</p>
       <p>Coopté par <span>Samantha Leigh</span></p>
       <p className="date">Le {date(dateToFormat)}</p>
       <hr/>

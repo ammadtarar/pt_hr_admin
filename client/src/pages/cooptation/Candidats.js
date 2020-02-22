@@ -214,7 +214,7 @@ export class Candidats extends React.Component {
 
             <DragDropContext onDragEnd={this.onDragEnd}>
               <div className="row-fluid">
-                <div className="large-3 columns">
+                <div className="large-3 medium-6 columns">
                   <div className="box-item">
                     <h4 className="light">Candidats cooptés</h4>
                     <div className="container-scroll">
@@ -260,7 +260,7 @@ export class Candidats extends React.Component {
                     </div>
                   </div>
                 </div>
-                <div className="large-3 columns">
+                <div className="large-3 medium-6 columns">
                   <div className="box-item">
                     <h4 className="light">Candidatures reçues</h4>
                     <div className="container-scroll">
@@ -306,7 +306,7 @@ export class Candidats extends React.Component {
                     </div>
                   </div>
                 </div>
-                <div className="large-3 columns">
+                <div className="large-3 medium-6 columns">
                   <div className="box-item">
                     <h4 className="light">Entretiens en cours</h4>
                     <div className="container-scroll">
@@ -352,7 +352,7 @@ export class Candidats extends React.Component {
                     </div>
                   </div>
                 </div>
-                <div className="large-3 columns col-candidats-selectionnes">
+                <div className="large-3 medium-6 columns col-candidats-selectionnes">
                   <div className="box-item denim">
                     <h4 className="light">Candidats sélectionnés</h4>
                     <div className="container-scroll">

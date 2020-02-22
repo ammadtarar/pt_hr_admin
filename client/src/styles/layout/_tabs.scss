@@ -57,3 +57,14 @@
 .react-tabs__tab-panel--selected {
   display: block;
 }
+
+@media only screen and (max-width: 1344px) {
+  .react-tabs__tab-list {
+    margin: 0 3rem;
+  }
+}
+@media only screen and (max-width: 640px) {
+  .react-tabs__tab-list {
+    margin: 0 1rem;
+  }
+}
