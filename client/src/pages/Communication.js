@@ -5,8 +5,8 @@ const CardCommunication = React.lazy(() => import('../components/CardCommunicati
 const data = require('../datas.json')
 
 export class Communication extends React.Component {
-  constructor(props) {
-    super(props)
+  constructor() {
+    super()
     this.state = {
       'data': data.communication,
       'countActivesPosts': ''

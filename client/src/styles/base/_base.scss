@@ -121,15 +121,15 @@ input[type=number] {
   max-width: 153rem; width: 100%;
   &.empty {
     margin-top: 8rem;
-    display: none;
-    visibility: hidden;
-    opacity: 0;
-    transition: all .4s cubic-bezier(0.045, 0.715, 0.250, 1.000);
-    &.open {
-      display: block;
-      visibility: visible;
-      opacity: 1;
-    }
+    // display: none;
+    // visibility: hidden;
+    // opacity: 0;
+    // transition: all .4s cubic-bezier(0.045, 0.715, 0.250, 1.000);
+    // &.open {
+    //   display: block;
+    //   visibility: visible;
+    //   opacity: 1;
+    // }
     * {
       position: relative;
       margin: 0 auto;

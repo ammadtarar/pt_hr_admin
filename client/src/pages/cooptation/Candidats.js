@@ -246,7 +246,7 @@ export class Candidats extends React.Component {
                         <Droppable droppableId="droppable">
                           {(provided, snapshot) => (
                           <div ref={provided.innerRef}>
-                            <div className={`container empty candidats ${candidatsCooptes.length === 0 ? 'open' : ''}`}>
+                            <div className={`container empty candidats ${candidatsCooptes.length === 0 ? '' : ''}`}>
                               <img type="image/svg+xml" className="icon" src="/icons/candidat-coopte.svg" alt=""/>
                               <p className="text-center">Aucun candidat coopté</p>
                               <p className="text-center">Vos ambassadeurs n’ont pas encore coopté de profils sur vos annonces.</p>
@@ -297,7 +297,7 @@ export class Candidats extends React.Component {
                         <Droppable droppableId="droppable2">
                           {(provided, snapshot) => (
                           <div ref={provided.innerRef}>
-                            <div className={`container empty candidats ${candidaturesRecues.length === 0 ? 'open' : ''}`}>
+                            <div className={`container empty candidats ${candidaturesRecues.length === 0 ? '' : ''}`}>
                               <img type="image/svg+xml" className="icon" src="/icons/entretien.svg" alt=""/>
                               <p className="text-center">Aucune candidature reçue</p>
                               <p className="text-center">Vous n’avez pas encore reçu de candidature sur vos annonces.</p>
@@ -345,7 +345,7 @@ export class Candidats extends React.Component {
                         <Droppable droppableId="droppable3">
                           {(provided, snapshot) => (
                           <div ref={provided.innerRef}>
-                            <div className={`container empty candidats ${candidatsEntretient.length === 0 ? 'open' : ''}`}>
+                            <div className={`container empty candidats ${candidatsEntretient.length === 0 ? '' : ''}`}>
                               <img type="image/svg+xml" className="icon" src="/icons/candidature.svg" alt=""/>
                               <p className="text-center">Aucun entretien en cours</p>
                               <p className="text-center">Il semblerait qu’il n’y ait pas d’entretien en ce moment !</p>
@@ -396,7 +396,7 @@ export class Candidats extends React.Component {
                         <Droppable droppableId="droppable4">
                           {(provided, snapshot) => (
                           <div ref={provided.innerRef}>
-                            <div className={`container empty candidats candidats-selectionnes ${candidatsSelectionne.length === 0 ? 'open' : ''}`}>
+                            <div className={`container empty candidats candidats-selectionnes ${candidatsSelectionne.length === 0 ? '' : ''}`}>
                               <img type="image/svg+xml" className="icon" src="/icons/selectionne.svg" alt=""/>
                               <p className="text-center">Aucun candidat sélectionné</p>
                               <p className="text-center">Déplacez ici les candidats que vous avez sélectionné.</p>
