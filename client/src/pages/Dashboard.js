@@ -49,10 +49,12 @@ export class Dashboard extends React.Component {
           <div className="container">
             <div className="row-fluid">
               <h3>Tableau de bord</h3>
-              <div className="large-4 columns">
+              <div className="columns">
                 <div className="box-note">
                   <p>Pilotez l’activité de <br/> votre <span>communauté<br/>  d’ambassadeurs</span></p>
                 </div>
+              </div>
+              <div className="columns">
                 <div className="box-item">
                   <h4>Engagement des ambassadeurs</h4>
                   <div className="icon iceberg"><img src="/icons/ambassadeurs.svg" alt=""/></div>
@@ -68,14 +70,14 @@ export class Dashboard extends React.Component {
                   </div>
                   <hr/>
                   <div className="icon iceberg"><img src="/icons/recompenses.svg" alt=""/></div>
-                  <div className="box-text">
+                  <div className="box-text demandes-recompenses">
                     <p>Demandes de récompenses</p>
                     <p><span>X</span></p>
-                    <button onClick={(e) => this.props.history.push('/recompenses')} className="btn-primary">Voir</button>
                   </div>
+                  <button onClick={(e) => this.props.history.push('/recompenses')} className="btn-primary">Voir</button>
                 </div>
               </div>
-              <div className="large-4 columns">
+              <div className="columns">
                 <div className="box-item cooptation">
                   <h4>Cooptation</h4>
                   <button onClick={(e) => this.props.history.push('/cooptation')} className="btn-primary">Voir</button>
@@ -105,7 +107,7 @@ export class Dashboard extends React.Component {
                   </div>
                 </div>
               </div>
-              <div className="large-4 columns">
+              <div className="columns">
                 <div className="box-item communication">
                   <h4>Communication</h4>
                   <button onClick={(e) => this.props.history.push('/communication')} className="btn-primary">Voir</button>
@@ -122,6 +124,8 @@ export class Dashboard extends React.Component {
                     <p><span>{comptesCommuncation.actifs}</span> /<span>{comptesCommuncation.total}</span></p>
                   </div>
                 </div>
+              </div>
+              <div className="columns">
                 <div className="box-item communication">
                   <h4>Micro-formation</h4>
                   <div className="icon iron"><img src="/icons/micro-formation.svg" alt=""/></div>
@@ -137,7 +141,7 @@ export class Dashboard extends React.Component {
                   </div>
                 </div>
               </div>
-              <div className="large-4 columns"></div>
+              <div className="columns"></div>
             </div>
           </div>
         </main>

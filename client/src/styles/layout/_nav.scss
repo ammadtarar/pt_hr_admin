@@ -15,7 +15,7 @@ nav.primary {
       line-height: 7rem;
       border-bottom: .3rem solid transparent;
       a {color: $raven; display: block; padding-left: 3.3rem; border-bottom: .3rem solid transparent}
-      a:hover, &.current a {
+      a:hover, &.current a, div:hover, &.current div {
         line-height: calc(7rem - .3rem);
         border-color: $casablanca;
         color: $cloud-burst;
@@ -32,6 +32,7 @@ nav.primary {
         background-size: 2rem;
         width: 2rem; height: 2rem;
         content: '';
+        pointer-events: none;
       }
       &.dashboard::after {background-image: url('/icons/dashboard.svg')}
       &.recompenses::after {background-image: url('/icons/recompenses-b.svg')}
@@ -79,6 +80,19 @@ ul.profile {
         line-height: 2rem;
         &:hover {color: $cloud-burst}
         a {color: $raven}
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 1023px) {
+  nav.primary {
+    ul {
+      li {
+        margin: 0 2.5rem 0 0;
+        div {display: none}
+        a {width: 2rem; height: 7rem; padding-left: 0}
+        a:hover, &.current a {height: 7rem}
       }
     }
   }

@@ -58,7 +58,7 @@ export class Communication extends React.Component {
               <Suspense fallback={<div className="text-center">Loading ...</div>}>
 
                 {count > 0 ?
-                <div className="large-3 columns">
+                <div className="large-3 medium-6 columns">
                   <div className="box-note">
                     <p>Consultez et gérez les<br/> <span>contenus de marque<br/> employeur</span> visibles par vos<br/> <span>collaborateurs</span>.</p>
                     <p className="sub-note">Ils pourront les consulter et les partager auprès de leur réseau.</p>
@@ -72,7 +72,7 @@ export class Communication extends React.Component {
                     })
                     .map((key, item, i) => {
                     return (
-                      <div className="large-3 columns">
+                      <div className="large-3 medium-6 columns">
                         <CardCommunication data={communication[key]} dataToChange={this.dataToChange}/>
                       </div>
                     )

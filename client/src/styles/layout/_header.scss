@@ -6,6 +6,7 @@ header {
   top: 0;
   background: white;
   height: 7rem; width: 100vw;
+  padding: 0 5rem;
   box-shadow: 0 .2rem 1.6rem rgba(33, 57, 80, 0.1);
   z-index: 4;
   .container {max-width: 150rem}
@@ -20,4 +21,8 @@ header {
     background-color: $denim;
     border-radius: 50%;
   }
+}
+
+@media only screen and (max-width: 640px) {
+  header {padding: 0 3rem}
 }

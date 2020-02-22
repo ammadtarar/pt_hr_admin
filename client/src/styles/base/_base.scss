@@ -425,6 +425,17 @@ main.dashboard {
   .container {
     max-width: 150rem;
   }
+  .row-fluid {
+    position: relative;
+    margin-top: 4rem;
+    column-count: 3;
+    column-gap: 3rem;
+    column-width: 33.3%;
+    grid-auto-flow: row;
+    .columns {padding: 0}
+    h3:nth-of-type(1) {margin-top: -4.5rem}
+    button {position: absolute; right: 2rem}
+  }
   &::after {
     position: absolute;
     top: -7rem; right: 0;
@@ -447,7 +458,6 @@ main.dashboard {
     content: '';
     z-index: -1;
   }
-  button {position: absolute; right: 2rem;}
   .icon {
     position: relative;
     margin: 0 2rem 2rem 0;
@@ -467,6 +477,7 @@ main.dashboard {
     box-shadow: 0 .2rem .8rem rgba(35, 52, 61, 0.1);
     margin-bottom: 3rem;
   }
+  .box-text.demandes-recompenses {width: calc(100% - 10rem)}
   .box-views {
     position: relative;
     margin-bottom: 2rem;
@@ -478,7 +489,7 @@ main.dashboard {
     div {width: 100%}
     p {
       position: relative;
-      left: -4rem;
+      left: -3.8rem;
       text-align: center;
       &:nth-of-type(1) {
         font-family: $bold-poppins;
@@ -492,8 +503,6 @@ main.dashboard {
           width: 2.4rem; height: 2.4rem;
           content: '';
         }
-      }
-      &:nth-of-type(2) {
       }
     }
   }
@@ -750,5 +759,79 @@ main.communication {
     position: absolute;
     right: 1rem; bottom: 1rem;
     background-color: white;
+  }
+}
+
+//Medias queries
+@media only screen and (max-width: 1500px) {
+  main.communication {
+    [class*='large-3']:first-child {width: 50%}
+  }
+}
+
+@media only screen and (max-width: 1023px) {
+  .row-fluid {
+    [class*='large-3'] {
+      &:nth-child(2n+1) {padding: 0 1.5rem 0 0}
+      &:nth-child(2n+2) {padding: 0 0 0 1.5rem}
+    }
+  }
+  ul.headline {margin-left: 0; margin-right: 0}
+  main.dashboard {
+    .row-fluid {
+      column-count:1;
+      .columns:nth-child(1n+2) {padding: 0 1.5rem 0 0}
+      .columns {
+        display: flex;
+        div:not(.icon):not(.box-views) {display: block}
+        &:nth-of-type(1) {
+          div {width: 100%}
+        }
+        &:nth-of-type(2), &:nth-of-type(3), &:nth-of-type(4), &:nth-of-type(5) {width: 50%}
+        &:nth-of-type(2) {float: left}
+        &:nth-of-type(3) {float: right}
+        &:nth-of-type(4) {float: left}
+        &:nth-of-type(5) {float: right}
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 800px) {
+  main.communication {
+    [class*='large-3']:first-child {width: 100%}
+    .row-fluid {
+      [class*='large-3'] {
+        &:nth-child(2n+1) {padding: 0 0 3rem 1.5rem}
+        &:nth-child(2n+2) {padding: 0 1rem 3rem 0}
+        &:nth-of-type(1) {padding: 0 0 3rem 0}
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 640px) {
+  .row-fluid {
+    [class*='large-3'] {
+      &:nth-child(1n+1) {padding: 0 0 3rem 0}
+    }
+  }
+  main:not(.login) {padding: 3rem}
+  main.communication {
+    .row-fluid {
+      [class*='large-3'] {
+        &:nth-child(1n+1) {padding: 0 0 3rem 0}
+      }
+    }
+    .card-communication {height: auto}
+  }
+  main.dashboard {
+    .row-fluid {
+      .columns:nth-child(1n+2) {padding: 0 0}
+      .columns {
+        &:nth-of-type(2), &:nth-of-type(3),
+        &:nth-of-type(4), &:nth-of-type(5) {width: 100%; float: none}
+      }
+    }
   }
 }
