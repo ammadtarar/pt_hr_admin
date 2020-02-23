@@ -12,9 +12,7 @@ const reorder = (list, startIndex, endIndex) => {
   return result
 }
 
-/**
- * Moves an item from one list to another list.
- */
+// Moves an item from one list to another list
 const move = (source, destination, droppableSource, droppableDestination) => {
   const sourceClone = Array.from(source)
   const destClone = Array.from(destination)
@@ -104,9 +102,9 @@ export class Candidats extends React.Component {
         }
       })
 
-      //Aux cliques popup, changer status ou annuler
+      //Clique popup changer status candidat: changer status ou annuler
       document.getElementById('okChangeStatus').addEventListener('click', () => {
-        // Modifier status du candidat lors du drop
+        // Accepter: modifier status du candidat après drop
         if (result.droppable) {
           result.droppable.forEach((item,i) => {
              result.droppable[i].status = 'Candidats cooptés'
@@ -136,6 +134,7 @@ export class Candidats extends React.Component {
           'popupStatusOpen': false
         })
       })
+      // Ou annuler
       for (let i = 0; i < 2; i += 1) {
         const ko = document.getElementById(`koChangeStatus${i + 1}`)
         ko.addEventListener('click', () => {
