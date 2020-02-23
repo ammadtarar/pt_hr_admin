@@ -30,19 +30,16 @@ const move = (source, destination, droppableSource, droppableDestination) => {
 }
 
 export class Candidats extends React.Component {
-  constructor() {
-    super()
-    this.state = {
-      'data': data.candidats,
-      'candidatsCooptes': [],
-      'candidaturesRecues': [],
-      'candidatsEntretiens': [],
-      'candidatsSelectionne': [],
-      'popupArchiveOpen': false,
-      'popupStatusCandidatOpen': false,
-      'popupData': '',
-      'search': ''
-    }
+  state = {
+    'data': data.candidats,
+    'candidatsCooptes': [],
+    'candidaturesRecues': [],
+    'candidatsEntretiens': [],
+    'candidatsSelectionne': [],
+    'popupArchiveOpen': false,
+    'popupStatusOpen': false,
+    'popupData': [],
+    'search': ''
   }
 
   /**
@@ -96,17 +93,18 @@ export class Candidats extends React.Component {
         destination
       )
 
-      //Obtenir obj candidat à changer + Text du droppable visé
+      //Ouvrir popup : obtenir obj candidat à changer + remplir text du droppable visé
       const idToMove = source.index
       const data = this.getList(source.droppableId)[idToMove]
       this.setState({
-        popupStatusCandidatOpen: true,
+        popupStatusOpen: true,
         popupData: {
           ...data,
           droppableColText: destination.droppableId === 'droppable' ? 'Coopté' : destination.droppableId === 'droppable2' ? 'Candidature reçue' : destination.droppableId === 'droppable3' ? 'Entretien en cours' : destination.droppableId === 'droppable4' ? 'Sélectionné' : ''
         }
       })
 
+      //Aux cliques popup, changer status ou annuler
       document.getElementById('okChangeStatus').addEventListener('click', () => {
         // Modifier status du candidat lors du drop
         if (result.droppable) {
@@ -135,18 +133,18 @@ export class Candidats extends React.Component {
           'candidaturesRecues': result.droppable2 ? result.droppable2 : this.state.candidaturesRecues,
           'candidatsEntretiens': result.droppable3 ? result.droppable3 : this.state.candidatsEntretiens,
           'candidatsSelectionne': result.droppable4 ? result.droppable4 : this.state.candidatsSelectionne,
-          'popupStatusCandidatOpen': false
+          'popupStatusOpen': false
         })
       })
       for (let i = 0; i < 2; i += 1) {
-        const ko = document.getElementById(`koChangeStatus${i + 1}`);
+        const ko = document.getElementById(`koChangeStatus${i + 1}`)
         ko.addEventListener('click', () => {
           this.setState({
             'candidatsCooptes': this.state.candidatsCooptes,
             'candidaturesRecues': this.state.candidaturesRecues,
             'candidatsEntretiens': this.state.candidatsEntretiens,
             'candidatsSelectionne': this.state.candidatsSelectionne,
-            'popupStatusCandidatOpen': false
+            'popupStatusOpen': false
           })
         })
       }
@@ -194,28 +192,28 @@ export class Candidats extends React.Component {
     //   })
 
     const data = this.state.data
-    // Tri des candidats dans les 4 colonnes
+    // Tri des candidats dans les 4 colonnes en fonction de leur status
     const triCooptes = Object.keys(data).reduce((item, e) => {
-      let acceptedValue = ['Candidats cooptés']
-      if (acceptedValue.includes(data[e].status)) item[e] = data[e]
+      let value = ['Candidats cooptés']
+      if (value.includes(data[e].status)) item[e] = data[e]
       return item
     }, {})
 
     const triRecus = Object.keys(data).reduce((item, e) => {
-      let acceptedValue = ['Candidatures reçues']
-      if (acceptedValue.includes(data[e].status)) item[e] = data[e]
+      let value = ['Candidatures reçues']
+      if (value.includes(data[e].status)) item[e] = data[e]
       return item
     }, {})
 
     const triEntretiens = Object.keys(data).reduce((item, e) => {
-      let acceptedValue = ['Entretiens en cours']
-      if (acceptedValue.includes(data[e].status)) item[e] = data[e]
+      let value = ['Entretiens en cours']
+      if (value.includes(data[e].status)) item[e] = data[e]
       return item
     }, {})
 
     const triSelectionne = Object.keys(data).reduce((item, e) => {
-      let acceptedValue = ['Candidats sélectionnés']
-      if (acceptedValue.includes(data[e].status)) item[e] = data[e]
+      let value = ['Candidats sélectionnés']
+      if (value.includes(data[e].status)) item[e] = data[e]
       return item
     }, {})
 
@@ -250,16 +248,16 @@ export class Candidats extends React.Component {
               <button onClick={(e) => this.setState({popupArchiveOpen: false})} className="btn-secondary">Annuler</button>
             </div>
           </div>
-         {/* End popup archiver */}
+          {/* End popup archiver */}
 
-         {/* Popup changer status candidat */}
+          {/* Popup changer status candidat */}
           <div
           id="koChangeStatus1"
-          onClick={(e) => this.setState({popupStatusCandidatOpen: false})}
-          className={`overlay-popup ${this.state.popupStatusCandidatOpen === true ? 'open' : ''}`}/>
+          onClick={(e) => this.setState({popupStatusOpen: false})}
+          className={`overlay-popup ${this.state.popupStatusOpen === true ? 'open' : ''}`}/>
 
-          <div className={`wrapper-popup ${this.state.popupStatusCandidatOpen === true ? 'open' : ''}`}>
-            <div className={`popup center ${this.state.popupStatusCandidatOpen === true ? 'open' : ''}`}>
+          <div className={`wrapper-popup ${this.state.popupStatusOpen === true ? 'open' : ''}`}>
+            <div className={`popup center ${this.state.popupStatusOpen === true ? 'open' : ''}`}>
               <h4 className="text-center">Etes-vous sûr de vouloir changer le statut de candidature de <span>{this.state.popupData.prenom + ' ' + this.state.popupData.nom}</span> de <span>{this.state.popupData.status}</span> à <span>{this.state.popupData.droppableColText}</span>, pour l’offre de <span>{this.state.popupData.titre}</span> ?</h4>
               <p className="text-center">Cette action est irréversible et notifiera automatiquement le collaborateur l’ayant coopté.</p>
               <div className="box-note-popup">
@@ -269,7 +267,7 @@ export class Candidats extends React.Component {
               <button id="koChangeStatus2" className="btn-secondary">Annuler</button>
             </div>
           </div>
-         {/* End popup changer status candidat */}
+          {/* End popup changer status candidat */}
 
           <div className="container">
             <div className="row-fluid">
@@ -285,7 +283,6 @@ export class Candidats extends React.Component {
                 />
               </div>
             </div>
-
 
             <DragDropContext onDragEnd={this.onDragEnd}>
               <div className="row-fluid">
