@@ -2,6 +2,8 @@ import React, { Suspense } from 'react'
 const BoxAnnonce = React.lazy(() => import('../../components/BoxAnnonce'))
 const data = require('../../datas.json')
 
+//Mettre UUID
+
 export class Annonces extends React.Component {
   state = {
     'data': data

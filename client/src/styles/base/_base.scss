@@ -92,8 +92,8 @@ input[type="text"], input[type="number"], input[type="email"], input[type="passw
   }
   &:focus, &:active {color: $cloud-burst}
   &.search {
-    position: absolute;
-    right: 1.5rem; top: -7rem;
+    position: fixed;
+    top: 9.8rem; margin-left: -18.8rem;
     width: 29.4rem; min-width: 29.4rem;
     border-radius: 2rem;
     border: 0;
@@ -121,15 +121,6 @@ input[type=number] {
   max-width: 153rem; width: 100%;
   &.empty {
     margin-top: 8rem;
-    // display: none;
-    // visibility: hidden;
-    // opacity: 0;
-    // transition: all .4s cubic-bezier(0.045, 0.715, 0.250, 1.000);
-    // &.open {
-    //   display: block;
-    //   visibility: visible;
-    //   opacity: 1;
-    // }
     * {
       position: relative;
       margin: 0 auto;
@@ -623,7 +614,13 @@ main.cooptation, main.recompenses {
       h4 {margin: 0 0 2rem 2rem}
     }
     .box-encart {margin-bottom: 1.5rem}
-    .container-scroll {padding: 0 2rem; overflow-y: scroll; height: 100%; scroll-behavior: smooth}
+    .container-scroll {
+      padding: 0 2rem;
+      overflow-y: scroll;
+      height: 100%;
+      scroll-behavior: smooth;
+      &.overflowHidden {overflow-y: hidden}
+    }
   }
 }
 
@@ -785,6 +782,11 @@ main.communication {
 
 //Medias queries
 @media only screen and (max-width: 1595px) {
+  input[type="text"] {
+    &.search {
+      margin-left: auto; right: 5rem;
+    }
+  }
   main.cooptation {
     padding-left: 3.5rem; padding-right: 3.5rem;
     .react-tabs__tab-list {
@@ -811,7 +813,7 @@ main.communication {
     .card-communication {height: 35rem}
   }
   main.cooptation {
-    padding-left: 5rem; padding-right: 5rem;
+    padding-left: 3.5rem; padding-right: 3.5rem;
     .box-encart {
       .icon {
         margin-bottom: 2rem;
@@ -964,7 +966,7 @@ main.communication {
     }
     .tab-candidats {
       padding-top: 3rem;
-      input[type="text"].search {position: fixed; top: 8.2rem; right: 5rem}
+      input[type="text"].search {top: 8.2rem; right: 5rem}
     }
     .box-annonce {
       height: 11.8rem;

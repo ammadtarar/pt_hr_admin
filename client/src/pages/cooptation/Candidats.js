@@ -30,15 +30,19 @@ const move = (source, destination, droppableSource, droppableDestination) => {
 }
 
 export class Candidats extends React.Component {
-  state = {
-    'data': data.candidats,
-    'candidatsCooptes': [],
-    'candidaturesRecues': [],
-    'candidatsEntretient': [],
-    'candidatsSelectionne': [],
-    'popupOpen': false,
-    'popupData': '',
-    'search': ''
+  constructor() {
+    super()
+    this.state = {
+      'data': data.candidats,
+      'candidatsCooptes': [],
+      'candidaturesRecues': [],
+      'candidatsEntretiens': [],
+      'candidatsSelectionne': [],
+      'popupArchiveOpen': false,
+      'popupStatusCandidatOpen': false,
+      'popupData': '',
+      'search': ''
+    }
   }
 
   /**
@@ -49,7 +53,7 @@ export class Candidats extends React.Component {
   idList = {
     droppable: 'candidatsCooptes',
     droppable2: 'candidaturesRecues',
-    droppable3: 'candidatsEntretient',
+    droppable3: 'candidatsEntretiens',
     droppable4: 'candidatsSelectionne'
   }
 
@@ -76,13 +80,13 @@ export class Candidats extends React.Component {
         state = { 'candidaturesRecues': items }
       }
       if (source.droppableId === 'droppable3') {
-        state = { 'candidatsEntretient': items }
+        state = { 'candidatsEntretiens': items }
       }
       if (source.droppableId === 'droppable4') {
         state = { 'candidatsSelectionne': items }
       }
-
       this.setState(state)
+
     } else {
 
       const result = move(
@@ -92,26 +96,74 @@ export class Candidats extends React.Component {
         destination
       )
 
+      //Obtenir obj candidat à changer + Text du droppable visé
+      const idToMove = source.index
+      const data = this.getList(source.droppableId)[idToMove]
       this.setState({
-        'candidatsCooptes': result.droppable ? result.droppable : this.state.candidatsCooptes,
-        'candidaturesRecues': result.droppable2 ? result.droppable2 : this.state.candidaturesRecues,
-        'candidatsEntretient': result.droppable3 ? result.droppable3 : this.state.candidatsEntretient,
-        'candidatsSelectionne': result.droppable4 ? result.droppable4 : this.state.candidatsSelectionne
+        popupStatusCandidatOpen: true,
+        popupData: {
+          ...data,
+          droppableColText: destination.droppableId === 'droppable' ? 'Coopté' : destination.droppableId === 'droppable2' ? 'Candidature reçue' : destination.droppableId === 'droppable3' ? 'Entretien en cours' : destination.droppableId === 'droppable4' ? 'Sélectionné' : ''
+        }
       })
-    }
 
+      document.getElementById('okChangeStatus').addEventListener('click', () => {
+        // Modifier status du candidat lors du drop
+        if (result.droppable) {
+          result.droppable.forEach((item,i) => {
+             result.droppable[i].status = 'Candidats cooptés'
+          })
+        }
+        if (result.droppable2) {
+          result.droppable2.forEach((item,i) => {
+             result.droppable2[i].status = 'Candidatures reçues'
+          })
+        }
+        if (result.droppable3) {
+          result.droppable3.forEach((item,i) => {
+            result.droppable3[i].status = 'Entretiens en cours'
+          })
+        }
+        if (result.droppable4) {
+          result.droppable4.forEach((item,i) => {
+            result.droppable4[i].status = 'Candidats sélectionnés'
+          })
+        }
+
+        this.setState({
+          'candidatsCooptes': result.droppable ? result.droppable : this.state.candidatsCooptes,
+          'candidaturesRecues': result.droppable2 ? result.droppable2 : this.state.candidaturesRecues,
+          'candidatsEntretiens': result.droppable3 ? result.droppable3 : this.state.candidatsEntretiens,
+          'candidatsSelectionne': result.droppable4 ? result.droppable4 : this.state.candidatsSelectionne,
+          'popupStatusCandidatOpen': false
+        })
+      })
+      for (let i = 0; i < 2; i += 1) {
+        const ko = document.getElementById(`koChangeStatus${i + 1}`);
+        ko.addEventListener('click', () => {
+          this.setState({
+            'candidatsCooptes': this.state.candidatsCooptes,
+            'candidaturesRecues': this.state.candidaturesRecues,
+            'candidatsEntretiens': this.state.candidatsEntretiens,
+            'candidatsSelectionne': this.state.candidatsSelectionne,
+            'popupStatusCandidatOpen': false
+          })
+        })
+      }
+
+    }
   }
 
-  popup = (data) => {
+  popupArchive = (data) => {
     this.setState({
-      popupOpen: true,
+      popupArchiveOpen: true,
       popupData: data
     })
   }
 
   archiverCandidat(e) {
     e.preventDefault()
-    this.setState({popupOpen: false})
+    this.setState({popupArchiveOpen: false})
 
     //Candidat à archiver
     const data = this.state.popupData
@@ -143,86 +195,97 @@ export class Candidats extends React.Component {
 
     const data = this.state.data
     // Tri des candidats dans les 4 colonnes
-    const triCandidatsCooptes = Object.keys(data).reduce((item, e) => {
-      let acceptedValue = ['candidat-coopte']
+    const triCooptes = Object.keys(data).reduce((item, e) => {
+      let acceptedValue = ['Candidats cooptés']
       if (acceptedValue.includes(data[e].status)) item[e] = data[e]
       return item
     }, {})
 
-    const triCandidaturesRecues = Object.keys(data).reduce((item, e) => {
-      let acceptedValue = ['candidature-recue']
+    const triRecus = Object.keys(data).reduce((item, e) => {
+      let acceptedValue = ['Candidatures reçues']
       if (acceptedValue.includes(data[e].status)) item[e] = data[e]
       return item
     }, {})
 
-    const tricandidatsEntretient = Object.keys(data).reduce((item, e) => {
-      let acceptedValue = ['en-entretient']
+    const triEntretiens = Object.keys(data).reduce((item, e) => {
+      let acceptedValue = ['Entretiens en cours']
       if (acceptedValue.includes(data[e].status)) item[e] = data[e]
       return item
     }, {})
 
-    const tricandidatsSelectionne = Object.keys(data).reduce((item, e) => {
-      let acceptedValue = ['candidat-selectionne']
+    const triSelectionne = Object.keys(data).reduce((item, e) => {
+      let acceptedValue = ['Candidats sélectionnés']
       if (acceptedValue.includes(data[e].status)) item[e] = data[e]
       return item
     }, {})
 
     this.setState({
-      'candidatsCooptes': Object.keys(triCandidatsCooptes).map(i => triCandidatsCooptes[i]),
-      'candidaturesRecues': Object.keys(triCandidaturesRecues).map(i => triCandidaturesRecues[i]),
-      'candidatsEntretient': Object.keys(tricandidatsEntretient).map(i => tricandidatsEntretient[i]),
-      'candidatsSelectionne': Object.keys(tricandidatsSelectionne).map(i => tricandidatsSelectionne[i])
+      'candidatsCooptes': Object.keys(triCooptes).map(i => triCooptes[i]),
+      'candidaturesRecues': Object.keys(triRecus).map(i => triRecus[i]),
+      'candidatsEntretiens': Object.keys(triEntretiens).map(i => triEntretiens[i]),
+      'candidatsSelectionne': Object.keys(triSelectionne).map(i => triSelectionne[i])
     })
   }
 
   render() {
     const candidatsCooptes = this.state.candidatsCooptes
     const candidaturesRecues = this.state.candidaturesRecues
-    const candidatsEntretient = this.state.candidatsEntretient
+    const candidatsEntretiens = this.state.candidatsEntretiens
     const candidatsSelectionne = this.state.candidatsSelectionne
 
     return (
       <div className="wrapper">
         <div className="tab-candidats container">
 
-          {/* Popup */}
-          <div onClick={(e) => this.setState({popupOpen: false})} className={`overlay-popup ${this.state.popupOpen === true ? 'open' : ''}`}/>
+          {/* Popup archiver */}
+          <div
+          onClick={(e) => this.setState({popupArchiveOpen: false})}
+          className={`overlay-popup ${this.state.popupArchiveOpen === true ? 'open' : ''}`}/>
 
-          <div className={`wrapper-popup ${this.state.popupOpen === true ? 'open' : ''}`}>
-            <div className={`popup center ${this.state.popupOpen === true ? 'open' : ''}`}>
+          <div className={`wrapper-popup ${this.state.popupArchiveOpen === true ? 'open' : ''}`}>
+            <div className={`popup center ${this.state.popupArchiveOpen === true ? 'open' : ''}`}>
               <h4 className="text-center">Etes-vous sûr de vouloir archiver le candidat <span>{this.state.popupData.prenom + ' ' + this.state.popupData.nom}</span> ?</h4>
               <p className="text-center">Cette action est irréversible et notifiera automatiquement le collaborateur l’ayant coopté.</p>
               <button onClick={(e) => this.archiverCandidat(e,data)} className="btn-primary">Oui, archiver</button>
-              <button onClick={(e) => this.setState({popupOpen: false})} className="btn-secondary">Annuler</button>
+              <button onClick={(e) => this.setState({popupArchiveOpen: false})} className="btn-secondary">Annuler</button>
             </div>
           </div>
-         {/* End popup */}
+         {/* End popup archiver */}
 
-         {/* Popup
-         <div onClick={(e) => this.setState({popupOpen: false})} className={`overlay-popup ${this.state.popupOpen === true ? 'open' : ''}`}/>
+         {/* Popup changer status candidat */}
+          <div
+          id="koChangeStatus1"
+          onClick={(e) => this.setState({popupStatusCandidatOpen: false})}
+          className={`overlay-popup ${this.state.popupStatusCandidatOpen === true ? 'open' : ''}`}/>
 
-         <div className={`wrapper-popup ${this.state.popupOpen === true ? 'open' : ''}`}>
-           <div className={`popup center ${this.state.popupOpen === true ? 'open' : ''}`}>
-             <h4 className="text-center">Etes-vous sûr de vouloir changer le statut de candidature de <span>Debra Mccoy</span> de <span>Entretiens en cours</span> à <span>Sélectionné</span>, pour l’offre de <span>Customer success manager</span> ?</h4>
-             <p className="text-center">Cette action est irréversible et notifiera automatiquement le collaborateur l’ayant coopté.</p>
-             <div className="box-note-popup">
-               <p><strong>Conseil </strong><br/>Pensez à archiver les candidats non sélectionnés pour cette offre !</p>
-             </div>
-             <button className="btn-primary">Oui, changer</button>
-             <button onClick={(e) => this.setState({popupOpen: false})} className="btn-secondary">Annuler</button>
-           </div>
-         </div>
-          End popup */}
+          <div className={`wrapper-popup ${this.state.popupStatusCandidatOpen === true ? 'open' : ''}`}>
+            <div className={`popup center ${this.state.popupStatusCandidatOpen === true ? 'open' : ''}`}>
+              <h4 className="text-center">Etes-vous sûr de vouloir changer le statut de candidature de <span>{this.state.popupData.prenom + ' ' + this.state.popupData.nom}</span> de <span>{this.state.popupData.status}</span> à <span>{this.state.popupData.droppableColText}</span>, pour l’offre de <span>{this.state.popupData.titre}</span> ?</h4>
+              <p className="text-center">Cette action est irréversible et notifiera automatiquement le collaborateur l’ayant coopté.</p>
+              <div className="box-note-popup">
+                <p><strong>Conseil </strong><br/>Pensez à archiver les candidats non sélectionnés pour cette offre !</p>
+              </div>
+              <button id="okChangeStatus" className="btn-primary">Oui, changer</button>
+              <button id="koChangeStatus2" className="btn-secondary">Annuler</button>
+            </div>
+          </div>
+         {/* End popup changer status candidat */}
 
           <div className="container">
-            <input
-              type="text"
-              name="search"
-              className="search"
-              placeholder="Rechercher"
-              onChange={(e) => this.handleSearch(e)}
-              value={this.state.search}
-            />
+            <div className="row-fluid">
+              <div className="large-11 columns"/>
+              <div className="large-1 columns">
+                <input
+                  type="text"
+                  name="search"
+                  className="search"
+                  placeholder="Rechercher"
+                  onChange={(e) => this.handleSearch(e)}
+                  value={this.state.search}
+                />
+              </div>
+            </div>
+
 
             <DragDropContext onDragEnd={this.onDragEnd}>
               <div className="row-fluid">
@@ -252,7 +315,7 @@ export class Candidats extends React.Component {
                                       {...provided.draggableProps}
                                       {...provided.dragHandleProps}
                                       >
-                                        <CardCandidat data={key} popup={this.popup}/>
+                                        <CardCandidat data={key} popup={this.popupArchive}/>
                                     </div>
                                   )}
                                 </Draggable>
@@ -303,7 +366,7 @@ export class Candidats extends React.Component {
                                       {...provided.draggableProps}
                                       {...provided.dragHandleProps}
                                       >
-                                        <CardCandidat data={key} popup={this.popup}/>
+                                        <CardCandidat data={key} popup={this.popupArchive}/>
                                     </div>
                                   )}
                                 </Draggable>
@@ -333,13 +396,13 @@ export class Candidats extends React.Component {
                     <h4 className="light">Entretiens en cours</h4>
                     <div className="container-scroll">
 
-                      {candidatsEntretient.length > 0 ?
+                      {candidatsEntretiens.length > 0 ?
 
                         <Droppable droppableId="droppable3">
                           {(provided, snapshot) => (
                             <div
                               ref={provided.innerRef}>
-                              {candidatsEntretient
+                              {candidatsEntretiens
                                 .map((key, index) => (
                                 <Draggable
                                   key={key.id}
@@ -351,7 +414,7 @@ export class Candidats extends React.Component {
                                       {...provided.draggableProps}
                                       {...provided.dragHandleProps}
                                       >
-                                        <CardCandidat data={key} popup={this.popup}/>
+                                        <CardCandidat data={key} popup={this.popupArchive}/>
                                     </div>
                                   )}
                                 </Draggable>
@@ -364,7 +427,7 @@ export class Candidats extends React.Component {
                         <Droppable droppableId="droppable3">
                           {(provided, snapshot) => (
                           <div ref={provided.innerRef}>
-                            <div className={`container empty candidats ${candidatsEntretient.length === 0 ? '' : ''}`}>
+                            <div className={`container empty candidats ${candidatsEntretiens.length === 0 ? '' : ''}`}>
                               <img type="image/svg+xml" className="icon" src="/icons/candidature.svg" alt=""/>
                               <p className="text-center">Aucun entretien en cours</p>
                               <p className="text-center">Il semblerait qu’il n’y ait pas d’entretien en ce moment !</p>
@@ -402,7 +465,7 @@ export class Candidats extends React.Component {
                                       {...provided.draggableProps}
                                       {...provided.dragHandleProps}
                                       >
-                                        <CardCandidat data={key} popup={this.popup}/>
+                                        <CardCandidat data={key} popup={this.popupArchive}/>
                                     </div>
                                   )}
                                 </Draggable>
