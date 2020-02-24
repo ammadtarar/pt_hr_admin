@@ -8,6 +8,23 @@
       "date": "2019-12-14T01:00:00.000Z",
       "email": "mitchell.murphy@mail.com",
       "status": "Candidats cooptés",
+      "cooptations": {
+        "dc2c57ba-56e8-11ea-82b4-0242ac130003": {
+          "id":"dc2c57ba-56e8-11ea-82b4-0242ac130003",
+          "nom": "Fox",
+          "prenom": "Beth"
+        },
+        "dc2c5a1c-56e8-11ea-82b4-0242ac130003": {
+          "id":"dc2c5a1c-56e8-11ea-82b4-0242ac130003",
+          "nom": "Forest",
+          "prenom": "Hugo"
+        },
+        "dc2c5b2a-56e8-11ea-82b4-0242ac130003": {
+          "id":"dc2c5b2a-56e8-11ea-82b4-0242ac130003",
+          "nom": "Leigh",
+          "prenom": "Samantha"
+        }
+      },
       "archive": false
     },
     "2cec1ae2-5189-11ea-8d77-2e728ce88125": {
@@ -18,7 +35,14 @@
       "date": "2019-12-23T01:00:00.000Z",
       "email": "bessie.henry@mail.com",
       "status": "Candidats cooptés",
-      "archive": false
+      "archive": false,
+      "cooptations": {
+        "dc2c57ba-56e8-11ea-82b4-0242ac130003": {
+          "id":"dc2c57ba-56e8-11ea-82b4-0242ac130003",
+          "nom": "Fox",
+          "prenom": "Beth"
+        }
+      }
     },
     "2cec1c2c-5189-11ea-8d77-2e728ce88125": {
       "id": "2cec1c2c-5189-11ea-8d77-2e728ce88125",
@@ -28,7 +52,19 @@
       "date": "2019-12-22T01:00:00.000Z",
       "email": "randallmckinney@mail.com",
       "status": "Candidatures reçues",
-      "archive": false
+      "archive": false,
+      "cooptations": {
+        "dc2c57ba-56e8-11ea-82b4-0242ac130003": {
+          "id":"dc2c57ba-56e8-11ea-82b4-0242ac130003",
+          "nom": "Fox",
+          "prenom": "Beth"
+        },
+        "dc2c5a1c-56e8-11ea-82b4-0242ac130003": {
+          "id":"dc2c5a1c-56e8-11ea-82b4-0242ac130003",
+          "nom": "Crowd",
+          "prenom": "Tatiana"
+        }
+      }
     },
     "2cec1f88-5189-11ea-8d77-2e728ce88125": {
       "id": "2cec1f88-5189-11ea-8d77-2e728ce88125",
@@ -38,7 +74,14 @@
       "date": "2019-12-18T01:00:00.000Z",
       "email": "jannecooper@mail.com",
       "status": "Candidatures reçues",
-      "archive": false
+      "archive": false,
+      "cooptations": {
+        "dc2c5a1c-56e8-11ea-82b4-0242ac130003": {
+          "id":"dc2c5a1c-56e8-11ea-82b4-0242ac130003",
+          "nom": "Forest",
+          "prenom": "Hugo"
+        }
+      }
     },
     "2cec1f76-5189-11ea-8d77-2e728ce88125": {
       "id": "2cec1f76-5189-11ea-8d77-2e728ce88125",
@@ -48,7 +91,19 @@
       "date": "2019-12-29T01:00:00.000Z",
       "email": "tomothycooper@mail.com",
       "status": "Candidatures reçues",
-      "archive": false
+      "archive": false,
+      "cooptations": {
+        "dc2c5a1c-56e8-11ea-82b4-0242ac130003": {
+          "id":"dc2c5a1c-56e8-11ea-82b4-0242ac130003",
+          "nom": "Alley",
+          "prenom": "Mathiew"
+        },
+        "dc2c5b2a-56e8-11ea-82b4-0242ac130003": {
+          "id":"dc2c5b2a-56e8-11ea-82b4-0242ac130003",
+          "nom": "Leigh",
+          "prenom": "Samantha"
+        }
+      }
     },
     "2cec1f6c-5189-11ea-8d77-2e728ce88125": {
       "id": "2cec1f6c-5189-11ea-8d77-2e728ce88125",
@@ -58,7 +113,14 @@
       "date": "2019-12-27T01:00:00.000Z",
       "email": "jfisher@mail.com",
       "status": "Entretiens en cours",
-      "archive": false
+      "archive": false,
+      "cooptations": {
+        "dc2c57ba-56e8-11ea-82b4-0242ac130003": {
+          "id":"dc2c57ba-56e8-11ea-82b4-0242ac130003",
+          "nom": "Alley",
+          "prenom": "Mathiew"
+        }
+      }
     },
     "2cec1f43-5189-11ea-8d77-2e728ce88125": {
       "id": "2cec1f43-5189-11ea-8d77-2e728ce88125",
@@ -68,7 +130,14 @@
       "date": "2020-01-14T01:00:00.000Z",
       "email": "debramccoy@mail.com",
       "status": "Entretiens en cours",
-      "archive": false
+      "archive": false,
+      "cooptations": {
+        "dc2c5a1c-56e8-11ea-82b4-0242ac130003": {
+          "id":"dc2c5a1c-56e8-11ea-82b4-0242ac130003",
+          "nom": "Alley",
+          "prenom": "Mathiew"
+        }
+      }
     },
     "2cec1fac-5189-11ea-8d77-2e728ce88125": {
       "id": "2cec1fac-5189-11ea-8d77-2e728ce88125",
@@ -78,7 +147,14 @@
       "date": "2020-02-07T01:00:00.000Z",
       "email": "devonwillson@mail.com",
       "status": "Candidats sélectionnés",
-      "archive": false
+      "archive": false,
+      "cooptations": {
+        "dc2c5a1c-56e8-11ea-82b4-0242ac130003": {
+          "id":"dc2c5a1c-56e8-11ea-82b4-0242ac130003",
+          "nom": "Crowd",
+          "prenom": "Tatiana"
+        }
+      }
     },
     "2cec1fff-5189-11ea-8d77-2e728ce88125": {
       "id": "2cec1fff-5189-11ea-8d77-2e728ce88125",
@@ -88,7 +164,19 @@
       "date": "2020-01-18T01:00:00.000Z",
       "email": "priscilliaflores@mail.com",
       "status": "Candidats sélectionnés",
-      "archive": false
+      "archive": false,
+      "cooptations": {
+        "dc2c5a1c-56e8-11ea-82b4-0242ac130003": {
+          "id":"dc2c5a1c-56e8-11ea-82b4-0242ac130003",
+          "nom": "Forest",
+          "prenom": "Hugo"
+        },
+        "dc2c5b2a-56e8-11ea-82b4-0242ac130003": {
+          "id":"dc2c5b2a-56e8-11ea-82b4-0242ac130003",
+          "nom": "Leigh",
+          "prenom": "Samantha"
+        }
+      }
     },
     "7411adba-525b-11ea-8d77-2e728ce88125": {
       "id": "7411adba-525b-11ea-8d77-2e728ce88125",
@@ -97,8 +185,15 @@
       "titre": "Sales",
       "date": "2020-12-22T01:00:00.000Z",
       "email": "eduardofisher@mail.com",
-      "status": "",
-      "archive": true
+      "status": "Candidats sélectionnés",
+      "archive": true,
+      "cooptations": {
+        "dc2c5a1c-56e8-11ea-82b4-0242ac130003": {
+          "id":"dc2c5a1c-56e8-11ea-82b4-0242ac130003",
+          "nom": "Crowd",
+          "prenom": "Tatiana"
+        }
+      }
     },
     "7411b238-525b-11ea-8d77-2e728ce88125": {
       "id": "7411b238-525b-11ea-8d77-2e728ce88125",
@@ -107,8 +202,15 @@
       "titre": "Sales",
       "date": "2020-12-21T01:00:00.000Z",
       "email": "arieneedwards@mail.com",
-      "status": "",
-      "archive": true
+      "status": "Candidats sélectionnés",
+      "archive": true,
+      "cooptations": {
+        "dc2c5a1c-56e8-11ea-82b4-0242ac130003": {
+          "id":"dc2c5a1c-56e8-11ea-82b4-0242ac130003",
+          "nom": "Alley",
+          "prenom": "Mathiew"
+        }
+      }
     },
     "7411b3aa-525b-11ea-8d77-2e728ce88125": {
       "id": "7411b3aa-525b-11ea-8d77-2e728ce88125",
@@ -118,7 +220,14 @@
       "date": "2020-12-20T01:00:00.000Z",
       "email": "victoriacooper@mail.com",
       "status": "",
-      "archive": true
+      "archive": true,
+      "cooptations": {
+        "dc2c5b2a-56e8-11ea-82b4-0242ac130003": {
+          "id":"dc2c5b2a-56e8-11ea-82b4-0242ac130003",
+          "nom": "Leigh",
+          "prenom": "Samantha"
+        }
+      }
     },
     "7411b4ea-525b-11ea-8d77-2e728ce88125": {
       "id": "7411b4ea-525b-11ea-8d77-2e728ce88125",
@@ -128,7 +237,19 @@
       "date": "2020-12-19T01:00:00.000Z",
       "email": "pat.watson@mail.com",
       "status": "",
-      "archive": true
+      "archive": true,
+      "cooptations": {
+        "dc2c5a1c-56e8-11ea-82b4-0242ac130003": {
+          "id":"dc2c5a1c-56e8-11ea-82b4-0242ac130003",
+          "nom": "Alley",
+          "prenom": "Mathiew"
+        },
+        "dc2c5b2a-56e8-11ea-82b4-0242ac130003": {
+          "id":"dc2c5b2a-56e8-11ea-82b4-0242ac130003",
+          "nom": "Leigh",
+          "prenom": "Samantha"
+        }
+      }
     },
     "7411b616-525b-11ea-8d77-2e728ce88125": {
       "id": "7411b616-525b-11ea-8d77-2e728ce88125",
@@ -137,8 +258,20 @@
       "titre": "Sales",
       "date": "2020-12-17T01:00:00.000Z",
       "email": "irmamckinney@mail.com",
-      "status": "",
-      "archive": true
+      "status": "Entretiens en cours",
+      "archive": true,
+      "cooptations": {
+        "dc2c5a1c-56e8-11ea-82b4-0242ac130003": {
+          "id":"dc2c5a1c-56e8-11ea-82b4-0242ac130003",
+          "nom": "Forest",
+          "prenom": "Hugo"
+        },
+        "dc2c5b2a-56e8-11ea-82b4-0242ac130003": {
+          "id":"dc2c5b2a-56e8-11ea-82b4-0242ac130003",
+          "nom": "Leigh",
+          "prenom": "Samantha"
+        }
+      }
     },
     "7411b742-525b-11ea-8d77-2e728ce88125": {
       "id": "7411b742-525b-11ea-8d77-2e728ce88125",
@@ -147,8 +280,15 @@
       "titre": "Sales",
       "date": "2020-12-15T01:00:00.000Z",
       "email": "calvinblack@mail.com",
-      "status": "",
-      "archive": true
+      "status": "Entretiens en cours",
+      "archive": true,
+      "cooptations": {
+        "dc2c5a1c-56e8-11ea-82b4-0242ac130003": {
+          "id":"dc2c5a1c-56e8-11ea-82b4-0242ac130003",
+          "nom": "Crowd",
+          "prenom": "Tatiana"
+        }
+      }
     }
   },
   "annonces": {
@@ -403,7 +543,8 @@
       "email": "sebastien.aumaitre@pushtalents.com",
       "codeActivation": "909709",
       "compteurConnections": 0,
-      "dateActivation": "2020-02-02T01:00:00.000Z"
+      "dateActivation": "2020-02-02T01:00:00.000Z",
+      "points":  4500
     },
     "2cec244c-5189-11ea-8d77-2e728ce88125": {
       "id": "2cec244c-5189-11ea-8d77-2e728ce88125",
@@ -412,7 +553,8 @@
       "email": "vincent.delacourt@pushtalents.com",
       "codeActivation": "111111",
       "compteurConnections": 0,
-      "dateActivation": "2020-02-02T01:00:00.000Z"
+      "dateActivation": "2020-02-02T01:00:00.000Z",
+      "points":  800
     },
     "2cec2316-5189-11ea-8d77-2e728ce88125": {
       "id": "2cec2316-5189-11ea-8d77-2e728ce88125",
@@ -421,7 +563,8 @@
       "email": "contact@julienlucas.com",
       "codeActivation": "222222",
       "compteurConnections": 0,
-      "dateActivation": "2020-02-02T01:00:00.000Z"
+      "dateActivation": "2020-02-02T01:00:00.000Z",
+      "points":  2000
     }
   }
 }

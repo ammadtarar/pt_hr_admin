@@ -14,7 +14,14 @@ function CardCandidat(props) {
       <div className={`icon ${data.archive === true ? 'athens-gray': ''}`}>{data.prenom.charAt(0) + data.nom.charAt(0)}</div>
       <p className="nom">{data.prenom + ' ' + data.nom}</p>
       <p className="titre">{data.titre}</p>
-      <p>Coopté par <span>Samantha Leigh</span></p>
+      <p className="cooptes-par">Coopté par
+        {Object.keys(data.cooptations).map((key) => {
+          const coopte = data.cooptations[key]
+          return (
+            <span>{' ' + coopte.prenom + ' ' + coopte.nom + ' '}</span>
+          )
+        })}
+      </p>
       <p className="date">Le {date(dateToFormat)}</p>
       <hr/>
       <p className="email"><a href="mailto:randallmck@mail.com" rel="noopener noreferrer" title="">{data.email}</a></p>

@@ -300,22 +300,26 @@ export class Candidats extends React.Component {
                                 .sort((a, b) => {
                                   return new Date(a.date) < new Date(b.date) ? 1 : (new Date(a.date) > new Date(b.date) ? -1 : 0)
                                 })
-                                .map((key, index) => (
-                                <Draggable
-                                  key={key.id}
-                                  draggableId={key.id}
-                                  index={index}>
-                                  {(provided, snapshot) => (
-                                    <div
-                                      ref={provided.innerRef}
-                                      {...provided.draggableProps}
-                                      {...provided.dragHandleProps}
-                                      >
-                                        <CardCandidat data={key} popup={this.popupArchive}/>
-                                    </div>
-                                  )}
-                                </Draggable>
-                              ))}
+                                .map((key, index) => {
+                                  if (key.archive === false) {
+                                    return (
+                                      <Draggable
+                                        key={key.id}
+                                        draggableId={key.id}
+                                        index={index}>
+                                        {(provided, snapshot) => (
+                                          <div
+                                            ref={provided.innerRef}
+                                            {...provided.draggableProps}
+                                            {...provided.dragHandleProps}
+                                            >
+                                              <CardCandidat data={key} popup={this.popupArchive}/>
+                                          </div>
+                                        )}
+                                      </Draggable>
+                                    )
+                                  }}
+                                )}
                               {provided.placeholder}
                             </div>
                           )}
@@ -351,22 +355,26 @@ export class Candidats extends React.Component {
                                 .sort((a, b) => {
                                   return new Date(a.date) < new Date(b.date) ? 1 : (new Date(a.date) > new Date(b.date) ? -1 : 0)
                                 })
-                                .map((key, index) => (
-                                <Draggable
-                                  key={key.id}
-                                  draggableId={key.id}
-                                  index={index}>
-                                  {(provided, snapshot) => (
-                                    <div
-                                      ref={provided.innerRef}
-                                      {...provided.draggableProps}
-                                      {...provided.dragHandleProps}
-                                      >
-                                        <CardCandidat data={key} popup={this.popupArchive}/>
-                                    </div>
-                                  )}
-                                </Draggable>
-                              ))}
+                                .map((key, index) => {
+                                  if (key.archive === false) {
+                                    return (
+                                      <Draggable
+                                        key={key.id}
+                                        draggableId={key.id}
+                                        index={index}>
+                                        {(provided, snapshot) => (
+                                          <div
+                                            ref={provided.innerRef}
+                                            {...provided.draggableProps}
+                                            {...provided.dragHandleProps}
+                                            >
+                                              <CardCandidat data={key} popup={this.popupArchive}/>
+                                          </div>
+                                        )}
+                                      </Draggable>
+                                    )
+                                  }}
+                                )}
                               {provided.placeholder}
                             </div>
                           )}
@@ -399,22 +407,26 @@ export class Candidats extends React.Component {
                             <div
                               ref={provided.innerRef}>
                               {candidatsEntretiens
-                                .map((key, index) => (
-                                <Draggable
-                                  key={key.id}
-                                  draggableId={key.id}
-                                  index={index}>
-                                  {(provided, snapshot) => (
-                                    <div
-                                      ref={provided.innerRef}
-                                      {...provided.draggableProps}
-                                      {...provided.dragHandleProps}
-                                      >
-                                        <CardCandidat data={key} popup={this.popupArchive}/>
-                                    </div>
-                                  )}
-                                </Draggable>
-                              ))}
+                                .map((key, index) => {
+                                  if (key.archive === false) {
+                                    return (
+                                      <Draggable
+                                        key={key.id}
+                                        draggableId={key.id}
+                                        index={index}>
+                                        {(provided, snapshot) => (
+                                          <div
+                                            ref={provided.innerRef}
+                                            {...provided.draggableProps}
+                                            {...provided.dragHandleProps}
+                                            >
+                                              <CardCandidat data={key} popup={this.popupArchive}/>
+                                          </div>
+                                        )}
+                                      </Draggable>
+                                    )
+                                  }}
+                                )}
                               {provided.placeholder}
                             </div>
                           )}
@@ -450,22 +462,26 @@ export class Candidats extends React.Component {
                                 .sort((a, b) => {
                                   return new Date(a.date) < new Date(b.date) ? 1 : (new Date(a.date) > new Date(b.date) ? -1 : 0)
                                 })
-                                .map((key, index) => (
-                                <Draggable
-                                  key={key.id}
-                                  draggableId={key.id}
-                                  index={index}>
-                                  {(provided, snapshot) => (
-                                    <div
-                                      ref={provided.innerRef}
-                                      {...provided.draggableProps}
-                                      {...provided.dragHandleProps}
-                                      >
-                                        <CardCandidat data={key} popup={this.popupArchive}/>
-                                    </div>
-                                  )}
-                                </Draggable>
-                              ))}
+                                .map((key, index) => {
+                                  if (key.archive === false) {
+                                    return (
+                                      <Draggable
+                                        key={key.id}
+                                        draggableId={key.id}
+                                        index={index}>
+                                        {(provided, snapshot) => (
+                                          <div
+                                            ref={provided.innerRef}
+                                            {...provided.draggableProps}
+                                            {...provided.dragHandleProps}
+                                            >
+                                              <CardCandidat data={key} popup={this.popupArchive}/>
+                                          </div>
+                                        )}
+                                      </Draggable>
+                                    )
+                                  }}
+                                )}
                               {provided.placeholder}
                             </div>
                           )}

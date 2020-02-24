@@ -570,7 +570,7 @@ main.cooptation, main.recompenses {
       color: $raven;
       a {color: $raven}
       &.email a:hover {color: $cloud-burst}
-      &.nom, &.titre {line-height: 120%}
+      &.nom, &.titre, &.cooptes-par {line-height: 120%}
       &.titre {padding-top: .5rem;}
       &:nth-of-type(1) {
         color: $cloud-burst;
