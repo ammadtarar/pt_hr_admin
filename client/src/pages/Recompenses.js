@@ -13,15 +13,15 @@ function PageRecompenses(props) {
     e.preventDefault()
   }
 
-  async function getData() {
-    const response = await fetch(datas.recompenses)
-    // const data = await response.json()
-    setData(data)
-  }
-
-  useEffect(() => {
-    getData()
-  }, [])
+  // async function getData() {
+  //   const response = await fetch(url)
+  //   // const data = await response.json()
+  //   setData(data)
+  // }
+  //
+  // useEffect(() => {
+  //   getData()
+  // }, [])
 
   //Compter nombre de demandes non-traités (les demandes en attente)
   const demandes = compteDemandesRecompenses(datas.recompenses)

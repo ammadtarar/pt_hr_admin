@@ -12,7 +12,7 @@ function BoxRecompense(props) {
     data.checked = !checked
     props.dataToChange(data)
   }
-  
+
   return (
     <div className="box-annonce">
       <ul className="titre">

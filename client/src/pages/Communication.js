@@ -81,7 +81,7 @@ export class Communication extends React.Component {
                     })
                     .map((key, item, i) => {
                     return (
-                      <div className="large-3 medium-6 columns">
+                      <div key={communication[key].id} className="large-3 medium-6 columns">
                         <CardCommunication data={communication[key]} dataToChange={this.dataToChange}/>
                       </div>
                     )

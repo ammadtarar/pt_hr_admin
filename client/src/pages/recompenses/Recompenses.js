@@ -135,7 +135,7 @@ export class Recompenses extends React.Component {
                   })
                   .map((key, item, i) => {
                   return (
-                    <BoxRecompense data={recompenses[key]} dataToChange={this.dataToChange}/>
+                    <BoxRecompense key={recompenses[key].id} data={recompenses[key]} dataToChange={this.dataToChange}/>
                   )
                 })
               :

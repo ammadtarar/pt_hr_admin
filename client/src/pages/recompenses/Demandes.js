@@ -54,7 +54,7 @@ function Demandes(props) {
 
               Object.keys(demandes).map((key, item, i) => {
                 return (
-                  <BoxDemande data={demandes[key]} popup={(e) => popup(e)}/>
+                  <BoxDemande key={demandes[key].id} data={demandes[key]} popup={(e) => popup(e)}/>
                 )
               })
             :
