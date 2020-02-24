@@ -1,21 +1,22 @@
 import React, { Suspense } from 'react'
+import uuidv1 from 'uuid/v1'
 const BoxRecompense = React.lazy(() => import('../../components/BoxRecompense'))
 const data = require('../../datas.json')
 
 export class Recompenses extends React.Component {
-  state = {
-    checked: false,
-    popupOpen: false,
-    creerRecompense: {
-      nom: '',
-      points: '',
-      checked: false
-    },
-    errors: {
-      nom: '',
-      points: ''
-    },
-    data: data
+  constructor() {
+    super()
+    this.state = {
+      checked: false,
+      popupOpen: false,
+      newRecompense: [],
+      errors: {
+        titre: '',
+        points: ''
+      },
+      data: data.recompenses
+    }
+    this.dataToChange = this.dataToChange.bind(this)
   }
 
   handleChange(checked) {
@@ -31,8 +32,8 @@ export class Recompenses extends React.Component {
 
     this.setState((prevState) => ({
       ...prevState,
-        creerRecompense: {
-          ...prevState.creerRecompense,
+        newRecompense: {
+          ...prevState.newRecompense,
           [name]: value
         }
       }
@@ -43,40 +44,43 @@ export class Recompenses extends React.Component {
     e.preventDefault()
 
     switch (true) {
-        case this.state.creerRecompense.nom === '' && this.state.creerRecompense.points === '':
-            this.setState({
-              errors: {nom: 'error', points: 'error'}
-            })
-            break
-        case this.state.creerRecompense.nom === '':
-            this.setState({
-              errors: {nom: 'error'}
-            })
-            break
-        case this.state.creerRecompense.points === '':
-            this.setState({
-              errors: {points: 'error'}
-            })
-            break
-        default:
-            this.setState({ popupOpen: false })
-            // La nouvelle recompense est dans le state
-            console.log(this.state.creerRecompense)
-            // Puis vidage du state
-            this.setState({
-              creerRecompense: {
-                nom: '',
-                points: '',
-                checked: false
-              }
-            })
+      case this.state.newRecompense.titre === '' && this.state.newRecompense.points === '':
+        this.setState({
+          errors: {nom: 'error', points: 'error'}
+        })
+        break
+      case this.state.newRecompense.titre === '':
+        this.setState({
+          errors: {nom: 'error'}
+        })
+        break
+      case this.state.newRecompense.points === '':
+        this.setState({
+          errors: {points: 'error'}
+        })
+        break
+      default:
+        const newID = uuidv1()
+        // Push nouvelles datas récompenses dans state + reset state newRecompense
+        const recompenses = {
+          ...this.state.data,
+          [newID]: {
+            ...this.state.newRecompense,
+            "id": newID,
+            "checked": false
+          }
+        }
+        this.setState({data: recompenses, popupOpen: false, newRecompense: {}})
     }
   }
   dataToChange(data) {
-    //Data à renvoyer au serveur
-    console.log(data)
-    //Puis refresh du component
-    // this.componentDidMount()
+    const recompenses = this.state.data
+    //Ajouter nouvelle data aux anciennes datas
+    Object.keys(recompenses).push(data)
+    this.setState({data: recompenses}, () => {
+      //Puis objet à renvoyer au serveur
+
+    })
   }
 
   componentDidMount() {
@@ -90,7 +94,7 @@ export class Recompenses extends React.Component {
   }
 
   render() {
-    const recompenses = this.state.data.recompenses
+    const recompenses = this.state.data
 
     return (
       <div className="wrapper">
@@ -103,9 +107,9 @@ export class Recompenses extends React.Component {
           <h3>Créer une récompense</h3>
           <form onSubmit={this.publierRecompense}>
             <label>Nom</label>
-            <input type="text" name="nom" className={this.state.errors.nom} onChange={(e) => this.handleChangeText(e)} value={this.state.creerRecompense.nom} placeholder="Nom de la récompense"/>
+            <input type="text" name="titre" className={this.state.errors.titre} onChange={(e) => this.handleChangeText(e)} value={this.state.newRecompense.titre} placeholder="Nom de la récompense"/>
             <label>Nombre de points</label>
-            <input type="number" name="points" className={this.state.errors.points} onChange={(e) => {const field = 'number'; this.handleChangeText(e,field)}} value={this.state.creerRecompense.points} placeholder="Nombre de points requis"/>
+            <input type="number" name="points" className={this.state.errors.points} onChange={(e) => {const field = 'number'; this.handleChangeText(e,field)}} value={this.state.newRecompense.points} placeholder="Nombre de points requis"/>
             <button className="btn-primary">Publier</button>
             <p className="note">Une fois publiée, cette récompense sera visible par tous les ambassadeurs.</p>
           </form>
@@ -125,7 +129,11 @@ export class Recompenses extends React.Component {
           <Suspense fallback={<div className="text-center">Loading ...</div>}>
             {Object.keys(recompenses).length > 0 ?
 
-                Object.keys(recompenses).map((key, item, i) => {
+                Object.keys(recompenses)
+                  .sort((a, b) => {
+                    return new Date(a.date) < new Date(b.date) ? 1 : (new Date(a.date) > new Date(b.date) ? -1 : 0)
+                  })
+                  .map((key, item, i) => {
                   return (
                     <BoxRecompense data={recompenses[key]} dataToChange={this.dataToChange}/>
                   )

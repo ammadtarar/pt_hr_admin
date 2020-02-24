@@ -31,7 +31,7 @@ function PageCooptation(props) {
         <Tabs onSelect={index => tab(index)}>
           <TabList>
             <Tab>Candidats</Tab>
-            <Tab>Annonces<span>{Object.keys(data.candidats).length}</span></Tab>
+            <Tab>Annonces<span>{Object.keys(data.candidats).length > 0 ? Object.keys(data.candidats).length : 0}</span></Tab>
             <Tab>Candidats archivés</Tab>
           </TabList>
 

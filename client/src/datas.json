@@ -488,50 +488,103 @@
   "recompenses": {
     "2cec1876-5189-11ea-8d77-2e728ce88125": {
       "id": "2cec1876-5189-11ea-8d77-2e728ce88125",
+      "date": "2020-02-24T01:00:00.000Z",
       "titre": "Bonus de 1000€",
       "points": "600",
+      "demandes": [],
       "checked": true
     },
     "2cec1ae2-5189-11ea-8d77-2e728ce88125": {
       "id": "2cec1ae2-5189-11ea-8d77-2e728ce88125",
+      "date": "2020-02-23T01:00:00.000Z",
       "titre": "Abonnement de 6 mois à Netflix",
       "points": "300",
+      "demandes": {
+        "dc2c57ba-56e8-11ea-82b4-0242ac130003": {
+          "id":"dc2c57ba-56e8-11ea-82b4-0242ac130003",
+          "nom":"Steward",
+          "prenom":"Scarlett"
+        }
+      },
+      "traite": true,
       "checked": true
     },
     "2cec1c2c-5189-11ea-8d77-2e728ce88125": {
       "id": "2cec1c2c-5189-11ea-8d77-2e728ce88125",
+      "date": "2020-02-22T01:00:00.000Z",
       "titre": "Hoodie d’entreprise",
       "points": "250",
+      "demandes": [],
+      "traite": false,
       "checked": false
     },
     "2cec1f88-5189-11ea-8d77-2e728ce88125": {
       "id": "2cec1f88-5189-11ea-8d77-2e728ce88125",
+      "date": "2020-02-21T01:00:00.000Z",
       "titre": "Week-end à Paris",
       "points": "1200",
+      "demandes": {
+        "dc2c57ba-56e8-11ea-82b4-0242ac130003": {
+          "id":"dc2c57ba-56e8-11ea-82b4-0242ac130003",
+          "nom":"Flores",
+          "prenom":"Greg"
+        }
+      },
+      "traite": false,
       "checked": false
     },
     "2cec20be-5189-11ea-8d77-2e728ce88125": {
       "id": "2cec20be-5189-11ea-8d77-2e728ce88125",
+      "date": "2020-02-20T01:00:00.000Z",
       "titre": "Bon Amazon 50€",
       "points": "300",
+      "demandes": {
+        "dc2c57ba-56e8-11ea-82b4-0242ac130003": {
+          "id":"dc2c57ba-56e8-11ea-82b4-0242ac130003",
+          "nom": "Diane",
+          "prenom": "Webb"
+        }
+      },
+      "traite": true,
       "checked": true
     },
     "2cec21ea-5189-11ea-8d77-2e728ce88125": {
       "id": "2cec21ea-5189-11ea-8d77-2e728ce88125",
+      "date": "2020-02-19T01:00:00.000Z",
       "titre": "Week-end à Rome",
       "points": "1400",
+      "demandes": [],
+      "traite": false,
       "checked": true
     },
     "2cec2316-5189-11ea-8d77-2e728ce88125": {
       "id": "2cec2316-5189-11ea-8d77-2e728ce88125",
+      "date": "2020-02-18T01:00:00.000Z",
       "titre": "Bonus de 500€",
       "points": "300",
+      "demandes": {
+        "dc2c57ba-56e8-11ea-82b4-0242ac130003": {
+          "id":"dc2c57ba-56e8-11ea-82b4-0242ac130003",
+          "nom": "Greg",
+          "prenom": "Flores"
+        }
+      },
+      "traite": false,
       "checked": true
     },
     "2cec244c-5189-11ea-8d77-2e728ce88125": {
       "id": "2cec244c-5189-11ea-8d77-2e728ce88125",
+      "date": "2020-02-17T01:00:00.000Z",
       "titre": "Votre community manager durant 6 mois",
       "points": "12500",
+      "demandes": {
+        "dc2c57ba-56e8-11ea-82b4-0242ac130003": {
+          "id":"dc2c57ba-56e8-11ea-82b4-0242ac130003",
+          "nom": "Chang",
+          "prenom": "Sarah"
+        }
+      },
+      "traite": false,
       "checked": false
     }
   },

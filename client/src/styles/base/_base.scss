@@ -11,7 +11,7 @@ body {
 //Alignements
 .align-right {float: right}
 .align-left {float: left}
-.align-center {position: relative; margin: 0 auto; display: table;}
+.align-center {position: relative; margin: 0 auto; display: table}
 
 //liens
 a {
@@ -673,6 +673,25 @@ main.cooptation, main.recompenses {
         top: 1rem; right: 0;
         li {
           margin-left: 1rem;
+          &.check {
+            p {
+              position: relative;
+              margin: .8rem 4.5rem 0 0;
+              font-size: $font-size-base;
+              font-family: $regular-heebo;
+              color: $raven;
+            }
+            &::after {
+              position: absolute;
+              margin-top: -1.8rem;
+              right: 1.4rem;
+              background-image: url('/icons/check.svg');
+              background-repeat: no-repeat;
+              background-size: 1.8rem;
+              width: 1.8rem; height: 1.3rem;
+              content: '';
+            }
+          }
           &.box-candidats-cooptes, &.box-views-small {
             background-color: $solitaire;
             padding: 0 1rem 0 4.4rem;

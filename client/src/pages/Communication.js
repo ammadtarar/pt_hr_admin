@@ -21,7 +21,7 @@ export class Communication extends React.Component {
   dataToChange(data) {
     const communication = this.state.data
 
-    Object.keys(communication).push(data) //Remplacer ancienne key par nouvelle key
+    Object.keys(communication).push(data) //Ajouter nouvelle data aux anciennes data
     this.setState({data: communication})
     this.compterArticles(communication)
     //Puis objet à renvoyer au serveur
