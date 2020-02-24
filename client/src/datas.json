@@ -541,10 +541,9 @@
       "prenom": "Sébastien",
       "nom": "Aumaître",
       "email": "sebastien.aumaitre@pushtalents.com",
-      "codeActivation": "909709",
+      "codeActivation": "111111",
       "compteurConnections": 0,
-      "dateActivation": "2020-02-02T01:00:00.000Z",
-      "points":  4500
+      "dateActivation": "2020-02-02T01:00:00.000Z"
     },
     "2cec244c-5189-11ea-8d77-2e728ce88125": {
       "id": "2cec244c-5189-11ea-8d77-2e728ce88125",
@@ -553,8 +552,7 @@
       "email": "vincent.delacourt@pushtalents.com",
       "codeActivation": "111111",
       "compteurConnections": 0,
-      "dateActivation": "2020-02-02T01:00:00.000Z",
-      "points":  800
+      "dateActivation": "2020-02-02T01:00:00.000Z"
     },
     "2cec2316-5189-11ea-8d77-2e728ce88125": {
       "id": "2cec2316-5189-11ea-8d77-2e728ce88125",
@@ -563,8 +561,7 @@
       "email": "contact@julienlucas.com",
       "codeActivation": "222222",
       "compteurConnections": 0,
-      "dateActivation": "2020-02-02T01:00:00.000Z",
-      "points":  2000
+      "dateActivation": "2020-02-02T01:00:00.000Z"
     }
   }
 }
