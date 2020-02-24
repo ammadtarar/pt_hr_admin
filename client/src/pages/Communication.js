@@ -64,7 +64,7 @@ export class Communication extends React.Component {
             </ul>
             <div className="row-fluid">
 
-              <Suspense fallback={<div className="text-center">Loading ...</div>}>
+              <Suspense fallback={<div className="container-suspense"><p className="text-center">Loading ...</p></div>}>
 
                 {Object.keys(communication).length > 0 ?
                 <div className="large-3 medium-6 columns">

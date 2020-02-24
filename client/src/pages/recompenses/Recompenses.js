@@ -126,7 +126,7 @@ export class Recompenses extends React.Component {
             </div>
           </div>
 
-          <Suspense fallback={<div className="text-center">Loading ...</div>}>
+          <Suspense fallback={<div className="container-suspense"><p className="text-center">Loading ...</p></div>}>
             {Object.keys(recompenses).length > 0 ?
 
                 Object.keys(recompenses)
@@ -152,4 +152,4 @@ export class Recompenses extends React.Component {
   }
 }
 
-export default Recompenses;
+export default Recompenses

@@ -32,7 +32,7 @@ export class Annonces extends React.Component {
     return (
       <div className="wrapper">
         <div className="tab-annonces container">
-          <Suspense fallback={<div className="text-center">Loading ...</div>}>
+          <Suspense fallback={<div className="container-suspense"><p className="text-center">Loading ...</p></div>}>
             {Object.keys(annonces).length > 0 ?
 
               Object.keys(annonces)

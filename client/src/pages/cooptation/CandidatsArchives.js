@@ -25,7 +25,7 @@ export class CandidatsArchives extends React.Component {
         <div className="tab-candidats-archives container">
           <div className="row-fluid">
 
-            <Suspense fallback={<div className="text-center">Loading ...</div>}>
+            <Suspense fallback={<div className="container-suspense"><p className="text-center">Loading ...</p></div>}>
               {Object.keys(candidats).length > 0 ?
 
                 Object.keys(candidats)

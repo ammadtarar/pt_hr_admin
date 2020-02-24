@@ -7,7 +7,7 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
 const datas = require('../datas.json')
 
 function PageRecompenses(props) {
-  const [data, setData] = useState([])
+  const [data, setData] = useState(datas.recompenses)
 
   const preventDragHandler = e => {
     e.preventDefault()
@@ -15,14 +15,15 @@ function PageRecompenses(props) {
 
   async function getData() {
     const response = await fetch(datas.recompenses)
-    const data = await response.json()
+    // const data = await response.json()
     setData(data)
   }
 
   useEffect(() => {
-    getData();
+    getData()
   }, [])
 
+  //Compter nombre de demandes non-traités (les demandes en attente)
   const demandes = compteDemandesRecompenses(datas.recompenses)
   const demandesAttente = Object.keys(demandes).reduce((item, e) => {
     let value = [false]
@@ -32,7 +33,7 @@ function PageRecompenses(props) {
 
   const compteDemandesAttente = (e) => {
     setData(demandesAttente)
-    //Mettre à jour serveur avec demandes traités
+    //Puis mettre à jour serveur avec nouvelles demandes traités
 
   }
 

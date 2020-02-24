@@ -4,8 +4,7 @@ const BoxDemande = React.lazy(() => import('../../components/BoxDemande'))
 const datas = require('../../datas.json')
 
 function Demandes(props) {
-  const recompenses = datas.recompenses
-  const [demandes, setDemandes] = useState(compteDemandesRecompenses(recompenses))
+  const [demandes, setDemandes] = useState(compteDemandesRecompenses(datas.recompenses))
   const [popupOpen, setPopupOpen] = useState(false)
   const [popupData, setPopupData] = useState([])
 
@@ -21,7 +20,7 @@ function Demandes(props) {
   // }
   //
   // useEffect(() => {
-  //   getData();
+  //   getData()
   // }, [])
 
   const traiterDemande = e => {
@@ -50,7 +49,7 @@ function Demandes(props) {
       {/* End popup */}
 
       <div className="tab-demandes container">
-        <Suspense fallback={<div className="text-center">Loading ...</div>}>
+        <Suspense fallback={<div className="container-suspense"><p className="text-center">Loading ...</p></div>}>
           {Object.keys(demandes).length > 0 ?
 
               Object.keys(demandes).map((key, item, i) => {
