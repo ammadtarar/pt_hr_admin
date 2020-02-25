@@ -42,7 +42,7 @@ function PageRecompenses(props) {
       <Header/>
 
       <main className="recompenses">
-        <Tabs>
+        <Tabs selectedIndex={props.location.checkedTab ? props.location.checkedTab : 0}>
           <TabList>
             <Tab>Récompenses</Tab>
             <Tab>Demandes en attente<span>{Object.keys(demandesAttente).length > 0 ? Object.keys(demandesAttente).length : 0}</span></Tab>

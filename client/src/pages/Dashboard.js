@@ -1,14 +1,17 @@
 import React from 'react'
 import Header from '../components/Header'
+import { compteDemandesRecompenses } from '../functions/CompteDemandes.js'
 import { compteArticlesActifs, compteArticlesTotalViews } from '../functions/ComptesCommunication.js'
 import { compteAnnoncesActives, compteAnnoncesTotalViews } from '../functions/ComptesCooptation.js'
+import { Link } from 'react-router-dom'
 const data = require('../datas.json')
 
 export class Dashboard extends React.Component {
   state = {
     data: data,
-    comptesCommuncation: [],
-    comptesCooptation: []
+    communication: [],
+    cooptation: [],
+    recompenses: []
   }
 
   preventDragHandler = (e) => {
@@ -24,23 +27,27 @@ export class Dashboard extends React.Component {
     //     })
     //   })
     this.setState({
-      comptesCommuncation: {
+      communication: {
         actifs: compteArticlesActifs(data.communication),
         total: Object.keys(data.communication).length,
         totalViews: compteArticlesTotalViews(data.communication).toString().replace(/\B(?=(?:\d{3})+(?!\d))/g, ',')
       },
-      comptesCooptation: {
+      cooptation: {
         annoncesActives: compteAnnoncesActives(data.annonces),
         totalAnnonces: Object.keys(data.annonces).length,
         totalViewsAnnonces: compteAnnoncesTotalViews(data.annonces).toString().replace(/\B(?=(?:\d{3})+(?!\d))/g, ','),
         totalCandidats: Object.keys(data.candidats).length
+      },
+      recompenses: {
+        demandes: compteDemandesRecompenses(data.recompenses).length
       }
     })
   }
 
   render() {
-    const comptesCommuncation = this.state.comptesCommuncation
-    const comptesCooptation = this.state.comptesCooptation
+    const communication = this.state.communication
+    const cooptation = this.state.cooptation
+    const demandes = this.state.recompenses.demandes
 
     return (
       <div className="wrapper" onDragStart={this.preventDragHandler}>
@@ -66,32 +73,32 @@ export class Dashboard extends React.Component {
                   <div className="icon iceberg"><img src="/icons/points.svg" alt=""/></div>
                   <div className="box-text">
                     <p>Points gagnés par les ambassadeurs</p>
-                    <p><span>XX.XXX</span></p>
+                    <p><span>XX</span></p>
                   </div>
                   <hr/>
                   <div className="icon iceberg"><img src="/icons/recompenses.svg" alt=""/></div>
                   <div className="box-text demandes-recompenses">
                     <p>Demandes de récompenses</p>
-                    <p><span>X</span></p>
+                    <p><span>{demandes}</span></p>
                   </div>
-                  <button onClick={(e) => this.props.history.push('/recompenses')} className="btn-primary">Voir</button>
+                  <Link to={{pathname: "/recompenses", checkedTab: 1}} className="btn-primary">Voir</Link>
                 </div>
               </div>
               <div className="columns">
                 <div className="box-item cooptation">
                   <h4>Cooptation</h4>
-                  <button onClick={(e) => this.props.history.push('/cooptation')} className="btn-primary">Voir</button>
+                  <Link to={{pathname: "/cooptation"}} className="btn-primary">Voir</Link>
                   <div className="box-views">
-                    {comptesCooptation.totalViewsAnnonces ?
+                    {cooptation.totalViewsAnnonces ?
                     <div>
-                      <p>{comptesCooptation.totalViewsAnnonces}</p>
+                      <p>{cooptation.totalViewsAnnonces}</p>
                       <p>visiteurs sur les annonces</p>
                     </div> : ''}
                   </div>
                   <div className="icon half-spanish-white"><img src="/icons/annonces-actives.svg" alt=""/></div>
                   <div className="box-text">
                     <p>Annonces actives</p>
-                    <p><span>{comptesCooptation.annoncesActives}</span> /<span>{comptesCooptation.totalAnnonces}</span></p>
+                    <p><span>{cooptation.annoncesActives}</span> /<span>{cooptation.totalAnnonces}</span></p>
                   </div>
                   <hr/>
                   <div className="icon half-spanish-white"><img src="/icons/nouveaux-candidats.svg" alt=""/></div>
@@ -103,25 +110,25 @@ export class Dashboard extends React.Component {
                   <div className="icon half-spanish-white"><img src="/icons/profils-identifies.svg" alt=""/></div>
                   <div className="box-text">
                     <p>Profils identifiés</p>
-                    <p><span>{comptesCooptation.totalCandidats}</span></p>
+                    <p><span>{cooptation.totalCandidats}</span></p>
                   </div>
                 </div>
               </div>
               <div className="columns">
                 <div className="box-item communication">
                   <h4>Communication</h4>
-                  <button onClick={(e) => this.props.history.push('/communication')} className="btn-primary">Voir</button>
-                  {comptesCommuncation.totalViews ?
+                  <Link to={{pathname: "/communication"}} className="btn-primary">Voir</Link>
+                  {communication.totalViews ?
                   <div className="box-views">
                     <div>
-                      <p>{comptesCommuncation.totalViews}</p>
+                      <p>{communication.totalViews}</p>
                       <p>visiteurs sur les contenus</p>
                     </div>
                   </div> : ''}
                   <div className="icon link-water"><img src="/icons/contenus-actifs.svg" alt=""/></div>
                   <div className="box-text">
                     <p>Contenus actifs</p>
-                    <p><span>{comptesCommuncation.actifs}</span> /<span>{comptesCommuncation.total}</span></p>
+                    <p><span>{communication.actifs}</span> /<span>{communication.total}</span></p>
                   </div>
                 </div>
               </div>
@@ -150,4 +157,4 @@ export class Dashboard extends React.Component {
   }
 }
 
-export default Dashboard;
+export default Dashboard
