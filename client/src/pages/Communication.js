@@ -1,106 +1,91 @@
-import React, { Suspense } from 'react'
+import React, { useState, useEffect, Suspense } from 'react'
 import Header from '../components/Header'
 import { compteArticlesActifs } from '../functions/ComptesCommunication.js'
 const CardCommunication = React.lazy(() => import('../components/CardCommunication'))
-const data = require('../datas.json')
+const datas = require('../datas.json')
 
-export class Communication extends React.Component {
-  constructor() {
-    super()
-    this.state = {
-      'data': [],
-      'countActivesPosts': ''
-    }
-    this.dataToChange = this.dataToChange.bind(this)
-  }
+function Communication() {
+  const [data, setData] = useState([])
+  const [countActivesPosts, setCountActivesPosts] = useState('')
+  const communication = data
 
-  preventDragHandler = (e) => {
+  const preventDragHandler = e => {
     e.preventDefault()
   }
 
-  dataToChange(data) {
-    const communication = this.state.data
-
+  const dataToChange = data => {
     Object.keys(communication).push(data) //Ajouter nouvelle data aux anciennes data
-    this.setState({data: communication})
-    this.compterArticles(communication)
+    setData(communication)
+    compterArticles(communication)
     //Puis objet à renvoyer au serveur
 
   }
 
-  compterArticles(communication) {
-    this.setState({
-      'countActivesPosts': compteArticlesActifs(communication)
-    })
+  const compterArticles = communication => {
+    setCountActivesPosts(compteArticlesActifs(communication))
   }
 
-  componentDidMount() {
-    // fetch(data)
-    //   .then(res => res.json())
-    //   .then(res => {
-    //     this.setState({
-    //       'data': res
-    //     })
-    //   })
+  // async function getData() {
+  //   const response = await fetch(url)
+  //   // const data = await response.json()
+  //   setData(data)
+  // }
+  //
+  useEffect(() => {
+    // getData()
+    const communication = datas.communication
+    setData(communication)
+    compterArticles(communication)
+  }, [])
 
-    this.setState({data: data.communication}, () => {
-      const communication = this.state.data
-      this.compterArticles(communication)
-    })
-  }
 
-  render() {
-    const count = this.state.countActivesPosts
-    const communication = this.state.data
+  return (
+    <div className="wrapper" onDragStart={(e) => preventDragHandler(e)}>
+      <Header/>
+      <main className="communication">
+        <div className="container">
+          <ul className="headline">
+            <li><h3>Communication</h3></li>
+            <li><p><span>{countActivesPosts}</span> contenus actifs</p></li>
+          </ul>
+          <div className="row-fluid">
 
-    return (
-      <div className="wrapper" onDragStart={this.preventDragHandler}>
-        <Header/>
-        <main className="communication">
-          <div className="container">
-            <ul className="headline">
-              <li><h3>Communication</h3></li>
-              <li><p><span>{count}</span> contenus actifs</p></li>
-            </ul>
-            <div className="row-fluid">
+            <Suspense fallback={<div className="container-suspense"><p className="text-center">Loading ...</p></div>}>
 
-              <Suspense fallback={<div className="container-suspense"><p className="text-center">Loading ...</p></div>}>
+              {Object.keys(communication).length > 0 ?
+              <div className="large-3 medium-6 columns">
+                <div className="box-note">
+                  <p>Consultez et gérez les<br/> <span>contenus de marque<br/> employeur</span> visibles par vos<br/> <span>collaborateurs</span>.</p>
+                  <p className="sub-note">Ils pourront les consulter et les partager auprès de leur réseau.</p>
+                </div>
+              </div> : ''}
 
-                {Object.keys(communication).length > 0 ?
-                <div className="large-3 medium-6 columns">
-                  <div className="box-note">
-                    <p>Consultez et gérez les<br/> <span>contenus de marque<br/> employeur</span> visibles par vos<br/> <span>collaborateurs</span>.</p>
-                    <p className="sub-note">Ils pourront les consulter et les partager auprès de leur réseau.</p>
-                  </div>
-                </div> : ''}
-
-                {Object.keys(communication).length > 0 ?
-                  Object.keys(communication)
-                    .sort((a, b) => {
-                      return new Date(communication[a].publishedDate) < new Date(communication[b].publishedDate) ? 1 : (new Date(communication[a].publishedDate) > new Date(communication[b].publishedDate) ? -1 : 0)
-                    })
-                    .map((key, item, i) => {
-                    return (
-                      <div key={communication[key].id} className="large-3 medium-6 columns">
-                        <CardCommunication data={communication[key]} dataToChange={this.dataToChange}/>
-                      </div>
-                    )
+              {Object.keys(communication).length > 0 ?
+                Object.keys(communication)
+                  .sort((a, b) => {
+                    return new Date(communication[a].publishedDate) < new Date(communication[b].publishedDate) ? 1 : (new Date(communication[a].publishedDate) > new Date(communication[b].publishedDate) ? -1 : 0)
                   })
-                  :
-                  <div className="container empty">
-                    <img type="image/svg+xml" className="icon" src="/icons/communication-b.svg" alt=""/>
-                    <p className="text-center">Aucune communication disponible</p>
-                    <p className="text-center">Il semblerait qu’il n’y ait pas de communication à afficher ici.</p>
-                  </div>
-                }
-              </Suspense>
+                  .map((key, item, i) => {
+                  return (
+                    <div key={communication[key].id} className="large-3 medium-6 columns">
+                      <CardCommunication data={communication[key]} dataToChange={(e) => dataToChange()}/>
+                    </div>
+                  )
+                })
+                :
+                <div className="container empty">
+                  <img type="image/svg+xml" className="icon" src="/icons/communication-b.svg" alt=""/>
+                  <p className="text-center">Aucune communication disponible</p>
+                  <p className="text-center">Il semblerait qu’il n’y ait pas de communication à afficher ici.</p>
+                </div>
+              }
+            </Suspense>
 
-            </div>
           </div>
-        </main>
-      </div>
-    )
-  }
+        </div>
+      </main>
+    </div>
+  )
 }
 
 export default Communication

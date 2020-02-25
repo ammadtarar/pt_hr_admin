@@ -503,7 +503,14 @@
         "dc2c57ba-56e8-11ea-82b4-0242ac130003": {
           "id":"dc2c57ba-56e8-11ea-82b4-0242ac130003",
           "nom":"Steward",
-          "prenom":"Scarlett"
+          "prenom":"Scarlett",
+          "traite": true
+        },
+        "2cec1c2c-5189-11ea-8d77-2e728ce88125": {
+          "id":"2cec1c2c-5189-11ea-8d77-2e728ce88125",
+          "nom": "Black",
+          "prenom": "Shawn",
+          "traite": false
         }
       },
       "traite": true,
@@ -527,7 +534,8 @@
         "dc2c57ba-56e8-11ea-82b4-0242ac130003": {
           "id":"dc2c57ba-56e8-11ea-82b4-0242ac130003",
           "nom":"Flores",
-          "prenom":"Greg"
+          "prenom":"Greg",
+          "traite": false
         }
       },
       "traite": false,
@@ -542,7 +550,14 @@
         "dc2c57ba-56e8-11ea-82b4-0242ac130003": {
           "id":"dc2c57ba-56e8-11ea-82b4-0242ac130003",
           "nom": "Diane",
-          "prenom": "Webb"
+          "prenom": "Webb",
+          "traite": true
+        },
+        "2cec1c2c-5189-11ea-8d77-2e728ce88125": {
+          "id":"2cec1c2c-5189-11ea-8d77-2e728ce88125",
+          "nom":"Steward",
+          "prenom":"Scarlett",
+          "traite": false
         }
       },
       "traite": true,
@@ -566,7 +581,8 @@
         "dc2c57ba-56e8-11ea-82b4-0242ac130003": {
           "id":"dc2c57ba-56e8-11ea-82b4-0242ac130003",
           "nom": "Greg",
-          "prenom": "Flores"
+          "prenom": "Flores",
+          "traite": false
         }
       },
       "traite": false,
@@ -581,7 +597,8 @@
         "dc2c57ba-56e8-11ea-82b4-0242ac130003": {
           "id":"dc2c57ba-56e8-11ea-82b4-0242ac130003",
           "nom": "Chang",
-          "prenom": "Sarah"
+          "prenom": "Sarah",
+          "traite": false
         }
       },
       "traite": false,

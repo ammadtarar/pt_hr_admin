@@ -19,10 +19,14 @@ function PageCooptation(props) {
     setCheckedTab(index)
   }
 
+  // async function getData() {
+  //   const response = await fetch(url)
+  //   // const data = await response.json()
+  //   setData(data)
+  // }
+  //
   // useEffect(() => {
-  //   fetch(data)
-  //     .then(response => response.json())
-  //     .then(data => setData(data));
+  //   getData()
   // }, [])
 
   return (

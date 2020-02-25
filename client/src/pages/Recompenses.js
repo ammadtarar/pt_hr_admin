@@ -7,7 +7,7 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
 const datas = require('../datas.json')
 
 function PageRecompenses(props) {
-  const [data, setData] = useState(datas.recompenses)
+  const [data, setData] = useState([])
 
   const preventDragHandler = e => {
     e.preventDefault()
@@ -22,6 +22,10 @@ function PageRecompenses(props) {
   // useEffect(() => {
   //   getData()
   // }, [])
+
+  useEffect(() => {
+    setData(datas.recompenses)
+  }, [])
 
   //Compter nombre de demandes non-traités (les demandes en attente)
   const demandes = compteDemandesRecompenses(datas.recompenses)
@@ -42,7 +46,7 @@ function PageRecompenses(props) {
       <Header/>
 
       <main className="recompenses">
-        <Tabs selectedIndex={props.location.checkedTab ? props.location.checkedTab : 0}>
+        <Tabs>
           <TabList>
             <Tab>Récompenses</Tab>
             <Tab>Demandes en attente<span>{Object.keys(demandesAttente).length > 0 ? Object.keys(demandesAttente).length : 0}</span></Tab>

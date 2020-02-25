@@ -4,9 +4,11 @@ const BoxDemande = React.lazy(() => import('../../components/BoxDemande'))
 const datas = require('../../datas.json')
 
 function Demandes(props) {
-  const [demandes, setDemandes] = useState(compteDemandesRecompenses(datas.recompenses))
+  const [recompenses, setRecompenses] = useState([])
   const [popupOpen, setPopupOpen] = useState(false)
   const [popupData, setPopupData] = useState([])
+  const [giga, setGiga] = useState([])
+  const demandes = recompenses
 
   const popup = (data,e) => {
     setPopupOpen(true)
@@ -19,18 +21,44 @@ function Demandes(props) {
   //   setData(data)
   // }
   //
-  // useEffect(() => {
-  //   getData()
-  // }, [])
+  useEffect(() => {
+    // getData()
+    setRecompenses(compteDemandesRecompenses(datas.recompenses))
+  }, [])
 
   const traiterDemande = e => {
     popupData.traite = true
     Object.keys(demandes).push(popupData)
     setPopupOpen(false)
-    setDemandes(demandes)
+    setRecompenses(demandes)
     //Demander au composant parent de re-ajuster le nombre de demandes en attente
     props.compteDemandesAttente(demandes)
   }
+
+
+
+    demandes.forEach((key, item) => {
+    const top = key.demandes
+    const values = []
+
+    // console.log(top)
+    Object.keys(top).forEach((k, i, item) => {
+      console.log(k)
+      const a = top[k]
+      values.push(a)
+
+    })
+
+    console.log(values)
+
+    // for (var i=0; i < top.length; i++) {
+    //   values.push(top[i])
+    // }
+    // console.log(values)
+
+  })
+
+
 
   return (
     <div className="wrapper">
