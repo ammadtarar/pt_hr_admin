@@ -4,10 +4,10 @@ import { date } from '../functions/Date.js'
 
 function BoxRecompense(props) {
   const [checked, setChecked] = useState(props.data.checked)
-  const [data, setData] = useState(props.data)
+  const data = props.data
   const dateToFormat = data.date
 
-  const handleChange = (e) => {
+  const handleChange = e => {
     setChecked(!checked)
     data.checked = !checked
     props.dataToChange(data)

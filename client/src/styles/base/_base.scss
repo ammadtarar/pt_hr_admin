@@ -119,6 +119,10 @@ input[type=number] {
   margin: 0 auto;
   display: table;
   max-width: 153rem; width: 100%;
+  &.container-suspense {
+    margin: 6rem auto 0 auto;
+    p{ font-size: $h2-size}
+  }
   &.empty {
     margin-top: 8rem;
     * {

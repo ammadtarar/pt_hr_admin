@@ -10,7 +10,7 @@ export default () => {
       auth: authReducer
     }),
     composeEnhancers(applyMiddleware(thunk))
-  );
+  )
 
   return store;
-};
+}

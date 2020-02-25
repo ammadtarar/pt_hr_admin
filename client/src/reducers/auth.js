@@ -1,4 +1,4 @@
-const authReducerDefaultState = [];
+const authReducerDefaultState = []
 
 export default (state = authReducerDefaultState, action) => {
   switch (action.type) {
@@ -15,4 +15,4 @@ export default (state = authReducerDefaultState, action) => {
     default:
       return state;
   }
-};
+}

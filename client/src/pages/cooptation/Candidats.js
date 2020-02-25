@@ -34,6 +34,12 @@ export class Candidats extends React.Component {
     'candidaturesRecues': [],
     'candidatsEntretiens': [],
     'candidatsSelectionne': [],
+    'saveForSearch': {
+      'candidatsCooptes': [],
+      'candidaturesRecues': [],
+      'candidatsEntretiens': [],
+      'candidatsSelectionne': []
+    },
     'popupArchiveOpen': false,
     'popupStatusOpen': false,
     'popupData': [],
@@ -131,6 +137,12 @@ export class Candidats extends React.Component {
           'candidaturesRecues': result.droppable2 ? result.droppable2 : this.state.candidaturesRecues,
           'candidatsEntretiens': result.droppable3 ? result.droppable3 : this.state.candidatsEntretiens,
           'candidatsSelectionne': result.droppable4 ? result.droppable4 : this.state.candidatsSelectionne,
+          'saveForSearch': {
+            'candidatsCooptes': result.droppable ? result.droppable : this.state.candidatsCooptes,
+            'candidaturesRecues': result.droppable2 ? result.droppable2 : this.state.candidaturesRecues,
+            'candidatsEntretiens': result.droppable3 ? result.droppable3 : this.state.candidatsEntretiens,
+            'candidatsSelectionne': result.droppable4 ? result.droppable4 : this.state.candidatsSelectionne
+          },
           'popupStatusOpen': false
         })
       })
@@ -143,6 +155,12 @@ export class Candidats extends React.Component {
             'candidaturesRecues': this.state.candidaturesRecues,
             'candidatsEntretiens': this.state.candidatsEntretiens,
             'candidatsSelectionne': this.state.candidatsSelectionne,
+            'saveForSearch': {
+              'candidatsCooptes': this.state.candidatsCooptes,
+              'candidaturesRecues': this.state.candidaturesRecues,
+              'candidatsEntretiens': this.state.candidatsEntretiens,
+              'candidatsSelectionne': this.state.candidatsSelectionne
+            },
             'popupStatusOpen': false
           })
         })
@@ -179,6 +197,37 @@ export class Candidats extends React.Component {
     this.setState({
       search: value
     })
+
+    //Fonction recherche spécifique value dans array of objects
+    function searchObj (obj, query) {
+      for (var key in obj) {
+        var value = obj[key]
+        if (typeof value === 'object') {
+           return searchObj(value, query)
+        }
+        if (typeof value === 'string' && value.toLowerCase().indexOf(query.toLowerCase()) > -1) {
+           return obj
+        }
+      }
+    }
+
+    //Recherche dans chacune des 4 colonnes, et mise à jour du state
+    const saveForSearch = this.state.saveForSearch
+    this.setState({
+      candidatsCooptes: saveForSearch.candidatsCooptes.filter((obj) => {
+        return searchObj(obj, value)
+      }),
+      candidaturesRecues: saveForSearch.candidaturesRecues.filter((obj) => {
+        return searchObj(obj, value)
+      }),
+      candidatsEntretiens: saveForSearch.candidatsEntretiens.filter((obj) => {
+        return searchObj(obj, value)
+      }),
+      candidatsSelectionne: saveForSearch.candidatsSelectionne.filter((obj) => {
+        return searchObj(obj, value)
+      })
+    })
+
   }
 
   componentDidMount() {
@@ -220,7 +269,13 @@ export class Candidats extends React.Component {
       'candidatsCooptes': Object.keys(triCooptes).map(i => triCooptes[i]),
       'candidaturesRecues': Object.keys(triRecus).map(i => triRecus[i]),
       'candidatsEntretiens': Object.keys(triEntretiens).map(i => triEntretiens[i]),
-      'candidatsSelectionne': Object.keys(triSelectionne).map(i => triSelectionne[i])
+      'candidatsSelectionne': Object.keys(triSelectionne).map(i => triSelectionne[i]),
+      'saveForSearch': {
+        'candidatsCooptes': Object.keys(triCooptes).map(i => triCooptes[i]),
+        'candidaturesRecues': Object.keys(triRecus).map(i => triRecus[i]),
+        'candidatsEntretiens': Object.keys(triEntretiens).map(i => triEntretiens[i]),
+        'candidatsSelectionne': Object.keys(triSelectionne).map(i => triSelectionne[i])
+      }
     })
   }
 

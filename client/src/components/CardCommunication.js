@@ -3,10 +3,9 @@ import Switch from 'react-switch'
 
 function CardCommunication (props) {
   const [checked, setChecked] = useState(props.data.checked)
-  const [data, setData] = useState(props.data)
-  const dateToFormat = data.date
+  const data = props.data
 
-  const handleChange = (e) => {
+  const handleChange = e => {
     setChecked(!checked)
     data.checked = !checked
     props.dataToChange(data)

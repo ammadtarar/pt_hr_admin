@@ -17,7 +17,7 @@ function Annonces(props) {
   // }, [])
 
   const dataToChange = (data,e) => {
-    //Mises à jour des annoncesavec celle passée sur Actif/Inactif
+    //Mises à jour des annonces avec celle passée sur Actif/Inactif
     Object.keys(annonces).push(data)
     setData(annonces)
     //Puis data à renvoyer au serveur

@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 function BoxDemande(props) {
-  const [data, setData] = useState(props.data)
+  const data = props.data
 
-  const popup = (e) => {
+  const popup = e => {
     props.popup(data)
   }
 

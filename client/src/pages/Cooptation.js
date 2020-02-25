@@ -4,11 +4,12 @@ import Candidats from './cooptation/Candidats'
 import Annonces from './cooptation/Annonces'
 import CandidatsArchives from './cooptation/CandidatsArchives'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
-const data = require('../datas.json')
+const datas = require('../datas.json')
 
 function PageCooptation(props) {
-  // const [data, setData] = useState([])
+  const [data, setData] = useState(datas.annonces)
   const [checkedTab, setCheckedTab] = useState([])
+  const annonces = data
 
   const preventDragHandler = e => {
     e.preventDefault()
@@ -31,7 +32,7 @@ function PageCooptation(props) {
         <Tabs onSelect={index => tab(index)}>
           <TabList>
             <Tab>Candidats</Tab>
-            <Tab>Annonces<span>{Object.keys(data.candidats).length > 0 ? Object.keys(data.candidats).length : 0}</span></Tab>
+            <Tab>Annonces<span>{Object.keys(annonces).length > 0 ? Object.keys(annonces).length : 0}</span></Tab>
             <Tab>Candidats archivés</Tab>
           </TabList>
 

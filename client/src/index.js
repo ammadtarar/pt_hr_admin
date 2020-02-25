@@ -9,7 +9,6 @@ import './styles/styles.scss'
 import * as serviceWorker from './serviceWorker'
 
 const store = configureStore()
-store.dispatch(logout())
 
 const App = (
   <Provider store={store}>
