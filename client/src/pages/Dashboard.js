@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react'
 import Header from '../components/Header'
 import { compteDemandesRecompenses } from '../functions/CompteDemandes.js'
 import { compteArticlesActifs, compteArticlesTotalViews } from '../functions/ComptesCommunication.js'
-import { compteAnnoncesActives, compteAnnoncesTotalViews } from '../functions/ComptesCooptation.js'
+import { comptesDemandesNonTraite } from '../functions/CompteDemandes.js'
+import { compteAnnoncesActives, compteAnnoncesTotalViews, compteCandidatsCooptes } from '../functions/ComptesCooptation.js'
 import { Link } from 'react-router-dom'
 const datas = require('../datas.json')
 
 function Dashboard() {
-  const [data, setData] = useState(datas)
   const [communication, setCommunication] = useState([])
   const [cooptation, setCooptation] = useState([])
   const [demandes, setDemandes] = useState([])
@@ -22,23 +22,20 @@ function Dashboard() {
   //   setData(data)
   // }
   //
-  // useEffect(() => {
-  //   getData()
-  // }, [])
-
   useEffect(() => {
     setCommunication({
-      actifs: compteArticlesActifs(data.communication),
-      total: Object.keys(data.communication).length,
-      totalViews: compteArticlesTotalViews(data.communication).toString().replace(/\B(?=(?:\d{3})+(?!\d))/g, ',')
+      actifs: compteArticlesActifs(datas.communication),
+      total: Object.keys(datas.communication).length,
+      totalViews: compteArticlesTotalViews(datas.communication).toString().replace(/\B(?=(?:\d{3})+(?!\d))/g, ',')
     })
     setCooptation({
-      annoncesActives: compteAnnoncesActives(data.annonces),
-      totalAnnonces: Object.keys(data.annonces).length,
-      totalViewsAnnonces: compteAnnoncesTotalViews(data.annonces).toString().replace(/\B(?=(?:\d{3})+(?!\d))/g, ','),
-      totalCandidats: Object.keys(data.candidats).length
+      annoncesActives: compteAnnoncesActives(datas.annonces),
+      totalAnnonces: Object.keys(datas.annonces).length,
+      totalViewsAnnonces: compteAnnoncesTotalViews(datas.annonces).toString().replace(/\B(?=(?:\d{3})+(?!\d))/g, ','),
+      totalCandidats: Object.keys(datas.candidats).length,
+      totalCandidatsCooptes: compteCandidatsCooptes(datas.candidats).length
     })
-    setDemandes(compteDemandesRecompenses(datas.recompenses).length)
+    setDemandes(comptesDemandesNonTraite(datas.recompenses).length)
   }, [])
 
   return (
@@ -96,7 +93,7 @@ function Dashboard() {
                 <div className="icon half-spanish-white"><img src="/icons/nouveaux-candidats.svg" alt=""/></div>
                 <div className="box-text">
                   <p>Candidats cooptés</p>
-                  <p><span>XX</span></p>
+                  <p><span>{cooptation.totalCandidatsCooptes}</span></p>
                 </div>
                 <hr/>
                 <div className="icon half-spanish-white"><img src="/icons/profils-identifies.svg" alt=""/></div>

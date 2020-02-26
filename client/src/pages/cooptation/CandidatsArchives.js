@@ -3,7 +3,7 @@ const CardCandidat = React.lazy(() => import('../../components/CardCandidat'))
 const datas = require('../../datas.json')
 
 function CandidatsArchives() {
-  const [data, setData] = useState(datas.candidats)
+  const [data, setData] = useState([])
   const candidats = data
 
   // async function getData() {
@@ -12,9 +12,10 @@ function CandidatsArchives() {
   //   setData(data)
   // }
   //
-  // useEffect(() => {
-  //   getData()
-  // }, [])
+  useEffect(() => {
+    // getData()
+    setData(datas.candidats)
+  }, [])
 
   return (
     <div className="wrapper">

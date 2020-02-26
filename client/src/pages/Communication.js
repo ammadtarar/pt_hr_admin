@@ -33,9 +33,8 @@ function Communication() {
   //
   useEffect(() => {
     // getData()
-    const communication = datas.communication
-    setData(communication)
-    compterArticles(communication)
+    setData(datas.communication)
+    compterArticles(datas.communication)
   }, [])
 
 

@@ -238,6 +238,7 @@ export class Candidats extends React.Component {
     //       'data': res
     //     })
     //   })
+    // catch(error => console.log(error))
 
     const data = this.state.data
     // Tri des candidats dans les 4 colonnes en fonction de leur status

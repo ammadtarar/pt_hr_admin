@@ -1,20 +1,10 @@
-import React, { useState, userEffect, Suspense } from 'react'
+import React, { useState, useEffect, Suspense } from 'react'
 const BoxAnnonce = React.lazy(() => import('../../components/BoxAnnonce'))
 const datas = require('../../datas.json')
 
 function Annonces(props) {
-  const [data, setData] = useState(datas.annonces)
+  const [data, setData] = useState([])
   const annonces = data
-
-  // async function getData() {
-  //   const response = await fetch(datas.candidats)
-  //   const data = await response.json()
-  //   setData(data)
-  // }
-  //
-  // useEffect(() => {
-  //   getData()
-  // }, [])
 
   const dataToChange = (data,e) => {
     //Mises à jour des annonces avec celle passée sur Actif/Inactif
@@ -23,6 +13,17 @@ function Annonces(props) {
     //Puis data à renvoyer au serveur
 
   }
+
+  // async function getData() {
+  //   const response = await fetch(datas.candidats)
+  //   const data = await response.json()
+  //   setData(data)
+  // }
+  //
+  useEffect(() => {
+    // getData()
+    setData(datas.annonces)
+  }, [])
 
   return (
     <div className="wrapper">

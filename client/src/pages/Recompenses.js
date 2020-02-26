@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import Header from '../components/Header'
 import Recompenses from './recompenses/Recompenses'
 import Demandes from './recompenses/Demandes'
-import { compteDemandesRecompenses } from '../functions/CompteDemandes.js'
+import { compteDemandesRecompenses, comptesDemandesNonTraite } from '../functions/CompteDemandes.js'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
 const datas = require('../datas.json')
 
@@ -18,17 +18,14 @@ function PageRecompenses(props) {
   //   // const data = await response.json()
   //   setData(data)
   // }
-  //
-  // useEffect(() => {
-  //   getData()
-  // }, [])
 
   useEffect(() => {
+    // getData()
     setData(datas.recompenses)
   }, [])
 
   //Compter nombre de demandes non-traités (les demandes en attente)
-  const demandes = compteDemandesRecompenses(datas.recompenses)
+  const demandes = compteDemandesRecompenses(data)
   const demandesAttente = Object.keys(demandes).reduce((item, e) => {
     let value = [false]
     if (value.includes(demandes[e].traite)) item[e] = demandes[e]

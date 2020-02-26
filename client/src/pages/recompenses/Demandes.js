@@ -7,7 +7,6 @@ function Demandes(props) {
   const [recompenses, setRecompenses] = useState([])
   const [popupOpen, setPopupOpen] = useState(false)
   const [popupData, setPopupData] = useState([])
-  const [giga, setGiga] = useState([])
   const demandes = recompenses
 
   const popup = (data,e) => {
@@ -35,31 +34,6 @@ function Demandes(props) {
     props.compteDemandesAttente(demandes)
   }
 
-
-
-    demandes.forEach((key, item) => {
-    const top = key.demandes
-    const values = []
-
-    // console.log(top)
-    Object.keys(top).forEach((k, i, item) => {
-      console.log(k)
-      const a = top[k]
-      values.push(a)
-
-    })
-
-    console.log(values)
-
-    // for (var i=0; i < top.length; i++) {
-    //   values.push(top[i])
-    // }
-    // console.log(values)
-
-  })
-
-
-
   return (
     <div className="wrapper">
 
@@ -68,7 +42,7 @@ function Demandes(props) {
 
       <div className={`wrapper-popup ${popupOpen === true ? 'open' : ''}`}>
         <div className={`popup center ${popupOpen === true ? 'open' : ''}`}>
-          <h4 className="text-center">Etes-vous sûr de vouloir accepter la demande de récompenses de <span>Shawn Black</span> ?</h4>
+          <h4 className="text-center">Etes-vous sûr de vouloir accepter la demande de récompenses de <span>{popupData.prenom + ' ' + popupData.nom}</span> ?</h4>
           <p className="text-center">Cette action est irréversible et notifiera automatiquement le collaborateur.</p>
           <button onClick={(e) => traiterDemande(e)} className="btn-primary">Confirmer</button>
           <button onClick={(e) => setPopupOpen(false)} className="btn-secondary">Annuler</button>
@@ -80,7 +54,7 @@ function Demandes(props) {
         <Suspense fallback={<div className="container-suspense"><p className="text-center">Loading ...</p></div>}>
           {Object.keys(demandes).length > 0 ?
 
-              Object.keys(demandes).map((key, item, i) => {
+              Object.keys(demandes).map((key) => {
                 return (
                   <BoxDemande key={demandes[key].id} data={demandes[key]} popup={(e) => popup(e)}/>
                 )

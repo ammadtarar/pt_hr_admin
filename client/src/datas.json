@@ -491,6 +491,7 @@
       "date": "2020-02-24T01:00:00.000Z",
       "titre": "Bonus de 1000€",
       "points": "600",
+      "quantite": 2,
       "demandes": [],
       "checked": true
     },
@@ -499,21 +500,25 @@
       "date": "2020-02-23T01:00:00.000Z",
       "titre": "Abonnement de 6 mois à Netflix",
       "points": "300",
+      "quantite": 999,
       "demandes": {
         "dc2c57ba-56e8-11ea-82b4-0242ac130003": {
           "id":"dc2c57ba-56e8-11ea-82b4-0242ac130003",
+          "idRecompense": "2cec1ae2-5189-11ea-8d77-2e728ce88125",
+          "titre": "Abonnement de 6 mois à Netflix",
           "nom":"Steward",
           "prenom":"Scarlett",
           "traite": true
         },
         "2cec1c2c-5189-11ea-8d77-2e728ce88125": {
           "id":"2cec1c2c-5189-11ea-8d77-2e728ce88125",
+          "idRecompense": "2cec1ae2-5189-11ea-8d77-2e728ce88125",
+          "titre": "Abonnement de 6 mois à Netflix",
           "nom": "Black",
           "prenom": "Shawn",
           "traite": false
         }
       },
-      "traite": true,
       "checked": true
     },
     "2cec1c2c-5189-11ea-8d77-2e728ce88125": {
@@ -521,8 +526,8 @@
       "date": "2020-02-22T01:00:00.000Z",
       "titre": "Hoodie d’entreprise",
       "points": "250",
+      "quantite": 9,
       "demandes": [],
-      "traite": false,
       "checked": false
     },
     "2cec1f88-5189-11ea-8d77-2e728ce88125": {
@@ -530,15 +535,17 @@
       "date": "2020-02-21T01:00:00.000Z",
       "titre": "Week-end à Paris",
       "points": "1200",
+      "quantite": 1,
       "demandes": {
         "dc2c57ba-56e8-11ea-82b4-0242ac130003": {
           "id":"dc2c57ba-56e8-11ea-82b4-0242ac130003",
+          "idRecompense": "2cec1f88-5189-11ea-8d77-2e728ce88125",
+          "titre": "Week-end à Paris",
           "nom":"Flores",
           "prenom":"Greg",
           "traite": false
         }
       },
-      "traite": false,
       "checked": false
     },
     "2cec20be-5189-11ea-8d77-2e728ce88125": {
@@ -546,21 +553,25 @@
       "date": "2020-02-20T01:00:00.000Z",
       "titre": "Bon Amazon 50€",
       "points": "300",
+      "quantite": 1,
       "demandes": {
         "dc2c57ba-56e8-11ea-82b4-0242ac130003": {
           "id":"dc2c57ba-56e8-11ea-82b4-0242ac130003",
+          "idRecompense": "2cec20be-5189-11ea-8d77-2e728ce88125",
+          "titre": "Bon Amazon 50€",
           "nom": "Diane",
           "prenom": "Webb",
           "traite": true
         },
         "2cec1c2c-5189-11ea-8d77-2e728ce88125": {
           "id":"2cec1c2c-5189-11ea-8d77-2e728ce88125",
+          "idRecompense": "2cec20be-5189-11ea-8d77-2e728ce88125",
+          "titre": "Bon Amazon 50€",
           "nom":"Steward",
           "prenom":"Scarlett",
           "traite": false
         }
       },
-      "traite": true,
       "checked": true
     },
     "2cec21ea-5189-11ea-8d77-2e728ce88125": {
@@ -568,8 +579,8 @@
       "date": "2020-02-19T01:00:00.000Z",
       "titre": "Week-end à Rome",
       "points": "1400",
+      "quantite": 2,
       "demandes": [],
-      "traite": false,
       "checked": true
     },
     "2cec2316-5189-11ea-8d77-2e728ce88125": {
@@ -577,15 +588,17 @@
       "date": "2020-02-18T01:00:00.000Z",
       "titre": "Bonus de 500€",
       "points": "300",
+      "quantite": 1,
       "demandes": {
         "dc2c57ba-56e8-11ea-82b4-0242ac130003": {
           "id":"dc2c57ba-56e8-11ea-82b4-0242ac130003",
+          "idRecompense": "2cec2316-5189-11ea-8d77-2e728ce88125",
+          "titre": "Bonus de 500€",
           "nom": "Greg",
           "prenom": "Flores",
           "traite": false
         }
       },
-      "traite": false,
       "checked": true
     },
     "2cec244c-5189-11ea-8d77-2e728ce88125": {
@@ -593,15 +606,17 @@
       "date": "2020-02-17T01:00:00.000Z",
       "titre": "Votre community manager durant 6 mois",
       "points": "12500",
+      "quantite": 999,
       "demandes": {
         "dc2c57ba-56e8-11ea-82b4-0242ac130003": {
           "id":"dc2c57ba-56e8-11ea-82b4-0242ac130003",
+          "idRecompense": "2cec244c-5189-11ea-8d77-2e728ce88125",
+          "titre": "Votre community manager durant 6 mois",
           "nom": "Chang",
           "prenom": "Sarah",
           "traite": false
         }
       },
-      "traite": false,
       "checked": false
     }
   },

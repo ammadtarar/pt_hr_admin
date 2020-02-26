@@ -7,7 +7,7 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
 const datas = require('../datas.json')
 
 function PageCooptation(props) {
-  const [data, setData] = useState(datas.annonces)
+  const [data, setData] = useState([])
   const [checkedTab, setCheckedTab] = useState([])
   const annonces = data
 
@@ -20,14 +20,14 @@ function PageCooptation(props) {
   }
 
   // async function getData() {
-  //   const response = await fetch(url)
-  //   // const data = await response.json()
-  //   setData(data)
+  //   const response = await fetch('http://localhost:8081/data')
+  //   const data = await response.json()
   // }
   //
-  // useEffect(() => {
-  //   getData()
-  // }, [])
+  useEffect(() => {
+    // getData()
+    setData(datas.annonces)
+  }, [])
 
   return (
     <div className="wrapper" onDragStart={(e) => preventDragHandler(e)}>

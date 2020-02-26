@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { login } from '../actions/auth'
-const data = require('../datas.json')
+const datas = require('../datas.json')
 
 export class Login extends React.Component {
   state = {
@@ -160,8 +160,9 @@ export class Login extends React.Component {
     //       utilisateurs: res
     //     })
     //   })
+    //  .catch(error => console.log(error))
     this.setState({
-      utilisateurs: data.utilisateurs
+      utilisateurs: datas.utilisateurs
     })
   }
 

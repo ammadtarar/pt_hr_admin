@@ -10,7 +10,7 @@ function BoxDemande(props) {
   return (
     <div className="box-demande">
       <ul className="titre">
-        <li><h4>{}</h4></li>
+        <li><h4>{data.prenom + ' ' + data.nom}</h4></li>
         <li><p><span>{data.titre}</span></p></li>
       </ul>
       <ul className="infos">
