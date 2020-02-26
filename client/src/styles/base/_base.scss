@@ -543,8 +543,7 @@ main.cooptation, main.recompenses {
   .tab-annonces, .tab-candidats {margin-top: 4rem}
   .tab-candidats-archives {margin-top: 5rem}
    &.background-athens-gray .react-tabs__tab-list {background: $athens-gray}
-   &.background-white .react-tabs__tab-list {background-color: white}
-   &.background-white .react-tabs__tab-list {background-color: transparent; z-index: 2;}
+   &.background-white .react-tabs__tab-list {background-color: white; display: relative;}
    .col-candidats-selectionnes {
      .box-rejeter {display: none}
    }
@@ -574,7 +573,11 @@ main.cooptation, main.recompenses {
       color: $raven;
       a {color: $raven}
       &.email a:hover {color: $cloud-burst}
-      &.nom, &.titre, &.cooptes-par {line-height: 120%}
+      &.nom, &.titre {line-height: 120%}
+      &.cooptes-par span {
+        &.comma {font-family: $regular-heebo}
+        span.last {display: none}
+      }
       &.titre {padding-top: .5rem;}
       &:nth-of-type(1) {
         color: $cloud-burst;

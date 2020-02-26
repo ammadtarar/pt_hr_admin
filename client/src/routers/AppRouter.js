@@ -50,7 +50,10 @@ export class AppRouter extends React.Component {
           render={() => (
             this.state.login === true || localStorage.getItem('utilisateur') ?
               <Switch>
-                {userRoutes.map(route => (
+                <Route exact path="/" render={() => window.location.href = '/dashboard'}/>
+                {userRoutes.filter((item) => {
+                  return item.path !== '/'}
+                ).map(route => (
                   <Route key={route.path} exact path={route.path} component={route.component} />
                 ))}
               </Switch>

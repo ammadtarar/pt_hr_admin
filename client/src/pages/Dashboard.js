@@ -23,6 +23,7 @@ function Dashboard() {
   // }
   //
   useEffect(() => {
+    // getData()
     setCommunication({
       actifs: compteArticlesActifs(datas.communication),
       total: Object.keys(datas.communication).length,
