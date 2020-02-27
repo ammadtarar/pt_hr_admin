@@ -76,7 +76,7 @@ export class Login extends React.Component {
       //Si format email incorrect
       case testFormatEmail === false:
         this.setState({
-          email: "Votre adresse email a un format incorrect",
+          email: 'Votre adresse email a un format incorrect',
           errors: {
             email: 'error'
           }

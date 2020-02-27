@@ -38,12 +38,14 @@ function PageRecompenses(props) {
 
   }
 
+  console.log(props.location.checkedTab)
+
   return (
     <div className="wrapper" onDragStart={(e) => preventDragHandler(e)}>
       <Header/>
 
       <main className="recompenses">
-        <Tabs>
+        <Tabs defaultIndex={props.location.checkedTab ? props.location.checkedTab : 0}>
           <TabList>
             <Tab>Récompenses</Tab>
             <Tab>Demandes en attente<span>{Object.keys(demandesAttente).length > 0 ? Object.keys(demandesAttente).length : 0}</span></Tab>
