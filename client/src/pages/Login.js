@@ -25,7 +25,12 @@ export class Login extends React.Component {
   handleChangeText (e) {
     const name = e.target.name
     const value = e.target.value
-    this.setState({[name]: value})
+
+    if (isNaN(Number(value)) && name === 'code') {
+      this.setState({'code': ''})
+    } else {
+      this.setState({[name]: value})
+    }
   }
 
   recevoirCode = (e) => {
@@ -194,7 +199,7 @@ export class Login extends React.Component {
                     <a onClick={(e) => this.retourStep1(e)} rel="noopener noreferrer">Retour à la connexion</a>
                   </p>
                   <label>Code d'activation</label>
-                  <input type={this.state.inputCode === 'text' ? 'text' : 'number'} name="code" className={this.state.errors.code} onChange={(e) => this.handleChangeText(e)} value={this.state.code} placeholder="Votre code d’activation à 6 chiffres"/>
+                  <input type="text" name="code" className={this.state.errors.code} onChange={(e) => this.handleChangeText(e)} value={this.state.code} maxLength="6" placeholder="Votre code d’activation à 6 chiffres"/>
                   <button onClick={this.seConnecter} className="btn-primary">Se connecter</button>
                 </div>
               </div> : ''}

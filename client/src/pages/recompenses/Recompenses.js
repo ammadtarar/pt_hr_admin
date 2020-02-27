@@ -23,21 +23,30 @@ export class Recompenses extends React.Component {
     this.setState({ checked })
   }
 
-  handleChangeText (e,field) {
+  handleChangeText (e) {
     e.preventDefault()
     const name = e.target.name
     const value = e.target.value
 
-    const numeric = /^[0-9\b]+$/
-
-    this.setState((prevState) => ({
-      ...prevState,
-        newRecompense: {
-          ...prevState.newRecompense,
-          [name]: value
+    if (isNaN(Number(value))) {
+      this.setState((prevState) => ({
+        ...prevState,
+          newRecompense: {
+            ...prevState.newRecompense,
+            'points': ''
+          }
         }
-      }
-    ))
+      ))
+    } else {
+      this.setState((prevState) => ({
+        ...prevState,
+          newRecompense: {
+            ...prevState.newRecompense,
+            [name]: value
+          }
+        }
+      ))
+    }
   }
 
   publierRecompense = (e) => {
@@ -109,7 +118,7 @@ export class Recompenses extends React.Component {
             <label>Nom</label>
             <input type="text" name="titre" className={this.state.errors.titre} onChange={(e) => this.handleChangeText(e)} value={this.state.newRecompense.titre} placeholder="Nom de la récompense"/>
             <label>Nombre de points</label>
-            <input type="number" name="points" className={this.state.errors.points} onChange={(e) => {const field = 'number'; this.handleChangeText(e,field)}} value={this.state.newRecompense.points} placeholder="Nombre de points requis"/>
+            <input type="text" name="points" className={this.state.errors.points} onChange={(e) => this.handleChangeText(e)} value={this.state.newRecompense.points} placeholder="Nombre de points requis"/>
             <button className="btn-primary">Publier</button>
             <p className="note">Une fois publiée, cette récompense sera visible par tous les ambassadeurs.</p>
           </form>
