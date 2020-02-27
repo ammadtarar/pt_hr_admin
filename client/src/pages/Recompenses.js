@@ -38,8 +38,6 @@ function PageRecompenses(props) {
 
   }
 
-  console.log(props.location.checkedTab)
-
   return (
     <div className="wrapper" onDragStart={(e) => preventDragHandler(e)}>
       <Header/>
