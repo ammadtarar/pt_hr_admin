@@ -545,6 +545,7 @@ main.cooptation, main.recompenses {
      .box-rejeter {display: none}
    }
   .box-encart {
+    min-height: 20.3rem;
     padding: 2rem;
     margin-bottom: 1.5rem;
     background-color: white;
@@ -572,6 +573,7 @@ main.cooptation, main.recompenses {
       &.email a:hover {color: $cloud-burst}
       &.nom, &.titre {line-height: 120%}
       &.cooptes-par span {
+        &.first {padding-left: .5rem}
         &.comma {font-family: $regular-heebo}
         span.last {display: none}
       }
@@ -839,7 +841,7 @@ main.communication {
     padding-left: 3.5rem; padding-right: 3.5rem;
     .box-encart {
       .icon {
-        margin-bottom: 2rem;
+        margin-bottom: 1.2rem;
       }
     }
   }
