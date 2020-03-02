@@ -186,7 +186,7 @@ export class Login extends React.Component {
                   <h2>Bienvenue</h2>
                   {this.state.compteurConnections > 2 ? <p className="note note-connection-echec">Vous avez tenté de vous connecter 3 fois sans succès, merci de demander un nouveau code.</p> : ''}
                   <label>Adresse email</label>
-                  <input type="text" name="email" className={this.state.errors.email} onChange={(e) => this.handleChangeText(e)} value={this.state.email} placeholder="Vorre adresse email"/>
+                  <input type="text" name="email" className={this.state.errors.email} onChange={(e) => this.handleChangeText(e)} value={this.state.email} placeholder="Votre adresse email"/>
                   <p className="note note-demande-code">Nous vous enverrons un code d’activation à 6 chiffres.</p>
                   <button onClick={this.recevoirCode} className="btn-primary">Recevoir un code d’activation</button>
                 </div>

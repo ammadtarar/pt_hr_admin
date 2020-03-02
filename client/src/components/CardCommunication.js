@@ -11,6 +11,8 @@ function CardCommunication (props) {
     props.dataToChange(data)
   }
 
+  console.log(data.file.url)
+
   return (
     <div className="card-communication">
       <div>
