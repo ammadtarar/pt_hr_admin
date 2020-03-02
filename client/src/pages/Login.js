@@ -143,8 +143,14 @@ export class Login extends React.Component {
 
   removeErrorText(e) {
     e.preventDefault()
-    if ((this.state.email === 'Votre adresse email a un format incorrect') || (this.state.email === 'Votre adresse email est manquante')) {
-      this.setState({email: ''})
+    if ((this.state.email === 'Votre adresse email a un format incorrect') || (this.state.email === 'Votre adresse email est manquante') || (this.state.code === "Votre code d'activation à 6 chiffres est incorrect")) {
+      this.setState({
+        email: '',
+        code: '',
+        errors: {
+          email: ''
+        }
+      })
     }
   }
 
@@ -206,7 +212,7 @@ export class Login extends React.Component {
                     <a onClick={(e) => this.retourStep1(e)} rel="noopener noreferrer">Retour à la connexion</a>
                   </p>
                   <label>Code d'activation</label>
-                  <input type="text" name="code" className={this.state.errors.code} onChange={(e) => this.handleChangeText(e)} value={this.state.code} maxLength="6" placeholder="Votre code d’activation à 6 chiffres"/>
+                  <input type="text" name="code" className={this.state.errors.code} onClick={(e) => this.removeErrorText(e)} onChange={(e) => this.handleChangeText(e)} value={this.state.code} maxLength="6" placeholder="Votre code d’activation à 6 chiffres"/>
                   <button onClick={this.seConnecter} className="btn-primary">Se connecter</button>
                 </div>
               </div> : ''}
