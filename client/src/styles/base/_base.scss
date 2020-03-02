@@ -334,7 +334,7 @@ main:not(.login) {
   p.react-switch {
     color: $raven;
     min-width: 8.5rem; //min-width pour éviter décalage du status et des points sur annonces
-    .react-switch {top: .5rem; margin-right: 1.2rem; border: .1rem solid $denim;}
+    .react-switch {top: .5rem; margin-right: 1.2rem}
   }
 }
 

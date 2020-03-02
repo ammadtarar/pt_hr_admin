@@ -27,7 +27,7 @@ function BoxRecompense (props) {
             onHandleColor="#ffffff"
             offHandleColor="#ffffff"
             activeBoxShadow="0 0 0 0 transparent"
-            handleDiameter={20}
+            handleDiameter={16}
             uncheckedIcon={false}
             checkedIcon={false}
             height={20}
