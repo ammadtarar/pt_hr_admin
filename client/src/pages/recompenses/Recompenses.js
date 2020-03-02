@@ -28,25 +28,15 @@ export class Recompenses extends React.Component {
     const name = e.target.name
     const value = e.target.value
 
-    if (isNaN(Number(value))) {
-      this.setState((prevState) => ({
-        ...prevState,
-          newRecompense: {
-            ...prevState.newRecompense,
-            'points': ''
-          }
+    this.setState((prevState) => ({
+      ...prevState,
+        newRecompense: {
+          ...prevState.newRecompense,
+          [name]: value,
+          'points': isNaN(Number(value)) ? '' : value
         }
-      ))
-    } else {
-      this.setState((prevState) => ({
-        ...prevState,
-          newRecompense: {
-            ...prevState.newRecompense,
-            [name]: value
-          }
-        }
-      ))
-    }
+      }
+    ))
   }
 
   publierRecompense = (e) => {
