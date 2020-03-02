@@ -70,7 +70,6 @@ export class Login extends React.Component {
         })
         //Ajout datas de l'utilisateur en localStorage
         const userObj = utilisateur[Object.keys(utilisateur)[0]]
-        localStorage.setItem('utilisateur', JSON.stringify(userObj))
         this.setState({utilisateur: userObj})
         break
       //Si format email incorrect
@@ -102,11 +101,12 @@ export class Login extends React.Component {
 
   seConnecter = (e) => {
     e.preventDefault()
-    const userObj = JSON.parse(localStorage.getItem('utilisateur'))
+    const userObj = this.state.utilisateur
 
     switch (true) {
       //Si code tapé === code d'activation en DB
       case this.state.code === userObj.codeActivation:
+        localStorage.setItem('utilisateur', JSON.stringify(userObj))
         this.props.login() //Ouvrir accès routes sur AppRouter
         this.props.history.push('/dashboard')
         this.setState({'compteurConnections': 0})

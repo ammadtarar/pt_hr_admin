@@ -357,7 +357,7 @@ main.login {
       .box-item {
         display: flex;
         align-items: center;
-        height: calc(100vh - 12.5rem); width: 100%;
+        height: calc(100vh - 12.5rem); width: 100%; max-width: 45rem;
         label {margin-top: 4rem}
         .note {
           margin: 2rem 0 5rem 0;
@@ -831,24 +831,7 @@ main.communication {
   }
 }
 
-@media only screen and (max-width: 1380px) {
-  main.recompenses {
-    padding-left: 3rem; padding-right: 3rem;
-    .tab-recompenses {
-      button:nth-of-type(1) {position: absolute; top: -5rem; right: 0}
-    }
-  }
-  main.communication {
-    .card-communication {height: 35rem}
-  }
-  main.cooptation {
-    padding-left: 3.5rem; padding-right: 3.5rem;
-    .box-encart {
-      .icon {
-        margin-bottom: 2rem;
-      }
-    }
-  }
+@media only screen and (max-width: 1450px) {
   main.login {
     input[type="text"], input[type="number"], input[type="email"], input[type="password"] {
       min-width: 100%;
@@ -865,7 +848,7 @@ main.communication {
   }
 }
 
-@media only screen and (max-width: 1230px) {
+@media only screen and (max-width: 1380px) {
   main.login {
     [class*='large'] {
       &:first-child {
@@ -877,6 +860,23 @@ main.communication {
         .box-item {
           padding: 0 5rem;
         }
+      }
+    }
+  }
+  main.recompenses {
+    padding-left: 3rem; padding-right: 3rem;
+    .tab-recompenses {
+      button:nth-of-type(1) {position: absolute; top: -5rem; right: 0}
+    }
+  }
+  main.communication {
+    .card-communication {height: 35rem}
+  }
+  main.cooptation {
+    padding-left: 3.5rem; padding-right: 3.5rem;
+    .box-encart {
+      .icon {
+        margin-bottom: 2rem;
       }
     }
   }
@@ -941,7 +941,7 @@ main.communication {
         .box-item {
           margin-top: 35rem;
           padding: 3rem;
-          height: auto; width: 100%;
+          height: auto; width: 100%; max-width: 100%;
           background: white;
           border-radius: 1rem;
           button {position: relative; margin: 0 auto; display: table;}
