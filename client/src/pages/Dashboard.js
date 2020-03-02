@@ -3,6 +3,7 @@ import Header from '../components/Header'
 import { compteDemandesRecompenses } from '../functions/CompteDemandes.js'
 import { compteArticlesActifs, compteArticlesTotalViews } from '../functions/ComptesCommunication.js'
 import { comptesDemandesNonTraite } from '../functions/CompteDemandes.js'
+import { compteTauxBonneReponse } from '../functions/CompteFormation.js'
 import { compteAnnoncesActives, compteAnnoncesTotalViews, compteCandidatsCooptes } from '../functions/ComptesCooptation.js'
 import { Link } from 'react-router-dom'
 const datas = require('../datas.json')
@@ -10,6 +11,7 @@ const datas = require('../datas.json')
 function Dashboard() {
   const [communication, setCommunication] = useState([])
   const [cooptation, setCooptation] = useState([])
+  const [formations, setFormations] = useState([])
   const [demandes, setDemandes] = useState([])
 
   const preventDragHandler = e => {
@@ -21,7 +23,7 @@ function Dashboard() {
   //   // const data = await response.json()
   //   setData(data)
   // }
-  //
+
   useEffect(() => {
     // getData()
     setCommunication({
@@ -35,6 +37,10 @@ function Dashboard() {
       totalViewsAnnonces: compteAnnoncesTotalViews(datas.annonces).toString().replace(/\B(?=(?:\d{3})+(?!\d))/g, ','),
       totalCandidats: Object.keys(datas.candidats).length,
       totalCandidatsCooptes: compteCandidatsCooptes(datas.candidats).length
+    })
+    setFormations({
+      formationsDispo: Object.keys(datas.formations).length,
+      tauxBonneReponse: compteTauxBonneReponse(datas.formations)
     })
     setDemandes(comptesDemandesNonTraite(datas.recompenses).length)
   }, [])
@@ -128,13 +134,13 @@ function Dashboard() {
                 <div className="icon iron"><img src="/icons/micro-formation.svg" alt=""/></div>
                 <div className="box-text">
                   <p>Micro-formations disponibles</p>
-                  <p><span>X</span></p>
+                  <p><span>{formations.formationsDispo}</span></p>
                 </div>
                 <hr/>
                 <div className="icon iron"><img src="/icons/score.svg" alt=""/></div>
                 <div className="box-text">
                   <p>Taux moyen de bonne réponse</p>
-                  <p><span>XX%</span></p>
+                  <p><span>{formations.tauxBonneReponse}%</span></p>
                 </div>
               </div>
             </div>
