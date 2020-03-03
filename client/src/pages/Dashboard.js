@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import Header from '../components/Header'
-import { compteDemandesRecompenses } from '../functions/CompteDemandes.js'
 import { compteArticlesActifs, compteArticlesTotalViews } from '../functions/ComptesCommunication.js'
 import { comptesDemandesNonTraite } from '../functions/CompteDemandes.js'
 import { compteTauxBonneReponse } from '../functions/ComptesFormation.js'
-import { compteTotalPoints } from '../functions/ComptesAmbassadeurs.js'
 import { compteAnnoncesActives, compteAnnoncesTotalViews, compteCandidatsCooptes } from '../functions/ComptesCooptation.js'
 import { Link } from 'react-router-dom'
 const datas = require('../datas.json')
@@ -29,7 +27,9 @@ function Dashboard() {
   useEffect(() => {
     // getData()
     setAmbassadeurs({
-      totalPoints: compteTotalPoints(datas.utilisateurs)
+      total: datas.ambassadeurs.total,
+      actifs: datas.ambassadeurs.actifs,
+      points: datas.ambassadeurs.points
     })
     setCommunication({
       actifs: compteArticlesActifs(datas.communication),
@@ -68,13 +68,13 @@ function Dashboard() {
                 <div className="icon iceberg"><img src="/icons/ambassadeurs.svg" alt=""/></div>
                 <div className="box-text">
                   <p>Ambassadeurs actifs</p>
-                  <p><span>XX</span> /<span>XXX</span></p>
+                  <p><span>{ambassadeurs.actifs}</span> /<span>{ambassadeurs.total}</span></p>
                 </div>
                 <hr/>
                 <div className="icon iceberg"><img src="/icons/points.svg" alt=""/></div>
                 <div className="box-text">
                   <p>Points gagnés par les ambassadeurs</p>
-                  <p><span>{ambassadeurs.totalPoints}</span></p>
+                  <p><span>{ambassadeurs.points}</span></p>
                 </div>
                 <hr/>
                 <div className="icon iceberg"><img src="/icons/recompenses.svg" alt=""/></div>
