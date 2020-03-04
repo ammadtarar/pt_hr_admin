@@ -77,18 +77,20 @@ input[type="text"], input[type="number"], input[type="email"], input[type="passw
   font-size: $font-size-base;
   color: $raven;
   border: 0;
-  border-bottom: .1rem solid $raven;
+  border-bottom: .1rem solid $heather;
   box-shadow: none;
+  transition: all .2s cubic-bezier(0.045, 0.715, 0.250, 1.000);
   &.error {
     color: red;
     border-bottom: .1rem solid red;
     &:hover, &:focus, &:active {border-bottom: .1rem solid red}
   }
   &::placeholder {color: $raven !important;}
-  &:hover, &:focus, &:active {
+  &:focus, &:active {
     border: 0;
     border-bottom: .1rem solid $raven;
     box-shadow: none;
+    transition: all .03s cubic-bezier(0.045, 0.715, 0.250, 1.000);
   }
   &:focus, &:active {color: $cloud-burst}
   &.search {
