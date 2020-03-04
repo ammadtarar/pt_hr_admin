@@ -165,7 +165,7 @@
       "email": "priscilliaflores@mail.com",
       "status": "Candidats sélectionnés",
       "archive": false,
-      "cooptations": {
+      "cooptations": [{
         "dc2c5a1c-56e8-11ea-82b4-0242ac130003": {
           "id":"dc2c5a1c-56e8-11ea-82b4-0242ac130003",
           "nom": "Forest",
@@ -176,7 +176,7 @@
           "nom": "Leigh",
           "prenom": "Samantha"
         }
-      }
+      }]
     },
     "7411adba-525b-11ea-8d77-2e728ce88125": {
       "id": "7411adba-525b-11ea-8d77-2e728ce88125",
@@ -187,13 +187,7 @@
       "email": "eduardofisher@mail.com",
       "status": "Candidats sélectionnés",
       "archive": true,
-      "cooptations": {
-        "dc2c57ba-56e8-11ea-82b4-0242ac130003": {
-          "id":"dc2c57ba-56e8-11ea-82b4-0242ac130003",
-          "nom": "Fox",
-          "prenom": "Beth"
-        }
-      }
+      "cooptations": []
     },
     "7411b238-525b-11ea-8d77-2e728ce88125": {
       "id": "7411b238-525b-11ea-8d77-2e728ce88125",
