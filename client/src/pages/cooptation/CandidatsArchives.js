@@ -22,7 +22,15 @@ function CandidatsArchives() {
       <div className="tab-candidats-archives container">
         <div className="row-fluid">
 
-          <Suspense fallback={<div className="container-suspense"><p className="text-center">Loading ...</p></div>}>
+          <Suspense fallback={
+            <div className="container-suspense">
+              <div className="loader" id="loader">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+            </div>}>
+
             {Object.keys(candidats).length > 0 ?
 
               Object.keys(candidats)
@@ -36,12 +44,17 @@ function CandidatsArchives() {
                   </div>
                 : ''
               ))
-            :
-              <div className="container empty">
-                <img type="image/svg+xml" className="icon" src="/icons/archives.svg" alt=""/>
-                <p className="text-center">Aucun candidat archivé</p>
-                <p className="text-center">Vous n’avez pas encore archivé de candidat.</p>
-              </div>
+              :
+              Object.keys(candidats).length === 0 ?
+              setTimeout(() => {
+                return (
+                  <div className="container empty">
+                    <img type="image/svg+xml" className="icon" src="/icons/archives.svg" alt=""/>
+                    <p className="text-center">Aucun candidat archivé</p>
+                    <p className="text-center">Vous n’avez pas encore archivé de candidat.</p>
+                  </div>
+                )
+              }, 500) : ''
             }
           </Suspense>
 

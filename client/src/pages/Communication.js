@@ -49,7 +49,14 @@ function Communication() {
           </ul>
           <div className="row-fluid">
 
-            <Suspense fallback={<div className="container-suspense"><p className="text-center">Loading ...</p></div>}>
+            <Suspense fallback={
+              <div className="container-suspense">
+                <div className="loader" id="loader">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
+              </div>}>
 
               {Object.keys(communication).length > 0 ?
               <div className="large-3 medium-6 columns">
@@ -72,11 +79,16 @@ function Communication() {
                   )
                 })
                 :
-                <div className="container empty">
-                  <img type="image/svg+xml" className="icon" src="/icons/communication-b.svg" alt=""/>
-                  <p className="text-center">Aucune communication disponible</p>
-                  <p className="text-center">Il semblerait qu’il n’y ait pas de communication à afficher ici.</p>
-                </div>
+                Object.keys(communication).length === 0 ?
+                setTimeout(() => {
+                  return (
+                    <div className="container empty">
+                      <img type="image/svg+xml" className="icon" src="/icons/communication-b.svg" alt=""/>
+                      <p className="text-center">Aucune communication disponible</p>
+                      <p className="text-center">Il semblerait qu’il n’y ait pas de communication à afficher ici.</p>
+                    </div>
+                  )
+                }, 500) : ''
               }
             </Suspense>
 

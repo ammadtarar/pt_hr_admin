@@ -125,7 +125,15 @@ export class Recompenses extends React.Component {
             </div>
           </div>
 
-          <Suspense fallback={<div className="container-suspense"><p className="text-center">Loading ...</p></div>}>
+          <Suspense fallback={
+            <div className="container-suspense">
+              <div className="loader" id="loader">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+            </div>}>
+
             {Object.keys(recompenses).length > 0 ?
 
                 Object.keys(recompenses)
@@ -137,13 +145,18 @@ export class Recompenses extends React.Component {
                     <BoxRecompense key={recompenses[key].id} data={recompenses[key]} dataToChange={this.dataToChange}/>
                   )
                 })
-              :
-              <div className="container empty">
-                <img type="image/svg+xml" className="icon" src="/icons/recompense.svg" alt=""/>
-                <p className="text-center">Créez votre première récompense !</p>
-                <p className="text-center">Vous pouvez dès à présent créer votre première récompense en cliquant sur le bouton “Créer” en haut à droite.</p>
-              </div>
-            }
+                :
+                Object.keys(recompenses).length === 0 ?
+                setTimeout(() => {
+                  return (
+                    <div className="container empty">
+                      <img type="image/svg+xml" className="icon" src="/icons/recompense.svg" alt=""/>
+                      <p className="text-center">Créez votre première récompense !</p>
+                      <p className="text-center">Vous pouvez dès à présent créer votre première récompense en cliquant sur le bouton “Créer” en haut à droite.</p>
+                    </div>
+                  )
+                }, 500) : ''
+              }
           </Suspense>
         </div>
       </div>

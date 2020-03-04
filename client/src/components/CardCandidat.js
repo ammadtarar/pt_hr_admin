@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { date } from '../functions/Date.js'
 
 function CardCandidat(props) {
+  const [hover, setHover] = useState('')
   const data = props.data
   const dateToFormat = props.data.date
 
@@ -9,8 +10,12 @@ function CardCandidat(props) {
     props.popup(data)
   }
 
+  const rejeter = (e,data) => {
+    props.rejeter(data)
+  }
+
   return (
-    <div className="box-encart">
+    <div className="box-encart" onMouseOver={(e) => setHover(data.id)} onMouseOut={(e) => setHover(false)}>
       <div className={`icon ${data.archive === true ? 'athens-gray': ''}`}>{data.prenom.charAt(0) + data.nom.charAt(0)}</div>
       <p className="nom">{data.prenom + ' ' + data.nom}</p>
       <p className="titre">{data.titre}</p>
@@ -31,6 +36,7 @@ function CardCandidat(props) {
       {data.archive === false ? <div className="box-rejeter">
         <hr/>
         <img onClick={(e) => popup(e,data)} type="image/svg+xml" className="rejeter" src="/icons/rejeter.svg" alt=""/>
+        {hover === data.id ? <button onClick={(e) => rejeter(e,data)} className="btn-third">Rejeter la candidature</button> : ''}
       </div> : <br/>}
     </div>
   )

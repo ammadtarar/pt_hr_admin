@@ -51,7 +51,15 @@ function Demandes(props) {
       {/* End popup */}
 
       <div className="tab-demandes container">
-        <Suspense fallback={<div className="container-suspense"><p className="text-center">Loading ...</p></div>}>
+        <Suspense fallback={
+          <div className="container-suspense">
+            <div className="loader" id="loader">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+          </div>}>
+
           {Object.keys(demandes).length > 0 ?
 
               Object.keys(demandes).map((key) => {
@@ -60,11 +68,16 @@ function Demandes(props) {
                 )
               })
             :
-            <div className="container empty">
-              <img type="image/svg+xml" className="icon" src="/icons/demandes.svg" alt=""/>
-              <p className="text-center">Aucune demande en attente</p>
-              <p className="text-center">Il semblerait qu’il n’y ait pas de demande de récompense en attente.</p>
-            </div>
+            Object.keys(demandes).length === 0 ?
+            setTimeout(() => {
+              return (
+                <div className="container empty">
+                  <img type="image/svg+xml" className="icon" src="/icons/demandes.svg" alt=""/>
+                  <p className="text-center">Aucune demande en attente</p>
+                  <p className="text-center">Il semblerait qu’il n’y ait pas de demande de récompense en attente.</p>
+                </div>
+              )
+            }, 500) : ''
           }
         </Suspense>
       </div>

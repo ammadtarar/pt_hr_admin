@@ -23,7 +23,7 @@ export function comptesDemandesNonTraite(recompenses) {
       return recompenses[key]
   })
 
-  var demandesFiltres = demandes.filter((el) => {
+  const demandesFiltres = demandes.filter((el) => {
     return el != null
   })
   return demandesFiltres

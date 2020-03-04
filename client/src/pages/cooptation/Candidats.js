@@ -1,7 +1,8 @@
 import React from 'react'
 import CardCandidat from '../../components/CardCandidat'
+import { triCooptes, triRecus, triEntretiens, triSelectionne } from '../../functions/TriCandidats.js'
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
-const data = require('../../datas.json')
+const datas = require('../../datas.json')
 
 // a little function to help us with reordering the result
 const reorder = (list, startIndex, endIndex) => {
@@ -29,7 +30,7 @@ const move = (source, destination, droppableSource, droppableDestination) => {
 
 export class Candidats extends React.Component {
   state = {
-    'data': data.candidats,
+    'data': datas.candidats,
     'candidatsCooptes': [],
     'candidaturesRecues': [],
     'candidatsEntretiens': [],
@@ -176,6 +177,26 @@ export class Candidats extends React.Component {
     })
   }
 
+  rejeter = (data) => {
+    const id = data.id
+    const col = data.status === 'Candidats cooptés' ? 'candidatsCooptes' : data.status === 'Candidatures reçues' ? 'candidaturesRecues' : data.status === 'Entretiens en cours' ? 'candidatsEntretiens' : data.status === 'Candidats sélectionnés' ? 'candidatsSelectionne' : ''
+
+    const newState = Object.keys(this.state[col]).map((key) => {
+      const item = this.state[col][key]
+      if(item.id !== id) {
+        return item != null
+      }
+    })
+
+    const newStateFiltres = newState.filter((el) => {
+      return el != null
+    })
+
+    this.setState({
+      [col]: newStateFiltres
+    })
+  }
+
   archiverCandidat(e) {
     e.preventDefault()
     this.setState({popupArchiveOpen: false})
@@ -227,7 +248,6 @@ export class Candidats extends React.Component {
         return searchObj(obj, value)
       })
     })
-
   }
 
   componentDidMount() {
@@ -240,29 +260,39 @@ export class Candidats extends React.Component {
     //   })
     // catch(error => console.log(error))
 
-    const data = this.state.data
     // Tri des candidats dans les 4 colonnes en fonction de leur status
-    const triCooptes = Object.keys(data).reduce((item, e) => {
+    const data = this.state.data
+    const candidatsNonArchives = Object.keys(data).map((key) => {
+      const item = data[key]
+      if(item.archive === false) {
+        return item
+      }
+    })
+    const candidats = candidatsNonArchives.filter((el) => {
+      return el != null
+    })
+
+    const triCooptes = Object.keys(candidats).reduce((item, e) => {
       let value = ['Candidats cooptés']
-      if (value.includes(data[e].status)) item[e] = data[e]
+      if (value.includes(candidats[e].status)) item[e] = candidats[e]
       return item
     }, {})
 
-    const triRecus = Object.keys(data).reduce((item, e) => {
+    const triRecus = Object.keys(candidats).reduce((item, e) => {
       let value = ['Candidatures reçues']
-      if (value.includes(data[e].status)) item[e] = data[e]
+      if (value.includes(candidats[e].status)) item[e] = candidats[e]
       return item
     }, {})
 
-    const triEntretiens = Object.keys(data).reduce((item, e) => {
+    const triEntretiens = Object.keys(candidats).reduce((item, e) => {
       let value = ['Entretiens en cours']
-      if (value.includes(data[e].status)) item[e] = data[e]
+      if (value.includes(candidats[e].status)) item[e] = candidats[e]
       return item
     }, {})
 
-    const triSelectionne = Object.keys(data).reduce((item, e) => {
+    const triSelectionne = Object.keys(candidats).reduce((item, e) => {
       let value = ['Candidats sélectionnés']
-      if (value.includes(data[e].status)) item[e] = data[e]
+      if (value.includes(candidats[e].status)) item[e] = candidats[e]
       return item
     }, {})
 
@@ -299,7 +329,7 @@ export class Candidats extends React.Component {
             <div className={`popup center ${this.state.popupArchiveOpen === true ? 'open' : ''}`}>
               <h4 className="text-center">Etes-vous sûr de vouloir archiver le candidat <span>{this.state.popupData.prenom + ' ' + this.state.popupData.nom}</span> ?</h4>
               <p className="text-center">Cette action est irréversible et notifiera automatiquement le collaborateur l’ayant coopté.</p>
-              <button onClick={(e) => this.archiverCandidat(e,data)} className="btn-primary">Oui, archiver</button>
+              <button onClick={(e) => this.archiverCandidat(e)} className="btn-primary">Oui, archiver</button>
               <button onClick={(e) => this.setState({popupArchiveOpen: false})} className="btn-secondary">Annuler</button>
             </div>
           </div>
@@ -313,7 +343,7 @@ export class Candidats extends React.Component {
 
           <div className={`wrapper-popup ${this.state.popupStatusOpen === true ? 'open' : ''}`}>
             <div className={`popup center ${this.state.popupStatusOpen === true ? 'open' : ''}`}>
-              <h4 className="text-center">Etes-vous sûr de vouloir changer le statut de candidature de <span>{this.state.popupData.prenom + ' ' + this.state.popupData.nom}</span> de <span>{this.state.popupData.status}</span> à <span>{this.state.popupData.droppableColText}</span>, pour l’offre de <span>{this.state.popupData.titre}</span> ?</h4>
+              <h4 className="text-center">Êtes-vous sûr de vouloir changer le statut de candidature de <span>{this.state.popupData.prenom + ' ' + this.state.popupData.nom}</span> de <span>{this.state.popupData.status}</span> à <span>{this.state.popupData.droppableColText}</span>, pour l’offre de <span>{this.state.popupData.titre}</span> ?</h4>
               <p className="text-center">Cette action est irréversible et notifiera automatiquement le collaborateur l’ayant coopté.</p>
               <div className="box-note-popup">
                 <p><strong>Conseil </strong><br/>Pensez à archiver les candidats non sélectionnés pour cette offre !</p>
@@ -344,7 +374,7 @@ export class Candidats extends React.Component {
                 <div className="large-3 medium-6 columns">
                   <div className="box-item">
                     <h4 className="light">Candidats cooptés</h4>
-                    <div className="container-scroll">
+                    <div className="container-scroll candidats-cooptes">
 
                       {candidatsCooptes.length > 0 ?
 
@@ -369,7 +399,7 @@ export class Candidats extends React.Component {
                                             {...provided.draggableProps}
                                             {...provided.dragHandleProps}
                                             >
-                                              <CardCandidat data={key} popup={this.popupArchive}/>
+                                              <CardCandidat data={key} rejeter={this.rejeter} popup={this.popupArchive}/>
                                           </div>
                                         )}
                                       </Draggable>
@@ -399,7 +429,7 @@ export class Candidats extends React.Component {
                 <div className="large-3 medium-6 columns">
                   <div className="box-item">
                     <h4 className="light">Candidatures reçues</h4>
-                    <div className="container-scroll">
+                    <div className="container-scroll candidatures-recues">
 
                       {candidaturesRecues.length > 0 ?
 
@@ -424,7 +454,7 @@ export class Candidats extends React.Component {
                                             {...provided.draggableProps}
                                             {...provided.dragHandleProps}
                                             >
-                                              <CardCandidat data={key} popup={this.popupArchive}/>
+                                              <CardCandidat data={key} rejeter={this.rejeter} popup={this.popupArchive}/>
                                           </div>
                                         )}
                                       </Draggable>
@@ -454,7 +484,7 @@ export class Candidats extends React.Component {
                 <div className="large-3 medium-6 columns">
                   <div className="box-item">
                     <h4 className="light">Entretiens en cours</h4>
-                    <div className="container-scroll">
+                    <div className="container-scroll entretiens-en-cours">
 
                       {candidatsEntretiens.length > 0 ?
 
@@ -476,7 +506,7 @@ export class Candidats extends React.Component {
                                             {...provided.draggableProps}
                                             {...provided.dragHandleProps}
                                             >
-                                              <CardCandidat data={key} popup={this.popupArchive}/>
+                                              <CardCandidat data={key} rejeter={this.rejeter} popup={this.popupArchive}/>
                                           </div>
                                         )}
                                       </Draggable>
@@ -506,7 +536,7 @@ export class Candidats extends React.Component {
                 <div className="large-3 medium-6 columns col-candidats-selectionnes">
                   <div className="box-item denim">
                     <h4 className="light">Candidats sélectionnés</h4>
-                    <div className="container-scroll">
+                    <div className="container-scroll candidats-selectionnes">
 
                       {candidatsSelectionne.length > 0 ?
 
@@ -531,7 +561,7 @@ export class Candidats extends React.Component {
                                             {...provided.draggableProps}
                                             {...provided.dragHandleProps}
                                             >
-                                              <CardCandidat data={key} popup={this.popupArchive}/>
+                                              <CardCandidat data={key} rejeter={this.rejeter} popup={this.popupArchive}/>
                                           </div>
                                         )}
                                       </Draggable>

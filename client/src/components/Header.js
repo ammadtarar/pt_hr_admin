@@ -39,8 +39,7 @@ export class Header extends React.Component {
             </ul>
           </nav>
           <ul className="profile">
-            <li onMouseEnter={(e) => this.toggleProfileMenu(e)}
-                onMouseLeave={(e) => this.toggleProfileMenu(e)}
+            <li onClick={(e) => this.toggleProfileMenu(e)}
                 className={this.state.profileOpen === true ? 'open' : ''}><span>{this.state.utilisateur.prenom}</span>
               <ul className={`sub-menu ${this.state.profileOpen === true ? 'open' : ''}`}>
                 <li onClick={(e) => this.deconnexion(e)}>Se déconnecter</li>

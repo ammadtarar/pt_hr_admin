@@ -28,7 +28,15 @@ function Annonces(props) {
   return (
     <div className="wrapper">
       <div className="tab-annonces container">
-        <Suspense fallback={<div className="container-suspense"><p className="text-center">Loading ...</p></div>}>
+        <Suspense fallback={
+          <div className="container-suspense">
+            <div className="loader" id="loader">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+          </div>}>
+          
           {Object.keys(annonces).length > 0 ?
 
             Object.keys(annonces)
@@ -41,11 +49,16 @@ function Annonces(props) {
               )
             })
             :
-            <div className="container empty">
-              <img type="image/svg+xml" className="icon" src="/icons/annonces.svg" alt=""/>
-              <p className="text-center">Aucune annonce disponible</p>
-              <p className="text-center">Il semblerait qu’il n’y ait pas d’annonce à afficher ici.</p>
-            </div>
+            Object.keys(annonces).length === 0 ?
+            setTimeout(() => {
+              return (
+                <div className="container empty">
+                  <img type="image/svg+xml" className="icon" src="/icons/annonces.svg" alt=""/>
+                  <p className="text-center">Aucune annonce disponible</p>
+                  <p className="text-center">Il semblerait qu’il n’y ait pas d’annonce à afficher ici.</p>
+                </div>
+              )
+            }, 500) : ''
           }
         </Suspense>
       </div>
