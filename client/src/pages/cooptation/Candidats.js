@@ -184,7 +184,7 @@ export class Candidats extends React.Component {
     const newState = Object.keys(this.state[col]).map((key) => {
       const item = this.state[col][key]
       if(item.id !== id) {
-        return item != null
+        return item
       }
     })
 
