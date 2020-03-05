@@ -61,7 +61,17 @@ export class Candidats extends React.Component {
 
   getList = id => this.state[this.idList[id]]
 
+  onDragStart = start => {
+    this.setState({
+      droppable: start.source.droppableId
+    })
+  }
+
   onDragEnd = result => {
+    this.setState({
+      droppable: null
+    })
+
     const { source, destination } = result
 
     // dropped outside the list
@@ -101,12 +111,25 @@ export class Candidats extends React.Component {
       //Ouvrir popup : obtenir obj candidat à changer + remplir text du droppable visé
       const idToMove = source.index
       const data = this.getList(source.droppableId)[idToMove]
+
       this.setState({
         popupStatusOpen: true,
         popupData: {
           ...data,
           droppableColText: destination.droppableId === 'droppable' ? 'Coopté' : destination.droppableId === 'droppable2' ? 'Candidature reçue' : destination.droppableId === 'droppable3' ? 'Entretien en cours' : destination.droppableId === 'droppable4' ? 'Sélectionné' : ''
         }
+      })
+
+      const resultDroppable1 = result.droppable ? result.droppable : this.state.candidatsCooptes
+      const resultDroppable2 = result.droppable2 ? result.droppable2 : this.state.candidaturesRecues
+      const resultDroppable3 = result.droppable3 ? result.droppable3 : this.state.candidatsEntretiens
+      const resultDroppable4 = result.droppable4 ? result.droppable4 : this.state.candidatsSelectionne
+
+      this.setState({
+        'candidatsCooptes': resultDroppable1,
+        'candidaturesRecues': resultDroppable2,
+        'candidatsEntretiens': resultDroppable3,
+        'candidatsSelectionne': resultDroppable4
       })
 
       //Clique popup changer status candidat: changer status ou annuler
@@ -134,17 +157,18 @@ export class Candidats extends React.Component {
         }
 
         this.setState({
-          'candidatsCooptes': result.droppable ? result.droppable : this.state.candidatsCooptes,
-          'candidaturesRecues': result.droppable2 ? result.droppable2 : this.state.candidaturesRecues,
-          'candidatsEntretiens': result.droppable3 ? result.droppable3 : this.state.candidatsEntretiens,
-          'candidatsSelectionne': result.droppable4 ? result.droppable4 : this.state.candidatsSelectionne,
+          'candidatsCooptes': resultDroppable1,
+          'candidaturesRecues': resultDroppable2,
+          'candidatsEntretiens': resultDroppable3,
+          'candidatsSelectionne': resultDroppable4,
           'saveForSearch': {
-            'candidatsCooptes': result.droppable ? result.droppable : this.state.candidatsCooptes,
-            'candidaturesRecues': result.droppable2 ? result.droppable2 : this.state.candidaturesRecues,
-            'candidatsEntretiens': result.droppable3 ? result.droppable3 : this.state.candidatsEntretiens,
-            'candidatsSelectionne': result.droppable4 ? result.droppable4 : this.state.candidatsSelectionne
+            'candidatsCooptes': resultDroppable1,
+            'candidaturesRecues': resultDroppable2,
+            'candidatsEntretiens': resultDroppable3,
+            'candidatsSelectionne': resultDroppable4,
           },
-          'popupStatusOpen': false
+          'popupStatusOpen': false,
+          'popupData': []
         })
       })
       // Ou annuler
@@ -152,17 +176,12 @@ export class Candidats extends React.Component {
         const ko = document.getElementById(`koChangeStatus${i + 1}`)
         ko.addEventListener('click', () => {
           this.setState({
-            'candidatsCooptes': this.state.candidatsCooptes,
-            'candidaturesRecues': this.state.candidaturesRecues,
-            'candidatsEntretiens': this.state.candidatsEntretiens,
-            'candidatsSelectionne': this.state.candidatsSelectionne,
-            'saveForSearch': {
-              'candidatsCooptes': this.state.candidatsCooptes,
-              'candidaturesRecues': this.state.candidaturesRecues,
-              'candidatsEntretiens': this.state.candidatsEntretiens,
-              'candidatsSelectionne': this.state.candidatsSelectionne
-            },
-            'popupStatusOpen': false
+            'candidatsCooptes': this.state.saveForSearch.candidatsCooptes,
+            'candidaturesRecues': this.state.saveForSearch.candidaturesRecues,
+            'candidatsEntretiens': this.state.saveForSearch.candidatsEntretiens,
+            'candidatsSelectionne': this.state.saveForSearch.candidatsSelectionne,
+            'popupStatusOpen': false,
+            'popupData': []
           })
         })
       }
@@ -179,7 +198,10 @@ export class Candidats extends React.Component {
 
   rejeter = (data) => {
     const id = data.id
-    const col = data.status === 'Candidats cooptés' ? 'candidatsCooptes' : data.status === 'Candidatures reçues' ? 'candidaturesRecues' : data.status === 'Entretiens en cours' ? 'candidatsEntretiens' : data.status === 'Candidats sélectionnés' ? 'candidatsSelectionne' : ''
+    const col = data.status === 'Candidats cooptés' ? 'candidatsCooptes' :
+      data.status === 'Candidatures reçues' ? 'candidaturesRecues' :
+      data.status === 'Entretiens en cours' ? 'candidatsEntretiens' :
+      data.status === 'Candidats sélectionnés' ? 'candidatsSelectionne' : ''
 
     const newState = Object.keys(this.state[col]).map((key) => {
       const item = this.state[col][key]
@@ -369,7 +391,7 @@ export class Candidats extends React.Component {
               </div>
             </div>
 
-            <DragDropContext onDragEnd={this.onDragEnd}>
+            <DragDropContext onDragStart={this.onDragStart} onDragEnd={this.onDragEnd}>
               <div className="row-fluid">
                 <div className="large-3 medium-6 columns">
                   <div className="box-item">
@@ -378,16 +400,15 @@ export class Candidats extends React.Component {
 
                       {candidatsCooptes.length > 0 ?
 
-                        <Droppable droppableId="droppable">
+                        <Droppable isDropDisabled droppableId="droppable">
                           {(provided, snapshot) => (
                             <div
                               ref={provided.innerRef}>
                               {candidatsCooptes
-                                .sort((a, b) => {
-                                  return new Date(a.date) < new Date(b.date) ? 1 : (new Date(a.date) > new Date(b.date) ? -1 : 0)
-                                })
+                                // .sort((a, b) => {
+                                //   return new Date(a.date) < new Date(b.date) ? 1 : (new Date(a.date) > new Date(b.date) ? -1 : 0)
+                                // })
                                 .map((key, index) => {
-                                  if (key.archive === false) {
                                     return (
                                       <Draggable
                                         key={key.id}
@@ -395,23 +416,24 @@ export class Candidats extends React.Component {
                                         index={index}>
                                         {(provided, snapshot) => (
                                           <div
+                                            className={this.state.popupData.id === key.id ? 'draggable' : ''}
                                             ref={provided.innerRef}
                                             {...provided.draggableProps}
                                             {...provided.dragHandleProps}
                                             >
-                                              <CardCandidat data={key} rejeter={this.rejeter} popup={this.popupArchive}/>
+                                              <CardCandidat className="top" data={key} rejeter={this.rejeter} popup={this.popupArchive}/>
                                           </div>
                                         )}
                                       </Draggable>
                                     )
-                                  }}
+                                  }
                                 )}
                               {provided.placeholder}
                             </div>
                           )}
                         </Droppable>
                         :
-                        <Droppable droppableId="droppable">
+                        <Droppable isDropDisabled droppableId="droppable">
                           {(provided, snapshot) => (
                           <div ref={provided.innerRef}>
                             <div className={`container empty candidats ${candidatsCooptes.length === 0 ? '' : ''}`}>
@@ -433,16 +455,17 @@ export class Candidats extends React.Component {
 
                       {candidaturesRecues.length > 0 ?
 
-                        <Droppable droppableId="droppable2">
+                        <Droppable
+                          isDropDisabled={this.state.droppable === 'droppable' ? false : true}
+                          droppableId="droppable2">
                           {(provided, snapshot) => (
                             <div
                               ref={provided.innerRef}>
                               {candidaturesRecues
-                                .sort((a, b) => {
-                                  return new Date(a.date) < new Date(b.date) ? 1 : (new Date(a.date) > new Date(b.date) ? -1 : 0)
-                                })
+                                // .sort((a, b) => {
+                                //   return new Date(a.date) < new Date(b.date) ? 1 : (new Date(a.date) > new Date(b.date) ? -1 : 0)
+                                // })
                                 .map((key, index) => {
-                                  if (key.archive === false) {
                                     return (
                                       <Draggable
                                         key={key.id}
@@ -450,6 +473,7 @@ export class Candidats extends React.Component {
                                         index={index}>
                                         {(provided, snapshot) => (
                                           <div
+                                            className={this.state.popupData.id === key.id ? 'draggable' : ''}
                                             ref={provided.innerRef}
                                             {...provided.draggableProps}
                                             {...provided.dragHandleProps}
@@ -459,14 +483,16 @@ export class Candidats extends React.Component {
                                         )}
                                       </Draggable>
                                     )
-                                  }}
+                                  }
                                 )}
                               {provided.placeholder}
                             </div>
                           )}
                         </Droppable>
                         :
-                        <Droppable droppableId="droppable2">
+                        <Droppable
+                          isDropDisabled={this.state.droppable === 'droppable' ? false : true}
+                          droppableId="droppable2">
                           {(provided, snapshot) => (
                           <div ref={provided.innerRef}>
                             <div className={`container empty candidats ${candidaturesRecues.length === 0 ? '' : ''}`}>
@@ -488,13 +514,17 @@ export class Candidats extends React.Component {
 
                       {candidatsEntretiens.length > 0 ?
 
-                        <Droppable droppableId="droppable3">
+                        <Droppable
+                          isDropDisabled={this.state.droppable === 'droppable2' ? false : true}
+                          droppableId="droppable3">
                           {(provided, snapshot) => (
                             <div
                               ref={provided.innerRef}>
                               {candidatsEntretiens
+                                // .sort((a, b) => {
+                                //   return new Date(a.date) < new Date(b.date) ? 1 : (new Date(a.date) > new Date(b.date) ? -1 : 0)
+                                // })
                                 .map((key, index) => {
-                                  if (key.archive === false) {
                                     return (
                                       <Draggable
                                         key={key.id}
@@ -502,6 +532,7 @@ export class Candidats extends React.Component {
                                         index={index}>
                                         {(provided, snapshot) => (
                                           <div
+                                            className={this.state.popupData.id === key.id ? 'draggable' : ''}
                                             ref={provided.innerRef}
                                             {...provided.draggableProps}
                                             {...provided.dragHandleProps}
@@ -511,14 +542,16 @@ export class Candidats extends React.Component {
                                         )}
                                       </Draggable>
                                     )
-                                  }}
+                                  }
                                 )}
                               {provided.placeholder}
                             </div>
                           )}
                         </Droppable>
                         :
-                        <Droppable droppableId="droppable3">
+                        <Droppable
+                          isDropDisabled={this.state.droppable === 'droppable2' ? false : true}
+                          droppableId="droppable3">
                           {(provided, snapshot) => (
                           <div ref={provided.innerRef}>
                             <div className={`container empty candidats ${candidatsEntretiens.length === 0 ? '' : ''}`}>
@@ -540,23 +573,26 @@ export class Candidats extends React.Component {
 
                       {candidatsSelectionne.length > 0 ?
 
-                        <Droppable droppableId="droppable4">
+                        <Droppable
+                          isDropDisabled={this.state.droppable === 'droppable3' ? false : true}
+                          droppableId="droppable4">
                           {(provided, snapshot) => (
                             <div
                               ref={provided.innerRef}>
                               {candidatsSelectionne
-                                .sort((a, b) => {
-                                  return new Date(a.date) < new Date(b.date) ? 1 : (new Date(a.date) > new Date(b.date) ? -1 : 0)
-                                })
+                                // .sort((a, b) => {
+                                //   return new Date(a.date) < new Date(b.date) ? 1 : (new Date(a.date) > new Date(b.date) ? -1 : 0)
+                                // })
                                 .map((key, index) => {
-                                  if (key.archive === false) {
                                     return (
                                       <Draggable
+                                        isDragDisabled={true}
                                         key={key.id}
                                         draggableId={key.id}
                                         index={index}>
                                         {(provided, snapshot) => (
                                           <div
+                                            className={this.state.popupData.id === key.id ? 'draggable' : ''}
                                             ref={provided.innerRef}
                                             {...provided.draggableProps}
                                             {...provided.dragHandleProps}
@@ -566,14 +602,16 @@ export class Candidats extends React.Component {
                                         )}
                                       </Draggable>
                                     )
-                                  }}
+                                  }
                                 )}
                               {provided.placeholder}
                             </div>
                           )}
                         </Droppable>
                         :
-                        <Droppable droppableId="droppable4">
+                        <Droppable
+                          isDropDisabled={this.state.droppable === 'droppable3' ? false : true}
+                          droppableId="droppable4">
                           {(provided, snapshot) => (
                           <div ref={provided.innerRef}>
                             <div className={`container empty candidats candidats-selectionnes ${candidatsSelectionne.length === 0 ? '' : ''}`}>

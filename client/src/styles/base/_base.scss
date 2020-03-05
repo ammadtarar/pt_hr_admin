@@ -592,6 +592,7 @@ main.cooptation, main.recompenses {
    .col-candidats-selectionnes {
      .box-rejeter {display: none}
    }
+   .draggable {opacity: .5; transition: all .03s cubic-bezier(0.045, 0.715, 0.250, 1.000)}
   .box-encart {
     padding: 2rem;
     margin-bottom: 1.5rem;
@@ -646,7 +647,7 @@ main.cooptation, main.recompenses {
     .rejeter {
       margin-top: -1rem;
       transition: all .03s cubic-bezier(0.045, 0.715, 0.250, 1.000);
-      &:hover {filter: brightness(115%);}
+      &:hover {filter: brightness(115%)}
     }
   }
   .tab-candidats-archives {
@@ -659,6 +660,9 @@ main.cooptation, main.recompenses {
         transition: all .03s cubic-bezier(0.045, 0.715, 0.250, 1.000);
         &:hover {border: .2rem solid rgba(21, 90, 196, .5)}
       }
+    }
+    .container-scroll.candidats-selectionnes {
+      .box-encart {cursor: auto}
     }
     .box-item {
       height: 68rem; max-height: 75vh;
