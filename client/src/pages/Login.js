@@ -38,6 +38,12 @@ export class Login extends React.Component {
     const utilisateurs = this.state.utilisateurs
     const email = this.state.email
 
+    //Si compteur d'essai de connections à 3, remise à zéro
+    if(this.state.compteurConnections === 3) {
+      this.setState({'compteurConnections': 0})
+      localStorage.setItem('compteurConnections', 0)
+    }
+
     //Check si format email valide
     const regexp = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
     const testFormatEmail = regexp.test(email)
@@ -193,11 +199,11 @@ export class Login extends React.Component {
             <div className="large-5 columns">
               <a href="/" className="logo" rel="noopener noreferrer" title=""><img src="/icons/logo-pushtalents.svg" alt=""/></a>
 
-              {this.state.steps.demandeCode === true || this.state.compteurConnections > 2 ?
+              {this.state.steps.demandeCode === true || this.state.compteurConnections === 3 ?
               <div className="box-item step-1">
                 <div>
                   <h2>Bienvenue</h2>
-                  {this.state.compteurConnections > 2 ? <p className="note note-connection-echec">Vous avez tenté de vous connecter 3 fois sans succès, merci de demander un nouveau code.</p> : ''}
+                  {this.state.compteurConnections === 3 ? <p className="note note-connection-echec">Vous avez tenté de vous connecter 3 fois sans succès, merci de demander un nouveau code.</p> : ''}
                   <label>Adresse email</label>
                   <input type="text" name="email" className={this.state.errors.email} onClick={(e) => this.removeErrorText(e)} onChange={(e) => this.handleChangeText(e)} value={this.state.email} placeholder="Votre adresse email"/>
                   <p className="note note-demande-code">Nous vous enverrons un code d’activation à 6 chiffres.</p>
