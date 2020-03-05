@@ -43,7 +43,7 @@ function Demandes(props) {
       <div className={`wrapper-popup ${popupOpen === true ? 'open' : ''}`}>
         <div className={`popup center ${popupOpen === true ? 'open' : ''}`}>
           <h4 className="text-center">Etes-vous sûr de vouloir accepter la demande de récompenses de <span>{popupData.prenom + ' ' + popupData.nom}</span> ?</h4>
-          <p className="text-center">Cette action est irréversible et notifiera automatiquement le collaborateur.</p>
+          <p className="text-center">Cette action est irréversible.</p>
           <button onClick={(e) => traiterDemande(e)} className="btn-primary">Confirmer</button>
           <button onClick={(e) => setPopupOpen(false)} className="btn-secondary">Annuler</button>
         </div>
