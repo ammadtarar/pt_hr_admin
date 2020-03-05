@@ -65,8 +65,8 @@ export class Recompenses extends React.Component {
           ...this.state.data,
           [newID]: {
             ...this.state.newRecompense,
-            "id": newID,
-            "checked": false
+            id: newID,
+            checked: true
           }
         }
         this.setState({data: recompenses, popupOpen: false, newRecompense: {}})
