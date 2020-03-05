@@ -68,14 +68,13 @@ export class Candidats extends React.Component {
   }
 
   onDragEnd = result => {
-    this.setState({
-      droppable: null
-    })
-
     const { source, destination } = result
 
     // dropped outside the list
     if (!destination) {
+      this.setState({
+        droppable: null
+      })
       return
     }
 
@@ -157,6 +156,7 @@ export class Candidats extends React.Component {
         }
 
         this.setState({
+          droppable: null,
           'candidatsCooptes': resultDroppable1,
           'candidaturesRecues': resultDroppable2,
           'candidatsEntretiens': resultDroppable3,
@@ -176,6 +176,7 @@ export class Candidats extends React.Component {
         const ko = document.getElementById(`koChangeStatus${i + 1}`)
         ko.addEventListener('click', () => {
           this.setState({
+            droppable: null,
             'candidatsCooptes': this.state.saveForSearch.candidatsCooptes,
             'candidaturesRecues': this.state.saveForSearch.candidaturesRecues,
             'candidatsEntretiens': this.state.saveForSearch.candidatsEntretiens,
@@ -396,7 +397,7 @@ export class Candidats extends React.Component {
                 <div className="large-3 medium-6 columns">
                   <div className="box-item">
                     <h4 className="light">Candidats cooptés</h4>
-                    <div className="container-scroll candidats-cooptes">
+                    <div className={`container-scroll candidats-cooptes ${this.state.droppable}`}>
 
                       {candidatsCooptes.length > 0 ?
 
@@ -421,7 +422,7 @@ export class Candidats extends React.Component {
                                             {...provided.draggableProps}
                                             {...provided.dragHandleProps}
                                             >
-                                              <CardCandidat className="top" data={key} rejeter={this.rejeter} popup={this.popupArchive}/>
+                                              <CardCandidat data={key} rejeter={this.rejeter} popup={this.popupArchive}/>
                                           </div>
                                         )}
                                       </Draggable>
@@ -451,7 +452,7 @@ export class Candidats extends React.Component {
                 <div className="large-3 medium-6 columns">
                   <div className="box-item">
                     <h4 className="light">Candidatures reçues</h4>
-                    <div className="container-scroll candidatures-recues">
+                    <div className={`container-scroll candidatures-recues ${this.state.droppable}`}>
 
                       {candidaturesRecues.length > 0 ?
 
@@ -510,7 +511,7 @@ export class Candidats extends React.Component {
                 <div className="large-3 medium-6 columns">
                   <div className="box-item">
                     <h4 className="light">Entretiens en cours</h4>
-                    <div className="container-scroll entretiens-en-cours">
+                    <div className={`container-scroll entretiens-en-cours ${this.state.droppable}`}>
 
                       {candidatsEntretiens.length > 0 ?
 

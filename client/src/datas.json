@@ -314,7 +314,7 @@
       "date": "2020-12-15T01:00:00.000Z",
       "email": "shawnpatrick@mail.com",
       "status": "Entretiens en cours",
-      "archive": true,
+      "archive": false,
       "cooptations": {
         "dc2c5a1c-56e8-11ea-82b4-0242ac130003": {
           "id":"dc2c5a1c-56e8-11ea-82b4-0242ac130003",
@@ -375,7 +375,7 @@
       "date": "2020-12-19T01:00:00.000Z",
       "email": "sophie.sanson@mail.com",
       "status": "Candidats cooptés",
-      "archive": true,
+      "archive": false,
       "cooptations": {
         "dc2c5a1c-56e8-11ea-82b4-0242ac130003": {
           "id":"dc2c5a1c-56e8-11ea-82b4-0242ac130003",
@@ -419,7 +419,7 @@
       "date": "2020-12-17T01:00:00.000Z",
       "email": "irmamckinney@mail.com",
       "status": "Entretiens en cours",
-      "archive": true,
+      "archive": false,
       "cooptations": {
         "dc2c5a1c-56e8-11ea-82b4-0242ac130003": {
           "id":"dc2c5a1c-56e8-11ea-82b4-0242ac130003",
@@ -541,7 +541,7 @@
       "date": "2020-12-19T01:00:00.000Z",
       "email": "chris.wayne@mail.com",
       "status": "Candidats cooptés",
-      "archive": true,
+      "archive": false,
       "cooptations": {
         "dc2c5a1c-56e8-11ea-82b4-0242ac130003": {
           "id":"dc2c5a1c-56e8-11ea-82b4-0242ac130003",
