@@ -72,9 +72,7 @@ export class Candidats extends React.Component {
 
     // dropped outside the list
     if (!destination) {
-      this.setState({
-        droppable: null
-      })
+      this.setState({droppable: null})
       return
     }
 
