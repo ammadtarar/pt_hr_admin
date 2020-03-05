@@ -36,7 +36,7 @@ function CardCandidat(props) {
       {data.archive === false ? <div className="box-rejeter">
         <hr/>
         <img onClick={(e) => popup(e,data)} type="image/svg+xml" className="rejeter" src="/icons/rejeter.svg" alt=""/>
-        {hover === data.id ? <button onClick={(e) => rejeter(e,data)} className="btn-third">Rejeter la candidature</button> : ''}
+        <button onClick={(e) => rejeter(e,data)} className={`btn-third ${hover === data.id ? 'display' : ''}`}>Rejeter la candidature</button>
       </div> : <br/>}
     </div>
   )

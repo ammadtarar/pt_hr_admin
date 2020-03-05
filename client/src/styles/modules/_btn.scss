@@ -34,6 +34,12 @@ button, a {
     color: white;
     font-size: 1.3rem;
     background-color: $cloud-burst;
+    visibility: 0;
+    opacity: 0;
+    &.display {
+      visibility: visible;
+      opacity: 1;
+    }
     &:hover {background-color: $big-stone}
   }
 }
