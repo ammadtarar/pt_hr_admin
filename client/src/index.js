@@ -1,19 +1,13 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { Provider } from 'react-redux'
 import AppRouter from './routers/AppRouter'
-import configureStore from './store/configureStore'
 import 'foundation-sites/dist/css/foundation-float.min.css'
 import './styles/styles.scss'
 import * as serviceWorker from './serviceWorker'
 
-const store = configureStore()
-
 const App = (
-  <Provider store={store}>
-    <AppRouter/>
-  </Provider>
-);
+  <AppRouter/>
+)
 
 ReactDOM.render(App, document.getElementById('root'))
 
