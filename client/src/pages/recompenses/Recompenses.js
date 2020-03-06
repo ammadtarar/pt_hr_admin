@@ -1,167 +1,141 @@
-import React, { Suspense } from 'react'
+import React, { useState, useEffect, Suspense } from 'react'
 import uuidv1 from 'uuid/v1'
 const BoxRecompense = React.lazy(() => import('../../components/BoxRecompense'))
-const data = require('../../datas.json')
+const datas = require('../../datas.json')
 
-export class Recompenses extends React.Component {
-  constructor() {
-    super()
-    this.state = {
-      checked: false,
-      popupOpen: false,
-      newRecompense: [],
-      errors: {
-        titre: '',
-        points: ''
-      },
-      data: data.recompenses
-    }
-    this.dataToChange = this.dataToChange.bind(this)
+function Recompenses(props) {
+  const [popupOpen, setPopupOpen] = useState(false)
+  const [newRecompense, setNewRecompense] = useState({titre: '', points: ''})
+  const [errors, setErrors] = useState({titre: '', points: ''})
+  const [recompenses, setRecompenses] = useState([])
+
+  const dataToChange = (data,e) => {
+    //Ajouter nouvelle data aux anciennes datas
+    Object.keys(recompenses).push(data)
+    setRecompenses(recompenses)
+    //Puis objet à renvoyer au serveur
+
   }
 
-  handleChange(checked) {
-    this.setState({ checked })
-  }
-
-  handleChangeText (e) {
+  const handleChangeText = e => {
     e.preventDefault()
     const name = e.target.name
     const value = e.target.value
 
-    this.setState((prevState) => ({
-      ...prevState,
-        newRecompense: {
-          ...prevState.newRecompense,
-          [name]: value,
-          'points': isNaN(Number(value)) ? '' : value
-        }
-      }
-    ))
+    setNewRecompense({
+      ...newRecompense,
+      [name]: value,
+      'points': isNaN(Number(value)) ? newRecompense.points : value
+    })
   }
 
-  publierRecompense = (e) => {
+  const publierRecompense = e => {
     e.preventDefault()
 
     switch (true) {
-      case this.state.newRecompense.titre === '' && this.state.newRecompense.points === '':
-        this.setState({
-          errors: {nom: 'error', points: 'error'}
-        })
+      case newRecompense.titre === '' && newRecompense.points === '':
+        setErrors({titre: 'error', points: 'error'})
         break
-      case this.state.newRecompense.titre === '':
-        this.setState({
-          errors: {nom: 'error'}
-        })
+      case newRecompense.titre === '' || newRecompense.titre === undefined:
+        setErrors({titre: 'error'})
         break
-      case this.state.newRecompense.points === '':
-        this.setState({
-          errors: {points: 'error'}
-        })
+      case newRecompense.points === '':
+        setErrors({points: 'error'})
         break
       default:
         const newID = uuidv1()
         // Push nouvelles datas récompenses dans state + reset state newRecompense
-        const recompenses = {
-          ...this.state.data,
+        const newRecompenses = {
+          ...recompenses,
           [newID]: {
-            ...this.state.newRecompense,
+            ...newRecompense,
             id: newID,
             checked: true
           }
         }
-        this.setState({data: recompenses, popupOpen: false, newRecompense: {}})
+        setRecompenses(newRecompenses)
+        setPopupOpen(false)
+        setNewRecompense({})
     }
   }
-  dataToChange(data) {
-    const recompenses = this.state.data
-    //Ajouter nouvelle data aux anciennes datas
-    Object.keys(recompenses).push(data)
-    this.setState({data: recompenses}, () => {
-      //Puis objet à renvoyer au serveur
 
-    })
-  }
+  // async function getData() {
+  //   const response = await fetch(url)
+  //   const data = await response.json()
+  //   setData(data)
+  // }
+  //
+  useEffect(() => {
+    // getData()
+    setRecompenses(datas.recompenses)
+  }, [])
 
-  componentDidMount() {
-    // fetch(data)
-    //   .then(res => res.json())
-    //   .then(res => {
-    //     this.setState({
-    //       'data': res
-    //     })
-    //   })
-  }
+  return (
+    <div className="wrapper">
 
-  render() {
-    const recompenses = this.state.data
+      {/* Popup */}
+      <div onClick={(e) => setPopupOpen(false)} className={`overlay-popup ${popupOpen === true ? 'open' : ''}`}/>
 
-    return (
-      <div className="wrapper">
+      <div className={`popup ${popupOpen === true ? 'open' : ''}`}>
+        <img onClick={(e) => setPopupOpen(false)} type="image/svg+xml" className="close" src="/icons/fermer.svg" alt=""/>
+        <h3>Créer une récompense</h3>
+        <form onSubmit={(e) => publierRecompense(e)}>
+          <label>Nom</label>
+          <input type="text" name="titre" className={errors.titre} onChange={(e) => handleChangeText(e)} value={newRecompense.titre} placeholder="Nom de la récompense"/>
+          <label>Nombre de points</label>
+          <input type="text" name="points" className={errors.points} onChange={(e) => handleChangeText(e)} value={newRecompense.points} placeholder="Nombre de points requis"/>
+          <button className="btn-primary">Publier</button>
+          <p className="note">Une fois publiée, cette récompense sera visible par tous les ambassadeurs.</p>
+        </form>
+      </div>
+      {/* End popup */}
 
-        {/* Popup */}
-        <div onClick={(e) => this.setState({popupOpen: false})} className={`overlay-popup ${this.state.popupOpen === true ? 'open' : ''}`}/>
-
-        <div className={`popup ${this.state.popupOpen === true ? 'open' : ''}`}>
-          <img onClick={(e) => this.setState({popupOpen: false})} type="image/svg+xml" className="close" src="/icons/fermer.svg" alt=""/>
-          <h3>Créer une récompense</h3>
-          <form onSubmit={this.publierRecompense}>
-            <label>Nom</label>
-            <input type="text" name="titre" className={this.state.errors.titre} onChange={(e) => this.handleChangeText(e)} value={this.state.newRecompense.titre} placeholder="Nom de la récompense"/>
-            <label>Nombre de points</label>
-            <input type="text" name="points" className={this.state.errors.points} onChange={(e) => this.handleChangeText(e)} value={this.state.newRecompense.points} placeholder="Nombre de points requis"/>
-            <button className="btn-primary">Publier</button>
-            <p className="note">Une fois publiée, cette récompense sera visible par tous les ambassadeurs.</p>
-          </form>
-        </div>
-        {/* End popup */}
-
-        <div className="tab-recompenses container">
-          <div className="container">
-            <div className="row-fluid">
-              <div className="large-11 columns"></div>
-              <div className="large-1 columns">
-                <button onClick={(e) => this.setState({popupOpen: true})} className="btn-primary">Créer</button>
-              </div>
+      <div className="tab-recompenses container">
+        <div className="container">
+          <div className="row-fluid">
+            <div className="large-11 columns"></div>
+            <div className="large-1 columns">
+              <button onClick={(e) => setPopupOpen(true)} className="btn-primary">Créer</button>
             </div>
           </div>
-
-          <Suspense fallback={
-            <div className="container-suspense">
-              <div className="loader" id="loader">
-                <span></span>
-                <span></span>
-                <span></span>
-              </div>
-            </div>}>
-
-            {Object.keys(recompenses).length > 0 ?
-
-                Object.keys(recompenses)
-                  .sort((a, b) => {
-                    return new Date(a.date) < new Date(b.date) ? 1 : (new Date(a.date) > new Date(b.date) ? -1 : 0)
-                  })
-                  .map((key, item, i) => {
-                  return (
-                    <BoxRecompense key={recompenses[key].id} data={recompenses[key]} dataToChange={this.dataToChange}/>
-                  )
-                })
-                :
-                Object.keys(recompenses).length === 0 ?
-                setTimeout(() => {
-                  return (
-                    <div className="container empty">
-                      <img type="image/svg+xml" className="icon" src="/icons/recompense.svg" alt=""/>
-                      <p className="text-center">Créez votre première récompense !</p>
-                      <p className="text-center">Vous pouvez dès à présent créer votre première récompense en cliquant sur le bouton “Créer” en haut à droite.</p>
-                    </div>
-                  )
-                }, 500) : ''
-              }
-          </Suspense>
         </div>
+
+        <Suspense fallback={
+          <div className="container-suspense">
+            <div className="loader" id="loader">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+          </div>}>
+
+          {Object.keys(recompenses).length > 0 ?
+
+              Object.keys(recompenses)
+                .sort((a, b) => {
+                  return new Date(a.date) < new Date(b.date) ? 1 : (new Date(a.date) > new Date(b.date) ? -1 : 0)
+                })
+                .map((key, item, i) => {
+                return (
+                  <BoxRecompense key={recompenses[key].id} data={recompenses[key]} dataToChange={(e) => dataToChange(e)}/>
+                )
+              })
+              :
+              Object.keys(recompenses).length === 0 ?
+              setTimeout(() => {
+                return (
+                  <div className="container empty">
+                    <img type="image/svg+xml" className="icon" src="/icons/recompense.svg" alt=""/>
+                    <p className="text-center">Créez votre première récompense !</p>
+                    <p className="text-center">Vous pouvez dès à présent créer votre première récompense en cliquant sur le bouton “Créer” en haut à droite.</p>
+                  </div>
+                )
+              }, 500) : ''
+            }
+        </Suspense>
       </div>
-    )
-  }
+    </div>
+  )
 }
 
 export default Recompenses

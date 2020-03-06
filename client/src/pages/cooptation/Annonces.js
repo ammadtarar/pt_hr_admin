@@ -36,7 +36,7 @@ function Annonces(props) {
               <span></span>
             </div>
           </div>}>
-          
+
           {Object.keys(annonces).length > 0 ?
 
             Object.keys(annonces)
