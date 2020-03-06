@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import { connect } from 'react-redux'
-import { logout } from '../actions/auth'
 import { NavLink } from 'react-router-dom'
 
 function Header (props) {
@@ -12,9 +10,8 @@ function Header (props) {
   }
 
   const deconnexion = e => {
-    props.logout()
     window.location.href = '/'
-    localStorage.clear()
+    localStorage.clear() //Clear storage, donc fermer les routes autres '/' sur Approuter
   }
 
   const toggleProfileMenu = e => {
@@ -63,8 +60,4 @@ function Header (props) {
   )
 }
 
-function mapDispatchToProps(dispatch) {
-  return { logout: (loginStatus) => dispatch(logout()) }
-}
-
-export default connect(undefined, mapDispatchToProps)(Header)
+export default Header

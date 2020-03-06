@@ -1,6 +1,4 @@
 import React from 'react'
-import { connect } from 'react-redux'
-import { login } from '../actions/auth'
 const datas = require('../datas.json')
 
 export class Login extends React.Component {
@@ -113,7 +111,6 @@ export class Login extends React.Component {
       //Si code tapé === code d'activation en DB
       case this.state.code === userObj.codeActivation:
         localStorage.setItem('utilisateur', JSON.stringify(userObj))
-        this.props.login() //Ouvrir accès routes sur AppRouter
         this.props.history.push('/dashboard')
         this.setState({'compteurConnections': 0})
         localStorage.setItem('compteurConnections', 0)
@@ -195,7 +192,7 @@ export class Login extends React.Component {
     return (
       <div className="wrapper" onDragStart={this.preventDragHandler}>
         <main className="login">
-          <div clasName="row-fluid">
+          <div className="row-fluid">
             <div className="large-5 columns">
               <a href="/" className="logo" rel="noopener noreferrer" title=""><img src="/icons/logo-pushtalents.svg" alt=""/></a>
 
@@ -249,9 +246,4 @@ export class Login extends React.Component {
   }
 }
 
-
-const mapDispatchToProps = (dispatch) => ({
-  login: (loginStatus) => dispatch(login())
-})
-
-export default connect(undefined, mapDispatchToProps)(Login)
+export default Login
