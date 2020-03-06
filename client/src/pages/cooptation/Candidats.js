@@ -1,6 +1,6 @@
 import React from 'react'
 import CardCandidat from '../../components/CardCandidat'
-import { triCooptes, triRecus, triEntretiens, triSelectionne } from '../../functions/TriCandidats.js'
+// import { triCooptes, triRecus, triEntretiens, triSelectionne } from '../../functions/TriCandidats.js'
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
 const datas = require('../../datas.json')
 

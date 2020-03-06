@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { logout } from '../actions/auth'
 import { NavLink } from 'react-router-dom'
@@ -20,6 +20,23 @@ function Header (props) {
     window.location.href = '/'
     localStorage.clear()
   }
+
+  //Fermer sub-menu au clique sur document ou ESC
+  const closeSubMenu = (event: KeyboardEvent) => {
+    if (event.key === 'Escape') {
+      setProfileOpen(false)
+    }
+    setProfileOpen(false)
+  }
+
+  useEffect(() => {
+    document.addEventListener('keydown', closeSubMenu, true)
+    document.addEventListener('click', closeSubMenu, true)
+    return () => {
+      document.addEventListener('keydown', closeSubMenu, true)
+      document.removeEventListener('click', closeSubMenu, true)
+    }
+  })
 
   return (
     <header onDragStart={(e) => preventDragHandler(e)}>
