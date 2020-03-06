@@ -1,5 +1,5 @@
 import React, { useState, useEffect, Suspense } from 'react'
-import { compteDemandesRecompenses } from '../../functions/CompteDemandes.js'
+import { triDemandesRecompenses } from '../../functions/CompteDemandes.js'
 const BoxDemande = React.lazy(() => import('../../components/BoxDemande'))
 const datas = require('../../datas.json')
 
@@ -22,7 +22,7 @@ function Demandes(props) {
   //
   useEffect(() => {
     // getData()
-    setRecompenses(compteDemandesRecompenses(datas.recompenses))
+    setRecompenses(triDemandesRecompenses(datas.recompenses))
   }, [])
 
   const traiterDemande = e => {

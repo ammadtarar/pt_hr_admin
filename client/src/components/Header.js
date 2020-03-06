@@ -5,20 +5,20 @@ import { NavLink } from 'react-router-dom'
 
 function Header (props) {
   const [profileOpen, setProfileOpen] = useState(false)
-  const [utilisateur, setUtilisateur] = useState(localStorage.getItem('utilisateur') ? JSON.parse(localStorage.getItem('utilisateur')) : '')
+  const [utilisateur] = useState(localStorage.getItem('utilisateur') ? JSON.parse(localStorage.getItem('utilisateur')) : '')
 
   const preventDragHandler = e => {
     e.preventDefault()
-  }
-
-  const toggleProfileMenu = e => {
-    setProfileOpen(!profileOpen)
   }
 
   const deconnexion = e => {
     props.logout()
     window.location.href = '/'
     localStorage.clear()
+  }
+
+  const toggleProfileMenu = e => {
+    setProfileOpen(!profileOpen)
   }
 
   //Fermer sub-menu au clique sur document ou ESC

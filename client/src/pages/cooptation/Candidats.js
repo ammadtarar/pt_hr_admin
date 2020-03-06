@@ -188,26 +188,26 @@ export class Candidats extends React.Component {
     }
   }
 
-  popupArchive = (data) => {
+  popupArchive = data => {
     this.setState({
       popupArchiveOpen: true,
       popupData: data
     })
   }
 
-  rejeter = (data) => {
+  rejeter = data => {
     const id = data.id
     const col = data.status === 'Candidats cooptés' ? 'candidatsCooptes' :
       data.status === 'Candidatures reçues' ? 'candidaturesRecues' :
       data.status === 'Entretiens en cours' ? 'candidatsEntretiens' :
       data.status === 'Candidats sélectionnés' ? 'candidatsSelectionne' : ''
 
-    const newState = Object.keys(this.state[col]).map((key) => {
-      const item = this.state[col][key]
-      if(item.id !== id) {
-        return item
+    const newState = Object.keys(this.state[col])
+      .filter((key) => this.state[col][key].id !== id)
+      .map((key) => {
+        return this.state[col][key]
       }
-    })
+    )
 
     const newStateFiltres = newState.filter((el) => {
       return el != null
@@ -233,7 +233,6 @@ export class Candidats extends React.Component {
 
   handleSearch (e) {
     e.preventDefault()
-    const name = e.target.name
     const value = e.target.value
 
     this.setState({
@@ -283,12 +282,11 @@ export class Candidats extends React.Component {
 
     // Tri des candidats dans les 4 colonnes en fonction de leur status
     const data = this.state.data
-    const candidatsNonArchives = Object.keys(data).map((key) => {
-      const item = data[key]
-      if(item.archive === false) {
-        return item
-      }
-    })
+    const candidatsNonArchives = Object.keys(data)
+      .filter((key) => data[key].archive === false)
+      .map((key) => {
+          return data[key]
+      })
     const candidats = candidatsNonArchives.filter((el) => {
       return el != null
     })

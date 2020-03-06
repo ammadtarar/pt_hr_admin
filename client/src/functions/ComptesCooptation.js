@@ -24,10 +24,10 @@ export function compteAnnoncesTotalViews(annonces) {
 }
 
 export function compteCandidatsCooptes(candidats) {
-  const nbrCandidatsCooptes = Object.keys(candidats).map((key) => {
-    if(candidats[key].cooptations.length !== 0) {
-      return candidats[key]
-    }
+  const nbrCandidatsCooptes = Object.keys(candidats)
+  .filter((key) => {return candidats[key].cooptations.length !== 0})
+  .map((key) => {
+    return candidats[key]
   })
 
   const nbrCandidatsCooptesFiltres = nbrCandidatsCooptes.filter((el) => {

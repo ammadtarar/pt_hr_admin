@@ -215,7 +215,7 @@ export class Login extends React.Component {
                 <div>
                   <h2>Bienvenue</h2>
                   <p className="note note-envoie-code">Nous avons envoyé le code d’activation à <strong>{this.state.utilisateur.email}</strong>.  Une fois connecté, votre connexion sera assurée pour 30 jours.<br/>
-                    <a onClick={(e) => this.retourStep1(e)} rel="noopener noreferrer">Retour à la connexion</a>
+                    <span className="link" onClick={(e) => this.retourStep1(e)} rel="noopener noreferrer">Retour à la connexion</span>
                   </p>
                   <label>Code d'activation</label>
                   <input type="text" name="code" className={this.state.errors.code} onClick={(e) => this.removeErrorText(e)} onChange={(e) => this.handleChangeText(e)} value={this.state.code} maxLength="6" placeholder="Votre code d’activation à 6 chiffres"/>
