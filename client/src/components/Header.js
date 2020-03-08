@@ -28,7 +28,7 @@ function Header (props) {
   }
 
   //Navigation header menu left / right
-  const nav = (event: KeyboardEvent) => {
+  const navKeyboard = (event: KeyboardEvent) => {
     const right = event.key === 'ArrowRight'
     const left = event.key === 'ArrowLeft'
     const location = window.location.pathname
@@ -70,9 +70,8 @@ function Header (props) {
   }
 
   useEffect(() => {
-    localStorage.setItem('navKeyboard', false)
     return () => {
-      document.addEventListener('keydown', nav, true)
+      document.addEventListener('keydown', navKeyboard, true)
       document.addEventListener('keydown', closeSubMenu, true)
       document.removeEventListener('click', closeSubMenu, true)
     }
