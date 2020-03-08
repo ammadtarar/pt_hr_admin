@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { NavLink, useHistory } from 'react-router-dom'
 
 function Header (props) {
+  let history = useHistory()
   const [profileOpen, setProfileOpen] = useState(false)
   const [utilisateur] = useState(localStorage.getItem('utilisateur') ? JSON.parse(localStorage.getItem('utilisateur')) : '')
 
@@ -27,7 +28,6 @@ function Header (props) {
   }
 
   //Navigation header menu left / right
-  let history = useHistory()
   const nav = (event: KeyboardEvent) => {
     const right = event.key === 'ArrowRight'
     const left = event.key === 'ArrowLeft'
