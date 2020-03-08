@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import { NavLink, useHistory } from 'react-router-dom'
 
 function Header (props) {
-  let history = useHistory()
   const [profileOpen, setProfileOpen] = useState(false)
   const [utilisateur] = useState(localStorage.getItem('utilisateur') ? JSON.parse(localStorage.getItem('utilisateur')) : '')
 
@@ -28,12 +27,13 @@ function Header (props) {
   }
 
   //Navigation header menu left / right
-  const navKeyboard = (event: KeyboardEvent) => {
+  let history = useHistory()
+  const accessibility = (event: KeyboardEvent) => {
     const right = event.key === 'ArrowRight'
     const left = event.key === 'ArrowLeft'
     const location = window.location.pathname
 
-    if (localStorage.getItem('navKeyboard') === 'false' && (left || right)) {
+    if (localStorage.getItem('countNav') === 'false' && (left || right)) {
       switch (true) {
         case location === '/dashboard':
           if(right) {
@@ -65,13 +65,14 @@ function Header (props) {
           break
         default:
       }
-      localStorage.setItem('navKeyboard', true)
+      localStorage.setItem('countNav', true)
     }
   }
 
   useEffect(() => {
+    localStorage.setItem('countNav', false)
     return () => {
-      document.addEventListener('keydown', navKeyboard, true)
+      document.addEventListener('keydown', accessibility, true)
       document.addEventListener('keydown', closeSubMenu, true)
       document.removeEventListener('click', closeSubMenu, true)
     }
