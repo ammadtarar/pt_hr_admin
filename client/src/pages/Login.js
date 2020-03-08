@@ -51,7 +51,7 @@ export class Login extends React.Component {
       if ([email].includes(utilisateurs[e].email)) item[e] = utilisateurs[e]
       return item
     }, {})
-    function userIsOnDB(obj) {
+    function checkUserIsOnDB(obj) {
       for(var key in obj) {
         if(obj.hasOwnProperty(key))
         return true
@@ -62,7 +62,7 @@ export class Login extends React.Component {
     //Check différents cas
     switch (true) {
       //Si utilsateur présent dans la DB
-      case userIsOnDB(utilisateur):
+      case checkUserIsOnDB(utilisateur):
         this.setState({
           steps: {
             demandeCode: false,
@@ -86,7 +86,7 @@ export class Login extends React.Component {
         })
         break
       //Si utilisateur n'est pas dans la DB
-      case !userIsOnDB(utilisateur):
+      case !checkUserIsOnDB(utilisateur):
         this.setState({
           email: 'Votre adresse email est manquante',
           errors: {
