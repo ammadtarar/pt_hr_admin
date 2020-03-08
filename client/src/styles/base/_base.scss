@@ -700,12 +700,9 @@ main.cooptation, main.recompenses {
       overflow-y: scroll;
       height: 100%;
       scroll-behavior: smooth;
-<<<<<<< HEAD
       &.droppable, &.droppable2, &.droppable3 {overflow-y: hidden}
-=======
       z-index: 1;
       &.overflowHidden {overflow-y: hidden}
->>>>>>> 72bd1b71757ec53c78e4a08acdafe0cff61b8670
     }
   }
 }
@@ -907,9 +904,6 @@ main.communication {
   }
 }
 
-<<<<<<< HEAD
-@media only screen and (max-width: 1450px) {
-=======
 @media only screen and (max-width: 1380px) {
   main.recompenses {
     padding-left: 3rem; padding-right: 3rem;
