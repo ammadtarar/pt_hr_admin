@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useHistory } from 'react-router-dom'
 
 function Header (props) {
   const [profileOpen, setProfileOpen] = useState(false)
@@ -26,10 +26,53 @@ function Header (props) {
     setProfileOpen(false)
   }
 
+  //Navigation header menu left / right
+  let history = useHistory()
+  const nav = (event: KeyboardEvent) => {
+    const right = event.key === 'ArrowRight'
+    const left = event.key === 'ArrowLeft'
+    const location = window.location.pathname
+
+    if (localStorage.getItem('navKeyboard') === 'false' && (left || right)) {
+      switch (true) {
+        case location === '/dashboard':
+          if(right) {
+            history.push('/cooptation')
+          } else if(left) {
+            history.push('/recompenses')
+          }
+          break
+        case location === '/cooptation':
+          if(right) {
+            history.push('/communication')
+          } else if(left) {
+            history.push('/dashboard')
+          }
+          break
+        case location === '/communication':
+          if(right) {
+            history.push('/recompenses')
+          } else if(left) {
+            history.push('cooptation')
+          }
+          break
+        case location === '/recompenses':
+          if(right) {
+            history.push('/dashboard')
+          } else if(left) {
+            history.push('communication')
+          }
+          break
+        default:
+      }
+      localStorage.setItem('navKeyboard', true)
+    }
+  }
+
   useEffect(() => {
-    document.addEventListener('keydown', closeSubMenu, true)
-    document.addEventListener('click', closeSubMenu, true)
+    localStorage.setItem('navKeyboard', false)
     return () => {
+      document.addEventListener('keydown', nav, true)
       document.addEventListener('keydown', closeSubMenu, true)
       document.removeEventListener('click', closeSubMenu, true)
     }

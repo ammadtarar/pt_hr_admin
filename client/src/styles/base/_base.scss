@@ -632,7 +632,7 @@ main.cooptation, main.recompenses {
       color: $raven;
       a {color: $raven}
       &.email a:hover {color: $cloud-burst}
-      &.nom, &.titre {line-height: 120%}
+      &.nom, &.titre, &.cooptes-par {line-height: 120%}
       &.cooptes-par span {
         &.comma {font-family: $regular-heebo}
         span.last {display: none}
@@ -943,9 +943,11 @@ main.communication {
   }
   main.cooptation {
     padding-left: 3.5rem; padding-right: 3.5rem;
-    .box-encart {
-      .icon {
-        margin-bottom: 2rem;
+    .tab-candidats {
+      .box-encart {
+        .icon {
+          margin-bottom: 2rem;
+        }
       }
     }
   }
