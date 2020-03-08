@@ -2,11 +2,7 @@ import React, { useState, useEffect } from 'react'
 import Header from '../components/Header'
 import Recompenses from './recompenses/Recompenses'
 import Demandes from './recompenses/Demandes'
-<<<<<<< HEAD
 import { triDemandesRecompenses } from '../functions/CompteDemandes.js'
-=======
-import { compteDemandesRecompenses } from '../functions/CompteDemandes.js'
->>>>>>> development
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
 const datas = require('../datas.json')
 

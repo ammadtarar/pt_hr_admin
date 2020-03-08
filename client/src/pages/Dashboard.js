@@ -29,11 +29,7 @@ function Dashboard() {
     setAmbassadeurs({
       total: datas.ambassadeurs.total,
       actifs: datas.ambassadeurs.actifs,
-<<<<<<< HEAD
       points: datas.ambassadeurs.points.toString().replace(/\B(?=(?:\d{3})+(?!\d))/g, ',')
-=======
-      points: datas.ambassadeurs.points
->>>>>>> development
     })
     setCommunication({
       actifs: compteArticlesActifs(datas.communication),
