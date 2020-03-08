@@ -19,18 +19,18 @@ function CardCandidat(props) {
       <div className={`icon ${data.archive === true ? 'athens-gray': ''}`}>{data.prenom.charAt(0) + data.nom.charAt(0)}</div>
       <p className="nom">{data.prenom + ' ' + data.nom}</p>
       <p className="titre">{data.titre}</p>
-      <p className="cooptes-par">Coopté par&nbsp;
+      <p className="cooptes-par">{Object.keys(data.cooptations).length > 0 ? 'Coopté par' : ''}
         {Object.keys(data.cooptations).map((key, i) => {
           const nbrCooptes = Object.keys(data.cooptations).length
           const coopte = data.cooptations[key]
           return (
-            <span>{coopte.prenom + ' ' + coopte.nom}
+            <span className={i === 0 ? 'first' : ''}>{coopte.prenom + ' ' + coopte.nom}
               {nbrCooptes > 1 ? <span className={(i + 1) === nbrCooptes ? 'last comma' : 'comma'}>, </span> : ''}
             </span>
           )
         })}
       </p>
-      <p className="date">Le {date(dateToFormat)}</p>
+      {props.data.date ? <p className="date">Le {date(dateToFormat)}</p> : ''}
       <hr/>
       <p className="email"><a href="mailto:randallmck@mail.com" rel="noopener noreferrer" title="">{data.email}</a></p>
       {data.archive === false ? <div className="box-rejeter">

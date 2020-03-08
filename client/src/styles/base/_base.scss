@@ -607,6 +607,7 @@ main.cooptation, main.recompenses {
   }
   .draggable {opacity: .5; transition: all .03s cubic-bezier(0.045, 0.715, 0.250, 1.000)}
   .box-encart {
+    min-height: 20.3rem;
     padding: 2rem;
     margin-bottom: 1.5rem;
     background-color: white;
@@ -634,6 +635,7 @@ main.cooptation, main.recompenses {
       &.email a:hover {color: $cloud-burst}
       &.nom, &.titre, &.cooptes-par {line-height: 120%}
       &.cooptes-par span {
+        &.first {padding-left: .5rem}
         &.comma {font-family: $regular-heebo}
         span.last {display: none}
       }
@@ -698,7 +700,12 @@ main.cooptation, main.recompenses {
       overflow-y: scroll;
       height: 100%;
       scroll-behavior: smooth;
+<<<<<<< HEAD
       &.droppable, &.droppable2, &.droppable3 {overflow-y: hidden}
+=======
+      z-index: 1;
+      &.overflowHidden {overflow-y: hidden}
+>>>>>>> development
     }
   }
 }
@@ -900,7 +907,28 @@ main.communication {
   }
 }
 
+<<<<<<< HEAD
 @media only screen and (max-width: 1450px) {
+=======
+@media only screen and (max-width: 1380px) {
+  main.recompenses {
+    padding-left: 3rem; padding-right: 3rem;
+    .tab-recompenses {
+      button:nth-of-type(1) {position: absolute; top: -5rem; right: 0}
+    }
+  }
+  main.communication {
+    .card-communication {height: 35rem}
+  }
+  main.cooptation {
+    padding-left: 3.5rem; padding-right: 3.5rem;
+    .box-encart {
+      .icon {
+        margin-bottom: 1.2rem;
+      }
+    }
+  }
+>>>>>>> development
   main.login {
     input[type="text"], input[type="number"], input[type="email"], input[type="password"] {
       min-width: 100%;
