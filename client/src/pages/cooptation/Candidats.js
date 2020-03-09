@@ -357,21 +357,6 @@ export class Candidats extends React.Component {
       <div className="wrapper">
         <div className="tab-candidats container">
 
-          {/* Popup rejeter candidature */}
-          <div
-          onClick={(e) => this.setState({popupRejeterOpen: false})}
-          className={`overlay-popup ${this.state.popupRejeterOpen === true ? 'open' : ''}`}/>
-
-          <div className="wrapper-popup">
-            <div className={`popup center ${this.state.popupRejeterOpen === true ? 'open' : ''}`}>
-              <h4 className="text-center">Êtes-vous sûr de vouloir rejeter la candidature de <span>{this.state.popupData.prenom + ' ' + this.state.popupData.nom}</span> ?</h4>
-              <p className="text-center">Cette action est irréversible et notifiera automatiquement le collaborateur l’ayant coopté.</p>
-              <button onClick={(e) => this.rejeterCandidature(e)} className="btn-primary">Oui, changer</button>
-              <button onClick={(e) => this.fermerPopup(e)} className="btn-secondary">Annuler</button>
-            </div>
-          </div>
-          {/* End popup rejeter candidature */}
-
           {/* Popup archiver */}
           <div
           onClick={(e) => this.setState({popupArchiveOpen: false})}

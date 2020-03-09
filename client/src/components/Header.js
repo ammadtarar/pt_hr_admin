@@ -24,8 +24,15 @@ function Header (props) {
       setProfileOpen(true)
     } else if (event.key === 'Escape') {
       setProfileOpen(false)
-    } else {
+    } else if (!event.key) {
       setProfileOpen(false)
+    }
+  }
+
+  const HandleEnterKeyPress = (e: KeyboardEvent) => {
+    if(e.key === 'Enter') {
+      e.preventDefault()
+      e.target.click()
     }
   }
 
@@ -52,7 +59,7 @@ function Header (props) {
           <li onClick={(e) => toggleProfileMenu(e)}
               className={profileOpen === true ? 'open' : ''}><span>{utilisateur.prenom}</span>
             <ul className={`sub-menu ${profileOpen === true ? 'open' : ''}`}>
-              <li onClick={(e) => deconnexion(e)}>Se déconnecter</li>
+              <li onKeyPress={(e: KeyboardEvent) => {HandleEnterKeyPress(e)}} tabIndex={6} onClick={(e) => deconnexion(e)}>Se déconnecter</li>
             </ul>
           </li>
         </ul>
