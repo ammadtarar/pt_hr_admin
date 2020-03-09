@@ -60,11 +60,11 @@ ul.profile {
       background-repeat: no-repeat;
       background-position: 100% 20%;
     }
-    &.open {background: $athens-gray}
+    // &.open {background: $athens-gray}
     &:hover span, &.open span {color: $cloud-burst}
     .sub-menu {
       position: absolute;
-      margin: 0 0 0 -7.5rem;
+      margin: 0 0 0 -8.7rem;
       display: none;
       visibility: hidden;
       opacity: 0;

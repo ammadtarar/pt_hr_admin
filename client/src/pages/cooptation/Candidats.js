@@ -360,7 +360,7 @@ export class Candidats extends React.Component {
           onClick={(e) => this.setState({popupRejeterOpen: false})}
           className={`overlay-popup ${this.state.popupRejeterOpen === true ? 'open' : ''}`}/>
 
-        <div className="wrapper-popup">
+          <div className="wrapper-popup">
             <div className={`popup center ${this.state.popupRejeterOpen === true ? 'open' : ''}`}>
               <h4 className="text-center">Êtes-vous sûr de vouloir rejeter la candidature de <span>{this.state.popupData.prenom + ' ' + this.state.popupData.nom}</span> ?</h4>
               <p className="text-center">Cette action est irréversible et notifiera automatiquement le collaborateur l’ayant coopté.</p>
@@ -450,7 +450,7 @@ export class Candidats extends React.Component {
                                             {...provided.draggableProps}
                                             {...provided.dragHandleProps}
                                             >
-                                              <CardCandidat data={key} rejeter={this.popupRejeter} popupArchive={this.popupArchive}/>
+                                              <CardCandidat data={key} popupRejeter={this.popupRejeter} popupArchive={this.popupArchive}/>
                                           </div>
                                         )}
                                       </Draggable>
