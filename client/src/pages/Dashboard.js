@@ -82,13 +82,13 @@ function Dashboard() {
                   <p>Demandes de récompenses</p>
                   <p><span>{demandes}</span></p>
                 </div>
-                <Link to={{pathname: "/recompenses", checkedTab: 1}} className="btn-primary">Voir</Link>
+                <Link to={{pathname: "/recompenses", checkedTab: 1}} className="btn-primary"><div tabIndex={6}>Voir</div></Link>
               </div>
             </div>
             <div className="columns">
               <div className="box-item cooptation">
                 <h4>Cooptation</h4>
-                <Link to={{pathname: "/cooptation"}} className="btn-primary">Voir</Link>
+                <Link to={{pathname: "/cooptation"}} className="btn-primary"><div tabIndex={7}>Voir</div></Link>
                 <div className="box-views">
                   {cooptation.totalViewsAnnonces ?
                   <div>
@@ -118,7 +118,7 @@ function Dashboard() {
             <div className="columns">
               <div className="box-item communication">
                 <h4>Communication</h4>
-                <Link to={{pathname: "/communication"}} className="btn-primary">Voir</Link>
+                <Link to={{pathname: "/communication"}} className="btn-primary"><div tabIndex={8}>Voir</div></Link>
                 {communication.totalViews ?
                 <div className="box-views">
                   <div>

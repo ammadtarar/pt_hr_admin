@@ -14,7 +14,7 @@ function BoxDemande(props) {
         <li><p><span>{data.titre}</span></p></li>
       </ul>
       <ul className="infos">
-        {data.traite === false ? <li><button onClick={(e) => popup(e)} className="btn-primary">Traiter</button></li>
+        {data.traite === false ? <li><button onClick={(e) => popup(e)} className="btn-primary"><div tabIndex={props.tab + 9}>Traiter</div></button></li>
       : <li className="check"><p>Traitée</p></li>}
       </ul>
     </div>

@@ -206,6 +206,8 @@ export class Candidats extends React.Component {
   rejeterCandidature(e) {
     const data = this.state.popupData
     const id = data.id
+
+    //Définir dans quelle colonne retirer le candidat en fonction de son status dans l'object
     const col = data.status === 'Candidats cooptés' ? 'candidatsCooptes' :
       data.status === 'Candidatures reçues' ? 'candidaturesRecues' :
       data.status === 'Entretiens en cours' ? 'candidatsEntretiens' :
@@ -415,6 +417,7 @@ export class Candidats extends React.Component {
                   placeholder="Rechercher"
                   onChange={(e) => this.handleSearch(e)}
                   value={this.state.search}
+                  tabIndex={9}
                 />
               </div>
             </div>

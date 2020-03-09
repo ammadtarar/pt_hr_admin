@@ -36,6 +36,7 @@ function BoxRecompense(props) {
             height={20}
             width={35}
             className="react-switch"
+            tabIndex={props.tab + 9}
           />
           {checked === true ? 'Actif' : 'Inactif'}</p>
         </li>

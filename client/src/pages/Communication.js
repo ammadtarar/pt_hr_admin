@@ -74,7 +74,7 @@ function Communication() {
                   .map((key, item, i) => {
                   return (
                     <div key={communication[key].id} className="large-3 medium-6 columns">
-                      <CardCommunication data={communication[key]} dataToChange={(e) => dataToChange()}/>
+                      <CardCommunication data={communication[key]} tab={item} dataToChange={(e) => dataToChange()}/>
                     </div>
                   )
                 })

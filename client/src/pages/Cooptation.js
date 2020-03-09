@@ -29,15 +29,22 @@ function PageCooptation(props) {
     setData(datas.annonces)
   }, [])
 
+  const HandleEnterKeyPress = (e: KeyboardEvent) => {
+    if(e.key === 'Enter') {
+      e.preventDefault()
+      e.target.click()
+    }
+  }
+
   return (
     <div className="wrapper" onDragStart={(e) => preventDragHandler(e)}>
       <Header/>
       <main className={`cooptation ${checkedTab === 2 ? 'background-athens-gray' : checkedTab === 0 ? 'background-white' : ''}`}>
         <Tabs onSelect={index => tab(index)}>
           <TabList>
-            <Tab>Candidats</Tab>
-            <Tab>Annonces<span>{Object.keys(annonces).length > 0 ? Object.keys(annonces).length : 0}</span></Tab>
-            <Tab>Candidats archivés</Tab>
+            <Tab onKeyPress={(e: KeyboardEvent) => {HandleEnterKeyPress(e)}}><div tabIndex={6}>Candidats</div></Tab>
+            <Tab onKeyPress={(e: KeyboardEvent) => {HandleEnterKeyPress(e)}}><div tabIndex={7}>Annonces<span>{Object.keys(annonces).length > 0 ? Object.keys(annonces).length : 0}</span></div></Tab>
+            <Tab onKeyPress={(e: KeyboardEvent) => {HandleEnterKeyPress(e)}}><div tabIndex={8}>Candidats archivés</div></Tab>
           </TabList>
 
           <TabPanel>

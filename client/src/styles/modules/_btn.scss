@@ -3,7 +3,7 @@
    ======================= */
 button, a {
   position: relative;
-  outline: 0;
+  outline: inherit;
   cursor: pointer;
   font-size: $font-size-base;
   font-family: $regular-heebo;

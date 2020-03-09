@@ -33,6 +33,7 @@ function CardCommunication (props) {
           height={20}
           width={35}
           className="react-switch"
+          tabIndex={props.tab + 6}
         />
         {checked === true ? 'Actif' : 'Inactif'}</p>
       </div>
