@@ -605,7 +605,7 @@ main.cooptation, main.recompenses {
   .col-candidats-selectionnes {
     .box-rejeter {display: none}
   }
-  .draggable {opacity: .5; transition: all .03s cubic-bezier(0.045, 0.715, 0.250, 1.000)}
+  .opacity {opacity: .5; transition: all .03s cubic-bezier(0.045, 0.715, 0.250, 1.000)}
   .box-encart {
     padding: 2rem;
     margin-bottom: 1.5rem;

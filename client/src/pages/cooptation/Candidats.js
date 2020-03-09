@@ -43,6 +43,7 @@ export class Candidats extends React.Component {
     },
     'popupArchiveOpen': false,
     'popupStatusOpen': false,
+    'popupRejeterOpen': false,
     'popupData': [],
     'search': ''
   }
@@ -195,7 +196,15 @@ export class Candidats extends React.Component {
     })
   }
 
-  rejeter = data => {
+  popupRejeter = data => {
+    this.setState({
+      popupRejeterOpen: true,
+      popupData: data
+    })
+  }
+
+  rejeterCandidature(e) {
+    const data = this.state.popupData
     const id = data.id
     const col = data.status === 'Candidats cooptés' ? 'candidatsCooptes' :
       data.status === 'Candidatures reçues' ? 'candidaturesRecues' :
@@ -214,6 +223,7 @@ export class Candidats extends React.Component {
     })
 
     this.setState({
+      popupRejeterOpen: false,
       [col]: newStateFiltres
     })
   }
@@ -225,10 +235,16 @@ export class Candidats extends React.Component {
     //Candidat à archiver
     const data = this.state.popupData
     data.archive = true
-    console.log(data.archive)
-    console.log(data.id)
     // À modifier sur serveur
 
+  }
+
+  fermerPopup(e) {
+    this.setState({
+      popupArchiveOpen: false,
+      popupRejeterOpen: false,
+      popupData: ''
+    })
   }
 
   handleSearch (e) {
@@ -339,17 +355,32 @@ export class Candidats extends React.Component {
       <div className="wrapper">
         <div className="tab-candidats container">
 
+          {/* Popup rejeter candidature */}
+          <div
+          onClick={(e) => this.setState({popupRejeterOpen: false})}
+          className={`overlay-popup ${this.state.popupRejeterOpen === true ? 'open' : ''}`}/>
+
+        <div className="wrapper-popup">
+            <div className={`popup center ${this.state.popupRejeterOpen === true ? 'open' : ''}`}>
+              <h4 className="text-center">Êtes-vous sûr de vouloir rejeter la candidature de <span>{this.state.popupData.prenom + ' ' + this.state.popupData.nom}</span> ?</h4>
+              <p className="text-center">Cette action est irréversible et notifiera automatiquement le collaborateur l’ayant coopté.</p>
+              <button onClick={(e) => this.rejeterCandidature(e)} className="btn-primary">Oui, changer</button>
+              <button onClick={(e) => this.fermerPopup(e)} className="btn-secondary">Annuler</button>
+            </div>
+          </div>
+          {/* End popup rejeter candidature */}
+
           {/* Popup archiver */}
           <div
           onClick={(e) => this.setState({popupArchiveOpen: false})}
           className={`overlay-popup ${this.state.popupArchiveOpen === true ? 'open' : ''}`}/>
 
-          <div className={`wrapper-popup ${this.state.popupArchiveOpen === true ? 'open' : ''}`}>
+          <div className="wrapper-popup">
             <div className={`popup center ${this.state.popupArchiveOpen === true ? 'open' : ''}`}>
               <h4 className="text-center">Etes-vous sûr de vouloir archiver le candidat <span>{this.state.popupData.prenom + ' ' + this.state.popupData.nom}</span> ?</h4>
               <p className="text-center">Cette action est irréversible et notifiera automatiquement le collaborateur l’ayant coopté.</p>
               <button onClick={(e) => this.archiverCandidat(e)} className="btn-primary">Oui, archiver</button>
-              <button onClick={(e) => this.setState({popupArchiveOpen: false})} className="btn-secondary">Annuler</button>
+              <button onClick={(e) => this.fermerPopup(e)} className="btn-secondary">Annuler</button>
             </div>
           </div>
           {/* End popup archiver */}
@@ -360,7 +391,7 @@ export class Candidats extends React.Component {
           onClick={(e) => this.setState({popupStatusOpen: false})}
           className={`overlay-popup ${this.state.popupStatusOpen === true ? 'open' : ''}`}/>
 
-          <div className={`wrapper-popup ${this.state.popupStatusOpen === true ? 'open' : ''}`}>
+          <div className="wrapper-popup">
             <div className={`popup center ${this.state.popupStatusOpen === true ? 'open' : ''}`}>
               <h4 className="text-center">Êtes-vous sûr de vouloir changer le statut de candidature de <span>{this.state.popupData.prenom + ' ' + this.state.popupData.nom}</span> de <span>{this.state.popupData.status}</span> à <span>{this.state.popupData.droppableColText}</span>, pour l’offre de <span>{this.state.popupData.titre}</span> ?</h4>
               <p className="text-center">Cette action est irréversible et notifiera automatiquement le collaborateur l’ayant coopté.</p>
@@ -402,6 +433,7 @@ export class Candidats extends React.Component {
                             <div
                               ref={provided.innerRef}>
                               {candidatsCooptes
+                                .filter((key) => key.archive === false)
                                 // .sort((a, b) => {
                                 //   return new Date(a.date) < new Date(b.date) ? 1 : (new Date(a.date) > new Date(b.date) ? -1 : 0)
                                 // })
@@ -413,12 +445,12 @@ export class Candidats extends React.Component {
                                         index={index}>
                                         {(provided, snapshot) => (
                                           <div
-                                            className={this.state.popupData.id === key.id ? 'draggable' : ''}
+                                            className={this.state.popupData.id === key.id ? 'opacity' : ''}
                                             ref={provided.innerRef}
                                             {...provided.draggableProps}
                                             {...provided.dragHandleProps}
                                             >
-                                              <CardCandidat data={key} rejeter={this.rejeter} popup={this.popupArchive}/>
+                                              <CardCandidat data={key} rejeter={this.popupRejeter} popupArchive={this.popupArchive}/>
                                           </div>
                                         )}
                                       </Draggable>
@@ -459,6 +491,7 @@ export class Candidats extends React.Component {
                             <div
                               ref={provided.innerRef}>
                               {candidaturesRecues
+                                .filter((key) => key.archive === false)
                                 // .sort((a, b) => {
                                 //   return new Date(a.date) < new Date(b.date) ? 1 : (new Date(a.date) > new Date(b.date) ? -1 : 0)
                                 // })
@@ -470,12 +503,12 @@ export class Candidats extends React.Component {
                                         index={index}>
                                         {(provided, snapshot) => (
                                           <div
-                                            className={this.state.popupData.id === key.id ? 'draggable' : ''}
+                                            className={this.state.popupData.id === key.id ? 'opacity' : ''}
                                             ref={provided.innerRef}
                                             {...provided.draggableProps}
                                             {...provided.dragHandleProps}
                                             >
-                                              <CardCandidat data={key} rejeter={this.rejeter} popup={this.popupArchive}/>
+                                              <CardCandidat data={key} popupRejeter={this.popupRejeter} popupArchive={this.popupArchive}/>
                                           </div>
                                         )}
                                       </Draggable>
@@ -518,6 +551,7 @@ export class Candidats extends React.Component {
                             <div
                               ref={provided.innerRef}>
                               {candidatsEntretiens
+                                .filter((key) => key.archive === false)
                                 // .sort((a, b) => {
                                 //   return new Date(a.date) < new Date(b.date) ? 1 : (new Date(a.date) > new Date(b.date) ? -1 : 0)
                                 // })
@@ -529,12 +563,12 @@ export class Candidats extends React.Component {
                                         index={index}>
                                         {(provided, snapshot) => (
                                           <div
-                                            className={this.state.popupData.id === key.id ? 'draggable' : ''}
+                                            className={this.state.popupData.id === key.id ? 'opacity' : ''}
                                             ref={provided.innerRef}
                                             {...provided.draggableProps}
                                             {...provided.dragHandleProps}
                                             >
-                                              <CardCandidat data={key} rejeter={this.rejeter} popup={this.popupArchive}/>
+                                              <CardCandidat data={key} popupRejeter={this.popupRejeter} popupArchive={this.popupArchive}/>
                                           </div>
                                         )}
                                       </Draggable>
@@ -577,6 +611,7 @@ export class Candidats extends React.Component {
                             <div
                               ref={provided.innerRef}>
                               {candidatsSelectionne
+                                .filter((key) => key.archive === false)
                                 // .sort((a, b) => {
                                 //   return new Date(a.date) < new Date(b.date) ? 1 : (new Date(a.date) > new Date(b.date) ? -1 : 0)
                                 // })
@@ -589,12 +624,12 @@ export class Candidats extends React.Component {
                                         index={index}>
                                         {(provided, snapshot) => (
                                           <div
-                                            className={this.state.popupData.id === key.id ? 'draggable' : ''}
+                                            className={this.state.popupData.id === key.id ? 'opacity' : ''}
                                             ref={provided.innerRef}
                                             {...provided.draggableProps}
                                             {...provided.dragHandleProps}
                                             >
-                                              <CardCandidat data={key} rejeter={this.rejeter} popup={this.popupArchive}/>
+                                              <CardCandidat data={key} popupRejeter={this.popupRejeter} popupArchive={this.popupArchive}/>
                                           </div>
                                         )}
                                       </Draggable>

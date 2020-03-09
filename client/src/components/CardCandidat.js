@@ -6,12 +6,12 @@ function CardCandidat(props) {
   const data = props.data
   const dateToFormat = props.data.date
 
-  const popup = (e,data) => {
-    props.popup(data)
+  const popupArchive = (e,data) => {
+    props.popupArchive(data)
   }
 
-  const rejeter = (e,data) => {
-    props.rejeter(data)
+  const popupRejeter = (e,data) => {
+    props.popupRejeter(data)
   }
 
   return (
@@ -35,8 +35,8 @@ function CardCandidat(props) {
       <p className="email"><a href="mailto:randallmck@mail.com" rel="noopener noreferrer" title="">{data.email}</a></p>
       {data.archive === false ? <div className="box-rejeter">
         <hr/>
-        <img onClick={(e) => popup(e,data)} type="image/svg+xml" className="rejeter" src="/icons/rejeter.svg" alt=""/>
-        <button onClick={(e) => rejeter(e,data)} className={`btn-third ${hover === data.id ? 'display' : ''}`}>Rejeter la candidature</button>
+        <img onClick={(e) => popupArchive(e,data)} type="image/svg+xml" className="rejeter" src="/icons/rejeter.svg" alt=""/>
+        <button onClick={(e) => popupRejeter(e,data)} className={`btn-third ${hover === data.id ? 'display' : ''}`}>Rejeter la candidature</button>
       </div> : <br/>}
     </div>
   )
