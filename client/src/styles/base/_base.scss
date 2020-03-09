@@ -1005,16 +1005,23 @@ main.communication {
     }
   }
   main.login {
+    &::after {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100vw; height: calc(100vh + 26.5rem);
+      background-color: $cloud-burst;
+      content: '';
+    }
     [class*='large'] {
       &:first-child {
-        position: fixed;
+        position: absolute;
         top: 0;
-        width: 100%;
+        width: 100%; height: 100%;
         padding-left: 21rem; padding-right: 21rem;
         .logo {filter: grayscale(100%) brightness(600%)}
         .logo img {width: 29rem}
         .box-item {
-          margin-top: 35rem;
+          margin: 35rem 0 8rem 0;
           padding: 3rem;
           height: auto; width: 100%; max-width: 100%;
           background: white;
@@ -1029,10 +1036,9 @@ main.communication {
         }
       }
       &:last-child {
-        position: fixed;
+        position: absolute;
         top: 0;
-        width: 100%;
-        min-width: 100%;
+        width: 100%; min-width: 100%;
         padding-left: 16rem; padding-right: 16rem;
         .box-text {display: none}
         .box-item {
@@ -1042,7 +1048,7 @@ main.communication {
         img {
           &.vector-1 {height: 45rem; left: -17rem}
           &.vector-2 {display: none}
-          &.vector-4 {bottom: -6.5rem}
+          &.vector-4 {bottom: -26.5rem}
         }
       }
     }
