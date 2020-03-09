@@ -20,18 +20,19 @@ function Header (props) {
 
   //Fermer sub-menu au clique sur document ou ESC
   const closeSubMenu = (event: KeyboardEvent) => {
-    if (event.key === 'Escape') {
+    if (event.key === 'Enter') {
+      setProfileOpen(true)
+    } else if (event.key === 'Escape') {
+      setProfileOpen(false)
+    } else {
       setProfileOpen(false)
     }
-    setProfileOpen(false)
   }
 
   useEffect(() => {
-    localStorage.setItem('countNav', false)
     return () => {
-      // document.addEventListener('keydown', accessibility, true)
       document.addEventListener('keydown', closeSubMenu, true)
-      document.removeEventListener('click', closeSubMenu, true)
+      document.addEventListener('click', closeSubMenu, true)
     }
   })
 
