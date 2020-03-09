@@ -1046,9 +1046,9 @@ main.communication {
           margin-top: 15rem;
         }
         img {
-          &.vector-1 {height: 45rem; left: -17rem}
+          &.vector-1 {position: fixed; height: 40rem; left: -10rem}
           &.vector-2 {display: none}
-          &.vector-4 {position: fixed; bottom: -6.5rem}
+          &.vector-4 {position: fixed; height: 40rem; bottom: -6.5rem}
         }
       }
     }
