@@ -750,7 +750,8 @@ main.cooptation, main.recompenses {
       }
       &.infos {
         position: absolute;
-        top: 1rem; right: 0;
+        right: 0;
+        top: 50%;
         li {
           margin-left: 1rem;
           &.check {
@@ -830,6 +831,7 @@ main.cooptation {
 main.recompenses {
   margin-top: 11rem;
   .container, .react-tabs__tab-list {max-width: 128.5rem; padding-left: 2rem; padding-right: 2rem}
+  .react-tabs__tab-list {padding-right: 12rem}
   .tab-recompenses {margin-top: -1.5rem}
   .tab-recompenses {
     button:nth-of-type(1) {
@@ -936,7 +938,7 @@ main.communication {
   main.recompenses {
     padding-left: 3rem; padding-right: 3rem;
     .tab-recompenses {
-      button:nth-of-type(1) {position: absolute; top: -5rem; right: 0}
+      button:nth-of-type(1) {right: 5rem}
     }
   }
   main.communication {
@@ -1140,15 +1142,17 @@ main.communication {
   main.recompenses {
     padding-left: 1rem; padding-right: 1rem;
     .tab-recompenses {
-      button:nth-of-type(1) {top: -3rem}
+      button:nth-of-type(1) {right: 3rem}
     }
     .box-demande {
       height: 8.2rem;
       ul {
         &.titre {
+          width: calc(100% - 12rem);
           li{display: block}
           p {margin: 0}
         }
+        &.infos {top: .6rem}
       }
     }
   }
@@ -1217,20 +1221,11 @@ main.communication {
 
 @media only screen and (max-width: 480px) {
   main.recompenses {
-    .react-tabs__tab-list {max-width:31.6rem}
     .tab-demandes {
       margin-top: 3.5rem;
     }
     .tab-recompenses {
       margin-top: .5rem;
-      button:nth-of-type(1) {
-        span {display: none}
-        &::after {
-          font-family: $bold-heebo;
-          font-size: 2rem;
-          content: '+'
-        }
-      }
     }
   }
 }
@@ -1244,6 +1239,18 @@ main.communication {
       }
     }
   }
+  main.recompenses {
+    .tab-recompenses {
+      button:nth-of-type(1) {
+        span {display: none}
+        &::after {
+          font-family: $bold-heebo;
+          font-size: 2rem;
+          content: '+'
+        }
+      }
+    }
+  }
 }
 
 @media only screen and (max-width: 375px) {
@@ -1252,5 +1259,8 @@ main.communication {
     .tab-candidats-archives {margin-top: 13rem}
     .tab-annonces {margin-top: 11rem}
     .tab-candidats {margin-top: 9rem}
+  }
+  main.recompenses {
+    .react-tabs__tab-list {padding-right: 0}
   }
 }
