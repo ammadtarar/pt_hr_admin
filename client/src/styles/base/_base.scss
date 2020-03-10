@@ -978,8 +978,10 @@ main.communication {
     width: 100vw;
     overflow-x: hidden;
     .container-cols-candidats {
+      position: relative;
+      padding-bottom: .5rem;
       left: -3.5rem;
-      padding-bottom: 1rem;
+      padding-left: 3.5rem;
       width: 100vw;
       overflow-x: scroll;
       .row-fluid {width: 147.5rem;}
