@@ -347,7 +347,7 @@ export class Candidats extends React.Component {
 
           {/* Popup archiver */}
           <div
-          onClick={(e) => this.setState({popupArchiveOpen: false})}
+          onClick={(e) => this.setState({popupArchiveOpen: false, popupData: ''})}
           className={`overlay-popup ${this.state.popupArchiveOpen === true ? 'open' : ''}`}/>
 
           <div className="wrapper-popup">
@@ -363,7 +363,7 @@ export class Candidats extends React.Component {
           {/* Popup changer status candidat */}
           <div
           id="koChangeStatus1"
-          onClick={(e) => this.setState({popupStatusOpen: false})}
+          onClick={(e) => this.setState({popupStatusOpen: false, popupData: ''})}
           className={`overlay-popup ${this.state.popupStatusOpen === true ? 'open' : ''}`}/>
 
           <div className="wrapper-popup">
