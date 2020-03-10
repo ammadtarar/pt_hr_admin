@@ -84,7 +84,7 @@ function Recompenses(props) {
           <input tabIndex={9} type="text" name="titre" className={errors.titre} onChange={(e) => handleChangeText(e)} value={newRecompense.titre} placeholder="Nom de la récompense"/>
           <label>Nombre de points</label>
           <input tabIndex={10} type="text" name="points" className={errors.points} onChange={(e) => handleChangeText(e)} value={newRecompense.points} placeholder="Nombre de points requis"/>
-          <button className="btn-primary"><div tabIndex={11}>Publier</div></button>
+          <button className="btn-primary" tabIndex={11}>Publier</button>
           <p className="note">Une fois publiée, cette récompense sera visible par tous les ambassadeurs.</p>
         </form>
       </div>
@@ -95,7 +95,7 @@ function Recompenses(props) {
           <div className="row-fluid">
             <div className="large-11 columns"></div>
             <div className="large-1 columns">
-              <button tabIndex={8} onClick={(e) => setPopupOpen(true)} className="btn-primary"><span>Créer</span></button>
+              <button tabIndex={8} onClick={(e) => setPopupOpen(true)} className="btn-primary">Créer</button>
             </div>
           </div>
         </div>

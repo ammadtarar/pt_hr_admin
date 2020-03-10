@@ -4,10 +4,9 @@ import { compteArticlesActifs, compteArticlesTotalViews } from '../functions/Com
 import { comptesDemandesNonTraite } from '../functions/CompteDemandes.js'
 import { compteTauxBonneReponse } from '../functions/ComptesFormation.js'
 import { compteAnnoncesActives, compteAnnoncesTotalViews, compteCandidatsCooptes } from '../functions/ComptesCooptation.js'
-import { Link } from 'react-router-dom'
 const datas = require('../datas.json')
 
-function Dashboard() {
+function Dashboard(props) {
   const [communication, setCommunication] = useState([])
   const [cooptation, setCooptation] = useState([])
   const [formations, setFormations] = useState([])
@@ -82,13 +81,13 @@ function Dashboard() {
                   <p>Demandes de récompenses</p>
                   <p><span>{demandes}</span></p>
                 </div>
-                <Link to={{pathname: "/recompenses", checkedTab: 1}} className="btn-primary"><div tabIndex={6}>Voir</div></Link>
+                <button onClick={(e) => props.history.push({pathname: "/recompenses", checkedTab: 1})} className="btn-primary" tabIndex={6}>Voir</button>
               </div>
             </div>
             <div className="columns">
               <div className="box-item cooptation">
                 <h4>Cooptation</h4>
-                <Link to={{pathname: "/cooptation"}} className="btn-primary"><div tabIndex={7}>Voir</div></Link>
+                <button onClick={(e) => props.history.push({pathname: "/cooptation"})} className="btn-primary" tabIndex={7}>Voir</button>
                 <div className="box-views">
                   {cooptation.totalViewsAnnonces ?
                   <div>
@@ -118,7 +117,7 @@ function Dashboard() {
             <div className="columns">
               <div className="box-item communication">
                 <h4>Communication</h4>
-                <Link to={{pathname: "/communication"}} className="btn-primary"><div tabIndex={8}>Voir</div></Link>
+                <button onClick={(e) => props.history.push({pathname: "/communication"})} className="btn-primary" tabIndex={8}>Voir</button>
                 {communication.totalViews ?
                 <div className="box-views">
                   <div>

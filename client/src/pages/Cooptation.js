@@ -42,9 +42,9 @@ function PageCooptation(props) {
       <main className={`cooptation ${checkedTab === 2 ? 'background-athens-gray' : checkedTab === 0 ? 'background-white' : ''}`}>
         <Tabs onSelect={index => tab(index)}>
           <TabList>
-            <Tab onKeyPress={(e: KeyboardEvent) => {HandleEnterKeyPress(e)}}><div tabIndex={6}>Candidats</div></Tab>
-            <Tab onKeyPress={(e: KeyboardEvent) => {HandleEnterKeyPress(e)}}><div tabIndex={7}>Annonces<span>{Object.keys(annonces).length > 0 ? Object.keys(annonces).length : 0}</span></div></Tab>
-            <Tab onKeyPress={(e: KeyboardEvent) => {HandleEnterKeyPress(e)}}><div tabIndex={8}>Candidats archivés</div></Tab>
+            <Tab tabIndex={'6'} onKeyPress={(e: KeyboardEvent) => {HandleEnterKeyPress(e)}}>Candidats</Tab>
+            <Tab tabIndex={'7'} onKeyPress={(e: KeyboardEvent) => {HandleEnterKeyPress(e)}}>Annonces<span>{Object.keys(annonces).length > 0 ? Object.keys(annonces).length : 0}</span></Tab>
+            <Tab tabIndex={'8'} onKeyPress={(e: KeyboardEvent) => {HandleEnterKeyPress(e)}}>Candidats archivés</Tab>
           </TabList>
 
           <TabPanel>

@@ -28,6 +28,11 @@
   border-bottom: .3rem solid transparent;
   cursor: pointer;
   a {color: $raven}
+  &:focus {
+    outline: none;
+    color: $cloud-burst;
+    border-bottom: .3rem solid $heather;
+  }
   &:hover, &.current {border-color: $denim; color: $denim}
   &:hover a, &.current a, &:hover span {color: $denim}
   span {
@@ -46,6 +51,7 @@
 .react-tabs__tab--selected {
   border-color: $denim; color: $denim;
   span {color: $denim}
+  div {border-bottom: 0rem solid transparent}
 }
 .react-tabs__tab:focus {
   outline: none;

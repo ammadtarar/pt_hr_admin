@@ -388,7 +388,14 @@ main:not(.login) {
   p.react-switch {
     color: $raven;
     min-width: 8.5rem; //min-width pour éviter décalage du status et des points sur annonces
-    .react-switch {top: .5rem; margin-right: 1.2rem}
+    .react-switch {
+      top: .5rem;
+      margin-right: 1.2rem;
+      &:active {
+        box-shadow: 0px 0px 0px 3px $heather;
+        [target=activeBoxShadow]{box-shadow: 0px 0px 0px 3px $heather}
+      }
+    }
   }
 }
 
@@ -1109,12 +1116,6 @@ main.communication {
     }
     .box-annonce {
       height: 11.8rem;
-      ul {
-        &.titre {
-          li{display: block}
-          p {margin: 0}
-        }
-      }
     }
   }
   main.login {
@@ -1140,6 +1141,19 @@ main.communication {
         &:nth-child(2n+1) {padding: 0 0 3rem 1.5rem}
         &:nth-child(2n+2) {padding: 0 1rem 3rem 0}
         &:nth-of-type(1) {padding: 0 0 3rem 0}
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  main.cooptation {
+    .box-annonce {
+      ul {
+        &.titre {
+          li{display: block}
+          p {margin: 0}
+        }
       }
     }
   }

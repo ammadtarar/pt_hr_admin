@@ -52,8 +52,8 @@ function PageRecompenses(props) {
       <main className="recompenses">
         <Tabs defaultIndex={props.location.checkedTab ? props.location.checkedTab : 0}>
           <TabList>
-            <Tab onKeyPress={(e: KeyboardEvent) => {HandleEnterKeyPress(e)}}><div tabIndex={6}>Récompenses</div></Tab>
-            <Tab onKeyPress={(e: KeyboardEvent) => {HandleEnterKeyPress(e)}}><div tabIndex={7}>Demandes en attente<span>{Object.keys(demandesAttente).length > 0 ? Object.keys(demandesAttente).length : 0}</span></div></Tab>
+            <Tab tabIndex={'6'} onKeyPress={(e: KeyboardEvent) => {HandleEnterKeyPress(e)}}>Récompenses</Tab>
+            <Tab tabIndex={'7'} onKeyPress={(e: KeyboardEvent) => {HandleEnterKeyPress(e)}}>Demandes en attente<span>{Object.keys(demandesAttente).length > 0 ? Object.keys(demandesAttente).length : 0}</span></Tab>
           </TabList>
 
           <TabPanel>
