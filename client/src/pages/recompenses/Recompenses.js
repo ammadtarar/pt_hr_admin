@@ -95,7 +95,7 @@ function Recompenses(props) {
           <div className="row-fluid">
             <div className="large-11 columns"></div>
             <div className="large-1 columns">
-              <button tabIndex={8} onClick={(e) => setPopupOpen(true)} className="btn-primary">Créer</button>
+              <button tabIndex={8} onClick={(e) => setPopupOpen(true)} className="btn-primary"><span>Créer</span></button>
             </div>
           </div>
         </div>

@@ -598,16 +598,9 @@ main.dashboard {
   }
 }
 
-#top {
-  position: absolute;
-  left: 0; top: 0;
-  width: 100vw; height: 100vh;
-  z-index: 4;
-}
-
 //Cooptation
 main.cooptation, main.recompenses {
-  .tab-annonces, .tab-candidats, .tab-candidats-archives {margin-top: 4rem}
+  .tab-annonces, .tab-candidats, .tab-candidats-archives {margin-top: 4rem;}
   &.background-athens-gray .react-tabs__tab-list {background: $athens-gray}
   &.background-white .react-tabs__tab-list {background-color: white; display: relative;}
   .col-candidats-selectionnes {
@@ -1289,14 +1282,25 @@ main.communication {
   main.cooptation {
     .tab-candidats {
       margin-top: 11rem;
-      input[type="text"].search {top: 14.5rem}
+      //Block blanc qui évite de laisser transparent derrière la search durant le scroll)
+      &::before {
+        position: fixed;
+        top: 14rem; left: 0;
+        background-color: white;
+        width: 100vw; height: 6rem;
+        content: '';
+        z-index: 3;
+      }
+      input[type="text"].search {
+        top: 15rem;
+      }
     }
   }
 }
 
 @media only screen and (max-width: 520px) {
   main.recompenses {
-    .react-tabs__tab-list {padding-right: 12rem}
+    .react-tabs__tab-list {padding-right: 10rem}
   }
 }
 
@@ -1307,8 +1311,17 @@ main.communication {
     }
     .tab-recompenses {
       margin-top: .5rem;
+      button:nth-of-type(1) {
+        span {display: none}
+        &::after {
+          font-family: $bold-heebo;
+          font-size: 2rem;
+          content: '+'
+        }
+      }
     }
   }
+
   main.cooptation {
     .react-tabs__tab-list {padding-right: 0}
     .box-annonce {
@@ -1327,18 +1340,6 @@ main.communication {
       &:first-child {
         .box-item {margin-top: 40rem}
         .logo img {width: 24rem}
-      }
-    }
-  }
-  main.recompenses {
-    .tab-recompenses {
-      button:nth-of-type(1) {
-        span {display: none}
-        &::after {
-          font-family: $bold-heebo;
-          font-size: 2rem;
-          content: '+'
-        }
       }
     }
   }
