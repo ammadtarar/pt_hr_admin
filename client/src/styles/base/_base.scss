@@ -1145,7 +1145,7 @@ main.communication {
   }
 }
 
-@media only screen and (max-width: 640px) {
+@media only screen and (max-width: 639px) {
   .row-fluid {
     [class*='large-3'] {
       &:nth-child(1n+1) {padding: 0 0 3rem 0}
@@ -1233,6 +1233,12 @@ main.communication {
   }
 }
 
+@media only screen and (max-width: 520px) {
+  main.recompenses {
+    .react-tabs__tab-list {padding-right: 12rem}
+  }
+}
+
 @media only screen and (max-width: 480px) {
   main.recompenses {
     .tab-demandes {
@@ -1281,8 +1287,5 @@ main.communication {
     .tab-candidats-archives {margin-top: 13rem}
     .tab-annonces {margin-top: 11rem}
     .tab-candidats {margin-top: 9rem}
-  }
-  main.recompenses {
-    .react-tabs__tab-list {padding-right: 0}
   }
 }
