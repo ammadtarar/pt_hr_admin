@@ -22,6 +22,7 @@
   list-style: none;
   display: inline-block;
   font-size: $font-size-base;
+  font-family: $regular-heebo;
   color: $raven;
   line-height: 3.3rem;
   border-bottom: .3rem solid transparent;
@@ -66,5 +67,10 @@
 @media only screen and (max-width: 640px) {
   .react-tabs__tab-list {
     margin: 0 1rem;
+  }
+}
+@media only screen and (max-width: 480px) {
+  .react-tabs__tab {
+    margin: 0 2rem 0 0;
   }
 }

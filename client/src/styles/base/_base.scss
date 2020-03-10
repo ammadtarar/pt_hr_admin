@@ -239,11 +239,12 @@ input[type=number] {
   top: 0; right: 0;
   padding: 11.5rem 3rem;
   background-color: white;
-  width: 43rem; height: 100vh;
+  max-width: 43rem; width: 100%; height: 100vh;
   transform: translateX(100%);
   transition: all .4s cubic-bezier(0.045, 0.715, 0.250, 1.000);
   z-index: 7;
   pointer-events: auto;
+  overflow-y: scroll;
   &.open {
     display: block;
     visibility: visible;
@@ -346,7 +347,7 @@ input[type=number] {
   font-size: 1.3rem;
   border-radius: .5rem;
   color: $raven;
-  span {font-family: $bold-poppins; color: $cloud-burst; font-size: $font-size-base}
+  span {padding-right: .3rem; font-family: $bold-poppins; color: $cloud-burst; font-size: $font-size-base}
 }
 .box-points {
   background-color: $tara;
@@ -364,7 +365,7 @@ input[type=number] {
 .box-views-small {
   &::before {
     position: absolute;
-    margin: .8rem 0 0 -3.2rem;
+    margin: .9rem 0 0 -3.2rem;
     background-image: url('/icons/view.svg');
     background-repeat: no-repeat;
     background-size: 2.4rem;
@@ -598,8 +599,7 @@ main.dashboard {
 
 //Cooptation
 main.cooptation, main.recompenses {
-  .tab-annonces, .tab-candidats {margin-top: 4rem}
-  .tab-candidats-archives {margin-top: 5rem}
+  .tab-annonces, .tab-candidats, .tab-candidats-archives {margin-top: 4rem}
   &.background-athens-gray .react-tabs__tab-list {background: $athens-gray}
   &.background-white .react-tabs__tab-list {background-color: white; display: relative;}
   .col-candidats-selectionnes {
@@ -775,7 +775,7 @@ main.cooptation, main.recompenses {
             background-color: $solitaire;
             padding: 0 1rem 0 4.4rem;
             height: 4rem;
-            line-height: 4rem;
+            line-height: 4.3rem;
             font-family: $regular-heebo;
             font-size: 1.3rem;
             border-radius: .5rem;
@@ -973,7 +973,8 @@ main.communication {
       .icon {margin-bottom: 0}
     }
     .react-tabs__tab-list {
-      margin: 0 5rem;
+      margin: 0 2.5rem;
+      padding-left: 1rem; padding-right: 1rem;
     }
     input[type="text"].search {right: 3rem}
     .tab-candidats {
@@ -1076,7 +1077,7 @@ main.communication {
     }
     .tab-candidats {
       padding-top: 3rem;
-      input[type="text"].search {top: 8.2rem; right: 5rem}
+      input[type="text"].search {top: 8.2rem; right: 3rem}
     }
     .box-annonce {
       height: 11.8rem;
@@ -1152,17 +1153,17 @@ main.communication {
   }
   main.cooptation {
     .react-tabs__tab-list {
-      margin: 0 3rem;
+      margin: 0 2rem;
     }
     input[type="text"].search {right: 3rem}
+    .tab-annonces, .tab-candidats, .tab-candidats-archives {margin-top: 9rem;}
+    .tab-candidats {margin-top: 6.5rem;}
     .tab-candidats {
       [class*='large-3'] {margin-bottom: 0}
     }
     .tab-candidats-archives {
-      margin-top: 7rem;
       .box-encart {margin-bottom: 0rem}
     }
-    .tab-annonces {margin-top: 7rem;}
     .box-annonce {
       height: 11.8rem;
       ul {
@@ -1213,6 +1214,26 @@ main.communication {
   }
 }
 
+@media only screen and (max-width: 480px) {
+  main.recompenses {
+    .react-tabs__tab-list {max-width:31.6rem}
+    .tab-demandes {
+      margin-top: 3.5rem;
+    }
+    .tab-recompenses {
+      margin-top: .5rem;
+      button:nth-of-type(1) {
+        span {display: none}
+        &::after {
+          font-family: $bold-heebo;
+          font-size: 2rem;
+          content: '+'
+        }
+      }
+    }
+  }
+}
+
 @media only screen and (max-width: 420px) {
   main.login {
     [class*='large'] {
@@ -1221,5 +1242,14 @@ main.communication {
         .logo img {width: 24rem}
       }
     }
+  }
+}
+
+@media only screen and (max-width: 375px) {
+  input[type="text"].search {width: calc(100vw - 6.5rem); min-width: calc(100vw - 6.5rem);}
+  main.cooptation {
+    .tab-candidats-archives {margin-top: 13rem}
+    .tab-annonces {margin-top: 11rem}
+    .tab-candidats {margin-top: 9rem}
   }
 }
