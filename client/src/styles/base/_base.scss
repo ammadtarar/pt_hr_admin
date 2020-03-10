@@ -1352,9 +1352,10 @@ main.communication {
   main.cooptation {
     .container-cols-candidats {
       .row-fluid {
-        width: 127.5rem;
+        width: 130.5rem;
         .large-3 {
           width: 29rem;
+          &:last-child {width: 32rem; padding-right: 3rem}
         }
       }
     }
