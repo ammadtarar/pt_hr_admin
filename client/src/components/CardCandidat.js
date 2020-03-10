@@ -10,10 +10,6 @@ function CardCandidat(props) {
     props.popupArchive(data)
   }
 
-  const popupRejeter = (e,data) => {
-    props.popupRejeter(data)
-  }
-
   return (
     <div className="box-encart" onMouseOver={(e) => setHover(data.id)} onMouseOut={(e) => setHover(false)}>
       <div className={`icon ${data.archive === true ? 'athens-gray': ''}`}>{data.prenom.charAt(0) + data.nom.charAt(0)}</div>
@@ -36,7 +32,7 @@ function CardCandidat(props) {
       {data.archive === false ? <div className="box-rejeter">
         <hr/>
         <img onClick={(e) => popupArchive(e,data)} type="image/svg+xml" className="rejeter" src="/icons/rejeter.svg" alt=""/>
-        <button onClick={(e) => popupRejeter(e,data)} className={`btn-third ${hover === data.id ? 'display' : ''}`}>Rejeter la candidature</button>
+        <button onClick={(e) => popupArchive(e,data)} className={`btn-third ${hover === data.id ? 'display' : ''}`}>Rejeter la candidature</button>
       </div> : <br/>}
     </div>
   )

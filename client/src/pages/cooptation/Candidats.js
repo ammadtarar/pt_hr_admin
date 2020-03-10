@@ -42,7 +42,6 @@ export class Candidats extends React.Component {
     },
     'popupArchiveOpen': false,
     'popupStatusOpen': false,
-    'popupRejeterOpen': false,
     'popupData': [],
     'searchText': window.innerWidth >= 890 ? 'Rechercher' : '',
     'search': ''
@@ -196,16 +195,13 @@ export class Candidats extends React.Component {
     })
   }
 
-  popupRejeter = data => {
-    this.setState({
-      popupRejeterOpen: true,
-      popupData: data
-    })
-  }
+  archiverCandidat(e) {
+    e.preventDefault()
 
-  rejeterCandidature(e) {
+    //Candidat à archiver
     const data = this.state.popupData
     const id = data.id
+    data.archive = true
 
     //Définir dans quelle colonne retirer le candidat en fonction de son status dans l'object
     const col = data.status === 'Candidats cooptés' ? 'candidatsCooptes' :
@@ -225,26 +221,18 @@ export class Candidats extends React.Component {
     })
 
     this.setState({
-      popupRejeterOpen: false,
+      popupArchiveOpen: false,
+      popupData: false,
       [col]: newStateFiltres
+    }, () => {
+      // Data à modifier sur serveur aussi
+
     })
-  }
-
-  archiverCandidat(e) {
-    e.preventDefault()
-    this.setState({popupArchiveOpen: false})
-
-    //Candidat à archiver
-    const data = this.state.popupData
-    data.archive = true
-    // À modifier sur serveur
-
   }
 
   fermerPopup(e) {
     this.setState({
       popupArchiveOpen: false,
-      popupRejeterOpen: false,
       popupData: ''
     })
   }
@@ -439,7 +427,7 @@ export class Candidats extends React.Component {
                                               {...provided.draggableProps}
                                               {...provided.dragHandleProps}
                                               >
-                                                <CardCandidat data={key} popupRejeter={this.popupRejeter} popupArchive={this.popupArchive}/>
+                                                <CardCandidat data={key} popupArchive={this.popupArchive}/>
                                             </div>
                                           )}
                                         </Draggable>
@@ -497,7 +485,7 @@ export class Candidats extends React.Component {
                                               {...provided.draggableProps}
                                               {...provided.dragHandleProps}
                                               >
-                                                <CardCandidat data={key} popupRejeter={this.popupRejeter} popupArchive={this.popupArchive}/>
+                                                <CardCandidat data={key} popupArchive={this.popupArchive}/>
                                             </div>
                                           )}
                                         </Draggable>
@@ -557,7 +545,7 @@ export class Candidats extends React.Component {
                                               {...provided.draggableProps}
                                               {...provided.dragHandleProps}
                                               >
-                                                <CardCandidat data={key} popupRejeter={this.popupRejeter} popupArchive={this.popupArchive}/>
+                                                <CardCandidat data={key} popupArchive={this.popupArchive}/>
                                             </div>
                                           )}
                                         </Draggable>
@@ -618,7 +606,7 @@ export class Candidats extends React.Component {
                                               {...provided.draggableProps}
                                               {...provided.dragHandleProps}
                                               >
-                                                <CardCandidat data={key} popupRejeter={this.popupRejeter} popupArchive={this.popupArchive}/>
+                                                <CardCandidat data={key} popupArchive={this.popupArchive}/>
                                             </div>
                                           )}
                                         </Draggable>
