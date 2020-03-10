@@ -805,6 +805,7 @@ main.cooptation, main.recompenses {
     height: 9.8rem;
     ul {
       &.titre {margin-bottom: .5rem}
+      &.infos {top: -.7rem}
     }
     &:last-child {border-color: transparent;}
   }
@@ -812,13 +813,16 @@ main.cooptation, main.recompenses {
   .box-demande {
     height: 5.8rem;
     max-width: 100%;
-    ul.infos {top: -.7rem}
   }
   .box-recompense {
     h4 {padding-right: 16rem}
+    ul.infos {top: 2rem}
   }
   .box-annonce {
-    ul.titre {padding-right: 18rem}
+    ul {
+      &.infos {top: 1rem}
+      &.titre {padding-right: 18rem}
+    }
   }
 }
 
@@ -1080,7 +1084,7 @@ main.communication {
     }
     .tab-candidats {
       padding-top: 3rem;
-      input[type="text"].search {top: 8.2rem; right: 3rem}
+      input[type="text"].search {top: 12.2rem; right: 3rem}
     }
     .box-annonce {
       height: 11.8rem;
@@ -1116,6 +1120,15 @@ main.communication {
         &:nth-child(2n+2) {padding: 0 1rem 3rem 0}
         &:nth-of-type(1) {padding: 0 0 3rem 0}
       }
+    }
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  input[type="text"].search {width: calc(100vw - 6rem); min-width: calc(100vw - 6rem);}
+  main.cooptation {
+    .tab-candidats {
+      input[type="text"].search {top: 8rem}
     }
   }
 }
@@ -1173,6 +1186,7 @@ main.communication {
       height: 11.8rem;
       ul {
         &.infos {
+          top: .6rem;
           width:auto;
           li {
             margin: 0 0 1rem 1rem;
@@ -1228,6 +1242,15 @@ main.communication {
       margin-top: .5rem;
     }
   }
+  main.cooptation {
+    .box-annonce {
+      ul {
+        &.details {
+          li {margin: 4rem 3rem 0 0}
+        }
+      }
+    }
+  }
 }
 
 @media only screen and (max-width: 420px) {
@@ -1254,7 +1277,6 @@ main.communication {
 }
 
 @media only screen and (max-width: 375px) {
-  input[type="text"].search {width: calc(100vw - 6.5rem); min-width: calc(100vw - 6.5rem);}
   main.cooptation {
     .tab-candidats-archives {margin-top: 13rem}
     .tab-annonces {margin-top: 11rem}
