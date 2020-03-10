@@ -1,4 +1,9 @@
-html {font-size: 62.5%; scroll-behavior: smooth}
+html {
+  font-size: 62.5%;
+  scroll-behavior: smooth;
+  width: 100vw;
+  overflow-x: hidden;
+}
 * {box-sizing: border-box}
 ::selection {background: $cloud-burst; color: white;}
 
@@ -970,6 +975,7 @@ main.communication {
     overflow-x: hidden;
     .container-cols-candidats {
       position: relative;
+      padding-bottom: .5rem;
       left: -3.5rem;
       padding-left: 3.5rem;
       width: 100vw;
