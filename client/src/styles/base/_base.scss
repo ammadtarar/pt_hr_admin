@@ -381,6 +381,10 @@ input[type=number] {
 }
 
 //Common
+main, .wrapper {
+  width: 100vw;
+  overflow-x: hidden;
+}
 main:not(.login) {
   position: relative;
   margin-top: 7rem;
