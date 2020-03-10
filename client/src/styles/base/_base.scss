@@ -668,7 +668,7 @@ main.cooptation, main.recompenses {
     }
   }
   .tab-candidats-archives {
-    .box-encart {margin-bottom: 3.5rem;}
+    .box-encart {min-height: 20rem; margin-bottom: 3.5rem;}
   }
   .tab-candidats {
     .container-scroll:not(.candidats-selectionnes) {
@@ -960,7 +960,7 @@ main.communication {
     .tab-candidats {
       .box-encart {
         .icon {
-          margin-bottom: 2rem;
+          margin-bottom: 1rem;
         }
       }
     }

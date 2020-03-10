@@ -48,10 +48,9 @@
     text-align: center;
   }
 }
-.react-tabs__tab--selected {
+.react-tabs__tab--selected, .react-tabs__tab--selected:focus {
   border-color: $denim; color: $denim;
   span {color: $denim}
-  div {border-bottom: 0rem solid transparent}
 }
 .react-tabs__tab:focus {
   outline: none;
