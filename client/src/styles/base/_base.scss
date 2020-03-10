@@ -971,6 +971,25 @@ main.communication {
   }
 }
 
+@media only screen and (max-width: 1300px) {
+  main.cooptation {
+    width: 100vw;
+    overflow-x: hidden;
+    .container-cols-candidats {
+      position: relative;
+      left: -3.5rem;
+      padding-left: 3.5rem;
+      width: 100vw;
+      overflow-x: scroll;
+      .row-fluid {width: 147.5rem;}
+      .large-3 {
+        width: 36rem;
+        overflow-y: scroll;
+      }
+    }
+  }
+}
+
 @media only screen and (max-width: 1024px) {
   .row-fluid {
     [class*='large-3'] {
@@ -984,18 +1003,9 @@ main.communication {
     .card-communication {height: 33rem}
   }
   main.cooptation {
-    width: 100vw;
-    overflow-x: hidden;
     .container-cols-candidats {
-      position: relative;
-      left: -3.5rem;
-      padding-left: 3.5rem;
-      width: 100vw;
-      overflow-x: scroll;
       .row-fluid {width: 150rem}
       .large-3 {
-        width: 36rem;
-        overflow-y: scroll;
         &:nth-child(2) {margin-right: 3rem}
       }
     }
@@ -1009,6 +1019,7 @@ main.communication {
     input[type="text"].search {right: 3rem}
     .tab-candidats {
       [class*='large-3'] {margin-bottom: 3rem}
+      .box-item {height: 68rem}
     }
     .tab-candidats-archives {
       margin-top: 7rem;
@@ -1197,9 +1208,11 @@ main.communication {
   }
   main.cooptation {
     .react-tabs__tab-list {
-      margin: 0 2rem;
+      margin: 0;
+      padding-right: .5rem;
     }
     .container-cols-candidats {
+      left: -3rem;
       .row-fluid {
         width: 156rem;
         [class*='large-3'] {
@@ -1212,10 +1225,10 @@ main.communication {
         }
       }
     }
-    input[type="text"].search {right: 3rem}
     .tab-annonces, .tab-candidats, .tab-candidats-archives {margin-top: 9rem;}
     .tab-candidats {margin-top: 6.5rem;}
     .tab-candidats {
+      input[type="text"].search {right: 2.5rem}
       [class*='large-3'] {margin-bottom: 0}
     }
     .tab-candidats-archives {
@@ -1272,6 +1285,15 @@ main.communication {
   }
 }
 
+@media only screen and (max-width: 580px) {
+  main.cooptation {
+    .tab-candidats {
+      margin-top: 11rem;
+      input[type="text"].search {top: 14.5rem}
+    }
+  }
+}
+
 @media only screen and (max-width: 520px) {
   main.recompenses {
     .react-tabs__tab-list {padding-right: 12rem}
@@ -1288,7 +1310,7 @@ main.communication {
     }
   }
   main.cooptation {
-    .react-tabs__tab-list {padding-right: 8rem}
+    .react-tabs__tab-list {padding-right: 0}
     .box-annonce {
       ul {
         &.details {
@@ -1332,10 +1354,17 @@ main.communication {
   }
 }
 
+@media only screen and (max-width: 390px) {
+  main.cooptation {
+    .tab-candidats {
+      input[type="text"].search {top: 17.5rem}
+    }
+  }
+}
+
 @media only screen and (max-width: 375px) {
   main.cooptation {
     .tab-candidats-archives {margin-top: 13rem}
     .tab-annonces {margin-top: 11rem}
-    .tab-candidats {margin-top: 9rem}
   }
 }
