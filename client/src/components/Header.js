@@ -12,7 +12,7 @@ function Header (props) {
 
   const deconnexion = e => {
     window.location.href = '/'
-    localStorage.clear() //Clear storage, donc fermer les routes autres '/' sur Approuter
+    localStorage.clear() //Clear storage, et donc mets le conditional fast sur Approuter pour aussi fermer les routes
   }
 
   const toggleProfileMenu = e => {

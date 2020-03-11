@@ -74,7 +74,7 @@ ul.profile {
   &:focus li ul li {background-color: transparent}
   &.open {
     position: fixed;
-    top: 0; right: 1.2rem;
+    top: 0; right: 1.4rem;
     li {
       display: block;
       .sub-menu {
@@ -143,11 +143,12 @@ ul.profile {
   nav.primary {
     ul {
       li {
-        margin: 0 2.5rem 0 0;
+        margin: 0 4rem 0 0;
         &.current::after {filter: brightness(50%) sepia(1) hue-rotate(165deg) saturate(5)}
         &::before {
           position: absolute;
           top: 50%;
+          margin-left: .2rem;
           transform: translateY(calc(-50% - .7rem));
           background-image: url('/icons/dashboard.svg');
           background-repeat: no-repeat;
@@ -162,7 +163,7 @@ ul.profile {
         &.cooptation::before {background-image: url('/icons/cooptation.svg')}
         &.communication::before {background-image: url('/icons/communication.svg')}
         div {display: none}
-        a {width: 2rem; height: 7rem; padding-left: 0}
+        a {width: 2.4rem; height: 7rem; padding-left: 0}
         a:hover, &.current a {height: 7rem}
       }
     }
@@ -181,22 +182,45 @@ ul.profile {
         margin-top: 7.5rem;
         bottom: auto;
         right: 3rem;
-        max-width: 24rem;
+        display: flex;
+        flex-direction: column;
+        max-width: 24rem; //pour aligner les block verticalement, sinon çà les mets en inline
         li {
+          position: relative;
           float: right;
-          display: block;
+          display: flex;
           margin: 0 0 1.5rem 0;
+          &:first-child {
+            order: 4;
+          }
+          &:nth-child(2) {
+            order: 3;
+            width: 12.4rem;
+            right: -3.5rem;
+          }
+          &:nth-child(3) {
+            order: 2;
+            width: 15.9rem;
+          }
+          &:nth-child(4) {
+            order: 1;
+            width: 14.5rem;
+            right: -1.5rem;
+          }
           &:hover, &.current {
             display: block;
             div {background-color: $athens-gray;}
           }
-          a {height: 3.3rem;}
+          a {
+            height: 3.3rem;
+            div {text-align: right}
+          }
         }
       }
     }
     ul {
-      bottom: -2.7rem;
       position: fixed;
+      bottom: -2.7rem;
       right: 5rem;
       li {
         display: none;
@@ -227,6 +251,6 @@ ul.profile {
     }
   }
   ul.profile {
-    span {display: none;}
+    span {display: none}
   }
 }
