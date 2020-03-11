@@ -194,11 +194,10 @@ ul.profile {
       }
     }
     ul {
-      margin-top: 2.5rem;
+      bottom: -2.7rem;
       position: fixed;
       right: 5rem;
       li {
-        float: right;
         display: none;
         &::before {display: none}
         &:hover, &.current {
@@ -220,7 +219,7 @@ ul.profile {
             padding: 0 1rem 0 4rem;
             border-radius: .5rem;
             &::before {display: none}
-            &::after {margin-left: 1.2rem; top: auto; margin-top: 1.7rem}
+            &::after {margin-left: 1.2rem; top: auto; margin-top: 1.6rem}
           }
         }
       }
