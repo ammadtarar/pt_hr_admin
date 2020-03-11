@@ -3,14 +3,11 @@ html {
   scroll-behavior: smooth;
 }
 html, body, #root {
-  max-width:100vw; width: 100vw;
-  overflow-x: hidden;
+  position: static;
+  max-width: 100vw; width: 100vw !important;
+  overflow-x: hidden !important;
 }
 * {box-sizing: border-box}
-// *, *::before, *::after {
-//     box-sizing: inherit;
-//     position: relative;
-// }
 ::selection {background: $cloud-burst; color: white;}
 
 body {
@@ -1176,7 +1173,7 @@ main.communication {
       &:nth-child(1n+1) {padding: 0 0 3rem 0}
     }
   }
-  main:not(.login) {padding: 3rem}
+  main:not(.login) {padding: 0 3rem}
   main.recompenses {
     padding-left: 1rem; padding-right: 1rem;
     .tab-recompenses {
