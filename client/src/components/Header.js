@@ -45,7 +45,7 @@ function Header (props) {
   })
 
   return (
-    <header onDragStart={(e) => preventDragHandler(e)}>
+    <header className={btnMenuMobile === true ? 'open' : ''} onDragStart={(e) => preventDragHandler(e)}>
       <div id="btn-menu-mobile" className={btnMenuMobile === true ? 'open' : ''}
         onClick={(event) => setBtnMenuMobile(!btnMenuMobile)}
         >
