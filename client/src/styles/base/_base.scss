@@ -1172,7 +1172,7 @@ main.communication {
       &:nth-child(1n+1) {padding: 0 0 3rem 0}
     }
   }
-  main:not(.login) {padding: 3rem 0}
+  main:not(.login) {padding: 0 3rem}
   main.recompenses {
     padding-left: 1rem; padding-right: 1rem;
     .tab-recompenses {

@@ -51,7 +51,6 @@ function Dashboard(props) {
 
   return (
     <div className="wrapper" onDragStart={(e) => preventDragHandler(e)}>
-      <Header/>
       <main className="dashboard">
         <div className="container">
           <div className="row-fluid">
