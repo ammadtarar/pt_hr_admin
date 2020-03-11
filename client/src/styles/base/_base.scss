@@ -1250,6 +1250,15 @@ main.communication {
 }
 
 @media only screen and (max-width: 580px) {
+  .wrapper-popup {
+    align-items: flex-start;
+  }
+  .popup {
+    padding: 3rem 3rem 11.5rem 3rem;
+    &.center {
+      top: 1.5rem;
+    }
+  }
   main:not(.login) {
     margin-top: 0;
     padding-bottom: 8rem;
