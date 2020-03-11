@@ -1094,7 +1094,7 @@ main.communication {
         }
         img {
           &.vector-1 {position: fixed; height: 40rem; left: -10rem}
-          &.vector-2 {display: none}
+          &.vector-2, &.vector-3 {display: none}
           &.vector-4 {position: fixed; height: 40rem; bottom: -6.5rem}
         }
       }
@@ -1172,7 +1172,7 @@ main.communication {
       &:nth-child(1n+1) {padding: 0 0 3rem 0}
     }
   }
-  main:not(.login) {padding: 3rem}
+  main:not(.login) {padding: 0}
   main.recompenses {
     padding-left: 1rem; padding-right: 1rem;
     .tab-recompenses {
