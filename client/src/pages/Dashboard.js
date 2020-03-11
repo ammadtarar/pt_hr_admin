@@ -33,12 +33,12 @@ function Dashboard(props) {
     setCommunication({
       actifs: compteArticlesActifs(datas.communication),
       total: Object.keys(datas.communication).length,
-      totalViews: compteArticlesTotalViews(datas.communication).toString().replace(/\B(?=(?:\d{3})+(?!\d))/g, ',')
+      totalViews: compteArticlesTotalViews(datas.communication) ? compteArticlesTotalViews(datas.communication).toString().replace(/\B(?=(?:\d{3})+(?!\d))/g, ',') : '0'
     })
     setCooptation({
       annoncesActives: compteAnnoncesActives(datas.annonces),
       totalAnnonces: Object.keys(datas.annonces).length,
-      totalViewsAnnonces: compteAnnoncesTotalViews(datas.annonces).toString().replace(/\B(?=(?:\d{3})+(?!\d))/g, ','),
+      totalViewsAnnonces: compteAnnoncesTotalViews(datas.annonces) ? compteAnnoncesTotalViews(datas.annonces).toString().replace(/\B(?=(?:\d{3})+(?!\d))/g, ',') : 0,
       totalCandidats: Object.keys(datas.candidats).length,
       totalCandidatsCooptes: compteCandidatsCooptes(datas.candidats).length
     })
@@ -89,11 +89,10 @@ function Dashboard(props) {
                 <h4>Cooptation</h4>
                 <button onClick={(e) => props.history.push({pathname: "/cooptation"})} className="btn-primary" tabIndex={7}>Voir</button>
                 <div className="box-views">
-                  {cooptation.totalViewsAnnonces ?
                   <div>
                     <p>{cooptation.totalViewsAnnonces}</p>
                     <p>visiteurs sur les annonces</p>
-                  </div> : ''}
+                  </div>
                 </div>
                 <div className="icon half-spanish-white"><img src="/icons/annonces-actives.svg" alt=""/></div>
                 <div className="box-text">
@@ -118,13 +117,12 @@ function Dashboard(props) {
               <div className="box-item communication">
                 <h4>Communication</h4>
                 <button onClick={(e) => props.history.push({pathname: "/communication"})} className="btn-primary" tabIndex={8}>Voir</button>
-                {communication.totalViews ?
                 <div className="box-views">
                   <div>
                     <p>{communication.totalViews}</p>
                     <p>visiteurs sur les contenus</p>
                   </div>
-                </div> : ''}
+                </div>
                 <div className="icon link-water"><img src="/icons/contenus-actifs.svg" alt=""/></div>
                 <div className="box-text">
                   <p>Contenus actifs</p>
