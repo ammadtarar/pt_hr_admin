@@ -92,9 +92,9 @@ input[type="text"], input[type="number"], input[type="email"], input[type="passw
   box-shadow: none;
   transition: all .2s cubic-bezier(0.045, 0.715, 0.250, 1.000);
   &.error {
-    color: red;
-    border-bottom: .1rem solid red;
-    &:hover, &:focus, &:active {border-bottom: .1rem solid red}
+    color: $valencia;
+    border-bottom: .1rem solid $valencia;
+    &:hover, &:focus, &:active {border-bottom: .1rem solid $valencia}
   }
   &::placeholder {color: $raven !important;}
   &:focus, &:active {
@@ -421,7 +421,7 @@ main.login {
           margin: 2rem 0 5rem 0;
           font-size: 1.3rem;
           &.note-envoie-code {margin: 2rem 0 2rem 0}
-          &.note-connection-echec {color: red; margin: 1rem 0 -1rem 0}
+          &.note-connection-echec {color: $valencia; margin: 1rem 0 -1rem 0}
         }
         &.step-2 button {margin-top: 5rem}
       }
@@ -843,8 +843,8 @@ main.recompenses {
   margin-top: 11rem;
   .container, .react-tabs__tab-list {max-width: 128.5rem; padding-left: 2rem; padding-right: 2rem}
   .react-tabs__tab-list {padding-right: 12rem}
-  .tab-recompenses {margin-top: -1.5rem}
   .tab-recompenses {
+    margin-top: -1.5rem;
     button:nth-of-type(1) {
       position: fixed;
       top: 10.5rem;
@@ -1118,7 +1118,8 @@ main.communication {
         top: 10.4rem;
         right: 3.5rem;
         padding: 0;
-        width: 5.5rem; min-width: 5.5rem;
+        width: 6.5rem; min-width: 6.5rem;
+        background-position: 2rem 55%;
         &:focus {
           padding-left: 6rem;
           width: calc(100vw - 6rem); min-width: calc(100vw - 6rem);
@@ -1287,20 +1288,98 @@ main.communication {
 }
 
 @media only screen and (max-width: 580px) {
-  main.cooptation {
-    .tab-candidats {
-      margin-top: 11rem;
-      //Block blanc qui évite de laisser transparent derrière la search durant le scroll)
-      &::before {
-        position: fixed;
-        top: 14rem; left: 0;
-        background-color: white;
-        width: 100vw; height: 8.5rem;
-        content: '';
-        z-index: 2;
+  main:not(.login) {
+    margin-top: 0;
+    padding-bottom: 8rem;
+  }
+  main.recompenses {
+    .react-tabs__tab-list {margin-top: -4.5rem; padding-top: 0}
+    .box-recompense {
+      ul.infos {
+        top: 3rem;
       }
+    }
+    .box-demande {
+      ul.infos {
+        li {
+          &.check {
+            p {visibility: hidden}
+          }
+          button {
+            padding: 0;
+            width: 4rem; height: 4rem;
+            border-radius: 50%;
+            div {display: none}
+            &::after {
+              position: absolute;
+              margin-top: -.8rem;
+              right: .8rem;
+              background-image: url('/icons/check.svg');
+              background-repeat: no-repeat;
+              background-size: 2.3rem;
+              width: 2.3rem; height: 2.3rem;
+              content: '';
+              filter: brightness(600%);
+            }
+          }
+        }
+      }
+    }
+    .tab-demandes {
+      margin-top: 3.5rem;
+    }
+    .tab-recompenses {
+      margin-top: 0;
+      button:nth-of-type(1) {
+        top: 2rem;
+        padding: 0;
+        width: 4rem; height: 4rem;
+        border-radius: 50%;
+        span {display: none}
+        &::after {
+          font-family: $light-poppins;
+          font-size: 3.5rem;
+          content: '+'
+        }
+      }
+    }
+  }
+  main.cooptation {
+    .react-tabs__tab-list {
+      margin-top: -4.5rem;
+      padding-top: 0;
+      padding-right: 0
+    }
+    .tab-candidats, .tab-annonces {
+      margin-top: 2.5rem;
       input[type="text"].search {
-        top: 15rem;
+        display: none;
+      }
+    }
+    .tab-candidats-archives {margin-top: 4.5rem}
+    .box-annonce {
+      height: auto;
+      padding-bottom: 1.5rem;
+      ul {
+        &.details {
+          li {margin: 6rem 3rem 0 0}
+        }
+        &.infos {
+          position: absolute;
+          right: auto; top: auto;
+          bottom: 5.2rem;
+          li {
+            float: left;
+            &:first-child {margin-left: 0}
+          }
+        }
+      }
+    }
+  }
+  main.dashboard {
+    .row-fluid {
+      .columns {
+        &:nth-of-type(1) {display: none}
       }
     }
   }
@@ -1308,37 +1387,7 @@ main.communication {
 
 @media only screen and (max-width: 520px) {
   main.recompenses {
-    .react-tabs__tab-list {padding-right: 10rem}
-  }
-}
-
-@media only screen and (max-width: 480px) {
-  main.recompenses {
-    .tab-demandes {
-      margin-top: 3.5rem;
-    }
-    .tab-recompenses {
-      margin-top: .5rem;
-      button:nth-of-type(1) {
-        span {display: none}
-        &::after {
-          font-family: $bold-heebo;
-          font-size: 2rem;
-          content: '+'
-        }
-      }
-    }
-  }
-
-  main.cooptation {
-    .react-tabs__tab-list {padding-right: 0}
-    .box-annonce {
-      ul {
-        &.details {
-          li {margin: 4rem 3rem 0 0}
-        }
-      }
-    }
+    .react-tabs__tab-list {padding-right: 2rem}
   }
 }
 
@@ -1361,9 +1410,18 @@ main.communication {
   }
 }
 
-@media only screen and (max-width: 375px) {
+@media only screen and (max-width: 350px) {
+  main.recompenses {
+    margin-top: 2rem;
+    .react-tabs__tab-list {padding-right: 10rem}
+  }
   main.cooptation {
-    .tab-candidats-archives {margin-top: 13rem}
-    .tab-annonces {margin-top: 11rem}
+    .react-tabs__tab-list {
+      padding-right: 3rem;
+    }
+    .tab-candidats, .tab-annonces {
+      margin-top: 6rem;
+    }
+    .tab-candidats-archives {margin-top: 7.5rem}
   }
 }

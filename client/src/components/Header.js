@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { NavLink } from 'react-router-dom'
 
 function Header (props) {
+  const [btnMenuMobile, setBtnMenuMobile] = useState(false)
   const [profileOpen, setProfileOpen] = useState(false)
   const [utilisateur] = useState(localStorage.getItem('utilisateur') ? JSON.parse(localStorage.getItem('utilisateur')) : '')
 
@@ -45,9 +46,17 @@ function Header (props) {
 
   return (
     <header onDragStart={(e) => preventDragHandler(e)}>
+      <div id="btn-menu-mobile" className={btnMenuMobile === true ? 'open' : ''}
+        onClick={(event) => setBtnMenuMobile(!btnMenuMobile)}
+        >
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+
       <div className="container">
         <div className="logo"><a href="/dashboard" rel="noopener noreferrer" title=""><img type="image/svg+xml" src="/icons/logo-pushtalents-small.svg" alt=""/></a></div>
-        <nav className="primary" role="navigation">
+        <nav className={`primary ${btnMenuMobile === true ? 'open' : ''}`} role="navigation">
           <ul>
             <li className={`dashboard ${document.location.pathname === '/dashboard' ? 'current' : ''}`}><NavLink to="/dashboard" activeClassName="is-active" exact={true}><div tabIndex={1}>Tableau de bord</div></NavLink></li>
             <li className={`cooptation ${document.location.pathname === '/cooptation' ? 'current' : ''}`}><NavLink to="/cooptation" activeClassName="is-active" exact={true}><div tabIndex={2}>Cooptation</div></NavLink></li>
@@ -55,7 +64,7 @@ function Header (props) {
             <li className={`recompenses ${document.location.pathname === '/recompenses' ? 'current' : ''}`}><NavLink to="/recompenses" activeClassName="is-active" exact={true}><div tabIndex={4}>Récompenses</div></NavLink></li>
           </ul>
         </nav>
-        <ul className="profile" tabIndex={5}>
+        <ul className={`profile ${btnMenuMobile === true ? 'open' : ''}`} tabIndex={5}>
           <li onClick={(e) => toggleProfileMenu(e)}
               className={profileOpen === true ? 'open' : ''}><span>{utilisateur.prenom}</span>
             <ul className={`sub-menu ${profileOpen === true ? 'open' : ''}`}>
