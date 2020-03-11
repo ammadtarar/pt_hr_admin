@@ -1252,7 +1252,6 @@ main.communication {
 @media only screen and (max-width: 580px) {
   .popup {
     padding: 3rem 3rem 11.5rem 3rem;
-    &.center {overflow-y: scroll; height: 100%;}
   }
   main:not(.login) {
     margin-top: 0;
