@@ -1250,14 +1250,9 @@ main.communication {
 }
 
 @media only screen and (max-width: 580px) {
-  .wrapper-popup {
-    align-items: flex-start;
-  }
   .popup {
     padding: 3rem 3rem 11.5rem 3rem;
-    &.center {
-      top: 1.5rem;
-    }
+    &.center {overflow-y: scroll; height: 100%;}
   }
   main:not(.login) {
     margin-top: 0;
