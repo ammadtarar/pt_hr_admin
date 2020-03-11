@@ -418,7 +418,7 @@ main.login {
         .note {
           margin: 2rem 0 5rem 0;
           font-size: 1.3rem;
-          &.note-envoie-code {margin: 2rem 0 2rem 0}
+          &.note-envoie-code {margin: 2rem 0 1rem 0}
           &.note-connection-echec {color: $valencia; margin: 1rem 0 -1rem 0}
         }
         &.step-2 button {margin-top: 5rem}
