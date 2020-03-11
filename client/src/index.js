@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import AppRouter from './routers/AppRouter'
-// import 'foundation-sites/dist/css/foundation-float.min.css'
+import 'foundation-sites/dist/css/foundation-float.min.css'
 import './styles/styles.scss'
 import * as serviceWorker from './serviceWorker'
 
