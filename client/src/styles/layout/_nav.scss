@@ -180,7 +180,9 @@ ul.profile {
       ul {
         margin-top: 7.5rem;
         right: 3rem;
+        max-width: 24rem;
         li {
+          float: right;
           display: block;
           margin: 0 0 1.5rem 0;
           &:hover, &.current {
@@ -196,6 +198,7 @@ ul.profile {
       position: fixed;
       right: 5rem;
       li {
+        float: right;
         display: none;
         &::before {display: none}
         &:hover, &.current {
@@ -208,19 +211,16 @@ ul.profile {
           }
         }
         a {
-          display: block;
           width: 100%;
           &::before {display: none}
           div {
-            float: right;
             display: block;
             height: 3.3rem;
             line-height: 3.3rem;
             padding: 0 1rem 0 4rem;
             border-radius: .5rem;
-            filter: brightness(100%);
             &::before {display: none}
-            &::after {left: 1.2rem; margin-top: -.2rem}
+            &::after {margin-left: 1.2rem; top: auto; margin-top: 1.7rem}
           }
         }
       }

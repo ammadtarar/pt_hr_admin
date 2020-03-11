@@ -713,7 +713,7 @@ main.cooptation, main.recompenses {
     position: relative;
     margin: 0 auto;
     display: table;
-    width: 100%; height: 9.8rem;
+    width: 100%; min-height: 9.8rem;
     border-bottom: .1rem solid $mischka;
     &:nth-of-type(1) {margin-top: 3rem}
     p {font-size: 1.3rem; color: $raven}
@@ -805,7 +805,7 @@ main.cooptation, main.recompenses {
   }
   .box-recompense, .box-annonce, .box-demande {
     margin: 3rem auto 0 auto;
-    height: 9.8rem;
+    min-height: 9.8rem;
     ul {
       &.titre {margin-bottom: .5rem}
       &.infos {top: -.7rem}
@@ -814,17 +814,15 @@ main.cooptation, main.recompenses {
   }
   .box-annonce {max-width: 98rem}
   .box-demande {
-    height: 5.8rem;
+    min-height: 5.8rem;
     max-width: 100%;
   }
   .box-recompense {
-    h4 {padding-right: 16rem}
     ul.infos {top: 2rem}
   }
   .box-annonce {
     ul {
       &.infos {top: 1rem}
-      &.titre {padding-right: 18rem}
     }
   }
 }
@@ -1199,7 +1197,6 @@ main.communication {
       height: 8.2rem;
       ul {
         &.titre {
-          width: calc(100% - 12rem);
           li{display: block}
           p {margin: 0}
         }
@@ -1293,10 +1290,14 @@ main.communication {
     padding-bottom: 8rem;
   }
   main.recompenses {
-    .react-tabs__tab-list {margin-top: -4.5rem; padding-top: 0}
+    .react-tabs__tab-list {
+      margin-top: -7rem;
+      padding-top: 2.5rem;
+      padding-right: 0
+    }
     .box-recompense {
       ul.infos {
-        top: 3rem;
+        top: 30%;
       }
     }
     .box-demande {
@@ -1346,8 +1347,8 @@ main.communication {
   }
   main.cooptation {
     .react-tabs__tab-list {
-      margin-top: -4.5rem;
-      padding-top: 0;
+      margin-top: -7rem;
+      padding-top: 2.5rem;
       padding-right: 0
     }
     .tab-candidats, .tab-annonces {
