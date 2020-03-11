@@ -2,10 +2,10 @@ html {
   font-size: 62.5%;
   scroll-behavior: smooth;
 }
-html, body, #root, main, main:not(.login), #app {
+html, body {
   padding: 0;
   margin: 0;
-  max-width: 100%; width: 100vw;
+  max-width: 100%; width: 100%;
   overflow-x: hidden;
 }
 * {box-sizing: border-box}
