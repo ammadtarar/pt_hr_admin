@@ -378,11 +378,6 @@ input[type=number] {
 }
 
 //Common
-main {
-  width: calc(100vw - 3rem);
-  overflow-x: hidden;
-  background: red;
-}
 main:not(.login) {
   position: relative;
   margin-top: 7rem;
