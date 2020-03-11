@@ -1091,7 +1091,7 @@ main.communication {
           padding: 0;
           height: auto;
           position: relative;
-          margin-top: 13rem;
+          margin-top: 12rem;
         }
         img {
           &.vector-1 {position: fixed; height: 40rem; left: -10rem}
@@ -1363,11 +1363,24 @@ main.communication {
   }
 }
 
-@media only screen and (max-width: 420px) {
+@media only screen and (max-width: 480px) {
+  h1.headline {font-size: 2.3rem}
+  h2 {font-size: 2rem}
+  h3 {font-size: 1.7rem}
   main.login {
+    &::after {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: calc(100vh + 26.5rem);
+      background-color: $cloud-burst;
+      content: '';
+    }
     [class*='large'] {
       &:first-child {
-        .box-item {margin-top: 40rem}
+        .box-item {
+          position: relative;
+          margin: 19rem 0 12rem 0;
+        }
       }
     }
   }
