@@ -2,10 +2,6 @@ html {
   font-size: 62.5%;
   scroll-behavior: smooth;
 }
-html, #root {
-  max-width: 100vw; width: 100vw;
-  overflow-x: hidden;
-}
 * {box-sizing: border-box}
 ::selection {background: $cloud-burst; color: white;}
 
@@ -1395,10 +1391,10 @@ main.communication {
   }
 }
 
-@media only screen and (max-width: 480px) {
-  .wrapper {
-    padding: 0;
-    width: 100vw; max-width:100vw; overflow: hidden;
+@media only screen and (max-width: 420px) {
+  html, #root {
+    max-width: calc(100vw - 3rem); width: calc(100vw - 3rem);
+    overflow-x: hidden;
   }
 }
 
