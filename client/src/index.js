@@ -6,7 +6,9 @@ import './styles/styles.scss'
 import * as serviceWorker from './serviceWorker'
 
 const App = (
-  <AppRouter/>
+  <div id="app">
+    <AppRouter/>
+  </div>
 )
 
 ReactDOM.render(App, document.getElementById('root'))
