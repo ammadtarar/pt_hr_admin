@@ -37,6 +37,12 @@ function Header (props) {
     }
   }
 
+  if (btnMenuMobile === true) {
+    document.querySelector('html').style.overflowY = 'hidden'
+  } else {
+    document.querySelector('html').style.overflowY = 'scroll'
+  }
+
   useEffect(() => {
     return () => {
       document.addEventListener('keydown', closeSubMenu, true)
