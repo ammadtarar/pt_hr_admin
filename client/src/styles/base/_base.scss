@@ -34,6 +34,7 @@ hr {
 }
 strong {font-family: $bold-heebo; font-weight: 400}
 span.link {
+  font-family: $regular-heebo;
   font-size: 1.3rem;
   color: $denim;
   cursor: pointer;
@@ -1403,7 +1404,7 @@ main.communication {
   }
 }
 
-@media only screen and (max-width: 350px) {
+@media only screen and (max-width: 356px) {
   main.recompenses {
     margin-top: 2rem;
     .react-tabs__tab-list {padding-right: 10rem}
