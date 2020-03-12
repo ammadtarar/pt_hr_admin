@@ -1,6 +1,5 @@
 import React from 'react'
 import CardCandidat from '../../components/CardCandidat'
-// import { triCooptes, triRecus, triEntretiens, triSelectionne } from '../../functions/TriCandidats.js'
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
 const datas = require('../../datas.json')
 
@@ -44,6 +43,7 @@ export class Candidats extends React.Component {
     'popupArchiveOpen': false,
     'popupStatusOpen': false,
     'popupData': [],
+    'searchText': window.innerWidth >= 890 ? 'Rechercher' : '',
     'search': ''
   }
 
@@ -195,8 +195,15 @@ export class Candidats extends React.Component {
     })
   }
 
-  rejeter = data => {
+  archiverCandidat(e) {
+    e.preventDefault()
+
+    //Candidat à archiver
+    const data = this.state.popupData
     const id = data.id
+    data.archive = true
+
+    //Définir dans quelle colonne retirer le candidat en fonction de son status dans l'object
     const col = data.status === 'Candidats cooptés' ? 'candidatsCooptes' :
       data.status === 'Candidatures reçues' ? 'candidaturesRecues' :
       data.status === 'Entretiens en cours' ? 'candidatsEntretiens' :
@@ -214,21 +221,20 @@ export class Candidats extends React.Component {
     })
 
     this.setState({
+      popupArchiveOpen: false,
+      popupData: false,
       [col]: newStateFiltres
+    }, () => {
+      // Data à modifier sur serveur aussi
+
     })
   }
 
-  archiverCandidat(e) {
-    e.preventDefault()
-    this.setState({popupArchiveOpen: false})
-
-    //Candidat à archiver
-    const data = this.state.popupData
-    data.archive = true
-    console.log(data.archive)
-    console.log(data.id)
-    // À modifier sur serveur
-
+  fermerPopup(e) {
+    this.setState({
+      popupArchiveOpen: false,
+      popupData: ''
+    })
   }
 
   handleSearch (e) {
@@ -341,15 +347,15 @@ export class Candidats extends React.Component {
 
           {/* Popup archiver */}
           <div
-          onClick={(e) => this.setState({popupArchiveOpen: false})}
+          onClick={(e) => this.setState({popupArchiveOpen: false, popupData: ''})}
           className={`overlay-popup ${this.state.popupArchiveOpen === true ? 'open' : ''}`}/>
 
-          <div className={`wrapper-popup ${this.state.popupArchiveOpen === true ? 'open' : ''}`}>
+          <div className="wrapper-popup">
             <div className={`popup center ${this.state.popupArchiveOpen === true ? 'open' : ''}`}>
               <h4 className="text-center">Etes-vous sûr de vouloir archiver le candidat <span>{this.state.popupData.prenom + ' ' + this.state.popupData.nom}</span> ?</h4>
               <p className="text-center">Cette action est irréversible et notifiera automatiquement le collaborateur l’ayant coopté.</p>
               <button onClick={(e) => this.archiverCandidat(e)} className="btn-primary">Oui, archiver</button>
-              <button onClick={(e) => this.setState({popupArchiveOpen: false})} className="btn-secondary">Annuler</button>
+              <button onClick={(e) => this.fermerPopup(e)} className="btn-secondary">Annuler</button>
             </div>
           </div>
           {/* End popup archiver */}
@@ -357,10 +363,10 @@ export class Candidats extends React.Component {
           {/* Popup changer status candidat */}
           <div
           id="koChangeStatus1"
-          onClick={(e) => this.setState({popupStatusOpen: false})}
+          onClick={(e) => this.setState({popupStatusOpen: false, popupData: ''})}
           className={`overlay-popup ${this.state.popupStatusOpen === true ? 'open' : ''}`}/>
 
-          <div className={`wrapper-popup ${this.state.popupStatusOpen === true ? 'open' : ''}`}>
+          <div className="wrapper-popup">
             <div className={`popup center ${this.state.popupStatusOpen === true ? 'open' : ''}`}>
               <h4 className="text-center">Êtes-vous sûr de vouloir changer le statut de candidature de <span>{this.state.popupData.prenom + ' ' + this.state.popupData.nom}</span> de <span>{this.state.popupData.status}</span> à <span>{this.state.popupData.droppableColText}</span>, pour l’offre de <span>{this.state.popupData.titre}</span> ?</h4>
               <p className="text-center">Cette action est irréversible et notifiera automatiquement le collaborateur l’ayant coopté.</p>
@@ -381,250 +387,257 @@ export class Candidats extends React.Component {
                   type="text"
                   name="search"
                   className="search"
-                  placeholder="Rechercher"
+                  placeholder={this.state.searchText}
                   onChange={(e) => this.handleSearch(e)}
                   value={this.state.search}
+                  tabIndex={9}
                 />
               </div>
             </div>
 
-            <DragDropContext onDragStart={this.onDragStart} onDragEnd={this.onDragEnd}>
-              <div className="row-fluid">
-                <div className="large-3 medium-6 columns">
-                  <div className="box-item">
-                    <h4 className="light">Candidats cooptés</h4>
-                    <div className={`container-scroll candidats-cooptes ${this.state.droppable}`}>
+            <div className="container-cols-candidats">
+              <DragDropContext onDragStart={this.onDragStart} onDragEnd={this.onDragEnd}>
+                <div className="row-fluid">
+                  <div className="large-3 columns">
+                    <div className="box-item">
+                      <h4 className="light">Candidats cooptés</h4>
+                      <div className={`container-scroll candidats-cooptes ${this.state.droppable}`}>
 
-                      {candidatsCooptes.length > 0 ?
+                        {candidatsCooptes.length > 0 ?
 
-                        <Droppable isDropDisabled droppableId="droppable">
-                          {(provided, snapshot) => (
-                            <div
-                              ref={provided.innerRef}>
-                              {candidatsCooptes
-                                // .sort((a, b) => {
-                                //   return new Date(a.date) < new Date(b.date) ? 1 : (new Date(a.date) > new Date(b.date) ? -1 : 0)
-                                // })
-                                .map((key, index) => {
-                                    return (
-                                      <Draggable
-                                        key={key.id}
-                                        draggableId={key.id}
-                                        index={index}>
-                                        {(provided, snapshot) => (
-                                          <div
-                                            className={this.state.popupData.id === key.id ? 'draggable' : ''}
-                                            ref={provided.innerRef}
-                                            {...provided.draggableProps}
-                                            {...provided.dragHandleProps}
-                                            >
-                                              <CardCandidat data={key} rejeter={this.rejeter} popup={this.popupArchive}/>
-                                          </div>
-                                        )}
-                                      </Draggable>
-                                    )
-                                  }
-                                )}
-                              {provided.placeholder}
-                            </div>
-                          )}
-                        </Droppable>
-                        :
-                        <Droppable isDropDisabled droppableId="droppable">
-                          {(provided, snapshot) => (
-                          <div ref={provided.innerRef}>
-                            <div className={`container empty candidats ${candidatsCooptes.length === 0 ? '' : ''}`}>
-                              <img type="image/svg+xml" className="icon" src="/icons/candidat-coopte.svg" alt=""/>
-                              <p className="text-center">Aucun candidat coopté</p>
-                              <p className="text-center">Vos ambassadeurs n’ont pas encore coopté de profils sur vos annonces.</p>
-                            </div>
-                          </div>)}
-                        </Droppable>
-                      }
+                          <Droppable isDropDisabled droppableId="droppable">
+                            {(provided, snapshot) => (
+                              <div
+                                ref={provided.innerRef}>
+                                {candidatsCooptes
+                                  .filter((key) => key.archive === false)
+                                  // .sort((a, b) => {
+                                  //   return new Date(a.date) < new Date(b.date) ? 1 : (new Date(a.date) > new Date(b.date) ? -1 : 0)
+                                  // })
+                                  .map((key, index) => {
+                                      return (
+                                        <Draggable
+                                          key={key.id}
+                                          draggableId={key.id}
+                                          index={index}>
+                                          {(provided, snapshot) => (
+                                            <div
+                                              className={this.state.popupData.id === key.id ? 'opacity' : ''}
+                                              ref={provided.innerRef}
+                                              {...provided.draggableProps}
+                                              {...provided.dragHandleProps}
+                                              >
+                                                <CardCandidat data={key} popupArchive={this.popupArchive}/>
+                                            </div>
+                                          )}
+                                        </Draggable>
+                                      )
+                                    }
+                                  )}
+                                {provided.placeholder}
+                              </div>
+                            )}
+                          </Droppable>
+                          :
+                          <Droppable isDropDisabled droppableId="droppable">
+                            {(provided, snapshot) => (
+                            <div ref={provided.innerRef}>
+                              <div className={`container empty candidats ${candidatsCooptes.length === 0 ? '' : ''}`}>
+                                <img type="image/svg+xml" className="icon" src="/icons/candidat-coopte.svg" alt=""/>
+                                <p className="text-center">Aucun candidat coopté</p>
+                                <p className="text-center">Vos ambassadeurs n’ont pas encore coopté de profils sur vos annonces.</p>
+                              </div>
+                            </div>)}
+                          </Droppable>
+                        }
 
+                      </div>
+                    </div>
+                  </div>
+                  <div className="large-3 columns">
+                    <div className="box-item">
+                      <h4 className="light">Candidatures reçues</h4>
+                      <div className={`container-scroll candidatures-recues ${this.state.droppable}`}>
+
+                        {candidaturesRecues.length > 0 ?
+
+                          <Droppable
+                            isDropDisabled={this.state.droppable === 'droppable' ? false : true}
+                            droppableId="droppable2">
+                            {(provided, snapshot) => (
+                              <div
+                                ref={provided.innerRef}>
+                                {candidaturesRecues
+                                  .filter((key) => key.archive === false)
+                                  // .sort((a, b) => {
+                                  //   return new Date(a.date) < new Date(b.date) ? 1 : (new Date(a.date) > new Date(b.date) ? -1 : 0)
+                                  // })
+                                  .map((key, index) => {
+                                      return (
+                                        <Draggable
+                                          key={key.id}
+                                          draggableId={key.id}
+                                          index={index}>
+                                          {(provided, snapshot) => (
+                                            <div
+                                              className={this.state.popupData.id === key.id ? 'opacity' : ''}
+                                              ref={provided.innerRef}
+                                              {...provided.draggableProps}
+                                              {...provided.dragHandleProps}
+                                              >
+                                                <CardCandidat data={key} popupArchive={this.popupArchive}/>
+                                            </div>
+                                          )}
+                                        </Draggable>
+                                      )
+                                    }
+                                  )}
+                                {provided.placeholder}
+                              </div>
+                            )}
+                          </Droppable>
+                          :
+                          <Droppable
+                            isDropDisabled={this.state.droppable === 'droppable' ? false : true}
+                            droppableId="droppable2">
+                            {(provided, snapshot) => (
+                            <div ref={provided.innerRef}>
+                              <div className={`container empty candidats ${candidaturesRecues.length === 0 ? '' : ''}`}>
+                                <img type="image/svg+xml" className="icon" src="/icons/entretien.svg" alt=""/>
+                                <p className="text-center">Aucune candidature reçue</p>
+                                <p className="text-center">Vous n’avez pas encore reçu de candidature sur vos annonces.</p>
+                              </div>
+                            </div>)}
+                          </Droppable>
+                        }
+
+                      </div>
+                    </div>
+                  </div>
+                  <div className="large-3 columns">
+                    <div className="box-item">
+                      <h4 className="light">Entretiens en cours</h4>
+                      <div className={`container-scroll entretiens-en-cours ${this.state.droppable}`}>
+
+                        {candidatsEntretiens.length > 0 ?
+
+                          <Droppable
+                            isDropDisabled={this.state.droppable === 'droppable2' ? false : true}
+                            droppableId="droppable3">
+                            {(provided, snapshot) => (
+                              <div
+                                ref={provided.innerRef}>
+                                {candidatsEntretiens
+                                  .filter((key) => key.archive === false)
+                                  // .sort((a, b) => {
+                                  //   return new Date(a.date) < new Date(b.date) ? 1 : (new Date(a.date) > new Date(b.date) ? -1 : 0)
+                                  // })
+                                  .map((key, index) => {
+                                      return (
+                                        <Draggable
+                                          key={key.id}
+                                          draggableId={key.id}
+                                          index={index}>
+                                          {(provided, snapshot) => (
+                                            <div
+                                              className={this.state.popupData.id === key.id ? 'opacity' : ''}
+                                              ref={provided.innerRef}
+                                              {...provided.draggableProps}
+                                              {...provided.dragHandleProps}
+                                              >
+                                                <CardCandidat data={key} popupArchive={this.popupArchive}/>
+                                            </div>
+                                          )}
+                                        </Draggable>
+                                      )
+                                    }
+                                  )}
+                                {provided.placeholder}
+                              </div>
+                            )}
+                          </Droppable>
+                          :
+                          <Droppable
+                            isDropDisabled={this.state.droppable === 'droppable2' ? false : true}
+                            droppableId="droppable3">
+                            {(provided, snapshot) => (
+                            <div ref={provided.innerRef}>
+                              <div className={`container empty candidats ${candidatsEntretiens.length === 0 ? '' : ''}`}>
+                                <img type="image/svg+xml" className="icon" src="/icons/candidature.svg" alt=""/>
+                                <p className="text-center">Aucun entretien en cours</p>
+                                <p className="text-center">Il semblerait qu’il n’y ait pas d’entretien en ce moment !</p>
+                              </div>
+                            </div>)}
+                          </Droppable>
+                        }
+
+                      </div>
+                    </div>
+                  </div>
+                  <div className="large-3 columns col-candidats-selectionnes">
+                    <div className="box-item denim">
+                      <h4 className="light">Candidats sélectionnés</h4>
+                      <div className="container-scroll candidats-selectionnes">
+
+                        {candidatsSelectionne.length > 0 ?
+
+                          <Droppable
+                            isDropDisabled={this.state.droppable === 'droppable3' ? false : true}
+                            droppableId="droppable4">
+                            {(provided, snapshot) => (
+                              <div
+                                ref={provided.innerRef}>
+                                {candidatsSelectionne
+                                  .filter((key) => key.archive === false)
+                                  // .sort((a, b) => {
+                                  //   return new Date(a.date) < new Date(b.date) ? 1 : (new Date(a.date) > new Date(b.date) ? -1 : 0)
+                                  // })
+                                  .map((key, index) => {
+                                      return (
+                                        <Draggable
+                                          isDragDisabled={true}
+                                          key={key.id}
+                                          draggableId={key.id}
+                                          index={index}>
+                                          {(provided, snapshot) => (
+                                            <div
+                                              className={this.state.popupData.id === key.id ? 'opacity' : ''}
+                                              ref={provided.innerRef}
+                                              {...provided.draggableProps}
+                                              {...provided.dragHandleProps}
+                                              >
+                                                <CardCandidat data={key} popupArchive={this.popupArchive}/>
+                                            </div>
+                                          )}
+                                        </Draggable>
+                                      )
+                                    }
+                                  )}
+                                {provided.placeholder}
+                              </div>
+                            )}
+                          </Droppable>
+                          :
+                          <Droppable
+                            isDropDisabled={this.state.droppable === 'droppable3' ? false : true}
+                            droppableId="droppable4">
+                            {(provided, snapshot) => (
+                            <div ref={provided.innerRef}>
+                              <div className={`container empty candidats candidats-selectionnes ${candidatsSelectionne.length === 0 ? '' : ''}`}>
+                                <img type="image/svg+xml" className="icon" src="/icons/selectionne.svg" alt=""/>
+                                <p className="text-center">Aucun candidat sélectionné</p>
+                                <p className="text-center">Déplacez ici les candidats que vous avez sélectionné.</p>
+                              </div>
+                            </div>)}
+                          </Droppable>
+                        }
+
+                      </div>
                     </div>
                   </div>
                 </div>
-                <div className="large-3 medium-6 columns">
-                  <div className="box-item">
-                    <h4 className="light">Candidatures reçues</h4>
-                    <div className={`container-scroll candidatures-recues ${this.state.droppable}`}>
-
-                      {candidaturesRecues.length > 0 ?
-
-                        <Droppable
-                          isDropDisabled={this.state.droppable === 'droppable' ? false : true}
-                          droppableId="droppable2">
-                          {(provided, snapshot) => (
-                            <div
-                              ref={provided.innerRef}>
-                              {candidaturesRecues
-                                // .sort((a, b) => {
-                                //   return new Date(a.date) < new Date(b.date) ? 1 : (new Date(a.date) > new Date(b.date) ? -1 : 0)
-                                // })
-                                .map((key, index) => {
-                                    return (
-                                      <Draggable
-                                        key={key.id}
-                                        draggableId={key.id}
-                                        index={index}>
-                                        {(provided, snapshot) => (
-                                          <div
-                                            className={this.state.popupData.id === key.id ? 'draggable' : ''}
-                                            ref={provided.innerRef}
-                                            {...provided.draggableProps}
-                                            {...provided.dragHandleProps}
-                                            >
-                                              <CardCandidat data={key} rejeter={this.rejeter} popup={this.popupArchive}/>
-                                          </div>
-                                        )}
-                                      </Draggable>
-                                    )
-                                  }
-                                )}
-                              {provided.placeholder}
-                            </div>
-                          )}
-                        </Droppable>
-                        :
-                        <Droppable
-                          isDropDisabled={this.state.droppable === 'droppable' ? false : true}
-                          droppableId="droppable2">
-                          {(provided, snapshot) => (
-                          <div ref={provided.innerRef}>
-                            <div className={`container empty candidats ${candidaturesRecues.length === 0 ? '' : ''}`}>
-                              <img type="image/svg+xml" className="icon" src="/icons/entretien.svg" alt=""/>
-                              <p className="text-center">Aucune candidature reçue</p>
-                              <p className="text-center">Vous n’avez pas encore reçu de candidature sur vos annonces.</p>
-                            </div>
-                          </div>)}
-                        </Droppable>
-                      }
-
-                    </div>
-                  </div>
-                </div>
-                <div className="large-3 medium-6 columns">
-                  <div className="box-item">
-                    <h4 className="light">Entretiens en cours</h4>
-                    <div className={`container-scroll entretiens-en-cours ${this.state.droppable}`}>
-
-                      {candidatsEntretiens.length > 0 ?
-
-                        <Droppable
-                          isDropDisabled={this.state.droppable === 'droppable2' ? false : true}
-                          droppableId="droppable3">
-                          {(provided, snapshot) => (
-                            <div
-                              ref={provided.innerRef}>
-                              {candidatsEntretiens
-                                // .sort((a, b) => {
-                                //   return new Date(a.date) < new Date(b.date) ? 1 : (new Date(a.date) > new Date(b.date) ? -1 : 0)
-                                // })
-                                .map((key, index) => {
-                                    return (
-                                      <Draggable
-                                        key={key.id}
-                                        draggableId={key.id}
-                                        index={index}>
-                                        {(provided, snapshot) => (
-                                          <div
-                                            className={this.state.popupData.id === key.id ? 'draggable' : ''}
-                                            ref={provided.innerRef}
-                                            {...provided.draggableProps}
-                                            {...provided.dragHandleProps}
-                                            >
-                                              <CardCandidat data={key} rejeter={this.rejeter} popup={this.popupArchive}/>
-                                          </div>
-                                        )}
-                                      </Draggable>
-                                    )
-                                  }
-                                )}
-                              {provided.placeholder}
-                            </div>
-                          )}
-                        </Droppable>
-                        :
-                        <Droppable
-                          isDropDisabled={this.state.droppable === 'droppable2' ? false : true}
-                          droppableId="droppable3">
-                          {(provided, snapshot) => (
-                          <div ref={provided.innerRef}>
-                            <div className={`container empty candidats ${candidatsEntretiens.length === 0 ? '' : ''}`}>
-                              <img type="image/svg+xml" className="icon" src="/icons/candidature.svg" alt=""/>
-                              <p className="text-center">Aucun entretien en cours</p>
-                              <p className="text-center">Il semblerait qu’il n’y ait pas d’entretien en ce moment !</p>
-                            </div>
-                          </div>)}
-                        </Droppable>
-                      }
-
-                    </div>
-                  </div>
-                </div>
-                <div className="large-3 medium-6 columns col-candidats-selectionnes">
-                  <div className="box-item denim">
-                    <h4 className="light">Candidats sélectionnés</h4>
-                    <div className="container-scroll candidats-selectionnes">
-
-                      {candidatsSelectionne.length > 0 ?
-
-                        <Droppable
-                          isDropDisabled={this.state.droppable === 'droppable3' ? false : true}
-                          droppableId="droppable4">
-                          {(provided, snapshot) => (
-                            <div
-                              ref={provided.innerRef}>
-                              {candidatsSelectionne
-                                // .sort((a, b) => {
-                                //   return new Date(a.date) < new Date(b.date) ? 1 : (new Date(a.date) > new Date(b.date) ? -1 : 0)
-                                // })
-                                .map((key, index) => {
-                                    return (
-                                      <Draggable
-                                        isDragDisabled={true}
-                                        key={key.id}
-                                        draggableId={key.id}
-                                        index={index}>
-                                        {(provided, snapshot) => (
-                                          <div
-                                            className={this.state.popupData.id === key.id ? 'draggable' : ''}
-                                            ref={provided.innerRef}
-                                            {...provided.draggableProps}
-                                            {...provided.dragHandleProps}
-                                            >
-                                              <CardCandidat data={key} rejeter={this.rejeter} popup={this.popupArchive}/>
-                                          </div>
-                                        )}
-                                      </Draggable>
-                                    )
-                                  }
-                                )}
-                              {provided.placeholder}
-                            </div>
-                          )}
-                        </Droppable>
-                        :
-                        <Droppable
-                          isDropDisabled={this.state.droppable === 'droppable3' ? false : true}
-                          droppableId="droppable4">
-                          {(provided, snapshot) => (
-                          <div ref={provided.innerRef}>
-                            <div className={`container empty candidats candidats-selectionnes ${candidatsSelectionne.length === 0 ? '' : ''}`}>
-                              <img type="image/svg+xml" className="icon" src="/icons/selectionne.svg" alt=""/>
-                              <p className="text-center">Aucun candidat sélectionné</p>
-                              <p className="text-center">Déplacez ici les candidats que vous avez sélectionné.</p>
-                            </div>
-                          </div>)}
-                        </Droppable>
-                      }
-
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </DragDropContext>
+              </DragDropContext>
+            </div>
 
           </div>
         </div>

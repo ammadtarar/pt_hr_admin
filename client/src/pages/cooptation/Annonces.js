@@ -45,7 +45,7 @@ function Annonces(props) {
               })
               .map((key, item, i) => {
               return (
-                <BoxAnnonce key={annonces[key].id} data={annonces[key]} dataToChange={(e) => dataToChange(e)}/>
+                <BoxAnnonce key={annonces[key].id} tab={item} data={annonces[key]} dataToChange={(e) => dataToChange(e)}/>
               )
             })
             :

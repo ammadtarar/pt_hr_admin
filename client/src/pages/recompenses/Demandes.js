@@ -62,9 +62,9 @@ function Demandes(props) {
 
           {Object.keys(demandes).length > 0 ?
 
-              Object.keys(demandes).map((key) => {
+              Object.keys(demandes).map((key, item) => {
                 return (
-                  <BoxDemande key={demandes[key].id} data={demandes[key]} popup={(e) => popup(e)}/>
+                  <BoxDemande key={demandes[key].id} tab={item} data={demandes[key]} popup={(e) => popup(e)}/>
                 )
               })
             :

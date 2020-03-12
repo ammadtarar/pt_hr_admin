@@ -78,13 +78,13 @@ function Recompenses(props) {
 
       <div className={`popup ${popupOpen === true ? 'open' : ''}`}>
         <img onClick={(e) => setPopupOpen(false)} type="image/svg+xml" className="close" src="/icons/fermer.svg" alt=""/>
-        <h3>Créer une récompense</h3>
+        <h3 tabIndex={8}>Créer une récompense</h3>
         <form onSubmit={(e) => publierRecompense(e)}>
           <label>Nom</label>
-          <input type="text" name="titre" className={errors.titre} onChange={(e) => handleChangeText(e)} value={newRecompense.titre} placeholder="Nom de la récompense"/>
+          <input tabIndex={9} type="text" name="titre" className={errors.titre} onChange={(e) => handleChangeText(e)} value={newRecompense.titre} placeholder="Nom de la récompense"/>
           <label>Nombre de points</label>
-          <input type="text" name="points" className={errors.points} onChange={(e) => handleChangeText(e)} value={newRecompense.points} placeholder="Nombre de points requis"/>
-          <button className="btn-primary">Publier</button>
+          <input tabIndex={10} type="text" name="points" className={errors.points} onChange={(e) => handleChangeText(e)} value={newRecompense.points} placeholder="Nombre de points requis"/>
+          <button className="btn-primary" tabIndex={11}>Publier</button>
           <p className="note">Une fois publiée, cette récompense sera visible par tous les ambassadeurs.</p>
         </form>
       </div>
@@ -95,7 +95,7 @@ function Recompenses(props) {
           <div className="row-fluid">
             <div className="large-11 columns"></div>
             <div className="large-1 columns">
-              <button onClick={(e) => setPopupOpen(true)} className="btn-primary">Créer</button>
+              <button tabIndex={8} onClick={(e) => setPopupOpen(true)} className="btn-primary"><span>Créer</span></button>
             </div>
           </div>
         </div>
@@ -117,7 +117,7 @@ function Recompenses(props) {
                 })
                 .map((key, item, i) => {
                 return (
-                  <BoxRecompense key={recompenses[key].id} data={recompenses[key]} dataToChange={(e) => dataToChange(e)}/>
+                  <BoxRecompense key={recompenses[key].id} tab={item} data={recompenses[key]} dataToChange={(e) => dataToChange(e)}/>
                 )
               })
               :

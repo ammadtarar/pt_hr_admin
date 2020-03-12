@@ -26,13 +26,14 @@ function CardCommunication (props) {
           offColor="#c0c9d6"
           onHandleColor="#ffffff"
           offHandleColor="#ffffff"
-          activeBoxShadow="0 0 0 0 transparent"
+          activeBoxShadow="0px 0px 0px 3px rgba(192, 201, 214,.7)"
           handleDiameter={16}
           uncheckedIcon={false}
           checkedIcon={false}
           height={20}
           width={35}
           className="react-switch"
+          tabIndex={props.tab + 6}
         />
         {checked === true ? 'Actif' : 'Inactif'}</p>
       </div>

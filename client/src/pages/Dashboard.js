@@ -4,10 +4,9 @@ import { compteArticlesActifs, compteArticlesTotalViews } from '../functions/Com
 import { comptesDemandesNonTraite } from '../functions/CompteDemandes.js'
 import { compteTauxBonneReponse } from '../functions/ComptesFormation.js'
 import { compteAnnoncesActives, compteAnnoncesTotalViews, compteCandidatsCooptes } from '../functions/ComptesCooptation.js'
-import { Link } from 'react-router-dom'
 const datas = require('../datas.json')
 
-function Dashboard() {
+function Dashboard(props) {
   const [communication, setCommunication] = useState([])
   const [cooptation, setCooptation] = useState([])
   const [formations, setFormations] = useState([])
@@ -34,12 +33,12 @@ function Dashboard() {
     setCommunication({
       actifs: compteArticlesActifs(datas.communication),
       total: Object.keys(datas.communication).length,
-      totalViews: compteArticlesTotalViews(datas.communication).toString().replace(/\B(?=(?:\d{3})+(?!\d))/g, ',')
+      totalViews: compteArticlesTotalViews(datas.communication) ? compteArticlesTotalViews(datas.communication).toString().replace(/\B(?=(?:\d{3})+(?!\d))/g, ',') : '0'
     })
     setCooptation({
       annoncesActives: compteAnnoncesActives(datas.annonces),
       totalAnnonces: Object.keys(datas.annonces).length,
-      totalViewsAnnonces: compteAnnoncesTotalViews(datas.annonces).toString().replace(/\B(?=(?:\d{3})+(?!\d))/g, ','),
+      totalViewsAnnonces: compteAnnoncesTotalViews(datas.annonces) ? compteAnnoncesTotalViews(datas.annonces).toString().replace(/\B(?=(?:\d{3})+(?!\d))/g, ',') : 0,
       totalCandidats: Object.keys(datas.candidats).length,
       totalCandidatsCooptes: compteCandidatsCooptes(datas.candidats).length
     })
@@ -82,19 +81,18 @@ function Dashboard() {
                   <p>Demandes de récompenses</p>
                   <p><span>{demandes}</span></p>
                 </div>
-                <Link to={{pathname: "/recompenses", checkedTab: 1}} className="btn-primary">Voir</Link>
+                <button onClick={(e) => props.history.push({pathname: "/recompenses", checkedTab: 1})} className="btn-primary" tabIndex={6}>Voir</button>
               </div>
             </div>
             <div className="columns">
               <div className="box-item cooptation">
                 <h4>Cooptation</h4>
-                <Link to={{pathname: "/cooptation"}} className="btn-primary">Voir</Link>
+                <button onClick={(e) => props.history.push({pathname: "/cooptation"})} className="btn-primary" tabIndex={7}>Voir</button>
                 <div className="box-views">
-                  {cooptation.totalViewsAnnonces ?
                   <div>
                     <p>{cooptation.totalViewsAnnonces}</p>
                     <p>visiteurs sur les annonces</p>
-                  </div> : ''}
+                  </div>
                 </div>
                 <div className="icon half-spanish-white"><img src="/icons/annonces-actives.svg" alt=""/></div>
                 <div className="box-text">
@@ -118,14 +116,13 @@ function Dashboard() {
             <div className="columns">
               <div className="box-item communication">
                 <h4>Communication</h4>
-                <Link to={{pathname: "/communication"}} className="btn-primary">Voir</Link>
-                {communication.totalViews ?
+                <button onClick={(e) => props.history.push({pathname: "/communication"})} className="btn-primary" tabIndex={8}>Voir</button>
                 <div className="box-views">
                   <div>
                     <p>{communication.totalViews}</p>
                     <p>visiteurs sur les contenus</p>
                   </div>
-                </div> : ''}
+                </div>
                 <div className="icon link-water"><img src="/icons/contenus-actifs.svg" alt=""/></div>
                 <div className="box-text">
                   <p>Contenus actifs</p>
