@@ -34,7 +34,7 @@ export class Login extends React.Component {
   recevoirCode = (e) => {
     e.preventDefault()
     const utilisateurs = this.state.utilisateurs
-    const email = this.state.email
+    const email = this.state.email.toLowerCase()
 
     //Si compteur d'essai de connections à 3, remise à zéro
     if(this.state.compteurConnections === 3) {
@@ -43,7 +43,7 @@ export class Login extends React.Component {
     }
 
     //Check si format email valide
-    const regexp = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    const regexp = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
     const testFormatEmail = regexp.test(email)
 
     //Check si email utilisateur est dans la DB
