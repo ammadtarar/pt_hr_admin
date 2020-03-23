@@ -61,8 +61,8 @@ function Communication() {
               {Object.keys(communication).length > 0 ?
               <div className="large-3 medium-6 columns">
                 <div className="box-note">
-                  <p>Consultez et gérez les<br/> <span>contenus de marque<br/> employeur</span> visibles par vos<br/> <span>collaborateurs</span>.</p>
-                  <p className="sub-note">Ils pourront les consulter et les partager auprès de leur réseau.</p>
+                  <p>Gérez les <span>contenus de communication</span> à destination de vos <span>ambassadeurs</span>.</p>
+                  <p className="sub-note">Ils pourront les consulter et les partager sur leurs réseaux sociaux</p>
                 </div>
               </div> : ''}
 

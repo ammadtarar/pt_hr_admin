@@ -39,7 +39,7 @@ function CandidatsArchives() {
                 })
                 .map((key) => (
                 candidats[key].archive === true ?
-                  <div key={candidats[key].id} className="columns large-3 medium-6">
+                  <div key={candidats[key].id} className="columns">
                     <CardCandidat data={candidats[key]}/>
                   </div>
                 : ''
