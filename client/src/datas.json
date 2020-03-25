@@ -569,6 +569,7 @@
       "date": "2019-12-14T01:00:00.000Z",
       "lieu": "Paris",
       "points": "500",
+      "currency": "EUR",
       "views": "13327",
       "cooptations": 2,
       "checked": true
@@ -579,6 +580,7 @@
       "date": "2019-12-23T01:00:00.000Z",
       "lieu": "Londres",
       "points": "1000",
+      "currency": "EUR",
       "views": "193",
       "cooptations": 3,
       "checked": true
@@ -588,7 +590,8 @@
       "titre": "Frontend Developer React",
       "date": "2019-12-22T01:00:00.000Z",
       "lieu": "Lyon",
-      "points": "1500",
+      "points": "10000",
+      "currency": "PTS",
       "views": "97",
       "cooptations": 0,
       "checked": false
@@ -599,6 +602,7 @@
       "date": "2019-12-18T01:00:00.000Z",
       "lieu": "Paris",
       "points": "1200",
+      "currency": "EUR",
       "views": "325",
       "cooptations": 0,
       "checked": false
@@ -608,7 +612,8 @@
       "titre": "Dev Ops",
       "date": "2019-12-29T01:00:00.000Z",
       "lieu": "Paris",
-      "points": "800",
+      "points": "10000",
+      "currency": "PTS",
       "views": "193",
       "cooptations": 1,
       "checked": true
@@ -619,6 +624,7 @@
       "date": "2019-12-27T01:00:00.000Z",
       "lieu": "New-York",
       "points": "1000",
+      "currency": "EUR",
       "views": "277",
       "cooptations": 1,
       "checked": true
@@ -629,6 +635,7 @@
       "date": "2020-01-14T01:00:00.000Z",
       "lieu": "Chicago",
       "points": "1800",
+      "currency": "EUR",
       "views": "243",
       "cooptations": 0,
       "checked": false
@@ -638,7 +645,8 @@
       "titre": "Customer success manager",
       "date": "2020-02-07T01:00:00.000Z",
       "lieu": "New-York",
-      "points": "1000",
+      "points": "20000",
+      "currency": "PTS",
       "views": "367",
       "cooptations": 0,
       "checked": false
@@ -649,6 +657,7 @@
       "date": "2020-02-14T01:00:00.000Z",
       "lieu": "Bordeaux",
       "points": "1000",
+      "currency": "EUR",
       "views": "302",
       "cooptations": 1,
       "checked": true
@@ -761,7 +770,7 @@
       "id": "b09e954a-d18e-4935-8b07-8c88ad7fd449",
       "date": "2020-03-23T01:00:00.000Z",
       "titre": "Bonus de 500€",
-      "points": "300",
+      "points": "600",
       "quantite": 1,
       "demandes": {
         "dc2c57ba-56e8-11ea-82b4-0242ac130003": {
@@ -775,27 +784,9 @@
       },
       "checked": true
     },
-    "2cec1876-5189-11ea-8d77-2e728ce88125": {
-      "id": "2cec1876-5189-11ea-8d77-2e728ce88125",
-      "date": "2020-02-24T01:00:00.000Z",
-      "titre": "Bonus de 10.000 pts",
-      "points": "5000",
-      "quantite": 2,
-      "demandes": [],
-      "checked": true
-    },
-    "991b9399-9d46-4a10-8510-0cced5577dd8": {
-      "id": "991b9399-9d46-4a10-8510-0cced5577dd8",
-      "date": "2020-01-21T01:00:00.000Z",
-      "titre": "Bonus de 20.000 pts",
-      "points": "10000",
-      "quantite": 1,
-      "demandes": [],
-      "checked": true
-    },
     "2cec1ae2-5189-11ea-8d77-2e728ce88125": {
       "id": "2cec1ae2-5189-11ea-8d77-2e728ce88125",
-      "date": "2020-02-23T01:00:00.000Z",
+      "date": "2020-03-24T01:00:00.000Z",
       "titre": "Abonnement de 6 mois à Netflix",
       "points": "300",
       "quantite": 999,
@@ -831,8 +822,10 @@
     "1a1e550e-2dfb-41cb-a46b-d775a6c1bde8": {
       "id": "991b9399-9d46-4a10-8510-0cced5577dd8",
       "date": "2020-01-21T01:00:00.000Z",
-      "titre": "Bonus de 10.000 pts",
-      "points": "5000",
+      "titre": "Bonus de 1000€",
+      "points": "600",
+      "titre": "Bonus de 500€",
+      "points": "600",
       "quantite": 1,
       "demandes": [],
       "checked": true
@@ -894,7 +887,7 @@
       "id": "2cec2316-5189-11ea-8d77-2e728ce88125",
       "date": "2020-02-18T01:00:00.000Z",
       "titre": "Bonus de 500€",
-      "points": "300",
+      "points": "600",
       "quantite": 1,
       "demandes": {
         "dc2c57ba-56e8-11ea-82b4-0242ac130003": {
