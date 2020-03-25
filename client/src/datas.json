@@ -569,10 +569,7 @@
       "date": "2019-12-14T01:00:00.000Z",
       "lieu": "Paris",
       "points": "500",
-<<<<<<< HEAD
       "currency": "EUR",
-=======
->>>>>>> 077786de7248b1ad91dbbf726abd66512b864e4e
       "views": "13327",
       "cooptations": 2,
       "checked": true
@@ -773,7 +770,7 @@
       "id": "b09e954a-d18e-4935-8b07-8c88ad7fd449",
       "date": "2020-03-23T01:00:00.000Z",
       "titre": "Bonus de 500€",
-      "points": "300",
+      "points": "600",
       "quantite": 1,
       "demandes": {
         "dc2c57ba-56e8-11ea-82b4-0242ac130003": {
@@ -785,27 +782,6 @@
           "traite": false
         }
       },
-<<<<<<< HEAD
-=======
-      "checked": true
-    },
-    "2cec1876-5189-11ea-8d77-2e728ce88125": {
-      "id": "2cec1876-5189-11ea-8d77-2e728ce88125",
-      "date": "2020-02-24T01:00:00.000Z",
-      "titre": "Bonus de 10.000 pts",
-      "points": "5000",
-      "quantite": 2,
-      "demandes": [],
->>>>>>> 077786de7248b1ad91dbbf726abd66512b864e4e
-      "checked": true
-    },
-    "991b9399-9d46-4a10-8510-0cced5577dd8": {
-      "id": "991b9399-9d46-4a10-8510-0cced5577dd8",
-      "date": "2020-01-21T01:00:00.000Z",
-      "titre": "Bonus de 20.000 pts",
-      "points": "10000",
-      "quantite": 1,
-      "demandes": [],
       "checked": true
     },
     "2cec1ae2-5189-11ea-8d77-2e728ce88125": {
@@ -846,13 +822,10 @@
     "1a1e550e-2dfb-41cb-a46b-d775a6c1bde8": {
       "id": "991b9399-9d46-4a10-8510-0cced5577dd8",
       "date": "2020-01-21T01:00:00.000Z",
-<<<<<<< HEAD
       "titre": "Bonus de 1000€",
       "points": "600",
-=======
-      "titre": "Bonus de 10.000 pts",
-      "points": "5000",
->>>>>>> 077786de7248b1ad91dbbf726abd66512b864e4e
+      "titre": "Bonus de 500€",
+      "points": "600",
       "quantite": 1,
       "demandes": [],
       "checked": true
@@ -914,7 +887,7 @@
       "id": "2cec2316-5189-11ea-8d77-2e728ce88125",
       "date": "2020-02-18T01:00:00.000Z",
       "titre": "Bonus de 500€",
-      "points": "300",
+      "points": "600",
       "quantite": 1,
       "demandes": {
         "dc2c57ba-56e8-11ea-82b4-0242ac130003": {
