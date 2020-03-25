@@ -40,7 +40,7 @@ function BoxRecompense(props) {
           />
           {checked === true ? 'Actif' : 'Inactif'}</p>
         </li>
-        <li className="star"><p><span>{data.points}</span>€</p></li>
+        <li className="star"><p><span>{data.points}</span>{data.currency === 'EUR' ? ' €' : data.currency === 'PTS' ? ' points' : ''}</p></li>
         <li className="localisation"><p>{data.lieu}</p></li>
       </ul>
       <ul className="infos">
