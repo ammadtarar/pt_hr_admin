@@ -162,3 +162,4 @@ cd react-ui/
 
 npm install package-name --save
 ```
+# pushtalents
