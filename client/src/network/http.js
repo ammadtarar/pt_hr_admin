@@ -10,11 +10,17 @@ const HTTP = axios.create({
 
 HTTP.interceptors.request.use(
   function(config) {
-    config.headers["Accept-Language"] = "fr";  
-    const token = localStorage.getItem("token");
-    if (token) {
-      config.headers["Authorization"] = token;
+    config.headers["Accept-Language"] = "en";  
+    const utilisateur = localStorage.getItem("utilisateur");
+    if(utilisateur){
+      let user = JSON.parse(utilisateur);
+      console.log("user.token");
+      console.log(user.token);
+      if (user && user.token) {
+        config.headers["Authorization"] = user.token;
+      }
     }
+    
     return config;
   },
   function(error) {
