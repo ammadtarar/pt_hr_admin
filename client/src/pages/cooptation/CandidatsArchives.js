@@ -1,24 +1,36 @@
-import React, { useState, useEffect, Suspense } from 'react'
+import { HTTP, URLS } from "../../network/http";
+
+import React, { Component, Suspense } from "react";
 const CardCandidat = React.lazy(() => import('../../components/CardCandidat'))
-const datas = require('../../datas.json')
+export default class Annonces extends Component {
 
-function CandidatsArchives() {
-  const [data, setData] = useState([])
-  const candidats = data
+  constructor(props) {
+    super(props);
+    this.state = {
+      candidats: [],
+    };
+  }
 
-  // async function getData() {
-  //   const response = await fetch(datas.candidats)
-  //   const data = await response.json()
-  //   setData(data)
-  // }
-  //
-  useEffect(() => {
-    // getData()
-    setData(datas.candidats)
-  }, [])
+  componentDidMount() {
+    this.getArchivedReferrals();
+  }
 
-  return (
-    <div className="wrapper">
+  getArchivedReferrals = () => {
+    HTTP.get(`${URLS.JOBS.REFERRALS_LIST_ALL}?archive=${true}`)
+      .then((response) => {
+        this.setState({
+          candidats: response.data
+        });
+      })
+      .catch((err) => {
+        console.log("CANDIDATES ERROR");
+        console.log(err);
+      });
+  };
+
+  render(){
+    return (
+      <div className="wrapper">
       <div className="tab-candidats-archives container">
         <div className="row-fluid">
 
@@ -31,21 +43,18 @@ function CandidatsArchives() {
               </div>
             </div>}>
 
-            {Object.keys(candidats).length > 0 ?
+            {this.state.candidats.length > 0 ?
 
-              Object.keys(candidats)
-                .sort((a, b) => {
-                  return new Date(candidats[a].date) < new Date(candidats[b].date) ? 1 : (new Date(candidats[a].date) > new Date(candidats[b].date) ? -1 : 0)
-                })
-                .map((key) => (
-                candidats[key].archive === true ?
-                  <div key={candidats[key].id} className="columns">
-                    <CardCandidat data={candidats[key]}/>
+              this.state.candidats
+                .map((item) => (
+                item.archive === true ?
+                  <div key={item.id} className="columns">
+                    <CardCandidat data={item}/>
                   </div>
                 : ''
               ))
               :
-              Object.keys(candidats).length === 0 ?
+              this.state.candidats.length === 0 ?
               setTimeout(() => {
                 return (
                   <div className="container empty">
@@ -61,7 +70,6 @@ function CandidatsArchives() {
         </div>
       </div>
     </div>
-  )
+    )
+  }
 }
-
-export default CandidatsArchives

@@ -1,69 +1,85 @@
-import React, { useState, useEffect, Suspense } from 'react'
-const BoxAnnonce = React.lazy(() => import('../../components/BoxAnnonce'))
-const datas = require('../../datas.json')
+import { HTTP, URLS } from "../../network/http";
 
-function Annonces(props) {
-  const [data, setData] = useState([])
-  const annonces = data
+import React, { Component, Suspense } from "react";
+const BoxAnnonce = React.lazy(() => import("../../components/BoxAnnonce"));
 
-  const dataToChange = (data,e) => {
-    //Mises à jour des annonces avec celle passée sur Actif/Inactif
-    Object.keys(annonces).push(data)
-    setData(annonces)
-    //Puis data à renvoyer au serveur
-
+export default class Annonces extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      annonces: [],
+    };
   }
 
-  // async function getData() {
-  //   const response = await fetch(datas.candidats)
-  //   const data = await response.json()
-  //   setData(data)
-  // }
-  //
-  useEffect(() => {
-    // getData()
-    setData(datas.annonces)
-  }, [])
+  componentDidMount() {
+    this.getJobs();
+  }
 
-  return (
-    <div className="wrapper">
-      <div className="tab-annonces container">
-        <Suspense fallback={
-          <div className="container-suspense">
-            <div className="loader" id="loader">
-              <span></span>
-              <span></span>
-              <span></span>
-            </div>
-          </div>}>
+  getJobs = () => {
+    HTTP.get(URLS.JOBS.LIST_ALL)
+      .then((response) => {
+        let jobs = response.data.rows;
+        this.setState({
+          annonces: jobs
+        });
+      })
+      .catch((err) => {
+        console.log("JOBS ERROR");
+        console.log(err);
+      });
+  };
 
-          {Object.keys(annonces).length > 0 ?
+  dataToChange = (data, e) => {};
 
-            Object.keys(annonces)
-              .sort((a, b) => {
-                return new Date(annonces[a].date) < new Date(annonces[b].date) ? 1 : (new Date(annonces[a].date) > new Date(annonces[b].date) ? -1 : 0)
-              })
-              .map((key, item, i) => {
-              return (
-                <BoxAnnonce key={annonces[key].id} tab={item} data={annonces[key]} dataToChange={(e) => dataToChange(e)}/>
-              )
-            })
-            :
-            Object.keys(annonces).length === 0 ?
-            setTimeout(() => {
-              return (
-                <div className="container empty">
-                  <img type="image/svg+xml" className="icon" src="/icons/annonces.svg" alt=""/>
-                  <p className="text-center">Aucune annonce disponible</p>
-                  <p className="text-center">Il semblerait qu’il n’y ait pas d’annonce à afficher ici.</p>
+  render() {
+    return (
+      <div className="wrapper">
+        <div className="tab-annonces container">
+          <Suspense
+            fallback={
+              <div className="container-suspense">
+                <div className="loader" id="loader">
+                  <span></span>
+                  <span></span>
+                  <span></span>
                 </div>
-              )
-            }, 500) : ''
-          }
-        </Suspense>
+              </div>
+            }
+          >
+            {this.state.annonces.length > 0
+              ? this.state.annonces
+                  .map((job) => {
+                    return (
+                      <BoxAnnonce
+                        key={job.id}
+                        tab={job}
+                        data={job}
+                        dataToChange={(e) => this.dataToChange(e)}
+                      />
+                    );
+                  })
+              : this.state.annonces.length === 0
+              ? setTimeout(() => {
+                  return (
+                    <div className="container empty">
+                      <img
+                        type="image/svg+xml"
+                        className="icon"
+                        src="/icons/annonces.svg"
+                        alt=""
+                      />
+                      <p className="text-center">Aucune annonce disponible</p>
+                      <p className="text-center">
+                        Il semblerait qu’il n’y ait pas d’annonce à afficher
+                        ici.
+                      </p>
+                    </div>
+                  );
+                }, 500)
+              : ""}
+          </Suspense>
+        </div>
       </div>
-    </div>
-  )
+    );
+  }
 }
-
-export default Annonces

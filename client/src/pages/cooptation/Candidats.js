@@ -1,3 +1,4 @@
+import { HTTP, URLS } from "../../network/http";
 import React from 'react'
 import CardCandidat from '../../components/CardCandidat'
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
@@ -66,6 +67,22 @@ export class Candidats extends React.Component {
       droppable: start.source.droppableId
     })
   }
+
+  getJobReferrals = async () => {
+    return new Promise((resolve , reject)=>{
+      HTTP.get(`${URLS.JOBS.REFERRALS_LIST_ALL}`)
+      .then((response) => {
+        console.log("response.data");
+        console.log(response.data);
+        resolve(response.data)
+      })
+      .catch((err) => {
+        console.log("JOBS ERROR");
+        console.log(err);
+      });
+    });
+    
+  };
 
   onDragEnd = result => {
     const { source, destination } = result
@@ -196,44 +213,79 @@ export class Candidats extends React.Component {
   }
 
   archiverCandidat(e) {
+    // CALL API
     e.preventDefault()
 
     //Candidat à archiver
     const data = this.state.popupData
     const id = data.id
-    data.archive = true
 
-    //Définir dans quelle colonne retirer le candidat en fonction de son status dans l'object
-    const col = data.status === 'Candidats cooptés' ? 'candidatsCooptes' :
-      data.status === 'Candidatures reçues' ? 'candidaturesRecues' :
-      data.status === 'Entretiens en cours' ? 'candidatsEntretiens' :
-      data.status === 'Candidats sélectionnés' ? 'candidatsSelectionne' : ''
-
-    const newState = Object.keys(this.state[col])
-      .filter((key) => this.state[col][key].id !== id)
-      .map((key) => {
-        return this.state[col][key]
-      }
-    )
-
-    const newStateFiltres = newState.filter((el) => {
-      return el != null
-    })
-
-    this.setState({
-      popupArchiveOpen: false,
-      popupData: false,
-      [col]: newStateFiltres
-    }, () => {
-      // Data à modifier sur serveur aussi
+   
+    HTTP.post(URLS.JOBS.ARCHIVE_BY_ID.replace(":id" , id))
+    .then((response) => {
+      console.log("ARCHIVE RESPONSE");
+      console.log(response.data);
+      
+      
+      this.setState({
+        popupArchiveOpen: false,
+        popupData: false
+      });
+      this.componentDidMount();
 
     })
+    .catch((err) => {
+      console.log("JOBS ERROR");
+      console.log(err);
+    });
+
+
+    // data.archive = true
+
+    // //Définir dans quelle colonne retirer le candidat en fonction de son status dans l'object
+    // const col = data.status === 'Candidats cooptés' ? 'candidatsCooptes' :
+    //   data.status === 'Candidatures reçues' ? 'candidaturesRecues' :
+    //   data.status === 'Entretiens en cours' ? 'candidatsEntretiens' :
+    //   data.status === 'Candidats sélectionnés' ? 'candidatsSelectionne' : ''
+
+    // const newState = Object.keys(this.state[col])
+    //   .filter((key) => this.state[col][key].id !== id)
+    //   .map((key) => {
+    //     return this.state[col][key]
+    //   }
+    // )
+
+    // const newStateFiltres = newState.filter((el) => {
+    //   return el != null
+    // })
+
+    // this.setState({
+    //   popupArchiveOpen: false,
+    //   popupData: false,
+    //   [col]: newStateFiltres
+    // }, () => {
+    //   // Data à modifier sur serveur aussi
+
+
+    //   HTTP.get(URLS.JOBS.ARCHIVE_BY_UD.replace(":id" , id))
+    //   .then((response) => {
+    //     console.log("ARCHIVE RESPONSE");
+    //     console.log(response.data);
+        
+    //     this.getJobReferrals()
+    //   })
+    //   .catch((err) => {
+    //     console.log("JOBS ERROR");
+    //     console.log(err);
+    //   });
+
+    // })
   }
 
   fermerPopup(e) {
     this.setState({
       popupArchiveOpen: false,
-      popupData: ''
+      popupData: {candidate : {}}
     })
   }
 
@@ -276,7 +328,7 @@ export class Candidats extends React.Component {
     })
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     // fetch(data)
     //   .then(res => res.json())
     //   .then(res => {
@@ -285,39 +337,68 @@ export class Candidats extends React.Component {
     //     })
     //   })
     // catch(error => console.log(error))
-
+    let referrals = await this.getJobReferrals();
+    console.log("referrals");
+    console.log(referrals);
     // Tri des candidats dans les 4 colonnes en fonction de leur status
-    const data = this.state.data
+    const data = referrals;
     const candidatsNonArchives = Object.keys(data)
       .filter((key) => data[key].archive === false)
       .map((key) => {
           return data[key]
       })
+      console.log();
+      console.log();
+      console.log();
+      console.log("candidatsNonArchives");
+      console.log(candidatsNonArchives);
+      console.log();
+      console.log();
+      console.log();
     const candidats = candidatsNonArchives.filter((el) => {
       return el != null
     })
 
+    console.log();
+      console.log();
+      console.log();
+      console.log("candidats");
+      console.log(candidats);
+      console.log();
+      console.log();
+      console.log();
+
     const triCooptes = Object.keys(candidats).reduce((item, e) => {
-      let value = ['Candidats cooptés']
-      if (value.includes(candidats[e].status)) item[e] = candidats[e]
+      let value = ['candidate_referred']
+      if (value.includes(candidats[e].stage)) item[e] = candidats[e]
       return item
     }, {})
 
+
+    console.log();
+      console.log();
+      console.log();
+      console.log("triCooptes");
+      console.log(triCooptes);
+      console.log();
+      console.log();
+      console.log();
+
     const triRecus = Object.keys(candidats).reduce((item, e) => {
-      let value = ['Candidatures reçues']
-      if (value.includes(candidats[e].status)) item[e] = candidats[e]
+      let value = ['application_received']
+      if (value.includes(candidats[e].stage)) item[e] = candidats[e]
       return item
     }, {})
 
     const triEntretiens = Object.keys(candidats).reduce((item, e) => {
-      let value = ['Entretiens en cours']
-      if (value.includes(candidats[e].status)) item[e] = candidats[e]
+      let value = ['undergoing_interview']
+      if (value.includes(candidats[e].stage)) item[e] = candidats[e]
       return item
     }, {})
 
     const triSelectionne = Object.keys(candidats).reduce((item, e) => {
-      let value = ['Candidats sélectionnés']
-      if (value.includes(candidats[e].status)) item[e] = candidats[e]
+      let value = ['candidate_selected']
+      if (value.includes(candidats[e].stage)) item[e] = candidats[e]
       return item
     }, {})
 
@@ -347,12 +428,12 @@ export class Candidats extends React.Component {
 
           {/* Popup archiver */}
           <div
-          onClick={(e) => this.setState({popupArchiveOpen: false, popupData: ''})}
+          onClick={(e) => this.setState({popupArchiveOpen: false, popupData: {candidate : {}}})}
           className={`overlay-popup ${this.state.popupArchiveOpen === true ? 'open' : ''}`}/>
 
           <div className="wrapper-popup">
             <div className={`popup center ${this.state.popupArchiveOpen === true ? 'open' : ''}`}>
-              <h4 className="text-center">Etes-vous sûr de vouloir archiver le candidat <span>{this.state.popupData.prenom + ' ' + this.state.popupData.nom}</span> ?</h4>
+              <h4 className="text-center">Etes-vous sûr de vouloir archiver le candidat <span>{(this.state.popupData.candidate ? this.state.popupData.candidate.first_name : 'First') + ' ' + (this.state.popupData.candidate ? this.state.popupData.candidate.last_name : 'Last')}</span> ?</h4>
               <p className="text-center">Cette action est irréversible et notifiera automatiquement le collaborateur l’ayant coopté.</p>
               <button onClick={(e) => this.archiverCandidat(e)} className="btn-primary">Oui, archiver</button>
               <button onClick={(e) => this.fermerPopup(e)} className="btn-secondary">Annuler</button>
@@ -363,7 +444,7 @@ export class Candidats extends React.Component {
           {/* Popup changer status candidat */}
           <div
           id="koChangeStatus1"
-          onClick={(e) => this.setState({popupStatusOpen: false, popupData: ''})}
+          onClick={(e) => this.setState({popupStatusOpen: false, popupData: {candidate : {}}})}
           className={`overlay-popup ${this.state.popupStatusOpen === true ? 'open' : ''}`}/>
 
           <div className="wrapper-popup">

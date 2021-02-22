@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const baseURL = "https://dev.api.pushtalents.sawatechnologies.org/";
+// const baseURL = "https://dev.api.pushtalents.sawatechnologies.org/";
+const baseURL = "http://localhost:3001/";
 axios.defaults.baseURL = baseURL;
 
 const HTTP = axios.create({
@@ -67,6 +68,8 @@ const URLS = {
   JOBS : {
     CREATE : "company/job/create",
     LIST_ALL : "company/job/list/all",
+    REFERRALS_LIST_ALL : "company/job/referral/list/all",
+    ARCHIVE_BY_ID : "company/job/referral/:id/archive",
     BY_ID : "company/job/:id" 
   },
   ARTICLE : {

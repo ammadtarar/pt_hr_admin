@@ -43,7 +43,7 @@ function PageCooptation(props) {
         <Tabs onSelect={index => tab(index)}>
           <TabList>
             <Tab tabIndex={'6'} onKeyPress={(e: KeyboardEvent) => {HandleEnterKeyPress(e)}}>Candidats</Tab>
-            <Tab tabIndex={'7'} onKeyPress={(e: KeyboardEvent) => {HandleEnterKeyPress(e)}}>Annonces<span>{Object.keys(annonces).length > 0 ? Object.keys(annonces).length : 0}</span></Tab>
+            <Tab tabIndex={'7'} onKeyPress={(e: KeyboardEvent) => {HandleEnterKeyPress(e)}}>Annonces</Tab>
             <Tab tabIndex={'8'} onKeyPress={(e: KeyboardEvent) => {HandleEnterKeyPress(e)}}>Candidats archivés</Tab>
           </TabList>
 

@@ -3,9 +3,11 @@ import Switch from 'react-switch'
 import { date } from '../functions/Date.js'
 
 function BoxRecompense(props) {
-  const [checked, setChecked] = useState(props.data.checked)
+  const [checked, setChecked] = useState(props.data.is_active)
   const data = props.data
-  const dateToFormat = data.date
+  console.log("INSIDE BOX_ANNOUNCE");
+  console.log(props);
+  const dateToFormat = data.createdAt
 
   const handleChange = e => {
     setChecked(!checked)
@@ -16,7 +18,7 @@ function BoxRecompense(props) {
   return (
     <div className="box-annonce">
       <ul className="titre">
-        <li><h4>{data.titre}</h4></li>
+        <li><h4>{data.title}</h4></li>
         <li className="date"><p>Créé le <span>{date(dateToFormat)}</span></p></li>
       </ul>
       <ul className="details">
@@ -40,12 +42,12 @@ function BoxRecompense(props) {
           />
           {checked === true ? 'Actif' : 'Inactif'}</p>
         </li>
-        <li className="star"><p><span>{data.points}</span>{data.currency === 'EUR' ? ' €' : data.currency === 'PTS' ? ' points' : ''}</p></li>
-        <li className="localisation"><p>{data.lieu}</p></li>
+        <li className="star"><p><span>{data.referral_success_reward_value}</span>{data.referral_success_reward_type === 'cash' ? ' €' : data.referral_success_reward_type === 'points' ? ' points' : ''}</p></li>
+        <li className="localisation"><p>{data.location}</p></li>
       </ul>
       <ul className="infos">
-        {checked === true ? <li className="box-candidats-cooptes"><span>{data.cooptations}</span> {data.cooptations === 1 ? 'candidat coopté' : 'candidats cooptés'}</li> : ''}
-        <li className="box-views-small"><span>{data.views}</span></li>
+        {checked === true ? <li className="box-candidats-cooptes"><span>{data.referrals.length}</span> {data.referrals.length === 1 ? 'candidat coopté' : 'candidats cooptés'}</li> : ''}
+        <li className="box-views-small"><span>{data.view_count}</span></li>
       </ul>
     </div>
   )
