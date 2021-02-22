@@ -4,12 +4,12 @@ import Candidats from './cooptation/Candidats'
 import Annonces from './cooptation/Annonces'
 import CandidatsArchives from './cooptation/CandidatsArchives'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
-const datas = require('../datas.json')
+
 
 function PageCooptation(props) {
-  const [data, setData] = useState([])
+
   const [checkedTab, setCheckedTab] = useState([])
-  const annonces = data
+
 
   const preventDragHandler = e => {
     e.preventDefault()
@@ -19,14 +19,8 @@ function PageCooptation(props) {
     setCheckedTab(index)
   }
 
-  // async function getData() {
-  //   const response = await fetch('http://localhost:8081/data')
-  //   const data = await response.json()
-  // }
-  //
   useEffect(() => {
-    // getData()
-    setData(datas.annonces)
+
   }, [])
 
   const HandleEnterKeyPress = (e: KeyboardEvent) => {
@@ -43,7 +37,7 @@ function PageCooptation(props) {
         <Tabs onSelect={index => tab(index)}>
           <TabList>
             <Tab tabIndex={'6'} onKeyPress={(e: KeyboardEvent) => {HandleEnterKeyPress(e)}}>Candidats</Tab>
-            <Tab tabIndex={'7'} onKeyPress={(e: KeyboardEvent) => {HandleEnterKeyPress(e)}}>Annonces<span>{Object.keys(annonces).length > 0 ? Object.keys(annonces).length : 0}</span></Tab>
+            <Tab tabIndex={'7'} onKeyPress={(e: KeyboardEvent) => {HandleEnterKeyPress(e)}}>Annonces</Tab>
             <Tab tabIndex={'8'} onKeyPress={(e: KeyboardEvent) => {HandleEnterKeyPress(e)}}>Candidats archivés</Tab>
           </TabList>
 
