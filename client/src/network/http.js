@@ -70,7 +70,8 @@ const URLS = {
     LIST_ALL : "company/job/list/all",
     REFERRALS_LIST_ALL : "company/job/referral/list/all",
     ARCHIVE_BY_ID : "company/job/referral/:id/archive",
-    BY_ID : "company/job/:id" 
+    BY_ID : "company/job/:id",
+    UPDATE_REFERRAL_STATUS : "company/job/referral/:id/update/status" 
   },
   ARTICLE : {
     CREATE : "company/article/create",

@@ -149,6 +149,35 @@ export class Candidats extends React.Component {
       //Clique popup changer status candidat: changer status ou annuler
       document.getElementById('okChangeStatus').addEventListener('click', () => {
         // Accepter: modifier status du candidat après drop
+
+        console.log("this.state.popupData");
+        var newStatus = "";
+        if(this.state.popupData.droppableColText === "Candidats cooptés"){
+          newStatus = "candidate_referred"
+        }else if(this.state.popupData.droppableColText === "Candidature reçue"){
+          newStatus = "application_received"
+        }else if(this.state.popupData.droppableColText === "Entretien en cours"){
+          newStatus = "undergoing_interview"
+        }else if(this.state.popupData.droppableColText === "Sélectionné"){
+          newStatus = "candidate_selected"
+        }
+        console.log("== this.state.popupData.droppableColText = ", this.state.popupData.droppableColText);
+        console.log("== newStatus = ", newStatus);
+        console.log("== stage = ", this.state.popupData.stage);
+        console.log(this.state.popupData);
+
+        HTTP.post(URLS.JOBS.UPDATE_REFERRAL_STATUS.replace(":id" , this.state.popupData.id) , {
+          stage : newStatus
+        })
+        .then(response=>{
+          console.log("UPDATE RESPONSE");
+          console.log(response);
+        })
+        .catch(err => {
+          console.log("UPDATE ERROR");
+          console.log(err);
+        })
+
         if (result.droppable) {
           result.droppable.forEach((item,i) => {
              result.droppable[i].status = 'Candidats cooptés'
@@ -366,14 +395,26 @@ export class Candidats extends React.Component {
       console.log(candidats);
       console.log();
       console.log();
-      console.log();
+      console.log("=====");
+      console.log("=====");
+      console.log("=====");
+      console.log("=====");
+      console.log("=====");
 
     const triCooptes = Object.keys(candidats).reduce((item, e) => {
+      console.log("item");
+      console.log(item);
+      console.log("e");
+      console.log(e);
       let value = ['candidate_referred']
       if (value.includes(candidats[e].stage)) item[e] = candidats[e]
       return item
     }, {})
-
+    console.log("=====");
+    console.log("=====");
+    console.log("=====");
+    console.log("=====");
+    console.log("=====");
 
     console.log();
       console.log();
@@ -413,7 +454,11 @@ export class Candidats extends React.Component {
         'candidatsEntretiens': Object.keys(triEntretiens).map(i => triEntretiens[i]),
         'candidatsSelectionne': Object.keys(triSelectionne).map(i => triSelectionne[i])
       }
-    })
+    });
+
+
+    console.log("candidatsCooptes 2");
+    console.log(this.state.candidatsCooptes);
   }
 
   render() {
@@ -449,7 +494,7 @@ export class Candidats extends React.Component {
 
           <div className="wrapper-popup">
             <div className={`popup center ${this.state.popupStatusOpen === true ? 'open' : ''}`}>
-              <h4 className="text-center">Êtes-vous sûr de vouloir changer le statut de candidature de <span>{this.state.popupData.prenom + ' ' + this.state.popupData.nom}</span> de <span>{this.state.popupData.status}</span> à <span>{this.state.popupData.droppableColText}</span>, pour l’offre de <span>{this.state.popupData.titre}</span> ?</h4>
+              <h4 className="text-center">Êtes-vous sûr de vouloir changer le statut de candidature de <span>{this.state.popupData.candidate ? (this.state.popupData.candidate.first_name + ' ' + this.state.popupData.candidate.last_name) : ''}</span> de <span>{this.state.popupData.status}</span> à <span>{this.state.popupData.droppableColText}</span>, pour l’offre de <span>{this.state.popupData.job ? this.state.popupData.job.title : ''}</span> ?</h4>
               <p className="text-center">Cette action est irréversible et notifiera automatiquement le collaborateur l’ayant coopté.</p>
               <div className="box-note-popup">
                 <p><strong>Conseil </strong><br/>Pensez à archiver les candidats non sélectionnés pour cette offre !</p>
@@ -492,14 +537,12 @@ export class Candidats extends React.Component {
                                 ref={provided.innerRef}>
                                 {candidatsCooptes
                                   .filter((key) => key.archive === false)
-                                  // .sort((a, b) => {
-                                  //   return new Date(a.date) < new Date(b.date) ? 1 : (new Date(a.date) > new Date(b.date) ? -1 : 0)
-                                  // })
                                   .map((key, index) => {
                                       return (
+
                                         <Draggable
                                           key={key.id}
-                                          draggableId={key.id}
+                                          draggableId={`${key.id}`}
                                           index={index}>
                                           {(provided, snapshot) => (
                                             <div
@@ -550,14 +593,11 @@ export class Candidats extends React.Component {
                                 ref={provided.innerRef}>
                                 {candidaturesRecues
                                   .filter((key) => key.archive === false)
-                                  // .sort((a, b) => {
-                                  //   return new Date(a.date) < new Date(b.date) ? 1 : (new Date(a.date) > new Date(b.date) ? -1 : 0)
-                                  // })
                                   .map((key, index) => {
                                       return (
                                         <Draggable
                                           key={key.id}
-                                          draggableId={key.id}
+                                          draggableId={`${key.id}`}
                                           index={index}>
                                           {(provided, snapshot) => (
                                             <div
@@ -610,14 +650,11 @@ export class Candidats extends React.Component {
                                 ref={provided.innerRef}>
                                 {candidatsEntretiens
                                   .filter((key) => key.archive === false)
-                                  // .sort((a, b) => {
-                                  //   return new Date(a.date) < new Date(b.date) ? 1 : (new Date(a.date) > new Date(b.date) ? -1 : 0)
-                                  // })
                                   .map((key, index) => {
                                       return (
                                         <Draggable
                                           key={key.id}
-                                          draggableId={key.id}
+                                          draggableId={`${key.id}`}
                                           index={index}>
                                           {(provided, snapshot) => (
                                             <div
@@ -670,15 +707,12 @@ export class Candidats extends React.Component {
                                 ref={provided.innerRef}>
                                 {candidatsSelectionne
                                   .filter((key) => key.archive === false)
-                                  // .sort((a, b) => {
-                                  //   return new Date(a.date) < new Date(b.date) ? 1 : (new Date(a.date) > new Date(b.date) ? -1 : 0)
-                                  // })
                                   .map((key, index) => {
                                       return (
                                         <Draggable
                                           isDragDisabled={true}
                                           key={key.id}
-                                          draggableId={key.id}
+                                          draggableId={`${key.id}`}
                                           index={index}>
                                           {(provided, snapshot) => (
                                             <div
