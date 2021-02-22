@@ -63,14 +63,31 @@ export class Login extends React.Component {
         otp: this.state.code,
       })
         .then((response) => {
-          localStorage.setItem("utilisateur", JSON.stringify(response.data.user));
-          localStorage.setItem("compteurConnections", 0);
-          this.setState({
-            showError: false,
-            errorMsg: "",
-            compteurConnections: 0,
-          });
-          this.props.history.push("/dashboard");
+          let user = response.data.user;
+          if(user.user_type === 'employee'){
+            localStorage.setItem("utilisateur", '');
+            localStorage.setItem("compteurConnections", 0);
+            this.setState({
+              showError: true,
+              errorMsg: "Seuls les RH de l'entreprise sont autorisés à utiliser cette plateforme",
+              compteurConnections: 0,
+              code : "",
+              steps: {
+                demandeCode: true,
+                envoieCode: false
+              }
+            });
+          }else{
+            localStorage.setItem("utilisateur", JSON.stringify(response.data.user));
+            localStorage.setItem("compteurConnections", 0);
+            this.setState({
+              showError: false,
+              errorMsg: "",
+              compteurConnections: 0,
+            });
+            this.props.history.push("/dashboard");
+          }
+          
         })
         .catch((err) => {
           console.log("LOGIN ERROR");
