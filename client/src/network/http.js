@@ -1,7 +1,7 @@
 import axios from "axios";
 
-// const baseURL = "https://dev.api.pushtalents.sawatechnologies.org/";
-const baseURL = "http://localhost:3001/";
+const baseURL = "https://dev.api.pushtalents.sawatechnologies.org/";
+// const baseURL = "http://localhost:3001/";
 axios.defaults.baseURL = baseURL;
 
 const HTTP = axios.create({
@@ -27,23 +27,20 @@ HTTP.interceptors.request.use(
   }
 );
 
-// HTTP.interceptors.response.use(
-//   (response) => response,
-//   (error) => {
-//     console.log("error.response");
-//     console.log(JSON.parse(JSON.stringify(error.response.data)));
-//     if (error.response.status === 401) {
-//       console.log("INTERCEPTED 401");
-//       localStorage.removeItem("email");
-//       localStorage.removeItem("token");
-//       localStorage.removeItem("id");
-//       localStorage.removeItem("name");
-//     //   location.reload();
-//       alert('Session timeout')
-//     }
-//     throw error
-//   }
-// );
+HTTP.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    console.log("error.response");
+    console.log(JSON.parse(JSON.stringify(error.response.data)));
+    if (error.response.status === 401) {
+      console.log("INTERCEPTED 401");
+      localStorage.removeItem("utilisateur");
+    //   location.reload();
+      alert('Session timeout')
+    }
+    throw error
+  }
+);
 
 const URLS = {
   baseURL: baseURL,
