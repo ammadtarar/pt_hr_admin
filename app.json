@@ -1,0 +1,21 @@
+{
+  "name": "Pushtalents",
+  "description": "Une nouvelle expérience du recrutement collaboratif",
+  "scripts": {
+  },
+  "env": {
+  },
+  "formation": {
+    "web": {
+      "quantity": 1
+    }
+  },
+  "addons": [
+
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ]
+}

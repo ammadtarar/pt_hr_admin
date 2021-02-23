@@ -1,0 +1,69 @@
+// Fonts
+@font-face {font-family: 'Poppins-Light'; font-style: normal; font-weight: 400;
+     src: local('Poppins-Light'),
+     url('/fonts/Poppins-Light.eot?#iefix') format('embedded-opentype'),
+     url('/fonts/Poppins-Light.woff2') format('woff2'),
+     url('/fonts/Poppins-Light.ttf') format('truetype'),
+     url('/fonts/Poppins-Light.svg#Poppins-Light') format('svg')
+}
+@font-face {font-family: 'Poppins-Regular'; font-style: normal; font-weight: 400;
+     src: local('Poppins-Regular'),
+     url('/fonts/Poppins-Regular.eot?#iefix') format('embedded-opentype'),
+     url('/fonts/Poppins-Regular.woff2') format('woff2'),
+     url('/fonts/Poppins-Regular.ttf') format('truetype'),
+     url('/fonts/Poppins-Regular.svg#Poppins-Regular') format('svg')
+}
+@font-face {font-family: 'Poppins-Bold'; font-style: normal; font-weight: 400;
+     src: local('Poppins-Bold'),
+     url('/fonts/Poppins-Bold.eot?#iefix') format('embedded-opentype'),
+     url('/fonts/Poppins-Bold.woff2') format('woff2'),
+     url('/fonts/Poppins-Bold.ttf') format('truetype'),
+     url('/fonts/Poppins-Bold.svg#svgPoppins-Bold') format('svg')
+}
+@font-face {font-family: 'Heebo-Regular'; font-style: normal; font-weight: 400;
+     src: local('Heebo-Regular'),
+     url('/fonts/Heebo-Regular.eot?#iefix') format('embedded-opentype'),
+     url('/fonts/Heebo-Regular.woff2') format('woff2'),
+     url('/fonts/Heebo-Regular.ttf') format('truetype'),
+     url('/fonts/Heebo-Regular.svg#Heebo-Regular') format('svg')
+}
+@font-face {font-family: 'Heebo-Bold'; font-style: normal; font-weight: 400;
+     src: local('Heebo-Bold'),
+     url('/fonts/Heebo-Bold.eot?#iefix') format('embedded-opentype'),
+     url('/fonts/Heebo-Bold.woff2') format('woff2'),
+     url('/fonts/Heebo-Bold.ttf') format('truetype'),
+     url('/fonts/Heebo-Bold.svg#Heebo-Bold') format('svg')
+}
+
+// Colors
+$cloud-burst: #22394f;
+$big-stone: #2d5070;
+$denim: #155ac4;
+$raven: #727c89;
+$athens-gray: #f2f3f5;
+$iceberg: #d5f2e6;
+$mischka: #d0d6e0;
+$half-spanish-white: #fef2db;
+$solitaire: #fef5e4;
+$link-water: #d0def3;
+$iron: #e3e5e7;
+$casablanca: #f9bc4b;
+$heather: #c0c9d6;
+$tara: #e0f5ec;
+$valencia: #d74c4c;
+
+//fonts-family
+$regular-heebo: 'Heebo-Regular', 'Helvetiva', sans-serif;
+$bold-heebo: 'Heebo-Bold', 'Helvetiva', sans-serif;
+$light-poppins: 'Poppins-Light', 'Helvetiva', sans-serif;
+$regular-poppins: 'Poppins-Regular', 'Helvetiva', sans-serif;
+$bold-poppins: 'Poppins-Bold', 'Helvetiva', sans-serif;
+
+//fonts-size
+$font-size-base: 15px !default;
+$h1-size: floor(($font-size-base *  3.33333333333)) !default;
+$h2-size: floor(($font-size-base * 2)) !default;
+$h3-size: ceil(($font-size-base * 1.28666666667)) !default;
+$h4-size: ceil(($font-size-base * 1.13333333333)) !default;
+$h5-size: ceil(($font-size-base * 1)) !default;
+$h6-size: ceil(($font-size-base * 1)) !default;
