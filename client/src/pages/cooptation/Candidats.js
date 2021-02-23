@@ -72,8 +72,6 @@ export class Candidats extends React.Component {
     return new Promise((resolve , reject)=>{
       HTTP.get(`${URLS.JOBS.REFERRALS_LIST_ALL}`)
       .then((response) => {
-        console.log("response.data");
-        console.log(response.data);
         resolve(response.data)
       })
       .catch((err) => {
@@ -268,47 +266,6 @@ export class Candidats extends React.Component {
       console.log(err);
     });
 
-
-    // data.archive = true
-
-    // //Définir dans quelle colonne retirer le candidat en fonction de son status dans l'object
-    // const col = data.status === 'Candidats cooptés' ? 'candidatsCooptes' :
-    //   data.status === 'Candidatures reçues' ? 'candidaturesRecues' :
-    //   data.status === 'Entretiens en cours' ? 'candidatsEntretiens' :
-    //   data.status === 'Candidats sélectionnés' ? 'candidatsSelectionne' : ''
-
-    // const newState = Object.keys(this.state[col])
-    //   .filter((key) => this.state[col][key].id !== id)
-    //   .map((key) => {
-    //     return this.state[col][key]
-    //   }
-    // )
-
-    // const newStateFiltres = newState.filter((el) => {
-    //   return el != null
-    // })
-
-    // this.setState({
-    //   popupArchiveOpen: false,
-    //   popupData: false,
-    //   [col]: newStateFiltres
-    // }, () => {
-    //   // Data à modifier sur serveur aussi
-
-
-    //   HTTP.get(URLS.JOBS.ARCHIVE_BY_UD.replace(":id" , id))
-    //   .then((response) => {
-    //     console.log("ARCHIVE RESPONSE");
-    //     console.log(response.data);
-        
-    //     this.getJobReferrals()
-    //   })
-    //   .catch((err) => {
-    //     console.log("JOBS ERROR");
-    //     console.log(err);
-    //   });
-
-    // })
   }
 
   fermerPopup(e) {
@@ -358,14 +315,7 @@ export class Candidats extends React.Component {
   }
 
   async componentDidMount() {
-    // fetch(data)
-    //   .then(res => res.json())
-    //   .then(res => {
-    //     this.setState({
-    //       'data': res
-    //     })
-    //   })
-    // catch(error => console.log(error))
+
     let referrals = await this.getJobReferrals();
     console.log("referrals");
     console.log(referrals);
@@ -376,54 +326,17 @@ export class Candidats extends React.Component {
       .map((key) => {
           return data[key]
       })
-      console.log();
-      console.log();
-      console.log();
-      console.log("candidatsNonArchives");
-      console.log(candidatsNonArchives);
-      console.log();
-      console.log();
-      console.log();
+
     const candidats = candidatsNonArchives.filter((el) => {
       return el != null
     })
 
-    console.log();
-      console.log();
-      console.log();
-      console.log("candidats");
-      console.log(candidats);
-      console.log();
-      console.log();
-      console.log("=====");
-      console.log("=====");
-      console.log("=====");
-      console.log("=====");
-      console.log("=====");
 
     const triCooptes = Object.keys(candidats).reduce((item, e) => {
-      console.log("item");
-      console.log(item);
-      console.log("e");
-      console.log(e);
       let value = ['candidate_referred']
       if (value.includes(candidats[e].stage)) item[e] = candidats[e]
       return item
     }, {})
-    console.log("=====");
-    console.log("=====");
-    console.log("=====");
-    console.log("=====");
-    console.log("=====");
-
-    console.log();
-      console.log();
-      console.log();
-      console.log("triCooptes");
-      console.log(triCooptes);
-      console.log();
-      console.log();
-      console.log();
 
     const triRecus = Object.keys(candidats).reduce((item, e) => {
       let value = ['application_received']

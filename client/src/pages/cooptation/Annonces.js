@@ -30,15 +30,10 @@ export default class Annonces extends Component {
   };
 
   dataToChange = (data, e) => {
-    console.log("dataToChange");
-    console.log(data);
-    console.log(e);
     HTTP.patch(URLS.JOBS.BY_ID.replace(":id" , data.id) , {
       is_active : !data.is_active
     })
     .then(response => {
-      console.log("STATUS CHANGE RESPONE");
-      console.log(response);
       this.getJobs();
     })
     .catch(err =>{
