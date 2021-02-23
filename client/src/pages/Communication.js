@@ -27,7 +27,7 @@ function Communication() {
   }
 
   async function getArticles() {
-    HTTP.get(`${URLS.ARTICLE.LIST_ALL}`)
+    HTTP.get(`${URLS.ARTICLE.LIST_ALL}?page=1&limit=999999999`)
     .then((response) => {
       setData(response.data.rows)
     })

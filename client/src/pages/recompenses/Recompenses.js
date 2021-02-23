@@ -1,7 +1,7 @@
+import { HTTP, URLS } from "../../network/http";
 import React, { useState, useEffect, Suspense } from 'react'
-import uuidv1 from 'uuid/v1'
 const BoxRecompense = React.lazy(() => import('../../components/BoxRecompense'))
-const datas = require('../../datas.json')
+
 
 function Recompenses(props) {
   const [popupOpen, setPopupOpen] = useState(false)
@@ -10,12 +10,28 @@ function Recompenses(props) {
   const [recompenses, setRecompenses] = useState([])
 
   const dataToChange = (data,e) => {
-    //Ajouter nouvelle data aux anciennes datas
-    Object.keys(recompenses).push(data)
-    setRecompenses(recompenses)
-    //Puis objet à renvoyer au serveur
-
+    HTTP.patch(URLS.REWARD.BY_ID.replace(":id" , data.id) , {
+      is_active : !data.is_active
+    })
+    .then((response) => {
+      getRewards();
+    })
+    .catch((err) => {
+      console.log("JOBS ERROR");
+      console.log(err);
+    });
   }
+
+  async function getRewards() {
+    HTTP.get(`${URLS.REWARD.LIST_ALL}`)
+    .then((response) => {
+      setRecompenses(response.data.rows)
+    })
+    .catch((err) => {
+      console.log("JOBS ERROR");
+      console.log(err);
+    });
+  };
 
   const handleChangeText = e => {
     e.preventDefault()
@@ -31,7 +47,7 @@ function Recompenses(props) {
 
   const publierRecompense = e => {
     e.preventDefault()
-
+    
     switch (true) {
       case newRecompense.titre === '' && newRecompense.points === '':
         setErrors({titre: 'error', points: 'error'})
@@ -43,31 +59,28 @@ function Recompenses(props) {
         setErrors({points: 'error'})
         break
       default:
-        const newID = uuidv1()
-        // Push nouvelles datas récompenses dans state + reset state newRecompense
-        const newRecompenses = {
-          ...recompenses,
-          [newID]: {
-            ...newRecompense,
-            id: newID,
-            checked: true
-          }
-        }
-        setRecompenses(newRecompenses)
-        setPopupOpen(false)
-        setNewRecompense({})
+        console.log("newRecompense");
+        console.log(newRecompense);
+        HTTP.post(URLS.REWARD.CREATE , {
+          title : newRecompense.titre,
+          points_required : newRecompense.points,
+          is_active :  true
+        })
+        .then((response) => {
+          setNewRecompense({})
+          setPopupOpen(false)
+          getRewards()
+        })
+        .catch((err) => {
+          console.log("JOBS ERROR");
+          console.log(err);
+        });
+        
     }
   }
 
-  // async function getData() {
-  //   const response = await fetch(url)
-  //   const data = await response.json()
-  //   setData(data)
-  // }
-  //
   useEffect(() => {
-    // getData()
-    setRecompenses(datas.recompenses)
+    getRewards();
   }, [])
 
   return (

@@ -15,8 +15,6 @@ HTTP.interceptors.request.use(
     const utilisateur = localStorage.getItem("utilisateur");
     if(utilisateur){
       let user = JSON.parse(utilisateur);
-      console.log("user.token");
-      console.log(user.token);
       if (user && user.token) {
         config.headers["Authorization"] = user.token;
       }
@@ -84,7 +82,15 @@ const URLS = {
     LIST_ALL : "company/quiz/list/all",
     BY_ID : "company/quiz/:id",
     ADD_QUESTIONS : "company/quiz/:id/add/questions"
-  }
+  },
+  REWARD : {
+    CREATE : "company/reward/create",
+    LIST_ALL : "company/reward/list/all",
+    BY_ID : "company/reward/:id",
+    REDEEM_LIST : "company/reward/redeem/requests/list/all",
+    APPROVE_REDEEM_REQUEST : "company/reward/redeem/:id/approve"
+  },
+  DASHBOARD : "dashbaord"
 };
 
 export { HTTP, URLS };

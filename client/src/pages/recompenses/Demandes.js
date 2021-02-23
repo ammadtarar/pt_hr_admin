@@ -1,7 +1,6 @@
+import { HTTP, URLS } from "../../network/http";
 import React, { useState, useEffect, Suspense } from 'react'
-import { triDemandesRecompenses } from '../../functions/CompteDemandes.js'
 const BoxDemande = React.lazy(() => import('../../components/BoxDemande'))
-const datas = require('../../datas.json')
 
 function Demandes(props) {
   const [recompenses, setRecompenses] = useState([])
@@ -14,24 +13,39 @@ function Demandes(props) {
     setPopupData(data)
   }
 
-  // async function getData() {
-  //   const response = await fetch(url)
-  //   const data = await response.json()
-  //   setData(data)
-  // }
-  //
+  async function getRedeemRequests() {
+    HTTP.get(`${URLS.REWARD.REDEEM_LIST}`)
+    .then((response) => {
+      setRecompenses(response.data.rows)
+    })
+    .catch((err) => {
+      console.log("JOBS ERROR");
+      console.log(err);
+    });
+  };
+
   useEffect(() => {
     // getData()
-    setRecompenses(triDemandesRecompenses(datas.recompenses))
+    getRedeemRequests();
+
   }, [])
 
   const traiterDemande = e => {
-    popupData.traite = true
-    Object.keys(demandes).push(popupData)
-    setPopupOpen(false)
-    setRecompenses(demandes)
-    //Demander au composant parent de re-ajuster le nombre de demandes en attente
-    props.compteDemandesAttente(demandes)
+
+    console.log("approve");
+    console.log(popupData);
+
+    HTTP.post(`${URLS.REWARD.APPROVE_REDEEM_REQUEST.replace(":id" , popupData.id)}`)
+    .then((response) => {
+      console.log("approval reponse");
+      console.log(response.data);
+      setPopupOpen(false)
+      getRedeemRequests()
+    })
+    .catch((err) => {
+      console.log("JOBS ERROR");
+      console.log(err);
+    });
   }
 
   return (
@@ -42,7 +56,7 @@ function Demandes(props) {
 
       <div className={`wrapper-popup ${popupOpen === true ? 'open' : ''}`}>
         <div className={`popup center ${popupOpen === true ? 'open' : ''}`}>
-          <h4 className="text-center">Etes-vous sûr de vouloir accepter la demande de récompenses de <span>{popupData.prenom + ' ' + popupData.nom}</span> ?</h4>
+          <h4 className="text-center">Etes-vous sûr de vouloir accepter la demande de récompenses de <span>{popupData.employee ? (popupData.employee.first_name + ' ' + popupData.employee.last_name) : ''}</span> ?</h4>
           <p className="text-center">Cette action est irréversible.</p>
           <button onClick={(e) => traiterDemande(e)} className="btn-primary">Confirmer</button>
           <button onClick={(e) => setPopupOpen(false)} className="btn-secondary">Annuler</button>

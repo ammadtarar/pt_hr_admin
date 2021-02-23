@@ -283,16 +283,12 @@ export class Candidats extends React.Component {
       search: value
     })
 
+
     //Fonction recherche spécifique value dans array of objects
     function searchObj (obj, query) {
-      for (var key in obj) {
-        var value = obj[key]
-        if (typeof value === 'object') {
-           return searchObj(value, query)
-        }
-        if (typeof value === 'string' && value.toLowerCase().indexOf(query.toLowerCase()) > -1) {
-           return obj
-        }
+      const fullname = `${obj.candidate.first_name} ${obj.candidate.last_name}`
+      if(fullname.toLowerCase().indexOf(query.toLowerCase()) > -1){
+        return obj
       }
     }
 
@@ -317,8 +313,7 @@ export class Candidats extends React.Component {
   async componentDidMount() {
 
     let referrals = await this.getJobReferrals();
-    console.log("referrals");
-    console.log(referrals);
+
     // Tri des candidats dans les 4 colonnes en fonction de leur status
     const data = referrals;
     const candidatsNonArchives = Object.keys(data)
@@ -369,9 +364,6 @@ export class Candidats extends React.Component {
       }
     });
 
-
-    console.log("candidatsCooptes 2");
-    console.log(this.state.candidatsCooptes);
   }
 
   render() {

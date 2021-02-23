@@ -1,10 +1,7 @@
+import { HTTP, URLS } from "../network/http";
+
 import React, { useState, useEffect } from 'react'
 import Header from '../components/Header'
-import { compteArticlesActifs, compteArticlesTotalViews } from '../functions/ComptesCommunication.js'
-import { comptesDemandesNonTraite } from '../functions/CompteDemandes.js'
-import { compteTauxBonneReponse } from '../functions/ComptesFormation.js'
-import { compteAnnoncesActives, compteAnnoncesTotalViews, compteCandidatsCooptes } from '../functions/ComptesCooptation.js'
-const datas = require('../datas.json')
 
 function Dashboard(props) {
   const [communication, setCommunication] = useState([])
@@ -17,36 +14,107 @@ function Dashboard(props) {
     e.preventDefault()
   }
 
-  // async function getData() {
-  //   const response = await fetch(url)
-  //   // const data = await response.json()
-  //   setData(data)
-  // }
+
+  async function getDashboardData() {
+    HTTP.get(`${URLS.DASHBOARD}`)
+    .then((response) => {
+      console.log("DASHBOARD RESPONE");
+      let dashData = response.data;
+      if(dashData.article){
+        setCommunication({
+          actifs: dashData.article.count.active || 0,
+          total: dashData.article.count.total || 0,
+          totalViews: dashData.article.views_counts || 0
+        })
+      }else{
+        setCommunication({
+          actifs: 0,
+          total: 0,
+          totalViews: 0
+        })
+      }
+
+      if(dashData.quiz){
+        setFormations({
+          formationsDispo: dashData.quiz.total || 0,
+          tauxBonneReponse: dashData.quiz.average_score || 0
+        })
+      }else{
+        setFormations({
+          formationsDispo: 0,
+          tauxBonneReponse: 0
+        })
+      }
+      
+      if(dashData.jobs){
+        setCooptation({
+          annoncesActives: dashData.jobs.count.active || 0,
+          totalAnnonces: dashData.jobs.count.total || 0,
+          totalViewsAnnonces: dashData.jobs.views_counts || 0,
+          totalCandidats: dashData.jobs.candidates.total || 0,
+          totalCandidatsCooptes: dashData.jobs.candidates.referred_count || 0
+        })
+      }else{
+        setCooptation({
+          annoncesActives: 0,
+          totalAnnonces: 0,
+          totalViewsAnnonces: 0,
+          totalCandidats: 0,
+          totalCandidatsCooptes: 0
+        })
+      }
+
+      if(dashData.users){
+        setAmbassadeurs({
+          total: dashData.users.count.total || 0,
+          actifs: dashData.users.count.active || 0,
+          points: dashData.users.total_points_earned || 0
+        })
+      }else{
+        setAmbassadeurs({
+          total: 0,
+          actifs: 0,
+          points: 0
+        })
+      }
+
+      if(dashData.reward){
+        setDemandes(dashData.reward.count || 0)
+      }else{
+        setDemandes(0)
+      }
+
+    })
+    .catch((err) => {
+      console.log("DASHBOARD ERROR");
+      console.log(err);
+      setCommunication({
+        actifs: 0,
+        total: 0,
+        totalViews: 0
+      })
+      setFormations({
+        formationsDispo: 0,
+        tauxBonneReponse: 0
+      })
+      setCooptation({
+        annoncesActives: 0,
+        totalAnnonces: 0,
+        totalViewsAnnonces: 0,
+        totalCandidats: 0,
+        totalCandidatsCooptes: 0
+      })
+      setAmbassadeurs({
+        total: 0,
+        actifs: 0,
+        points: 0
+      })
+      setDemandes(0)
+    });
+  };
 
   useEffect(() => {
-    // getData()
-    setAmbassadeurs({
-      total: datas.ambassadeurs.total,
-      actifs: datas.ambassadeurs.actifs,
-      points: datas.ambassadeurs.points.toString().replace(/\B(?=(?:\d{3})+(?!\d))/g, ',')
-    })
-    setCommunication({
-      actifs: compteArticlesActifs(datas.communication),
-      total: Object.keys(datas.communication).length,
-      totalViews: compteArticlesTotalViews(datas.communication) ? compteArticlesTotalViews(datas.communication).toString().replace(/\B(?=(?:\d{3})+(?!\d))/g, ',') : '0'
-    })
-    setCooptation({
-      annoncesActives: compteAnnoncesActives(datas.annonces),
-      totalAnnonces: Object.keys(datas.annonces).length,
-      totalViewsAnnonces: compteAnnoncesTotalViews(datas.annonces) ? compteAnnoncesTotalViews(datas.annonces).toString().replace(/\B(?=(?:\d{3})+(?!\d))/g, ',') : 0,
-      totalCandidats: Object.keys(datas.candidats).length,
-      totalCandidatsCooptes: compteCandidatsCooptes(datas.candidats).length
-    })
-    setFormations({
-      formationsDispo: Object.keys(datas.formations).length,
-      tauxBonneReponse: compteTauxBonneReponse(datas.formations)
-    })
-    setDemandes(comptesDemandesNonTraite(datas.recompenses).length)
+    getDashboardData();
   }, [])
 
   return (

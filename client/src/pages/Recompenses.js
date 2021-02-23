@@ -4,7 +4,6 @@ import Recompenses from './recompenses/Recompenses'
 import Demandes from './recompenses/Demandes'
 import { triDemandesRecompenses } from '../functions/CompteDemandes.js'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
-const datas = require('../datas.json')
 
 function PageRecompenses(props) {
   const [data, setData] = useState([])
@@ -13,15 +12,9 @@ function PageRecompenses(props) {
     e.preventDefault()
   }
 
-  // async function getData() {
-  //   const response = await fetch(url)
-  //   // const data = await response.json()
-  //   setData(data)
-  // }
 
   useEffect(() => {
-    // getData()
-    setData(datas.recompenses)
+
   }, [])
 
   //Compter nombre de demandes non-traités (les demandes en attente)
@@ -34,8 +27,6 @@ function PageRecompenses(props) {
 
   const compteDemandesAttente = (e) => {
     setData(demandesAttente)
-    //Puis mettre à jour serveur avec nouvelles demandes traités
-
   }
 
   const HandleEnterKeyPress = (e: KeyboardEvent) => {
@@ -53,7 +44,7 @@ function PageRecompenses(props) {
         <Tabs defaultIndex={props.location.checkedTab ? props.location.checkedTab : 0}>
           <TabList>
             <Tab tabIndex={'6'} onKeyPress={(e: KeyboardEvent) => {HandleEnterKeyPress(e)}}>Récompenses</Tab>
-            <Tab tabIndex={'7'} onKeyPress={(e: KeyboardEvent) => {HandleEnterKeyPress(e)}}>Demandes en attente<span>{Object.keys(demandesAttente).length > 0 ? Object.keys(demandesAttente).length : 0}</span></Tab>
+            <Tab tabIndex={'7'} onKeyPress={(e: KeyboardEvent) => {HandleEnterKeyPress(e)}}>Demandes en attente</Tab>
           </TabList>
 
           <TabPanel>

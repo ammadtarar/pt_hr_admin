@@ -2,19 +2,18 @@ import React, { useState } from 'react'
 import Switch from 'react-switch'
 
 function BoxRecompense (props) {
-  const [checked, setChecked] = useState(props.data.checked)
+  const [checked, setChecked] = useState(props.data.is_active)
   const data = props.data
 
   const handleChange = e => {
     setChecked(!checked)
-    data.checked = !checked
     props.dataToChange(data)
   }
 
   return (
     <div className="box-recompense">
       <ul className="titre">
-        <li><h4>{data.titre}</h4></li>
+        <li><h4>{data.title}</h4></li>
       </ul>
       <ul className="details">
         <li>
@@ -39,7 +38,7 @@ function BoxRecompense (props) {
         </li>
       </ul>
       <ul className="infos">
-        <li className="box-points"><span>{data.points}</span> points</li>
+        <li className="box-points"><span>{data.points_required}</span> points</li>
       </ul>
     </div>
   )

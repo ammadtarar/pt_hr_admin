@@ -16,7 +16,7 @@ export default class Annonces extends Component {
   }
 
   getJobs = () => {
-    HTTP.get(URLS.JOBS.LIST_ALL)
+    HTTP.get(`${URLS.JOBS.LIST_ALL}?page=1&limit=9999999`)
       .then((response) => {
         let jobs = response.data.rows;
         this.setState({
