@@ -1,40 +1,44 @@
+import { HTTP, URLS } from "../network/http";
 import React, { useState, useEffect, Suspense } from 'react'
 import Header from '../components/Header'
-import { compteArticlesActifs } from '../functions/ComptesCommunication.js'
 const CardCommunication = React.lazy(() => import('../components/CardCommunication'))
-const datas = require('../datas.json')
+
 
 function Communication() {
   const [data, setData] = useState([])
-  const [countActivesPosts, setCountActivesPosts] = useState('')
+  const [countActivesPosts] = useState('')
   const communication = data
 
   const preventDragHandler = e => {
     e.preventDefault()
   }
 
-  const dataToChange = data => {
-    Object.keys(communication).push(data) //Ajouter nouvelle data aux anciennes data
-    setData(communication)
-    compterArticles(communication)
-    //Puis objet à renvoyer au serveur
-
+  const dataToChange = item => {
+    HTTP.patch(URLS.ARTICLE.BY_ID.replace(":id" , item.id) , {
+      is_active : !item.is_active
+    })
+    .then((response) => {
+      getArticles();
+    })
+    .catch((err) => {
+      console.log("JOBS ERROR");
+      console.log(err);
+    });
   }
 
-  const compterArticles = communication => {
-    setCountActivesPosts(compteArticlesActifs(communication))
-  }
+  async function getArticles() {
+    HTTP.get(`${URLS.ARTICLE.LIST_ALL}`)
+    .then((response) => {
+      setData(response.data.rows)
+    })
+    .catch((err) => {
+      console.log("JOBS ERROR");
+      console.log(err);
+    });
+  };
 
-  // async function getData() {
-  //   const response = await fetch(url)
-  //   // const data = await response.json()
-  //   setData(data)
-  // }
-  //
   useEffect(() => {
-    // getData()
-    setData(datas.communication)
-    compterArticles(datas.communication)
+      getArticles();
   }, [])
 
 
@@ -74,7 +78,7 @@ function Communication() {
                   .map((key, item, i) => {
                   return (
                     <div key={communication[key].id} className="large-3 medium-6 columns">
-                      <CardCommunication data={communication[key]} tab={item} dataToChange={(e) => dataToChange()}/>
+                      <CardCommunication data={communication[key]} tab={item} dataToChange={(e) => dataToChange(e)}/>
                     </div>
                   )
                 })

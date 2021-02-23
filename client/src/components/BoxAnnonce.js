@@ -5,8 +5,6 @@ import { date } from '../functions/Date.js'
 function BoxRecompense(props) {
   const [checked, setChecked] = useState(props.data.is_active)
   const data = props.data
-  console.log("INSIDE BOX_ANNOUNCE");
-  console.log(props);
   const dateToFormat = data.createdAt
 
   const handleChange = e => {

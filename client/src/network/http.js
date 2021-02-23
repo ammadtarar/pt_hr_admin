@@ -75,6 +75,7 @@ const URLS = {
   },
   ARTICLE : {
     CREATE : "company/article/create",
+    BY_ID : "company/article/:id/update/status",
     LIST_ALL : "company/article/list/all",
     UPDATE_STATUS : "company/article/:id/update/status"
   },

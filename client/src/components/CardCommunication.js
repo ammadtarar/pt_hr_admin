@@ -2,22 +2,20 @@ import React, { useState } from 'react'
 import Switch from 'react-switch'
 
 function CardCommunication (props) {
-  const [checked, setChecked] = useState(props.data.checked)
+  const [checked , setChecked] = useState(props.data.is_active)
   const data = props.data
-
   const handleChange = e => {
     setChecked(!checked)
-    data.checked = !checked
     props.dataToChange(data)
   }
 
   return (
     <div className="card-communication">
       <div>
-        <div className="box-thumbnail" style={{backgroundImage: "url("+data.file.url+")" }}>
-          <div className="box-views-small"><span>{data.views}</span></div>
+        <div className="box-thumbnail" style={{backgroundImage: "url("+data.thumb_url+")" }}>
+          <div className="box-views-small"><span>{data.view_count}</span></div>
         </div>
-        <h4>{data.titre}</h4>
+        <h4>{data.title}</h4>
         <p className="react-switch">
         <Switch
           checked={checked}

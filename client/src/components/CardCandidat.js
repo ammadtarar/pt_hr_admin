@@ -7,8 +7,6 @@ function CardCandidat(props) {
   const dateToFormat = props.data.createdAt
 
   const popupArchive = (e,data) => {
-    console.log("popupArchive");
-    console.log(data);
     props.popupArchive(data)
   }
 
