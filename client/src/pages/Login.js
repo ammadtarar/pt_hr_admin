@@ -364,7 +364,7 @@ export class Login extends React.Component {
 
                     <p className="note note-envoie-code">
                       Nous avons envoyé le code d’activation à{" "}
-                      <strong>{this.state.utilisateur.email}</strong>.  Une fois
+                      <strong>{this.state.email}</strong>.  Une fois
                       connecté, votre connexion sera assurée pour 30 jours.
                     </p>
                     <span
