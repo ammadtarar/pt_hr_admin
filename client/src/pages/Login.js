@@ -17,6 +17,7 @@ export class Login extends React.Component {
     },
     inputCode: "number",
     compteurConnections: 0,
+    showCodeReSent : false
   };
   sendCodeToEmail = (email) => {
     this.setState({
@@ -94,7 +95,7 @@ export class Login extends React.Component {
           console.log(err.response.data.message);
           this.setState({
             showError: true,
-            errorMsg: err.response.data.message,
+            errorMsg: (this.state.compteurConnections + 1 < 3) ? err.response.data.message : '',
             compteurConnections: this.state.compteurConnections + 1,
           });
         });
@@ -143,62 +144,6 @@ export class Login extends React.Component {
       console.log("SENDING OTP");
       this.sendCodeToEmail(email);
     }
-
-    // //Check si email utilisateur est dans la DB
-    // const utilisateur = Object.keys(utilisateurs).reduce((item, e) => {
-    //   if ([email].includes(utilisateurs[e].email)) item[e] = utilisateurs[e]
-    //   return item
-    // }, {})
-    // function checkUserIsOnDB(obj) {
-    //   for(var key in obj) {
-    //     if(obj.hasOwnProperty(key))
-    //     return true
-    //   }
-    //   return false
-    // }
-
-    // //Check différents cas
-    // switch (true) {
-    //   //Si utilsateur présent dans la DB
-    //   case checkUserIsOnDB(utilisateur):
-    //     this.setState({
-    //       steps: {
-    //         demandeCode: false,
-    //         envoieCode: true
-    //       },
-    //       errors: {
-    //         email: ''
-    //       }
-    //     })
-    //     //Ajout datas de l'utilisateur en localStorage
-    //     const userObj = utilisateur[Object.keys(utilisateur)[0]]
-    //     this.setState({utilisateur: userObj})
-    //     break
-    //   //Si format email incorrect
-    //   case testFormatEmail === false:
-    //     this.setState({
-    //       email: 'Votre adresse email a un format incorrect',
-    //       errors: {
-    //         email: 'error'
-    //       }
-    //     })
-    //     break
-    //   //Si utilisateur n'est pas dans la DB
-    //   case !checkUserIsOnDB(utilisateur):
-    //     this.setState({
-    //       email: 'Votre adresse email est manquante',
-    //       errors: {
-    //         email: 'error'
-    //       }
-    //     })
-    //     break
-    //   default:
-    //     this.setState({
-    //       errors: {
-    //         email: ''
-    //       }
-    //     })
-    // }
   };
 
   seConnecter = (e) => {
@@ -274,23 +219,21 @@ export class Login extends React.Component {
         demandeCode: true,
         envoieCode: false,
       },
+      showCodeReSent : true
     });
+    this.sendCodeToEmail(this.state.email);
+    setTimeout(() => {
+      this.setState({
+        showCodeReSent: false
+      });
+    }, 3000);
+
   }
 
   componentDidMount() {
     //Afficher url / en entrant sur la page (au cas où l'utilisateur voudrait accéder à autre page et serait redirgé par router sur /)
     window.history.pushState("", "", "/");
     localStorage.clear();
-
-    // fetch(data)
-    //   .then(res => res.json())
-    //   .then(res => {
-    //     this.setState({
-    //       utilisateurs: res
-    //     })
-    //   })
-    // .catch(error => console.log(error))
-
     this.setState({
       utilisateurs: datas.utilisateurs,
     });
@@ -354,6 +297,9 @@ export class Login extends React.Component {
                   <div>
                     <h2>Bienvenue</h2>
 
+                   
+
+
                     {this.state.showError ? (
                       <p className="note note-connection-echec">
                       {this.state.errorMsg}
@@ -364,7 +310,7 @@ export class Login extends React.Component {
 
                     <p className="note note-envoie-code">
                       Nous avons envoyé le code d’activation à{" "}
-                      <strong>{this.state.email}</strong>.  Une fois
+                      <strong>{this.state.email}</strong>. Une fois
                       connecté, votre connexion sera assurée pour 30 jours.
                     </p>
                     <span
@@ -374,6 +320,16 @@ export class Login extends React.Component {
                     >
                       Retour à la connexion
                     </span>
+
+                    {this.state.showCodeReSent ? (
+                      <p className="note note-connection-echec" style={{color : "green"}}>
+                      code envoyé à votre e-mail avec succès ...
+                    </p>
+                    ) : (
+                      ""
+                    )}
+
+
                     <label>Code d'activation</label>
                     <input
                       type="text"

@@ -20,7 +20,7 @@ export default class Annonces extends Component {
       .then((response) => {
         let jobs = response.data.rows;
         this.setState({
-          annonces: jobs
+          annonces: jobs,
         });
       })
       .catch((err) => {
@@ -30,16 +30,16 @@ export default class Annonces extends Component {
   };
 
   dataToChange = (data, e) => {
-    HTTP.patch(URLS.JOBS.BY_ID.replace(":id" , data.id) , {
-      is_active : !data.is_active
+    HTTP.patch(URLS.JOBS.BY_ID.replace(":id", data.id), {
+      is_active: !data.is_active,
     })
-    .then(response => {
-      this.getJobs();
-    })
-    .catch(err =>{
-      console.log("STATUS CHANGE ERROR");
-      console.log(err);
-    })
+      .then((response) => {
+        this.getJobs();
+      })
+      .catch((err) => {
+        console.log("STATUS CHANGE ERROR");
+        console.log(err);
+      });
   };
 
   render() {
@@ -57,37 +57,31 @@ export default class Annonces extends Component {
               </div>
             }
           >
-            {this.state.annonces.length > 0
-              ? this.state.annonces
-                  .map((job) => {
-                    return (
-                      <BoxAnnonce
-                        key={job.id}
-                        tab={job}
-                        data={job}
-                        dataToChange={(e) => this.dataToChange(e)}
-                      />
-                    );
-                  })
-              : this.state.annonces.length === 0
-              ? setTimeout(() => {
-                  return (
-                    <div className="container empty">
-                      <img
-                        type="image/svg+xml"
-                        className="icon"
-                        src="/icons/annonces.svg"
-                        alt=""
-                      />
-                      <p className="text-center">Aucune annonce disponible</p>
-                      <p className="text-center">
-                        Il semblerait qu’il n’y ait pas d’annonce à afficher
-                        ici.
-                      </p>
-                    </div>
-                  );
-                }, 500)
-              : ""}
+            {this.state.annonces.length > 0 ? (
+              this.state.annonces.map((job) => {
+                return (
+                  <BoxAnnonce
+                    key={job.id}
+                    tab={job}
+                    data={job}
+                    dataToChange={(e) => this.dataToChange(e)}
+                  />
+                );
+              })
+            ) : (
+              <div className="container empty">
+                <img
+                  type="image/svg+xml"
+                  className="icon"
+                  src="/icons/annonces.svg"
+                  alt=""
+                />
+                <p className="text-center">Aucune annonce disponible</p>
+                <p className="text-center">
+                  Il semblerait qu’il n’y ait pas d’annonce à afficher ici.
+                </p>
+              </div>
+            )}
           </Suspense>
         </div>
       </div>

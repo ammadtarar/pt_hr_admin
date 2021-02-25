@@ -72,7 +72,7 @@ function Header (props) {
         </nav>
         <ul className={`profile ${btnMenuMobile === true ? 'open' : ''}`} tabIndex={5}>
           <li onClick={(e) => toggleProfileMenu(e)}
-              className={profileOpen === true ? 'open' : ''}><span>{utilisateur.prenom}</span>
+              className={profileOpen === true ? 'open' : ''}><span>{utilisateur.first_name}</span>
             <ul className={`sub-menu ${profileOpen === true ? 'open' : ''}`}>
               <li onKeyPress={(e: KeyboardEvent) => {HandleEnterKeyPress(e)}} tabIndex={6} onClick={(e) => deconnexion(e)}>Se déconnecter</li>
             </ul>

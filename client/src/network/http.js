@@ -11,7 +11,7 @@ const HTTP = axios.create({
 
 HTTP.interceptors.request.use(
   function(config) {
-    config.headers["Accept-Language"] = "en";  
+    config.headers["Accept-Language"] = "fr";  
     const utilisateur = localStorage.getItem("utilisateur");
     if(utilisateur){
       let user = JSON.parse(utilisateur);
@@ -30,13 +30,13 @@ HTTP.interceptors.request.use(
 HTTP.interceptors.response.use(
   (response) => response,
   (error) => {
+    console.log(JSON.parse(JSON.stringify(error)));
     console.log("error.response");
-    console.log(JSON.parse(JSON.stringify(error.response.data)));
-    if (error.response.status === 401) {
-      console.log("INTERCEPTED 401");
+    console.log(error.response);
+    if (error.response.status === 406 || error.response.status === 408 || error.response.status === 409) {
       localStorage.removeItem("utilisateur");
-    //   location.reload();
-      alert('Session timeout')
+      window.location.reload();
+      alert(error.response.data.message)
     }
     throw error
   }
