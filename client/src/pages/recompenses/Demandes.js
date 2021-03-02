@@ -91,12 +91,12 @@ function Demandes(props) {
           }
         >
           {demandes.length > 0 ? (
-            demandes.map((key, item) => {
+            demandes.map((item) => {
               return (
                 <BoxDemande
-                  key={demandes[key].id}
+                  key={item.id}
                   tab={item}
-                  data={demandes[key]}
+                  data={item}
                   popup={(e) => popup(e)}
                 />
               );
