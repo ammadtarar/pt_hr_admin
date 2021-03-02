@@ -28,6 +28,7 @@ export class Login extends React.Component {
     localStorage.setItem("compteurConnections", 0);
     HTTP.post(URLS.USER.SEND_OTP, {
       email: email,
+      platform: 'hr_admin_web' 
     })
       .then((response) => {
         this.setState({
