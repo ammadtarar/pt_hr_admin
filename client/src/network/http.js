@@ -2,7 +2,7 @@ import axios from "axios";
 
 // const baseURL = "https://dev.api.pushtalents.sawatechnologies.org/";
 // const baseURL = "http://localhost:3001/";
-const baseURL = "https://pushtalents-backend.herokuapp.com/";
+const baseURL = "https://api.2021.pushtalents.com/";
 axios.defaults.baseURL = baseURL;
 
 const HTTP = axios.create({
