@@ -40,6 +40,9 @@ export class Login extends React.Component {
             envoieCode: true,
           },
         });
+
+
+        
       })
       .catch((err) => {
         this.setState({
@@ -49,16 +52,28 @@ export class Login extends React.Component {
       });
   };
   loginWithOTP = () => {
-    if (this.state.code.length < 6) {
+    if (this.state.code.length < 6 || this.state.code === 'votre adresse email est manquante') {
       this.setState({
-        showError: true,
-        errorMsg: "Votre code d’activation à 6 chiffres",
+        code: "votre code d'activation à 6 chiffres est manquant",
+        errors: {
+          code: "error",
+        },
       });
     } else {
       this.setState({
         showError: false,
         errorMsg: "",
       });
+
+      if (isNaN(Number(this.state.code))) {
+        this.setState({
+          code: "votre code d'activation à 6 chiffres est manquant",
+          errors: {
+            code: "error",
+          },
+        });
+        return
+      }
 
       HTTP.post(URLS.USER.LOGIN, {
         email: this.state.email,
@@ -92,11 +107,11 @@ export class Login extends React.Component {
           
         })
         .catch((err) => {
-          console.log("LOGIN ERROR");
-          console.log(err.response.data.message);
           this.setState({
-            showError: true,
-            errorMsg: (this.state.compteurConnections + 1 < 3) ? err.response.data.message : '',
+            code: (this.state.compteurConnections + 1 < 3) ? err.response.data.message : '',
+            errors: {
+              code: "error",
+            },
             compteurConnections: this.state.compteurConnections + 1,
           });
         });
@@ -111,6 +126,13 @@ export class Login extends React.Component {
     const name = e.target.name;
     const value = e.target.value;
 
+
+    if(name === "code"){
+      this.setState({
+        errors: {}
+      });
+
+    }
     if (isNaN(Number(value)) && name === "code") {
       this.setState({ code: "" });
     } else {
@@ -135,21 +157,17 @@ export class Login extends React.Component {
 
     if (!testFormatEmail) {
       this.setState({
-        email: "Votre adresse email a un format incorrect",
+        email: "votre adresse email est manquante",
         errors: {
           email: "error",
         },
       });
-      console.log("EMAIL INCORRECT");
     } else {
-      console.log("SENDING OTP");
       this.sendCodeToEmail(email);
     }
   };
 
   seConnecter = (e) => {
-    console.log("seConnecter");
-    console.log(e);
     e.preventDefault();
     const userObj = this.state.utilisateur;
 
@@ -197,7 +215,6 @@ export class Login extends React.Component {
   removeErrorText(e) {
     e.preventDefault();
     if (
-      this.state.email === "Votre adresse email a un format incorrect" ||
       this.state.email === "Votre adresse email est manquante" ||
       this.state.code === "Votre code d'activation à 6 chiffres est incorrect"
     ) {
@@ -340,7 +357,7 @@ export class Login extends React.Component {
                       onChange={(e) => this.handleChangeText(e)}
                       value={this.state.code}
                       maxLength="6"
-                      placeholder="Votre code d’activation à 6 chiffres"
+                      placeholder="votre code d'activation à 6 chiffres est manquant"
                     />
                     <button onClick={this.loginWithOTP} className="btn-primary">
                       Se connecter

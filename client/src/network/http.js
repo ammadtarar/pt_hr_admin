@@ -14,6 +14,7 @@ const HTTP = axios.create({
 HTTP.interceptors.request.use(
   function(config) {
     config.headers["Accept-Language"] = "fr";  
+    config.headers["client-name"] = "hr_admin";  
     const utilisateur = localStorage.getItem("utilisateur");
     if(utilisateur){
       let user = JSON.parse(utilisateur);

@@ -27,7 +27,9 @@ function CardCandidat(props) {
       </p>
       <p className="date">Le {date(dateToFormat)}</p>
       <hr/>
-      <p className="email"><a href="mailto:randallmck@mail.com" rel="noopener noreferrer" title="">{data.candidate ? (data.candidate.email) : ''}</a></p>
+
+      
+      <p className="email"><a href={`mailto:${data.candidate.email}`} rel="noopener noreferrer" title="">{data.candidate ? (data.candidate.email) : ''}</a></p>
       {data.archive === false ? <div className="box-rejeter">
         <hr/>
         <img onClick={(e) => popupArchive(e,data)} type="image/svg+xml" className="rejeter" src="/icons/rejeter.svg" alt=""/>
