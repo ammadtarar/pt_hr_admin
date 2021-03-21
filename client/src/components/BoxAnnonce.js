@@ -40,7 +40,7 @@ function BoxRecompense(props) {
           />
           {checked === true ? 'Actif' : 'Inactif'}</p>
         </li>
-        <li className="star"><p><span>{data.referral_success_reward_value}</span>{data.referral_success_reward_type === 'cash' ? ' €' : data.referral_success_reward_type === 'points' ? ' points' : ''}</p></li>
+        <li className="star"><p><span>{data.referral_success_reward_value}</span>{data.referral_success_reward_type === 'cash' ? data.cash_reward_currency : data.referral_success_reward_type === 'points' ? ' points' : ''}</p></li>
         <li className="localisation"><p>{data.location}</p></li>
       </ul>
       <ul className="infos">
