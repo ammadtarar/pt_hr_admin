@@ -51,8 +51,8 @@ function Dashboard(props) {
           annoncesActives: dashData.jobs.count.active || 0,
           totalAnnonces: dashData.jobs.count.total || 0,
           totalViewsAnnonces: dashData.jobs.views_counts || 0,
-          totalCandidats: dashData.jobs.candidates.total || 0,
-          totalCandidatsCooptes: dashData.jobs.candidates.referred_count || 0
+          totalCandidats: dashData.jobs.candidates.total || 0, //Profils identifiés
+          totalCandidatsCooptes: dashData.jobs.candidates.under_review || 0 //Candidats cooptés
         })
       }else{
         setCooptation({
@@ -79,7 +79,7 @@ function Dashboard(props) {
       }
 
       if(dashData.reward){
-        setDemandes(dashData.reward.count || 0)
+        setDemandes(dashData.reward.redeem_requests_counts.total || 0)
       }else{
         setDemandes(0)
       }
