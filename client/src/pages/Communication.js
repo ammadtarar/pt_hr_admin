@@ -7,7 +7,7 @@ const CardCommunication = React.lazy(() =>
 
 function Communication() {
   const [data, setData] = useState([]);
-  const [countActivesPosts] = useState("");
+  const [countActivesPosts, setCountActivePost] = useState("");
   const communication = data;
 
   const preventDragHandler = (e) => {
@@ -31,6 +31,15 @@ function Communication() {
     HTTP.get(`${URLS.ARTICLE.LIST_ALL}?page=1&limit=999999999`)
       .then((response) => {
         setData(response.data.rows);
+
+        var count = 0;
+        response.data.rows.forEach((element) => {
+          console.log(element);
+          if (element.is_active) {
+            count++;
+          }
+        });
+        setCountActivePost(count);
       })
       .catch((err) => {
         console.log("JOBS ERROR");
