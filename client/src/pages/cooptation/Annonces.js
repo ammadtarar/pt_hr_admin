@@ -6,7 +6,7 @@ const Annonces = (props) => {
   const [annonces, setAnnonces] = useState([]);
 
   useEffect(() => {
-    this.getJobs();
+    getJobs();
   }, []);
 
   async function getJobs() {
