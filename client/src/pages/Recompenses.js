@@ -17,6 +17,10 @@ function PageRecompenses(props) {
     setRedeemCount(localStorage.getItem("redeem_requests_counts") || 0);
   }, []);
 
+  const syncPendingRequestsCount = () => {
+    setRedeemCount(localStorage.getItem("redeem_requests_counts") || 0);
+  };
+
   //Compter nombre de demandes non-traités (les demandes en attente)
   const demandes = triDemandesRecompenses(data);
   const demandesAttente = Object.keys(demandes).reduce((item, e) => {
@@ -69,7 +73,10 @@ function PageRecompenses(props) {
             <Recompenses />
           </TabPanel>
           <TabPanel>
-            <Demandes compteDemandesAttente={(e) => compteDemandesAttente(e)} />
+            <Demandes
+              compteDemandesAttente={(e) => compteDemandesAttente(e)}
+              syncPendingRequestsCount={() => syncPendingRequestsCount()}
+            />
           </TabPanel>
         </Tabs>
       </main>

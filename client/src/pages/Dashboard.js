@@ -86,13 +86,16 @@ function Dashboard(props) {
         }
 
         if (dashData.reward) {
+          console.log("dashData.reward");
+          console.log(dashData.reward);
           localStorage.setItem(
             "redeem_requests_counts",
-            dashData.reward.redeem_requests_counts.redeem_requests_counts || 0
+            dashData.reward.redeem_requests_counts.requested || 0
           );
           setDemandes(dashData.reward.redeem_requests_counts.requested || 0);
         } else {
           setDemandes(0);
+          localStorage.setItem("redeem_requests_counts", 0);
         }
       })
       .catch((err) => {
@@ -137,12 +140,11 @@ function Dashboard(props) {
             <div className="columns">
               <div className="box-note">
                 <p>
-                  Pilotez l’activité de 
+                  Pilotez l’activité de
                   <br /> votre{" "}
                   <span>
                     communauté
-                    <br />
-                      d’ambassadeurs
+                    <br />  d’ambassadeurs
                   </span>
                 </p>
               </div>

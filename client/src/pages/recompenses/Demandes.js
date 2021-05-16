@@ -16,7 +16,16 @@ function Demandes(props) {
   async function getRedeemRequests() {
     HTTP.get(`${URLS.REWARD.REDEEM_LIST}`)
       .then((response) => {
-        setRecompenses(response.data.rows);
+        const rows = response.data.rows;
+        var pending = 0;
+        rows.forEach((item) => {
+          if (item.status !== "approved") {
+            pending++;
+          }
+        });
+        localStorage.setItem("redeem_requests_counts", pending);
+        props.syncPendingRequestsCount();
+        setRecompenses(rows);
       })
       .catch((err) => {
         console.log("JOBS ERROR");
@@ -25,7 +34,6 @@ function Demandes(props) {
   }
 
   useEffect(() => {
-    // getData()
     getRedeemRequests();
   }, []);
 

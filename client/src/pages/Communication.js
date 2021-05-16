@@ -7,7 +7,7 @@ const CardCommunication = React.lazy(() =>
 
 function Communication() {
   const [data, setData] = useState([]);
-  const [countActivesPosts, setCountActivePost] = useState("");
+  const [countActivesPosts, setCountActivePost] = useState(0);
   const communication = data;
 
   const preventDragHandler = (e) => {
@@ -62,7 +62,7 @@ function Communication() {
             </li>
             <li>
               <p>
-                <span>{countActivesPosts}</span> contenus actifs
+                <span>({countActivesPosts})</span> contenus actifs
               </p>
             </li>
           </ul>

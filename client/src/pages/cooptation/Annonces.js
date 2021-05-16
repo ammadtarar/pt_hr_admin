@@ -1,28 +1,3 @@
-// import { HTTP, URLS } from "../../network/http";
-
-// import React, { Component, Suspense } from "react";
-// const BoxAnnonce = React.lazy(() => import("../../components/BoxAnnonce"));
-
-// export default class Annonces extends Component {
-//   constructor(props) {
-//     super(props);
-
-//     this.state = {
-//       annonces: [],
-//     };
-//   }
-
-//   componentDidMount() {
-//     this.getJobs();
-//   }
-
-//   render() {
-//     return (
-
-//     );
-//   }
-// }
-
 import { HTTP, URLS } from "../../network/http";
 import React, { useState, useEffect, Suspense } from "react";
 const BoxAnnonce = React.lazy(() => import("../../components/BoxAnnonce"));
@@ -31,7 +6,7 @@ const Annonces = (props) => {
   const [annonces, setAnnonces] = useState([]);
 
   useEffect(() => {
-    getJobs();
+    this.getJobs();
   }, []);
 
   async function getJobs() {
