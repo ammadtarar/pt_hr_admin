@@ -62,7 +62,7 @@ function Communication() {
             </li>
             <li>
               <p>
-                <span>({countActivesPosts})</span> contenus actifs
+                contenus actifs <span>({countActivesPosts})</span>
               </p>
             </li>
           </ul>
