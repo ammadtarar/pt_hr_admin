@@ -36,11 +36,7 @@ HTTP.interceptors.response.use(
     console.log(JSON.parse(JSON.stringify(error)));
     console.log("error.response");
     console.log(error.response);
-    if (
-      error.response.status === 406 ||
-      error.response.status === 408 ||
-      error.response.status === 409
-    ) {
+    if (error.response.status === 406 || error.response.status === 409) {
       localStorage.removeItem("utilisateur");
       window.location.reload();
       alert(error.response.data.message);

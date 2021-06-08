@@ -17,18 +17,18 @@ export class Login extends React.Component {
     },
     inputCode: "number",
     compteurConnections: 0,
-    showCodeReSent : false
+    showCodeReSent: false,
   };
   sendCodeToEmail = (email) => {
     this.setState({
       showError: false,
       errorMsg: "",
-      compteurConnections : 0
+      compteurConnections: 0,
     });
     localStorage.setItem("compteurConnections", 0);
     HTTP.post(URLS.USER.SEND_OTP, {
       email: email,
-      platform: 'hr_admin_web' 
+      platform: "hr_admin_web",
     })
       .then((response) => {
         this.setState({
@@ -40,11 +40,10 @@ export class Login extends React.Component {
             envoieCode: true,
           },
         });
-
-
-        
       })
       .catch((err) => {
+        console.log("code send error");
+        console.log(err);
         this.setState({
           showError: true,
           errorMsg: err.response.data.message,
@@ -52,7 +51,10 @@ export class Login extends React.Component {
       });
   };
   loginWithOTP = () => {
-    if (this.state.code.length < 6 || this.state.code === 'votre adresse email est manquante') {
+    if (
+      this.state.code.length < 6 ||
+      this.state.code === "votre adresse email est manquante"
+    ) {
       this.setState({
         code: "votre code d'activation à 6 chiffres est manquant",
         errors: {
@@ -72,7 +74,7 @@ export class Login extends React.Component {
             code: "error",
           },
         });
-        return
+        return;
       }
 
       HTTP.post(URLS.USER.LOGIN, {
@@ -81,21 +83,25 @@ export class Login extends React.Component {
       })
         .then((response) => {
           let user = response.data.user;
-          if(user.user_type === 'employee'){
-            localStorage.setItem("utilisateur", '');
+          if (user.user_type === "employee") {
+            localStorage.setItem("utilisateur", "");
             localStorage.setItem("compteurConnections", 0);
             this.setState({
               showError: true,
-              errorMsg: "Seuls les RH de l'entreprise sont autorisés à utiliser cette plateforme",
+              errorMsg:
+                "Seuls les RH de l'entreprise sont autorisés à utiliser cette plateforme",
               compteurConnections: 0,
-              code : "",
+              code: "",
               steps: {
                 demandeCode: true,
-                envoieCode: false
-              }
+                envoieCode: false,
+              },
             });
-          }else{
-            localStorage.setItem("utilisateur", JSON.stringify(response.data.user));
+          } else {
+            localStorage.setItem(
+              "utilisateur",
+              JSON.stringify(response.data.user)
+            );
             localStorage.setItem("compteurConnections", 0);
             this.setState({
               showError: false,
@@ -104,14 +110,14 @@ export class Login extends React.Component {
             });
             this.props.history.push("/dashboard");
           }
-          
         })
         .catch((err) => {
           this.setState({
-            code: (this.state.compteurConnections + 1 < 3) ? err.response.data.message : '',
             errors: {
               code: "error",
             },
+            showError: true,
+            errorMsg: err.response.data.message,
             compteurConnections: this.state.compteurConnections + 1,
           });
         });
@@ -126,12 +132,12 @@ export class Login extends React.Component {
     const name = e.target.name;
     const value = e.target.value;
 
-
-    if(name === "code"){
+    if (name === "code") {
       this.setState({
-        errors: {}
+        errors: {},
+        showError: false,
+        errorMsg: "",
       });
-
     }
     if (isNaN(Number(value)) && name === "code") {
       this.setState({ code: "" });
@@ -141,7 +147,6 @@ export class Login extends React.Component {
   }
 
   recevoirCode = (e) => {
-    
     e.preventDefault();
     // const utilisateurs = this.state.utilisateurs
     const email = this.state.email.toLowerCase();
@@ -152,7 +157,8 @@ export class Login extends React.Component {
     }
 
     //Check si format email valide
-    const regexp = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()\f[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    const regexp =
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()\f[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     const testFormatEmail = regexp.test(email);
 
     if (!testFormatEmail) {
@@ -214,16 +220,20 @@ export class Login extends React.Component {
 
   removeErrorText(e) {
     e.preventDefault();
-    if (
-      this.state.email === "Votre adresse email est manquante" ||
-      this.state.code === "Votre code d'activation à 6 chiffres est incorrect"
-    ) {
-      this.setState({
-        email: "",
-        code: "",
-        errors: {
+    if (this.state.showError) {
+      if (this.state.steps.envoieCode) {
+        this.setState({
+          code: "",
+        });
+      } else {
+        this.setState({
           email: "",
-        },
+        });
+      }
+      this.setState({
+        errors: "",
+        showError: false,
+        errorMsg: "",
       });
     }
   }
@@ -231,21 +241,17 @@ export class Login extends React.Component {
   retourStep1(e) {
     e.preventDefault();
     this.setState({
-      email: "",
       errors: "",
       steps: {
         demandeCode: true,
         envoieCode: false,
       },
-      showCodeReSent : true
+      showError: true,
+      errorMsg: "",
+      compteurConnections: 0,
+      code: "",
+      showCodeReSent: true,
     });
-    this.sendCodeToEmail(this.state.email);
-    setTimeout(() => {
-      this.setState({
-        showCodeReSent: false
-      });
-    }, 3000);
-
   }
 
   componentDidMount() {
@@ -273,15 +279,13 @@ export class Login extends React.Component {
                   <div>
                     <h2>Bienvenue</h2>
 
-
                     {this.state.showError ? (
                       <p className="note note-connection-echec">
-                      {this.state.errorMsg}
-                    </p>
+                        {this.state.errorMsg}
+                      </p>
                     ) : (
                       ""
                     )}
-                    
 
                     {this.state.compteurConnections === 3 ? (
                       <p className="note note-connection-echec">
@@ -315,21 +319,10 @@ export class Login extends React.Component {
                   <div>
                     <h2>Bienvenue</h2>
 
-                   
-
-
-                    {this.state.showError ? (
-                      <p className="note note-connection-echec">
-                      {this.state.errorMsg}
-                    </p>
-                    ) : (
-                      ""
-                    )}
-
                     <p className="note note-envoie-code">
                       Nous avons envoyé le code d’activation à{" "}
-                      <strong>{this.state.email}</strong>. Une fois
-                      connecté, votre connexion sera assurée pour 30 jours.
+                      <strong>{this.state.email}</strong>. Une fois connecté,
+                      votre connexion sera assurée pour 30 jours.
                     </p>
                     <span
                       className="link"
@@ -340,13 +333,23 @@ export class Login extends React.Component {
                     </span>
 
                     {this.state.showCodeReSent ? (
-                      <p className="note note-connection-echec" style={{color : "green"}}>
-                      code envoyé à votre e-mail avec succès ...
-                    </p>
+                      <p
+                        className="note note-connection-echec"
+                        style={{ color: "green" }}
+                      >
+                        code envoyé à votre e-mail avec succès ...
+                      </p>
                     ) : (
                       ""
                     )}
 
+                    {this.state.showError ? (
+                      <p className="note note-connection-echec">
+                        {this.state.errorMsg}
+                      </p>
+                    ) : (
+                      ""
+                    )}
 
                     <label>Code d'activation</label>
                     <input
